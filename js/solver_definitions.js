@@ -96,6 +96,29 @@ Functions["ln"] = new ComplexFunction(1,true,
             return Math.log(a);
         });
         
+/* Linear Algebra */
+Functions["rand"] = new ComplexFunction(1,true,
+		function() {
+			return Math.random();
+		});
+
+Functions["fact"] = new ComplexFunction(1,true,
+		function(n) {
+			var result = 1;for (var i = 2; i <= n; i++) {result *= i;} return result;
+		});
+		
+Functions["fib"] = new ComplexFunction(1,true,
+		function(n) {
+			var fibs = new Array();
+			fibs[0] = 0; 
+			fibs[1] = 1; 
+			for(i=0; i<n; i++){
+				fibs.push(fibs[0] + fibs[1]);fibs.shift();
+				}
+				return fibs[0];
+		});
+		
+       
 /* Rectifiers */
 Functions["abs"] = new ComplexFunction(1,true,
         function(a) {
@@ -109,6 +132,24 @@ Functions["floor"] = new ComplexFunction(1,true,
         function(a) {
             return Math.floor(a);
         });
+Functions["less"] = new ComplexFunction(1,true,
+        function(a,b) {
+            var results = 0;
+            if(a < b) 
+            {
+				results = 1;
+            }
+            return results;
+        },false);
+Functions["greater"] = new ComplexFunction(1,true,
+        function(a,b) {
+            var results = 0;
+            if(a > b) 
+            {
+				results = 1;
+            }
+            return results;
+        },false);                
 Functions["average"] = new ComplexFunction(1,true,
         function() {
             var results = 0,
