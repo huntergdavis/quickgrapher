@@ -36,7 +36,8 @@ hunter or mark at discursivelabs.com
   </head>
 
   <body>
-    <div id="example">
+    <div id="container">
+      <div id="inner">
         <!--h1>QuickGrapher</h1-->
         <span style="width: 100%;">
           <img class="logo" src="/images/logo_1.png"></img>
@@ -45,10 +46,12 @@ hunter or mark at discursivelabs.com
         <div class="instructions">
             Simply click parse equation, and all variables become dynamic html5 sliders.
             Each graph is a snapshot of the current equation for all ranges of that variable.
-        </div><br/>
-        Equation:<br/>
-        <input type="text" id="mainEquation" size="60"/>  
-        <input type="button" value="Graph!" onclick="clearAndParse()"/><br/>
+        </div>
+        <h2>Try It</h2>
+        <span class="equation">
+          Fxn = <input type="text" id="mainEquation" class="input" size="60"/>  
+          <input type="button" value="Graph!" onclick="clearAndParse()"/><br/>
+        </span>
         <div id="result" style="display: none;">
           <span id="formula">0</span> = <span id="solution">0</span>
           <br/><br/>
@@ -76,7 +79,7 @@ hunter or mark at discursivelabs.com
                 </li>
             </ul>
           </h6>
-        <br/>
+        <!--br/>
         <div id="bottomdiv" class="bottomcontainer">
             <br>Copy the below Equation Hash to continue editing your equation later.
             <br>
@@ -210,7 +213,8 @@ hunter or mark at discursivelabs.com
                 </li>
             </ol>
             </h6>
-        </div>
+        </div-->
+      </div>
     </div>
     <script type="text/javascript"> 
         function clearAndParse()
