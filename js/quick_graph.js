@@ -892,7 +892,10 @@ function updateAllGraphs(equation, context)
             parentElement.append(graph);
             // Register with Graph
             graph = $(graph);
-            graph.graphify({'hue-increment' : 35, 'hue-base' : 0, 'value-base': 75}).attach_legend().realHover({
+            graph.graphify({'hue-increment' : 35, 'hue-base' : 0, 'value-base': 75}).attach_legend({
+              'legend-mode': false,
+              'legend-container': $("#legend"),
+            }).realHover({
                 hover: Graph.highlightNearest,
                 out: Graph.removeHighlight
             });
@@ -1136,9 +1139,7 @@ function nextExamples()
         for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
         {
             ex = examples[i];
-            example = document.createElement("li");
-            example.innerHTML == ex.name + " - " + ex.fxn;
-            list.append(example);
+            createExampleLink(ex, list);
         }
             
         if( curr_page > 0 )
@@ -1167,9 +1168,7 @@ function prevExamples()
         for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
         {
             ex = examples[i];
-            example = document.createElement("li");
-            example.innerHTML == ex.name + " - " + ex.fxn;
-            list.append(example);
+            createExampleLink(ex, list);
         }
         
         $("#nextExamples").show();
@@ -1207,6 +1206,20 @@ function compressName(name)
     return compressed;
 }
 
+function createExampleLink(example, parent)
+{
+    var ex = document.createElement("li"),
+        inner = "<a href='/?";
+    inner += compressName(example.fxn);
+    inner += "'>"
+    inner += example.name;
+    inner += "</a>";
+    ex.innerHTML = inner;
+    ex.setAttribute("id","example_" + compressName(example.name));
+    //example.setAttribute("onclick","loadExample(this.id)");
+    parent.append(ex);
+}
+
 function resetExamples()
 {
     curr_page = 0;
@@ -1222,11 +1235,7 @@ function resetExamples()
     for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
     {
         ex = examples[i];
-        example = document.createElement("li");
-        example.innerHTML = ex.name; // + " - " + ex.fxn;
-        example.setAttribute("id","example_" + compressName(ex.name));
-        example.setAttribute("onclick","loadExample(this.id)");
-        list.append(example);
+        createExampleLink(ex, list);
     }
         
     if( exLen > 5 )

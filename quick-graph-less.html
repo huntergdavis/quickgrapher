@@ -41,27 +41,31 @@ hunter or mark at discursivelabs.com
       <div id="inner">
         <!--h1>QuickGrapher</h1-->
         <span style="width: 100%;">
-          <img class="logo" src="/images/logo_1.png"></img>
+          <a href="http://www.quickgrapher.com">
+            <img class="logo" src="/images/logo_1.png"></img>
+          </a>
         </span>
         <h2>Instructions</h2>
         <div class="instructions">
             Enter an equation into the box below and then click "Graph!"  For each variable, a line will be graphed for your equation with that variable free and the others as the values selected below.
         </div>
         <h2>Try It <div class="examples">» <a href="#" onclick="toggleExamples('examples')">examples</a></div></h2>
-        <div id="examples" class="instructions" style="display: none; width: 650px;">
+        <div id="examples" class="instructions" style="display: none; width: 484px;">
           <span style="width: 100%;">
             <ul id="examplelist" class="example_list">
                 <li>No examples!</li>
             </ul>
           </span>
           <div id="prevExamples" style="float: left; display: none;" onclick="prevExamples()">« previous</div>
-          <div id="nextExamples" style="float: right; display: none;" onlick="nextExamples()">more »</div>
+          <div id="nextExamples" style="float: right; display: none;" onclick="nextExamples()">more »</div>
         </div>
         <span class="equation">
           Fxn = <input type="text" id="mainEquation" class="input" size="60"/>  
           <input id="graphBtn" type="button" value="Graph!" onclick="clearAndParse()"/><br/>
         </span>
-        <div id="graph_container" class="graph_container">
+        <div id="graph_container" class="graph_container" style="position: relative;">
+        </div>
+        <div id="legend" style="width: 200px; background: rgb(255,0,0);">
         </div>
         <div id="result" style="display: none;">
           <div class="label">
