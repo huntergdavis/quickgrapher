@@ -31,6 +31,7 @@ hunter or mark at discursivelabs.com
     <script src="/js/graph.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/solver.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/solver_definitions.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/examples.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/quick_graph.js" type="text/javascript" charset="utf-8"></script>
     
   </head>
@@ -50,6 +51,7 @@ hunter or mark at discursivelabs.com
         <div id="examples" class="instructions" style="display: none; width: 650px;">
           <span style="width: 100%;">
             <ul id="example_list" class="example_list">
+                <li>No examples!</li>
             </ul>
           </span>
           <div id="prevExamples" style="float: left; display: none;" onclick="nextExamples()">« previous</div>
@@ -57,7 +59,7 @@ hunter or mark at discursivelabs.com
         </div>
         <span class="equation">
           Fxn = <input type="text" id="mainEquation" class="input" size="60"/>  
-          <input type="button" value="Graph!" onclick="clearAndParse()"/><br/>
+          <input id="graphBtn" type="button" value="Graph!" onclick="clearAndParse()"/><br/>
         </span>
         <div id="graph_container" class="graph_container">
         </div>
