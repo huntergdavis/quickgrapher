@@ -215,6 +215,13 @@ img::-moz-selection {background: transparent;}
 
 .instructions > div {
   margin-top: -13px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.instructions > div:hover {
+  text-decoration: underline;
+  color: rgb(255,0,0);
 }
 
 .equation {
@@ -343,4 +350,11 @@ h2 > .examples {
 
 .example_list > li {
   margin-left: 17px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.example_list > li:hover {
+  text-decoration: underline;
+  color: rgb(255,0,0);
 }
