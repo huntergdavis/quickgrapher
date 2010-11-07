@@ -6,6 +6,20 @@
 // var variableFound = 0;
 var parsedEquation = undefined;
 
+
+/* LoadTitleBarHash loads in passed-in title bar equation */
+function loadTitleBarHash() {
+	var addressBar = window.location.href;
+        var equationStart = addressBar.indexOf("?")+1;
+        var equationEnd = addressBar.length;
+        var equationString = "";                        
+        if(equationStart > -1)
+        {
+            equationString = addressBar.substring(equationStart,equationEnd);
+        } 	
+	$("#mainEquation").val(equationString);
+        $("#graphBtn").click();
+}
 /* loadSaved uses the passed variables from the address bar to set equations and
  hashes */
 function loadSaved() {
