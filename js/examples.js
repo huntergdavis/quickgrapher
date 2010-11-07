@@ -2,157 +2,202 @@
  * */
 
 Examples.push({
+    name: "Bill Calculator (classic)",
+    fxn : "100*(salary - rent - studentloans - carpayments - grocery-spendingmoney-retirement) - netflix -tivo -petfood -gas-electric + 100*(subleaseincome + stockportfolio)"
+});
+
+Examples.push({
+    name: "Drake Equation",
+    fxn : "StarFormationRate * StarsWithPlanets * LifeSustainingPlanets * PlanetsWhichActuallyDevelopLife * PlanetsWithIntelligentLife * CivilizationsWithDetectors * DurationOfSpaceSignals"
+});
+
+Examples.push({
+    name: "Monthly Loan Payments Calculator",
+    fxn : "Princpial*((rate/1200)*(1 + rate/1200)^Months)/((1 + rate/1200)^Months - 1)"
+});
+
+Examples.push({
+    name: "Gravity",
+    fxn : "GravConstant * massOne * massTwo / distance^2"
+});
+
+Examples.push({
+    name: "Einstein E=mc2",
+    fxn : "mass*(300*1000*1000)^2"
+});
+
+Examples.push({
+    name: "area of circle",
+    fxn : "pi * radius^2"
+});
+
+Examples.push({
+    name: "circumference of a circle",
+    fxn : "2*pi*radius"
+});
+
+Examples.push({
+    name: "Flake Equation (XKCD)",
+    fxn : "7*1000^3 * (CrazyPeople + Misinterpret)/10000 * TellProbability/10 * NumberPeopleTold * FirstHandRetellings * IgnoredDataProbability/10 * WiderAudienceFraction/100"
+});
+
+Examples.push({
+    name: "Only Date Above (HIMYM/XKCD/OTHERS)",
+    fxn : "Age/2 + 7"
+});
+
+Examples.push({
+    name: "TV Romantic Drama Equation (Gay) (XKCD)",
+    fxn : "AllCast*(AllCast - 1)/2 + SameSex*(SameSex - AllCast)"
+});
+
+Examples.push({
+    name: "TV Romantic Drama Equation (Straight) (XKCD)",
+    fxn : "SameSex*(AllCast - SameSex)"
+});
+
+Examples.push({
+    name: "Post-Game Seasonal Batting Average",
+    fxn : "(SeasonBats * (SeasonalAverage/100) + Hits)/(SeasonBats + TimesAtBat)"
+});
+
+Examples.push({
+    name: "Focal Length",
+    fxn : "(ObjectDistance * LensToImageDistance)/(ObjectDistance + LensToImageDistance)"
+});
+
+Examples.push({
     name: "",
     fxn : ""
 });
 
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[1][0] = "";
-ExampleEquations[1][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[2][0] = "";
-ExampleEquations[2][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[3][0] = "";
-ExampleEquations[3][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[4][0] = "";
-ExampleEquations[4][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[5][0] = "";
-ExampleEquations[5][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[6][0] = "";
-ExampleEquations[6][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[7][0] = "";
-ExampleEquations[7][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[8][0] = "";
-ExampleEquations[8][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[9][0] = "";
-ExampleEquations[9][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[10][0] = "";
-ExampleEquations[10][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[11][0] = "";
-ExampleEquations[11][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[12][0] = "";
-ExampleEquations[12][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[13][0] = "";
-ExampleEquations[13][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[14][0] = "";
-ExampleEquations[14][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[15][0] = "";
-ExampleEquations[15][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[16][0] = "";
-ExampleEquations[16][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[17][0] = "";
-ExampleEquations[17][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[18][0] = "";
-ExampleEquations[18][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[19][0] = "";
-ExampleEquations[19][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[20][0] = "";
-ExampleEquations[20][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[21][0] = "";
-ExampleEquations[21][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[22][0] = "";
-ExampleEquations[22][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[23][0] = "";
-ExampleEquations[23][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[24][0] = "";
-ExampleEquations[24][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
-ExampleEquations[25][0] = "";
-ExampleEquations[25][1] = "";
-
-ExampleEquations[26][0] = "";
-ExampleEquations[26][1] = "";
-
-ExampleEquations[27][0] = "";
-ExampleEquations[27][1] = "";
-
-ExampleEquations[28][0] = "";
-ExampleEquations[28][1] = "";
-
-ExampleEquations[29][0] = "";
-ExampleEquations[29][1] = "";
-
-ExampleEquations[30][0] = "";
-ExampleEquations[30][1] = "";
-
-ExampleEquations[31][0] = "";
-ExampleEquations[31][1] = "";
-
-ExampleEquations[32][0] = "";
-ExampleEquations[32][1] = "";
-
-ExampleEquations[33][0] = "";
-ExampleEquations[33][1] = "";
-
-ExampleEquations[34][0] = "";
-ExampleEquations[34][1] = "";
-
-ExampleEquations[35][0] = "";
-ExampleEquations[35][1] = "";
-
-ExampleEquations[36][0] = "";
-ExampleEquations[36][1] = "";
-
-ExampleEquations[37][0] = "";
-ExampleEquations[37][1] = "";
-
-ExampleEquations[38][0] = "";
-ExampleEquations[38][1] = "";
-
-ExampleEquations[39][0] = "";
-ExampleEquations[39][1] = "";
-
-ExampleEquations[40][0] = "";
-ExampleEquations[40][1] = "";
-
-ExampleEquations[41][0] = "";
-ExampleEquations[41][1] = "";
-
-ExampleEquations[42][0] = "";
-ExampleEquations[42][1] = "";
-
-ExampleEquations[43][0] = "";
-ExampleEquations[43][1] = "";
-
-ExampleEquations[44][0] = "";
-ExampleEquations[44][1] = "";
-
-ExampleEquations[45][0] = "";
-ExampleEquations[45][1] = "";
-
-ExampleEquations[46][0] = "";
-ExampleEquations[46][1] = "";
-
-ExampleEquations[47][0] = "";
-ExampleEquations[47][1] = "";
-
-ExampleEquations[48][0] = "";
-ExampleEquations[48][1] = "";
-
-ExampleEquations[49][0] = "";
-ExampleEquations[49][1] = "";
-
-
+Examples.push({
+    name: "",
+    fxn : ""
+});
 
