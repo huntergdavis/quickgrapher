@@ -1003,3 +1003,131 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     // // lines.symbols[0].attr({stroke: "#fff"});
     // // lines.symbols[0][1].animate({fill: "#f00"}, 1000);
 }
+
+function toggleExamples(exampleID)
+{
+    var ex = $("#" + exampleID);
+    if(ex.is(":visible"))
+    {
+        ex.hide();
+    }
+    else
+    {
+        ex.show();
+    }
+    return false;
+}
+
+function showExamples(exampleID)
+{
+    var ex = $("#" + exampleID);
+    ex.show();
+    return false;
+}
+
+function hideExamples(exampleID)
+{
+    var ex = $("#" + exampleID);
+    ex.hide();
+    return false;
+}
+
+function nextExamples()
+{
+    var exLen = examples.length;
+    if((curr_page + 1) * 5 < exLen)
+    {
+        curr_page = curr_page + 1;
+        // Clear display
+        var list = $("#example_list").empty();
+        
+        var ex, example;
+        
+        for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
+        {
+            ex = examples[i];
+            example = document.createElement("li");
+            example.innerHTML == ex.name + " - " + ex.fxn;
+            list.append(example);
+        }
+            
+        if( curr_page > 0 )
+        {
+            $("#prevExamples").show();
+        }
+        if( ((curr_page+1)*5) > exLen )
+        {
+            $("#nextExamples").hide();
+        }
+    }
+    return false;
+}
+
+function prevExamples()
+{
+    var exLen = examples.length;
+    if(curr_page > 0)
+    {
+        curr_page = curr_page - 1;
+        // Clear display
+        var list = $("#example_list").empty();
+        
+        var ex, example;
+        
+        for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
+        {
+            ex = examples[i];
+            example = document.createElement("li");
+            example.innerHTML == ex.name + " - " + ex.fxn;
+            list.append(example);
+        }
+        
+        $("#nextExamples").show();
+        if( curr_page == 0 )
+        {
+            $("#prevExamples").hide();
+        }
+    }
+    return false;
+}
+
+var examples,
+    curr_page;
+
+var loadExamples = function()
+{
+    // Load examples
+    examples = Examples
+    // If there was nothing to load, just create empty array
+    if(typeof examples == "undefined")
+    {
+        examples = [];
+    }
+    
+    resetExamples();
+}(); // Load this as soon as it is parsed
+
+function resetExamples()
+{
+    curr_page = 0;
+    
+    // Clear display
+    var list = $("#example_list").empty();
+    
+    // Display
+    var exLen = examples.length,
+        ex, example;
+    
+    for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
+    {
+        ex = examples[i];
+        example = document.createElement("li");
+        example.innerHTML == ex.name + " - " + ex.fxn;
+        list.append(example);
+    }
+        
+    if( exLen > 5 )
+    {
+        $("#nextExamples").show();
+    }
+}
