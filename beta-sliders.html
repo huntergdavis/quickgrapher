@@ -368,7 +368,13 @@ function solveEquation(rawEquation)
 <!-- try a regular ole javascript eval  -->
 <!-- 	document.getElementById("mainResult").innerHTML=implicitEquationString; -->
 	//alert(implicitEquationString);
-	document.getElementById("mainResult").innerHTML=eval(implicitEquationString);	
+	parsedEquationResult = "Could Not Parse";
+	implicitEquationString = "return " + implicitEquationString;
+	ourEquationFunction = new Function(implicitEquationString);	
+	//alert(ourEquationFunction);
+   parsedEquationResult=ourEquationFunction();	  
+   document.getElementById("mainResult").innerHTML= parsedEquationResult;
+	
 <!-- Also allow user to edit this in the future -->
 	stringifyPage();
 }
