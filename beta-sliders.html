@@ -9,70 +9,24 @@
 
 
 <html>
+<script src="raphael.js" type="text/javascript" charset="utf-8"></script> 
+<script src="g.raphael.js" type="text/javascript" charset="utf-8"></script> 
+<script src="g.line.js" type="text/javascript" charset="utf-8"></script> 
 <script type="text/javascript">
 
-<!-- very generic hash function from view-source:http://rick.measham.id.au/javascript/hash.htm -->
-function Hash(){
-	for( var i=0; i < arguments.length; i++ )
-		for( n in arguments[i] )
-			if( arguments[i].hasOwnProperty(n) )
-				this[n] = arguments[i][n];
-	}
- 
-	// Hash.version = 1.00;	// Original version
-	// Hash.version = 1.01;	// Added ability to initialize in the constructor
-	// Hash.version = 1.02;	// Fixed document bug that showed a non-working example (thanks mareks)
-	//Hash.version = 1.03;	// Removed returning this from the constructor (thanks em-dash)
-	Hash.version = 1.04;	// Missed some 'var' declarations (thanks Twey)
 
-	Hash.prototype = new Object();
+<!-- OUR ONLY GLOBALS ARE DECLARED HERE- array of variable names to legend info, array of variable names to values graphial graph-->
+var arrayLegendHash = new Array();
+var arrayValueHash = new Array();
+var colorArray = [];
 
-	Hash.prototype.keys = function(){
-			var rv = [];
-			for( var n in this )
-				if( this.hasOwnProperty(n) )
-					rv.push(n);
-			return rv;
-	}
- 
-	Hash.prototype.length = function(){
-		return this.keys().length();
-	}
- 
-	Hash.prototype.values = function(){
-		var rv = [];
-		for( var n in this )
-			if( this.hasOwnProperty(n) )
-				rv.push(this[n]);
-		return rv;
-	}
- 
-	Hash.prototype.slice = function(){
-		var rv = [];
-		for( var i = 0; i < arguments.length; i++ )
-			rv.push(
-				( this.hasOwnProperty( arguments[i] ) )
-					? this[arguments[i]]
-					: undefined
-			);
-		return rv;
-	}
- 
-	Hash.prototype.concat = function(){
-		for( var i = 0; i < arguments.length; i++ )
-			for( var n in arguments[i] )
-				if( arguments[i].hasOwnProperty(n) )
-					this[n] = arguments[i][n];
-		return this;
-	}
-
-<!-- OUR ONLY GLOBAL - array of variable names to legend info -->
-var arrayLegendHash = new Hash();
 
 <!-- loadSaved uses the passed variables from the address bar to set equations and hashes -->
 function loadSaved() {
 	var addressBarString= String(window.location)
 
+<!-- Clear the Screen -->
+	clearScreen();
 <!-- Set our Equation -->
 	var equationStart = addressBarString.indexOf("?&$")+3;
 	if(addressBarString.indexOf("?&$") > 0){
@@ -84,15 +38,17 @@ function loadSaved() {
    	equation=equation.replace(/%29/g,")");
    	document.getElementById('mainEquation').value = equation;
 	}   
+	
 <!-- Set our Titles -->
 	var titleHashStart = addressBarString.indexOf("&#")+2;
 	var titleHashEnd = addressBarString.indexOf("&%");
 	if(addressBarString.indexOf("&#") > 0){
 		var TitleHash = addressBarString.substring(titleHashStart,titleHashEnd);
 		TitleHash=TitleHash.replace(/%20/g," ");
-		addTitlesToHash(TitleHash);
-	}
-	parseEquation();
+		addTitlesToHash(TitleHash);		
+	}	
+	
+	parseEquation();	
 }
 
 function addTitlesToHash(titles)
@@ -125,7 +81,15 @@ function showValue(sliderValue, sliderId) {
 
    var sliderSubLabel = document.getElementById("sub" + sliderId);
 	sliderSubLabel.innerHTML=sliderValue;
+	
+	<!-- Here we set the value hash with the value -->	
+	arrayValueHash[sliderId[sliderId.length-1]] = sliderValue;
+	
 	solveEquation(document.getElementById('mainEquation').value);
+
+
+	<!-- Also update the graph -->	
+	updateGraph()
 
    //document.getElementById(sliderId).nextSibling.innerHTML=sliderValue;
 }
@@ -133,9 +97,11 @@ function showValue(sliderValue, sliderId) {
 function renameSlider(sliderName) {
 	var sliderNewName = prompt("Enter a new variable name","nonameslider");
    var sliderSubLabel = document.getElementById("slider" + sliderName);
+   delete arrayLegendHash[sliderName];
  
 <!-- Set our hash key value for this variable, or add a new one if not exist -->
-   arrayLegendHash[sliderName[sliderName.length-1]] = sliderNewName;
+  var sliderVar = sliderName[sliderName.length-1];
+  arrayLegendHash[sliderVar] = sliderNewName;  
    
    var newLabel = "(" + sliderName[sliderName.length-1] + ") " + sliderNewName;
    
@@ -149,9 +115,9 @@ function renameSlider(sliderName) {
 <!-- the returned string is exactly what hash.concat({key: 'value', key2: 'value'}) is looking for -->
 function stringifyHash() {
 	var returnString = "";
- 	var keys = arrayLegendHash.keys();
-    for(i in keys){
-    	returnString +=  keys[i] + "&:" +  arrayLegendHash[keys[i]];
+ 	var keys = arrayLegendHash;
+    for(var i in keys){
+    	returnString += i + "&:" +  arrayLegendHash[i];
     	returnString += "&," 
     }
     returnString += "";
@@ -171,6 +137,10 @@ function stringifyPage() {
 
 <!-- moreSliders copies the invisible div slider element "slidertemplate" into a sibling div named sliderOutputX where X=numSliders -->
 function moreSliders(varName, varTitle) {
+
+	<!-- Here we set the value hash with the value -->	
+	arrayValueHash[varName] = 0;
+
 	
 <!-- clone the slider template but not its style-->
 	var newSliders = document.getElementById('slidertemplate').cloneNode(true);
@@ -211,6 +181,11 @@ function moreSliders(varName, varTitle) {
 
 <!-- clearScreen clears out all named elements -->
 function clearScreen() {
+
+   arrayLegendHash = new Array();
+   arrayValueHash = new Array();
+   colorArray = [];
+
 	<!-- loop over the collection of cloned sliders and delete their parents -->
 	var cloneSpanCollection = document.getElementsByName("clonedSlider");	
 	var cloneSpanCollectionLength = cloneSpanCollection.length;
@@ -247,15 +222,20 @@ function alphaNumericType(singlet) {
 }
 
 
+
+<!-- clear the screen and parse the equation -->
+function clearAndParseEquation() {
+	<!-- clear the screen -->
+	clearScreen();
+	<!-- parse the equation -->	
+	parseEquation();
+}
+
 <!-- parseEquation is an algorithm in 3 steps -->
 <!-- Step 1 - fill an array with each variable from equation -->
 <!-- Step 2 - call moreSliders to create a dynamic slider with each variable from equation -->
 <!-- Step 3 - moreSliders also creates a named textual field for the dynamic slider -->
-function parseEquation() {
-	<!-- clear the screen -->
-	clearScreen();
-	
-
+function parseEquation() {	
 <!-- Create a variable and relevant info with the equation from mainEquation field -->	
 	var rawEquation = document.getElementById('mainEquation').value;
 	
@@ -297,8 +277,14 @@ function parseEquation() {
 		return;
 	}	
 
+
 	<!-- solve the first pass at the equation with zero values -->
 	solveEquation(document.getElementById('mainEquation').value);
+	
+	if(rawEquation.length > 0)
+	{
+		updateGraph();	
+	}	
 }
 
 <!-- solveEquation solves the equation presented -->
@@ -322,15 +308,15 @@ function solveEquation(rawEquation)
 			case 1:
 				if(i>0){
 					if(alphaNumericType(rawEquation[i-1]) == 2){
-						eachIndividual[i] = '*' + document.getElementById("range" + "sliderID" + rawEquation[i]).value;
+						eachIndividual[i] = '*' + arrayValueHash[rawEquation[i]];
 					}
 					else{
-					    var whatisit = document.getElementById("range" + "sliderID" + rawEquation[i]);
-						eachIndividual[i] = document.getElementById("range" + "sliderID" + rawEquation[i]).value;
+					    var whatisit = arrayValueHash[rawEquation[i]];
+						eachIndividual[i] = arrayValueHash[rawEquation[i]];
 					}
 				}
 				else {
-  					eachIndividual[i] = document.getElementById("range" + "sliderID" + rawEquation[i]).value;
+  					eachIndividual[i] = arrayValueHash[rawEquation[i]];
   				}
 	 			break;			
 		} <!-- End of Switch Case -->
@@ -388,6 +374,113 @@ function solveEquation(rawEquation)
 }
 
 
+
+function updateGraph()
+{
+	var subGraphElement = document.getElementById('subgraphChart');
+	if(subGraphElement != null)
+	{
+		document.getElementById('graphChart').removeChild(subGraphElement);
+	}
+
+	var myGraphElement = document.createElement("div");
+   myGraphElement.id = "subgraphChart";     
+        
+   myGraphElement.innerHTML = "";
+   
+
+   document.getElementById('graphChart').appendChild(myGraphElement); 
+
+	var rGraph = Raphael("subgraphChart");
+		
+<!-- set txt type -->
+	rGraph.g.txtattr.font = "12px 'Fontin Sans', Fontin-Sans, sans-serif";
+
+
+<!-- storage for multidimensional arrays of X and Y plot values and legend-->
+	var myXValues = new Array;
+	var myYValues = new Array;
+	var YValueOneDimension = new Array;
+	var XValueOneDimension = new Array;	
+	var legendTxt = "<b>Legend</b><ul>";
+
+
+<!-- for now X value range is not dynamic, upgrade this later -->
+	for(i=0;i<100;i++)
+	{
+		XValueOneDimension[i] = i;
+	} 		
+
+<!-- loop over each variable in the value hash -->
+<!-- keys[i] is the variable name like x or y-->
+<!-- the hash of keys[i] is the value for said variable-->
+	var iterator = 0;
+ 	var arrayValuekeys = arrayValueHash;
+   for(var varName in arrayValuekeys)
+   {   
+<!-- set the color array -->
+		var testColor = colorArray[iterator];
+		if(testColor == null)
+		{
+			colorArray[iterator] = Raphael.getColor();
+		}
+		
+		var testLabel = arrayLegendHash[varName];
+
+		if(testLabel == null)
+		{
+			testLabel = "Unlabeled";
+		}
+		legendTxt += "<li><FONT COLOR=\"" + colorArray[iterator] + "\">" + varName + "(" + testLabel + ")" + ": " +  colorArray[iterator] + "</FONT></li>";   
+   
+<!-- for each variable, loop 100 times and find the equation solution for each loop iteration with that J var set as the value -->
+		var originalVarValue = arrayValueHash[varName];  
+		for(var j=0;j<100;j++)
+		{
+			arrayValueHash[varName] = j;
+			solveEquation(document.getElementById('mainEquation').value);
+			YValueOneDimension[j] = document.getElementById("mainResult").innerHTML;
+						
+		}
+		myXValues[iterator] = XValueOneDimension.slice(); 		
+<!-- add the Y value dimension into the Y value multi-dimensional Array --> 
+<!-- slice makes sure it is passed by value and not by reference --> 
+   	myYValues[iterator] = YValueOneDimension.slice();		
+		
+<!-- reset the key back to original state -->
+		arrayValueHash[varName] = originalVarValue;		
+   
+   	iterator = iterator + 1;
+   } 
+
+<!-- reset the equation back to original state -->
+	solveEquation(document.getElementById('mainEquation').value);
+
+<!-- append the legend -->               	
+	legendTxt += "</ul>"
+	var myLegendElement = document.createElement("div");
+   myLegendElement.id = "subgraphLegend";     
+   myLegendElement.innerHTML = legendTxt;
+
+   document.getElementById('subgraphChart').appendChild(myLegendElement);  
+<!-- create the graph -->
+<!-- graph requires 2 multidimensional arrays of numbers -->
+<!-- the first set of arrays is the X axis values of each variable -->
+<!-- the second set of arrays is the Y axis values of each variable -->
+	var lines = rGraph.g.linechart(60, 10, 1000, 300, myXValues, myYValues,
+											 {nostroke: false, axis: "0 0 1 1", symbol: "o", smooth: true, colors: colorArray}).hoverColumn(function () {
+      	              this.tags = rGraph.set();
+        	           for (var i = 0, ii = this.y.length; i < ii; i++) {
+            	            this.tags.push(rGraph.g.tag(this.x, this.y[i], this.values[i], 160, 10).insertBefore(this).attr([{fill: "#fff"}, {fill: this.symbols[i].attr("fill")}]));
+               	     }
+	                }, function () {
+   	                 this.tags && this.tags.remove();
+      	          });
+         	       lines.symbols.attr({r: 3});
+            	    // lines.lines[0].animate({"stroke-width": 6}, 1000);
+               	 // lines.symbols[0].attr({stroke: "#fff"});
+                	// lines.symbols[0][1].animate({fill: "#f00"}, 1000);              	               	
+}
 </script>
 <style type="text/css">
 
@@ -403,7 +496,7 @@ span.leftTitle {
 <h2>HTML5+JavaScript Sliders - A work in progress</h2>
 
 Equation: <input type="text" id="mainEquation" size="60"/>  = <span id="mainResult">0</span>
-<input type="button" value="Parse Equation" onclick="parseEquation()" />
+<input type="button" value="Parse Equation" onclick="clearAndParseEquation()" />
 <h6>
 Simply click parse equation, and all variables become dynamic html5 sliders<br>
 Use it to easily gauge the effect of multivariable equations in real life<br>
@@ -420,6 +513,7 @@ Example: 2x + 3K((y-34x) - 3y/100)) (Could be the cost of a product minus taxes,
 	   <input type="button" id="Title" value="Rename" onclick="renameSlider(this.id)" />
 	</div>
 	<br>
+	<div id="graphChart"></div>
 	<br>Copy the below address into any Browser to continue editing this equation<br>
 	<input type="text" id="savebar" value="" />
 
