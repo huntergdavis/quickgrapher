@@ -292,53 +292,53 @@ function solveEquation(rawEquation)
 {
 <!-- Create an array with one element per item -->	
 	var eachIndividual=new Array();
+	var eachIndividualSize = 0;
+	var numericalDigits = 0;
 	for(var i=0;i<rawEquation.length;i++){
-		eachIndividual[i] = rawEquation[i];
+		// we want consecutive numerical items to be added as a group
+		if(alphaNumericType(rawEquation[i]) == 2)
+		{
+			numericalDigits = numericalDigits + 1;
+		}						
+		else
+		{
+		   if(numericalDigits > 0)
+	   	{
+		   	eachIndividual[eachIndividualSize] = rawEquation.substring(i-1-numericalDigits,i-1);
+	   		eachIndividualSize = eachIndividualSize + 1;
+	   		numericalDigits = 0;
+	   	}
+			// add the non-numeric item at this location
+			eachIndividual[eachIndividualSize] = rawEquation[i];
+			eachIndividualSize = eachIndividualSize + 1;
+		}
+	
 	}
 <!-- start looping over the equation, cleaning up variables -->
-	for(var i=0;i<rawEquation.length;i++){		
-	<!-- alphaNumericType: 6=open parantheses 5=closed paranthesis 4=operator,  2 =numeric, 1=alpha, 0=unsupported operator-->
-		var ourType = alphaNumericType(rawEquation[i]);
-		switch(ourType)
-		{
-			case 0:
-				<!-- in case of unsupported operater print unsupported operator -->
-				document.getElementById("mainResult").innerHTML="Unsupported Operator";
-  				break;  	
-			case 1:
-				if(i>0){
-					if(alphaNumericType(rawEquation[i-1]) == 2){
-						eachIndividual[i] = '*' + arrayValueHash[rawEquation[i]];
-					}
-					else{
-					    var whatisit = arrayValueHash[rawEquation[i]];
-						eachIndividual[i] = arrayValueHash[rawEquation[i]];
-					}
-				}
-				else {
-  					eachIndividual[i] = arrayValueHash[rawEquation[i]];
-  				}
-	 			break;			
-		} <!-- End of Switch Case -->
-		
-<!-- Check for bad types -->
-		if (ourType == 0) {break;}
-	} <!-- End of FOr LOOP -->
-
+<!-- alphaNumericType: 6=open parantheses 5=closed paranthesis 4=operator,  2 =numeric, 1=alpha, 0=unsupported operator-->
 <!-- loop over the individual element collection and reorganize into a string -->
 	var newEquationString = '';
+	var skipReplace = 0;
 	for(var i=0;i<eachIndividual.length;i++){	
 
 		if(i>0){
 			if(alphaNumericType(eachIndividual[i]) == 6 && alphaNumericType(eachIndividual[i-1]) == 2){
 				newEquationString += '*';
 			}
+			if(alphaNumericType(eachIndividual[i]) == 1 && alphaNumericType(eachIndividual[i-1]) == 2){
+				newEquationString += '*' + arrayValueHash[eachIndividual[i]];
+				skipReplace = 1;
+			}	
+			if(alphaNumericType(eachIndividual[i]) == 1 && alphaNumericType(eachIndividual[i-1]) == 1){
+				newEquationString += '*' + arrayValueHash[eachIndividual[i]];
+				skipReplace = 1;
+			}						
 			if(alphaNumericType(eachIndividual[i]) == 2 && alphaNumericType(eachIndividual[i-1]) == 5){
 				newEquationString += '*';
 			}				
-		//	if(alphaNumericType(eachIndividual[i]) == 2 && alphaNumericType(eachIndividual[i-1]) == 2){
-		//		newEquationString += '*';
-		//	}								
+			if(alphaNumericType(eachIndividual[i]) == 2 && alphaNumericType(eachIndividual[i-1]) == 2){
+				newEquationString += '*';
+			}								
 		}
 <!-- replace % signs with actual numerical value (.01) -->		
 		if(eachIndividual[i] == '\%'){
@@ -346,7 +346,22 @@ function solveEquation(rawEquation)
 		}
 		else
 		{
-			newEquationString += eachIndividual[i];
+			if(skipReplace == 0)
+			{
+				if(alphaNumericType(eachIndividual[i]) == 1)
+				{
+					newEquationString += arrayValueHash[eachIndividual[i]];
+				}
+				else
+				{
+					newEquationString += eachIndividual[i];
+				}
+			}
+			else
+			{
+				skipReplace = 0;
+			}
+				
 		}
 	}	// end of loop over element collection for loop
 
@@ -367,7 +382,7 @@ function solveEquation(rawEquation)
 
 <!-- try a regular ole javascript eval  -->
 <!-- 	document.getElementById("mainResult").innerHTML=implicitEquationString; -->
-	//alert(implicitEquationString);
+	alert(implicitEquationString);
 	parsedEquationResult = "Could Not Parse";
 	implicitEquationString = "return " + implicitEquationString;
 	ourEquationFunction = new Function(implicitEquationString);	
@@ -441,7 +456,8 @@ function updateGraph()
    
 <!-- for each variable, loop 100 times and find the equation solution for each loop iteration with that J var set as the value -->
 		var originalVarValue = arrayValueHash[varName];  
-		for(var j=0;j<100;j++)
+		YValueOneDimension[0] = 0;
+		for(var j=1;j<100;j++)
 		{
 			arrayValueHash[varName] = j;
 			solveEquation(document.getElementById('mainEquation').value);
