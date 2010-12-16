@@ -12,6 +12,7 @@
 <script src="raphael.js" type="text/javascript" charset="utf-8"></script> 
 <script src="g.raphael.js" type="text/javascript" charset="utf-8"></script> 
 <script src="g.line.js" type="text/javascript" charset="utf-8"></script> 
+<script src="math.js" type="text/javascript" charset="utf-8"></script> 
 <script type="text/javascript">
 
 
@@ -304,7 +305,7 @@ function solveEquation(rawEquation)
 		{
 		   if(numericalDigits > 0)
 	   	{
-		   	eachIndividual[eachIndividualSize] = rawEquation.substring(i-1-numericalDigits,i-1);
+		   	eachIndividual[eachIndividualSize] = rawEquation.substring(i-numericalDigits,i);
 	   		eachIndividualSize = eachIndividualSize + 1;
 	   		numericalDigits = 0;
 	   	}
