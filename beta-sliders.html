@@ -393,16 +393,20 @@ function solveEquation(rawEquation)
    //parsedEquationResult=ourEquationFunction();	  
    //document.getElementById("mainResult").innerHTML= parsedEquationResult;
 	
-	// this is the new math parse method	
-	var p = new MathProcessor()
-	try{
-        var parsedValue = p.parse(implicitEquationString);
-    }catch(e){
-        alert(e);
-    }
+	if(implicitEquationString != "")
+	{
+		var parsedValue;
+		// this is the new math parse method	
+		var p = new MathProcessor()
+		try{
+          parsedValue = p.parse(implicitEquationString);
+    	}catch(e){
+        	parsedValue = 0;
+    	}
 	
 	
 	document.getElementById("mainResult").innerHTML= parsedValue;
+	}	
 	
 <!-- Also allow user to edit this in the future -->
 	stringifyPage();
