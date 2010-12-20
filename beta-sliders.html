@@ -57,9 +57,20 @@ function loadSaved() {
 		addTitlesToHash(TitleHash);		
 	}	
 	
+<!-- Set our Values -->
+	var valueHashStart = loadString.indexOf("&%")+2;
+	var valueHashEnd = loadString.indexOf("&*");
+	if(loadString.indexOf("&%") > 0){
+		var ValueHash = loadString.substring(valueHashStart,valueHashEnd);
+		ValueHash=ValueHash.replace(/%20/g," ");
+		addValuesToHash(ValueHash);		
+	}		
+	
+	
 	parseEquation();	
 }
 
+// adds array legend titles to global hash
 function addTitlesToHash(titles)
 {
 	var nextDelimiter = 0;
@@ -83,6 +94,32 @@ function addTitlesToHash(titles)
 	}
 // x&:testme&;&,K&:hello&;&,y&:whats up&;&%
 }
+
+// adds array variable values to global hash
+function addValuesToHash(titles)
+{
+	var nextDelimiter = 0;
+	var stillParsing = 1;	
+	var parseBlock = titles;
+	
+<!-- Loop through all values in title bar and add them to hash table reference for names -->
+	while(stillParsing == 1){
+		nextDelimiter = parseBlock.indexOf("&:");
+		if(nextDelimiter > -1){
+			stopDelimiter = parseBlock.indexOf("&,");
+			var myVar = parseBlock.substring(0,nextDelimiter);
+			var myLabel = parseBlock.substring(nextDelimiter+2,stopDelimiter);
+			parseBlock = parseBlock.substring(stopDelimiter+2,parseBlock.length);
+			arrayValueHash[myVar] = myLabel;
+			
+		}
+		else{
+			stillParsing = 0;
+		}
+	}
+// x&:testme&;&,K&:hello&;&,y&:whats up&;&%
+}
+
 
 <!-- showValue changes the sibling span text of a slider to be its value and recalculates the equation-->
 <!-- The overall formula based on the change in this variable -->
@@ -116,7 +153,11 @@ function renameSlider(sliderName) {
    
 	sliderSubLabel.innerHTML=newLabel;
 	
-	stringifyPage();
+	solveEquation(document.getElementById('mainEquation').value);
+
+
+	<!-- Also update the graph -->	
+	updateGraph()
 	
 }
 
@@ -133,12 +174,26 @@ function stringifyHash() {
     return returnString;
 }
 
+<!-- stringify values hash turns the main arrayValueHash into a string and returns it -->
+<!-- the returned string is exactly what hash.concat({key: 'value', key2: 'value'}) is looking for -->
+function stringifyValueHash() {
+	var returnString = "";
+ 	var keys = arrayValueHash;
+    for(var i in keys){
+    	returnString += i + "&:" +  arrayValueHash[i];
+    	returnString += "&," 
+    }
+    returnString += "";
+    return returnString;
+}
+
 <!-- StringifyPage stringifies the hash as well as the equation -->
 function stringifyPage() {
 	var stringifiedHash = stringifyHash();
+	var stringifiedValuesHash = stringifyValueHash();
 	var stringifiedEquation = document.getElementById('mainEquation').value;
 	stringifiedEquation=stringifiedEquation.replace(/\s/g,"%20");
-	var returnString = "?&$" + stringifiedEquation + "&#" + stringifiedHash + "&%";
+	var returnString = "?&$" + stringifiedEquation + "&#" + stringifiedHash + "&%" + stringifiedValuesHash + "&*";
 	document.getElementById("savebar").value = returnString;	
 }
 
@@ -148,15 +203,19 @@ function stringifyPage() {
 function moreSliders(varName, varTitle) {
 
 	<!-- Here we set the value hash with the value -->	
-	arrayValueHash[varName] = 0;
+	if(!arrayValueHash[varName])
+	{
+		arrayValueHash[varName] = 0;
+	}
 
 	
 <!-- clone the slider template but not its style-->
 	var newSliders = document.getElementById('slidertemplate').cloneNode(true);
 	newSliders.id = '';
 	newSliders.style.display = 'block';
-	
+		
 <!-- loop over all child nodes of slider and name them uniquely sliderID(alpha) -->
+	var sliderSubLabel = null;
 	var newSlider = newSliders.childNodes;
 	for (var i=0;i<newSlider.length;i++) {
 		var sliderOutputName = newSlider[i].id;
@@ -166,6 +225,8 @@ function moreSliders(varName, varTitle) {
 			{	
 				newSliders.id = "sliderID" + varName; 
 				newSlider[i].name = "clonedSlider";
+				newSlider[i].value = arrayValueHash[varName];
+		   	sliderSubLabelName = "sub" + sliderOutputName + varName;							
 			}
 		   newSlider[i].id = sliderOutputName + varName;
 		}
@@ -185,6 +246,10 @@ function moreSliders(varName, varTitle) {
    else{
  		sliderTitle.innerHTML= "(" + varName + ") " + varTitle;
  	}
+	
+// and also set our slider innerHTML value
+	sliderSubLabel = document.getElementById(sliderSubLabelName);
+	sliderSubLabel.innerHTML=arrayValueHash[varName];	
 	
 }
 
