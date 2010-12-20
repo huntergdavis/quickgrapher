@@ -299,7 +299,15 @@ function solveEquation(rawEquation)
 		// we want consecutive numerical items to be added as a group
 		if(alphaNumericType(rawEquation[i]) == 2)
 		{
-			numericalDigits = numericalDigits + 1;
+			if(i == rawEquation.length)
+			{
+				eachIndividual[eachIndividualSize] = rawEquation[i];
+				eachIndividualSize = eachIndividualSize + 1;
+			}
+			else
+			{
+				numericalDigits = numericalDigits + 1;
+			}
 		}						
 		else
 		{
