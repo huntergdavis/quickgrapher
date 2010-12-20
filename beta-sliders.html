@@ -24,27 +24,35 @@ var colorArray = [];
 
 <!-- loadSaved uses the passed variables from the address bar to set equations and hashes -->
 function loadSaved() {
-	var addressBarString= String(window.location)
+	var loadString= String(document.getElementById("savebar").value);
+	
+	if(loadString.length < 3)
+	{
+		alert("Could Not Load Saved Function from Hash");
+	}
+	else
+	{
 
-<!-- Clear the Screen -->
-	clearScreen();
-<!-- Set our Equation -->
-	var equationStart = addressBarString.indexOf("?&$")+3;
-	if(addressBarString.indexOf("?&$") > 0){
-		var equationEnd = addressBarString.indexOf("&#");
-   	var equation = addressBarString.substring(equationStart,equationEnd);
-   	equation=equation.replace(/%20/g," ");
-   	equation=equation.replace(/%25/g,"%");
-   	equation=equation.replace(/%28/g,"(");
-   	equation=equation.replace(/%29/g,")");
-   	document.getElementById('mainEquation').value = equation;
-	}   
+	<!-- Clear the Screen -->
+		clearScreen();
+	<!-- Set our Equation -->
+		var equationStart = loadString.indexOf("?&$")+3;
+		if(loadString.indexOf("?&$") > -1){
+			var equationEnd = loadString.indexOf("&#");
+  		 	var equation = loadString.substring(equationStart,equationEnd);
+  	 		equation=equation.replace(/%20/g," ");
+	  	 	equation=equation.replace(/%25/g,"%");
+  		 	equation=equation.replace(/%28/g,"(");
+ 	  		equation=equation.replace(/%29/g,")");
+   		document.getElementById('mainEquation').value = equation;
+		} 
+	}  
 	
 <!-- Set our Titles -->
-	var titleHashStart = addressBarString.indexOf("&#")+2;
-	var titleHashEnd = addressBarString.indexOf("&%");
-	if(addressBarString.indexOf("&#") > 0){
-		var TitleHash = addressBarString.substring(titleHashStart,titleHashEnd);
+	var titleHashStart = loadString.indexOf("&#")+2;
+	var titleHashEnd = loadString.indexOf("&%");
+	if(loadString.indexOf("&#") > 0){
+		var TitleHash = loadString.substring(titleHashStart,titleHashEnd);
 		TitleHash=TitleHash.replace(/%20/g," ");
 		addTitlesToHash(TitleHash);		
 	}	
@@ -130,7 +138,7 @@ function stringifyPage() {
 	var stringifiedHash = stringifyHash();
 	var stringifiedEquation = document.getElementById('mainEquation').value;
 	stringifiedEquation=stringifiedEquation.replace(/\s/g,"%20");
-	var returnString = "" + "http://www.hunterdavis.com/discursivelabs/tools/beta-sliders.html?&$" + stringifiedEquation + "&#" + stringifiedHash + "&%";
+	var returnString = "?&$" + stringifiedEquation + "&#" + stringifiedHash + "&%";
 	document.getElementById("savebar").value = returnString;	
 }
 
@@ -548,7 +556,7 @@ Equation: <input type="text" id="mainEquation" size="60"/>  = <span id="mainResu
 <h6>
 Simply click parse equation, and all variables become dynamic html5 sliders<br>
 Use it to easily gauge the effect of multivariable equations in real life<br>
-Example: 2x + 3K((y-34x) - 3y/100)) (Could be the cost of a product minus taxes, rates, etc)<br>
+Example: 2x + 3K((y-34x) - (3y/100)) (Could be the cost of a product minus taxes, rates, etc)<br>
 **NOTE** - Newer browsers which do not yet support HTML5 sliders will show text entry boxes
 </h6>
 
@@ -562,14 +570,11 @@ Example: 2x + 3K((y-34x) - 3y/100)) (Could be the cost of a product minus taxes,
 	</div>
 	<br>
 	<div id="graphChart"></div>
-	<br>Copy the below address into any Browser to continue editing this equation<br>
+	<br>Copy the below Equation Hash to continue editing your equation later. <br>
+	Paste any Equation Hash here and click Load to Continue editing. <br>
 	<input type="text" id="savebar" value="" />
+	<input type="button" id="LoadButton" value="Load" onclick="loadSaved()" />
 
-<script>
-<!-- The first thing that happens on load is to load all the old variables if they exist -->
-<!-- But we have to wait till after the HTML is loaded for our window elements to be ready to fill -->
-	window.onload=loadSaved();
-</script>
 </body>
 </html>
 
