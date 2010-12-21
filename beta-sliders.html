@@ -283,7 +283,7 @@ function alphaNumericType(singlet) {
     if (/[\]\)\}]/.test(singlet)) {
    	returnVal = 5;
    	}  	
-   if (/[\+\-\/\*\^\%\\\!]/.test(singlet)) {
+   if (/[\,\~\$\_\:\;\|\+\-\/\*\^\%\\\!]/.test(singlet)) {
    	returnVal = 4;
    	}
    if (/[0-9.]/.test(singlet)) {
@@ -294,6 +294,37 @@ function alphaNumericType(singlet) {
    	}  	   	   	   	   	   	
 	return returnVal;
 }
+
+// sin = |
+// cos = $
+// tan = _
+// sum = :
+// medium = ;
+// replace all known functions with pipeesque characters
+// store these pipe characters incrementally in the functions array
+function storeAndReplaceFunctions(equation) {
+	var sanitizedEquation = equation;
+
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "sin", "gi" ), "|" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "cos", "gi" ), "$" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "tan", "gi" ), "_" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "sum", "gi" ), ":" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "medium", "gi" ), ";" );			
+
+	return sanitizedEquation;
+}
+// replace all known pipette characters with function names
+function replaceStoredFunctions(sanitizedEquation) {
+
+	var restoredEquation = sanitizedEquation;
+	//restoredEquation = restoredEquation.replace( new RegExp( "\|", "g" ), "sin" );
+	//restoredEquation = restoredEquation.replace( new RegExp( "\$", "g" ), "cos" );
+	//restoredEquation = restoredEquation.replace( new RegExp( "\_", "g" ), "tan" );
+	restoredEquation = restoredEquation.replace( new RegExp( ":", "g" ), "sum" );
+	restoredEquation = restoredEquation.replace( new RegExp( ";", "g" ), "medium" );	
+	return restoredEquation
+}
+
 
 
 
@@ -311,7 +342,7 @@ function clearAndParseEquation() {
 <!-- Step 3 - moreSliders also creates a named textual field for the dynamic slider -->
 function parseEquation() {	
 <!-- Create a variable and relevant info with the equation from mainEquation field -->	
-	var rawEquation = document.getElementById('mainEquation').value;
+	var rawEquation = storeAndReplaceFunctions(document.getElementById('mainEquation').value);
 	
 	
 <!-- loop through each element of the rawEquation and add each alphanumeric to an unique preserving array -->
@@ -319,6 +350,7 @@ function parseEquation() {
 <!-- while we are looping, also throw the sliders up for each alpha type -->
 <!-- This is currently a heinous n^2 algorithm because of programmer laziness and input size -->
 	var variableChars=new Array();
+	var variableFound = 0;
 	var paranthesisCheck = 0;  
 	for(var i=0;i<rawEquation.length;i++){
 		var innerType = alphaNumericType(rawEquation[i])
@@ -331,6 +363,7 @@ function parseEquation() {
 			}			
 			if (foundMatch == 0)
 			{
+				variableFound++;
 				variableChars[variableChars.length] = rawEquation[i];
 				moreSliders(rawEquation[i],"");
 			}
@@ -353,29 +386,46 @@ function parseEquation() {
 
 
 	<!-- solve the first pass at the equation with zero values -->
-	solveEquation(document.getElementById('mainEquation').value);
+	solveEquation(rawEquation);
 	
 	if(rawEquation.length > 0)
 	{
-		updateGraph();	
+		if(variableFound > 0)
+		{
+			updateGraph();	
+		}
 	}	
 }
 
 <!-- solveEquation solves the equation presented -->
 function solveEquation(rawEquation)
 {
+	origEquation = storeAndReplaceFunctions(rawEquation);
+	
 <!-- Create an array with one element per item -->	
 	var eachIndividual=new Array();
 	var eachIndividualSize = 0;
 	var numericalDigits = 0;
-	for(var i=0;i<rawEquation.length;i++){
+	var lenForUs = origEquation.length;
+
+	for(var i=0;i<lenForUs;i++){
 		// we want consecutive numerical items to be added as a group
-		if(alphaNumericType(rawEquation[i]) == 2)
+		if(alphaNumericType(origEquation[i]) == 2)
 		{
-			if(i == rawEquation.length)
+			if(i == lenForUs-1)
 			{
-				eachIndividual[eachIndividualSize] = rawEquation[i];
-				eachIndividualSize = eachIndividualSize + 1;
+				  if(numericalDigits > 0)
+					{
+						numericalDigits++;
+						eachIndividual[eachIndividualSize] = origEquation.substring(i-numericalDigits,i+1);
+						eachIndividualSize = eachIndividualSize + 1;
+						numericalDigits = 0;
+					}
+					else
+					{	
+						eachIndividual[eachIndividualSize] = origEquation[i];
+						eachIndividualSize = eachIndividualSize + 1;
+					}
 			}
 			else
 			{
@@ -385,13 +435,13 @@ function solveEquation(rawEquation)
 		else
 		{
 		   if(numericalDigits > 0)
-	   	{
-		   	eachIndividual[eachIndividualSize] = rawEquation.substring(i-numericalDigits,i);
-	   		eachIndividualSize = eachIndividualSize + 1;
-	   		numericalDigits = 0;
-	   	}
+			{
+				eachIndividual[eachIndividualSize] = origEquation.substring(i-numericalDigits,i);
+				eachIndividualSize = eachIndividualSize + 1;
+				numericalDigits = 0;
+			}
 			// add the non-numeric item at this location
-			eachIndividual[eachIndividualSize] = rawEquation[i];
+			eachIndividual[eachIndividualSize] = origEquation[i];
 			eachIndividualSize = eachIndividualSize + 1;
 		}
 	
@@ -427,7 +477,7 @@ function solveEquation(rawEquation)
 			newEquationString += "*(.01)";	
 		}
 		else
-		{
+		{		
 			if(skipReplace == 0)
 			{
 				if(alphaNumericType(eachIndividual[i]) == 1)
@@ -443,7 +493,6 @@ function solveEquation(rawEquation)
 			{
 				skipReplace = 0;
 			}
-				
 		}
 	}	// end of loop over element collection for loop
 
@@ -476,11 +525,15 @@ function solveEquation(rawEquation)
 	
 	if(implicitEquationString != "")
 	{
+		// restore known function names into the equation
+		implicitEquationStringWithFunctions = replaceStoredFunctions(implicitEquationString);
+		//alert(implicitEquationStringWithFunctions);
+		
 		var parsedValue;
 		// this is the new math parse method	
 		var p = new MathProcessor()
 		try{
-          parsedValue = p.parse(implicitEquationString);
+          parsedValue = p.parse(implicitEquationStringWithFunctions);
     	}catch(e){
         	parsedValue = 0;
     	}
@@ -622,7 +675,7 @@ Equation: <input type="text" id="mainEquation" size="60"/>  = <span id="mainResu
 Simply click parse equation, and all variables become dynamic html5 sliders<br>
 Use it to easily gauge the effect of multivariable equations in real life<br>
 Example: 2x + 3K((y-34x) - (3y/100)) (Could be the cost of a product minus taxes, rates, etc)<br>
-**NOTE** - Newer browsers which do not yet support HTML5 sliders will show text entry boxes
+**NOTE** - Newer browsers which do not yet support HTML5 sliders will show text entry boxes, graphs may not display
 </h6>
 
 
@@ -639,8 +692,27 @@ Example: 2x + 3K((y-34x) - (3y/100)) (Could be the cost of a product minus taxes
 	Paste any Equation Hash here and click Load to Continue editing. <br>
 	<input type="text" id="savebar" value="" />
 	<input type="button" id="LoadButton" value="Load" onclick="loadSaved()" />
-
-</body>
+	
+<h6>
+Functions Implemented: 
+	<ol>
+	<li>sin (definitely not working)</li> 
+	<li>cos (same)</li>
+	<li>tan (same)</li>
+	<li>~ (square root) use like ~(4)</li>
+	<li>* (multiplication)</li>
+	<li>+ (addition)</li>
+	<li>- (negation/minus)</li>
+	<li>^ (power) (not working)</li>
+	<li>/ (divison)</li>
+	<li>% (percentage)</li>
+	<li>sum(n1, n2, n) (sum of all numbers) (not working)</li>
+	<li>medium(n1, n2, n) (average/medium of all numbers) (not working)</li>
+	</ol>
+</h6>	
+	
+	
+	</body>
 </html>
 
 

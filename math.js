@@ -17,10 +17,10 @@ MathProcessor = function(){
 };
 with({p: MathProcessor.prototype}){
     p.methods = {
-        div: function(a, b){ return parseInt(a / b); },
-        fra: function(a){ return a - parseInt(a); },
+//        div: function(a, b){ return parseInt(a / b); },
+//        fra: function(a){ return a - parseInt(a); },
         sum: function(n1, n2, n3, n){ for(var r = 0, a, l = (a = arguments).length; l; r += a[--l]); return r; },
-        medium: function(n1, n2, n3, n){ for(var r = 0, a, l = (a = arguments).length; l; r += a[--l]); return r / a.length; }
+        medium: function(n1, n2, n3, n4, n){ for(var r = 0, a, l = (a = arguments).length; l; r += a[--l]); return (r / a.length); }
     };
     p.parse = function(e){
         for(var n, x, _ = this, o = [], s = [x = _.RPN(e.replace(/ /g, "").split(""))]; s.length;)
