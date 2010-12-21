@@ -529,7 +529,7 @@ function solveEquation(rawEquation)
 				{
 					// solve for the inside of Parenthesies
 					var parenthesieSolution = solveEquation(insideParenthesies);
-					var newEquation = origEquation.substring(0,firstOpen) + parenthesieSolution;\
+					var newEquation = origEquation.substring(0,firstOpen) + parenthesieSolution;
 					newEquation = newEquation + origEquation.substring(lastClosed,lenForUs);
 					return solveEquation(newEquation);
 				}
