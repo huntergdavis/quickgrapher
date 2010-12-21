@@ -473,13 +473,81 @@ function parseEquation() {
 <!-- solveEquation solves the equation presented -->
 function solveEquation(rawEquation)
 {
-	origEquation = storeAndReplaceFunctions(rawEquation);
+	// always trim whitespace
+	trimmedEquation = rawEquation.replace(/^\s*/, "").replace(/\s*$/, "");
+	//alert(trimmedEquation);
+	
+	// in direct instances this is called twice, which is heinous but not noticible to user
+	origEquation = storeAndReplaceFunctions(trimmedEquation);
+	var lenForUs = origEquation.length;
+	
+<!-- This point is our Recursion, we solve for a smaller paranthesis and recurse --!>
+	var openParenIndex = 0;
+	var closedParenIndex = 0;
+	var firstOpen = -1;
+	var lastClosed = -1;
+	var continueLoop = 1;
+
+	// loop over the equation finding parenthesis
+	for(var i=0;i<lenForUs;i++)
+	{
+		if(continueLoop == 1)
+		{
+			// 6 = open, 5 = closed
+			if(alphaNumericType(origEquation[i]) == 6)
+			{
+				openParenIndex++;
+				if(firstOpen == -1)
+				{
+					firstOpen = i;
+				}
+			}
+			else if(alphaNumericType(origEquation[i]) == 5)
+			{
+				closedParenIndex++;
+				lastClosed = i;
+			}
+			
+			// if we've completed a paranthesie pair
+			// 1. parse the parenthesie
+			// 2. put return value into string instead of parenthesie pair
+			// 3. return SolveEquation(newEquationMinusParanthesiePair)
+			
+			// make sure we have the first parenthesie pair (or outermost)
+			if(((openParenIndex + closedParenIndex) > 1) && (openParenIndex == closedParenIndex) )
+			{
+				// get the insides of this parenthesie
+				var insideParenthesies = origEquation.substring(firstOpen+1,lastClosed);
+				// if this parenthesie is the entire shebang, return the insides and ignore
+				if((firstOpen == 0) && (lastClosed == lenForUs))
+				{
+					return solveEquation(insideParenthesies);
+				}
+				
+				// if openParenIndex > 1, we can recurse further...
+				if(openParenIndex > 1)
+				{
+					// solve for the inside of Parenthesies
+					var parenthesieSolution = solveEquation(insideParenthesies);
+					var newEquation = origEquation.substring(0,firstOpen) + parenthesieSolution;
+					alert(origEquation.substring(lastClosed,lenForUs));
+					newEquation = newEquation + origEquation.substring(lastClosed,lenForUs);
+					return solveEquation(newEquation);
+				}
+				else
+				{
+					continueLoop = 0;
+				}
+			}
+		}
+	}	
+
+// at this point, we can 	
 	
 <!-- Create an array with one element per item -->	
 	var eachIndividual=new Array();
 	var eachIndividualSize = 0;
 	var numericalDigits = 0;
-	var lenForUs = origEquation.length;
 
 	for(var i=0;i<lenForUs;i++){
 		// we want consecutive numerical items to be added as a group
@@ -615,6 +683,7 @@ function solveEquation(rawEquation)
 	
 	
 	document.getElementById("mainResult").innerHTML= parsedValue;
+	return parsedValue;
 	}	
 	
 <!-- Also allow user to edit this in the future -->
