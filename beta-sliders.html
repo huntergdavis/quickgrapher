@@ -488,7 +488,7 @@ function solveEquation(rawEquation)
 	var lastClosed = -1;
 	var continueLoop = 1;
 
-	// loop over the equation finding parenthesis
+	// loop over the equation finding parenthesis in the FORWARD direction
 	for(var i=0;i<lenForUs;i++)
 	{
 		if(continueLoop == 1)
@@ -540,6 +540,69 @@ function solveEquation(rawEquation)
 			}
 		}
 	}	
+	
+	
+	// reset shared loop variables
+	openParenIndex = 0;
+	closedParenIndex = 0;
+	var lastOpen = -1;
+	var firstClosed = -1;
+	continueLoop = 1;	
+	
+	// now loop over the input in the REVERSE direction
+	for(var i=lenForUs;i>0;i--)
+	{
+		if(continueLoop == 1)
+		{
+			// 6 = open, 5 = closed
+			if(alphaNumericType(origEquation[i]) == 5)
+			{
+				closedParenIndex++;
+				if(firstClosed == -1)
+				{
+					firstClosed = i;
+				}
+			}
+			else if(alphaNumericType(origEquation[i]) == 6)
+			{
+				openParenIndex++;
+				lastOpen = i;
+			}
+			
+			// if we've completed a paranthesie pair
+			// 1. parse the parenthesie
+			// 2. put return value into string instead of parenthesie pair
+			// 3. return SolveEquation(newEquationMinusParanthesiePair)
+			
+			// make sure we have the first parenthesie pair (or outermost)
+			if(((openParenIndex + closedParenIndex) > 1) && (openParenIndex == closedParenIndex) )
+			{
+				// get the insides of this parenthesie
+				var insideParenthesies = origEquation.substring(lastOpen+1,firstClosed);
+				
+				// if this parenthesie is the entire shebang, return the insides and ignore
+				if((lastOpen == 0) && (firstClosed == lenForUs))
+				{
+					return solveEquation(insideParenthesies);
+				}
+				
+				// if openParenIndex > 1, we can recurse further...
+				if(openParenIndex > 1)
+				{
+					// solve for the inside of Parenthesies
+					var parenthesieSolution = solveEquation(insideParenthesies);
+					var newEquation = origEquation.substring(0,lastOpen) + parenthesieSolution;
+					newEquation = newEquation + origEquation.substring(firstClosed,lenForUs);
+					return solveEquation(newEquation);
+				}
+				else
+				{
+					continueLoop = 0;
+				}
+			}
+		}
+	}	
+
 
 // at this point, we can 	
 	
