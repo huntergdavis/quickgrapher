@@ -19,8 +19,19 @@ with({p: MathProcessor.prototype}){
     p.methods = {
 //        div: function(a, b){ return parseInt(a / b); },
 //        fra: function(a){ return a - parseInt(a); },
+		sin: function(n){ return Math.sin(n); },
+		cos: function(n){ return Math.cos(n); },
+		tan: function(n){ return Math.tan(n); },
+		asin: function(n){ return Math.asin(n); },		
+		acos: function(n){ return Math.acos(n); },
+		atan: function(n){ return Math.atan(n); },		
+		euler: function(n){ return (n * Math.E); },
+		min: function(n1, n2, n3, n){ return min(arguments); },		
+		max: function(n1, n2, n3, n){ return max(arguments); },
+		greater: function(n1, n2){ if (n1 > n2) { return 1; } return 0; },		
+		less: function(n1, n2){ if (n1 < n2) { return 1; } return 0; },					
         sum: function(n1, n2, n3, n){ for(var r = 0, a, l = (a = arguments).length; l; r += a[--l]); return r; },
-        medium: function(n1, n2, n3, n4, n){ for(var r = 0, a, l = (a = arguments).length; l; r += a[--l]); return (r / a.length); }
+        medium: function(n1, n2, n3, n){ for(var r = 0, a, l = (a = arguments).length; l; r += a[--l]); return (r / a.length); }
     };
     p.parse = function(e){
         for(var n, x, _ = this, o = [], s = [x = _.RPN(e.replace(/ /g, "").split(""))]; s.length;)

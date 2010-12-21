@@ -283,7 +283,7 @@ function alphaNumericType(singlet) {
     if (/[\]\)\}]/.test(singlet)) {
    	returnVal = 5;
    	}  	
-   if (/[\,\~\$\_\:\;\|\+\-\/\*\^\%\\\!]/.test(singlet)) {
+   if (/[\û\ÿ\ù\ü\ú\þ\ÿ\,\&\@\#\~\_\:\;\+\-\/\*\^\%\\\!]/.test(singlet)) {
    	returnVal = 4;
    	}
    if (/[0-9.]/.test(singlet)) {
@@ -295,21 +295,38 @@ function alphaNumericType(singlet) {
 	return returnVal;
 }
 
-// sin = |
-// cos = $
+// sin = ú
+// cos = ù
 // tan = _
+// asin = &
+// acos = @
+// atan = #
 // sum = :
 // medium = ;
+// min = ÿ
+// max = þ
+// less = ý
+// greater = ü
+// euler = û
+
 // replace all known functions with pipeesque characters
 // store these pipe characters incrementally in the functions array
 function storeAndReplaceFunctions(equation) {
 	var sanitizedEquation = equation;
 
-	sanitizedEquation = sanitizedEquation.replace( new RegExp( "sin", "gi" ), "|" );
-	sanitizedEquation = sanitizedEquation.replace( new RegExp( "cos", "gi" ), "$" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "asin", "gi" ), "&" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "acos", "gi" ), "@" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "atan", "gi" ), "#" );	
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "sin", "gi" ), "ú" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "cos", "gi" ), "ù" );
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "tan", "gi" ), "_" );
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "sum", "gi" ), ":" );
-	sanitizedEquation = sanitizedEquation.replace( new RegExp( "medium", "gi" ), ";" );			
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "medium", "gi" ), ";" );				
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "min", "gi" ), "ÿ" );	
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "max", "gi" ), "þ" );	
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "less", "gi" ), "ý" );	
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "greater", "gi" ), "ü" );				
+    sanitizedEquation = sanitizedEquation.replace( new RegExp( "euler", "gi" ), "û" );				
 
 	return sanitizedEquation;
 }
@@ -317,9 +334,18 @@ function storeAndReplaceFunctions(equation) {
 function replaceStoredFunctions(sanitizedEquation) {
 
 	var restoredEquation = sanitizedEquation;
-	//restoredEquation = restoredEquation.replace( new RegExp( "\|", "g" ), "sin" );
-	//restoredEquation = restoredEquation.replace( new RegExp( "\$", "g" ), "cos" );
-	//restoredEquation = restoredEquation.replace( new RegExp( "\_", "g" ), "tan" );
+
+	restoredEquation = restoredEquation.replace( new RegExp( "û", "g" ), "euler" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ü", "g" ), "greater" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ý", "g" ), "less" );
+	restoredEquation = restoredEquation.replace( new RegExp( "þ", "g" ), "max" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ÿ", "g" ), "min" );	
+	restoredEquation = restoredEquation.replace( new RegExp( "ú", "g" ), "sin" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ù", "g" ), "cos" );
+	restoredEquation = restoredEquation.replace( new RegExp( "_", "g" ), "tan" );
+	restoredEquation = restoredEquation.replace( new RegExp( "&", "g" ), "asin" );
+	restoredEquation = restoredEquation.replace( new RegExp( "@", "g" ), "acos" );
+	restoredEquation = restoredEquation.replace( new RegExp( "#", "g" ), "atan" );	
 	restoredEquation = restoredEquation.replace( new RegExp( ":", "g" ), "sum" );
 	restoredEquation = restoredEquation.replace( new RegExp( ";", "g" ), "medium" );	
 	return restoredEquation
@@ -527,7 +553,9 @@ function solveEquation(rawEquation)
 	{
 		// restore known function names into the equation
 		implicitEquationStringWithFunctions = replaceStoredFunctions(implicitEquationString);
-		//alert(implicitEquationStringWithFunctions);
+		alert(implicitEquationString);
+		alert("turns into");
+		alert(implicitEquationStringWithFunctions);
 		
 		var parsedValue;
 		// this is the new math parse method	
@@ -696,9 +724,9 @@ Example: 2x + 3K((y-34x) - (3y/100)) (Could be the cost of a product minus taxes
 <h6>
 Functions Implemented: 
 	<ol>
-	<li>sin (definitely not working)</li> 
-	<li>cos (same)</li>
-	<li>tan (same)</li>
+	<li>sin and asin</li> 
+	<li>cos and acos</li>
+	<li>tan and atan</li>
 	<li>~ (square root) use like ~(4)</li>
 	<li>* (multiplication)</li>
 	<li>+ (addition)</li>
@@ -706,8 +734,26 @@ Functions Implemented:
 	<li>^ (power) (not working)</li>
 	<li>/ (divison)</li>
 	<li>% (percentage)</li>
-	<li>sum(n1, n2, n) (sum of all numbers) (not working)</li>
-	<li>medium(n1, n2, n) (average/medium of all numbers) (not working)</li>
+	<li>sum(n1, n2, n) (sum of all numbers)</li>
+	<li>medium(n1, n2, n) (average/medium of all numbers) </li>
+	<li>min(n1,n2,n) (lowest of all numbers)</li>
+	<li>max(n1,n2,n) (greatest of all numbers)</li>
+	<li>less(n1,n2) (returns 1 if n1 < n2, 0 if not)</li>
+	<li>greater(n1,n2) (returns 1 if n1 > n2, 0 if not)</li>
+	<li>euler(n) (returns euler's number * passed in value)</li>
+	
+	
+	
+Math Object Properties
+
+Property	Description
+E	Returns Euler's number (approx. 2.718)
+LN2	Returns the natural logarithm of 2 (approx. 0.693)
+LN10	Returns the natural logarithm of 10 (approx. 2.302)
+LOG2E	Returns the base-2 logarithm of E (approx. 1.442)
+LOG10E	Returns the base-10 logarithm of E (approx. 0.434)
+PI	Returns PI (approx. 3.14159)
+	
 	</ol>
 </h6>	
 	
