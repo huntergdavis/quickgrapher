@@ -283,7 +283,7 @@ function alphaNumericType(singlet) {
     if (/[\]\)\}]/.test(singlet)) {
    	returnVal = 5;
    	}  	
-   if (/[\û\ÿ\ù\ü\ú\þ\ÿ\,\&\@\#\~\_\:\;\+\-\/\*\^\%\\\!]/.test(singlet)) {
+   if (/[\ê\ò\ñ\ð\ï\î\í\ì\ë\÷\ö\õ\ô\ó\û\ÿ\ù\ø\ü\ú\þ\ÿ\,\&\@\#\~\_\:\;\+\-\/\*\^\%\\\!]/.test(singlet)) {
    	returnVal = 4;
    	}
    if (/[0-9.]/.test(singlet)) {
@@ -308,12 +308,34 @@ function alphaNumericType(singlet) {
 // less = ý
 // greater = ü
 // euler = û
-
+// factorial = ø
+// natlogten = ÷
+// natlog = ö
+// pi = õ
+// logtene = ô
+// logtwoe = ó
+// abs = ò
+// ceil = ñë
+// exp = ð
+// floor = ï
+// log = î
+// random = í
+// round = ì
+// sqrt = ë
+// fibonacci = ê
+// nextprime = é
 // replace all known functions with pipeesque characters
 // store these pipe characters incrementally in the functions array
 function storeAndReplaceFunctions(equation) {
 	var sanitizedEquation = equation;
 
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "nextprime", "gi" ), "é" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "fibonacci", "gi" ), "ê" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "pi", "gi" ), "õ" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "logtene", "gi" ), "ô" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "logtwoe", "gi" ), "ó" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "natlogten", "gi" ), "÷" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "natlog", "gi" ), "ö" );
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "asin", "gi" ), "&" );
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "acos", "gi" ), "@" );
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "atan", "gi" ), "#" );	
@@ -327,6 +349,15 @@ function storeAndReplaceFunctions(equation) {
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "less", "gi" ), "ý" );	
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "greater", "gi" ), "ü" );				
     sanitizedEquation = sanitizedEquation.replace( new RegExp( "euler", "gi" ), "û" );				
+    sanitizedEquation = sanitizedEquation.replace( new RegExp( "factorial", "gi" ), "ø" );	
+    sanitizedEquation = sanitizedEquation.replace( new RegExp( "abs", "gi" ), "ò" );			
+    sanitizedEquation = sanitizedEquation.replace( new RegExp( "ceil", "gi" ), "ñ" );	
+    sanitizedEquation = sanitizedEquation.replace( new RegExp( "exp", "gi" ), "ð" );			
+    sanitizedEquation = sanitizedEquation.replace( new RegExp( "floor", "gi" ), "ï" );	  		
+    sanitizedEquation = sanitizedEquation.replace( new RegExp( "log", "gi" ), "î" );			
+    sanitizedEquation = sanitizedEquation.replace( new RegExp( "random", "gi" ), "í" );			
+    sanitizedEquation = sanitizedEquation.replace( new RegExp( "round", "gi" ), "ì" );			
+    sanitizedEquation = sanitizedEquation.replace( new RegExp( "sqrt", "gi" ), "ë" );				
 
 	return sanitizedEquation;
 }
@@ -335,6 +366,22 @@ function replaceStoredFunctions(sanitizedEquation) {
 
 	var restoredEquation = sanitizedEquation;
 
+	restoredEquation = restoredEquation.replace( new RegExp( "é", "g" ), "nextprime" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ê", "g" ), "fibonacci" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ò", "g" ), "abs" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ñ", "g" ), "ceil" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ð", "g" ), "exp" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ï", "g" ), "floor" );
+	restoredEquation = restoredEquation.replace( new RegExp( "î", "g" ), "log" );
+	restoredEquation = restoredEquation.replace( new RegExp( "í", "g" ), "random" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ì", "g" ), "round" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ë", "g" ), "sqrt" );	
+	restoredEquation = restoredEquation.replace( new RegExp( "õ", "g" ), "pi" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ô", "g" ), "logtene" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ó", "g" ), "logtwoe" );
+	restoredEquation = restoredEquation.replace( new RegExp( "÷", "g" ), "natlogten" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ö", "g" ), "natlog" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ø", "g" ), "factorial" );
 	restoredEquation = restoredEquation.replace( new RegExp( "û", "g" ), "euler" );
 	restoredEquation = restoredEquation.replace( new RegExp( "ü", "g" ), "greater" );
 	restoredEquation = restoredEquation.replace( new RegExp( "ý", "g" ), "less" );
@@ -740,20 +787,23 @@ Functions Implemented:
 	<li>max(n1,n2,n) (greatest of all numbers)</li>
 	<li>less(n1,n2) (returns 1 if n1 < n2, 0 if not)</li>
 	<li>greater(n1,n2) (returns 1 if n1 > n2, 0 if not)</li>
-	<li>euler(n) (returns euler's number * passed in value)</li>
-	
-	
-	
-Math Object Properties
-
-Property	Description
-E	Returns Euler's number (approx. 2.718)
-LN2	Returns the natural logarithm of 2 (approx. 0.693)
-LN10	Returns the natural logarithm of 10 (approx. 2.302)
-LOG2E	Returns the base-2 logarithm of E (approx. 1.442)
-LOG10E	Returns the base-10 logarithm of E (approx. 0.434)
-PI	Returns PI (approx. 3.14159)
-	
+	<li>euler(n) (returns euler's number * passed in value) </li>
+	<li>factorial(n) (returns the nth factorial)</li>
+	<li>natlogten(n) (returns the natural logarithm of 10 * passed in value)</li>		
+	<li>natlog(n) (returns the natural logarithm of 2 * passed in value)</li>
+	<li>logtwoe(n) (returns the base-2 logarithm of E * passed in value)</li>	
+	<li>logtene(n) (returns the base-10 logarithm of E * passed in value)</li>	
+	<li>pi(n) (returns pi * passed in value)</li>		
+	<li>abs(n)	Returns the absolute value of x</li>
+	<li>ceil(n)	Returns n, rounded upwards to the nearest integer</li>
+	<li>exp(n)	Returns the value of En</li>
+	<li>floor(n)	Returns n, rounded downwards to the nearest integer</li>
+	<li>log(n)	Returns the natural logarithm (base E) of n</li>
+	<li>random(n)	Returns N * a random number between 0 and 1</li>
+	<li>round(n)	Rounds n to the nearest integer</li>
+	<li>sqrt(n)     Returns the square root of n</li>
+	<li>fibonacci(n) Returns the fibbonacci of n</li>
+	<li>nextprime(n) Returns the next prime number after n</li>
 	</ol>
 </h6>	
 	
