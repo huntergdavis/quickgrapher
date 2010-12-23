@@ -1,14 +1,7 @@
 //+ Jonas Raoni Soares Silva
 //@ http://jsfromhell.com/classes/math-processor [rev. #1]
 
-// extra math functions hunter added from SO examples and TAE
-Array.prototype.max = function() {
-  return Math.max.apply(null, this)
-}
-
-Array.prototype.min = function() {
-  return Math.min.apply(null, this)
-}
+// extra math functions hunter added from SO examples and TA
 
 MathProcessor = function(){
     var o = this;
@@ -48,8 +41,8 @@ with({p: MathProcessor.prototype}){
 		round: function(n){ return (Math.round(n)); },
 		sqrt: function(n){ return (Math.sqrt(n)); },
 		pi: function(n){ return (n * Math.PI); },
-		min: function(n1, n2){ args = arguments; return Math.min.apply(null, args); },		
-		max: function(n1, n2, n3, n){ args = arguments; return Math.max.apply(null, args); },
+		min: function(n1, n2){var result; var args = arguments;for (var i = 0; i <= args.length-1; i++){if(i == 0){result = args[0];};if(i > 0){result = Math.min(result,args[i]);}} return result; },		
+		max: function(n1, n2){var result; var args = arguments;for (var i = 0; i <= args.length-1; i++){if(i == 0){result = args[0];};if(i > 0){result = Math.max(result,args[i]);}} return result; },		
 		nextprime: function(n){var totest=Math.floor(n);if(totest >= 2){var smaller=1;while(smaller*smaller<=totest){totest++;smaller=2;while((totest%smaller>0)&&(smaller*smaller<=totest)){smaller++;}}return totest;}else{return 2;}},
 		fibonacci: function(n){var fibs = new Array();fibs[0] = 0; fibs[1] = 1; for(i=0; i<n; i++){fibs.push(fibs[0] + fibs[1]);fibs.shift();}return fibs[0];},
 		factorial: function(n){var result = 1;for (var i = 2; i <= n; i++) {result *= i;} return result;},
