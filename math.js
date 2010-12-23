@@ -51,7 +51,7 @@ with({p: MathProcessor.prototype}){
 		min: function(n1, n2){ args = arguments; return Math.min.apply(null, args); },		
 		max: function(n1, n2, n3, n){ args = arguments; return Math.max.apply(null, args); },
 		nextprime: function(n){var totest=Math.floor(n);if(totest >= 2){var smaller=1;while(smaller*smaller<=totest){totest++;smaller=2;while((totest%smaller>0)&&(smaller*smaller<=totest)){smaller++;}}return totest;}else{return 2;}},
-		fibonacci: function(n){for(i=0; i<n; i++){fibs.push(fibs[0] + fibs[1]);fibs.shift();}return fibs[0];},
+		fibonacci: function(n){var fibs = new Array();fibs[0] = 0; fibs[1] = 1; for(i=0; i<n; i++){fibs.push(fibs[0] + fibs[1]);fibs.shift();}return fibs[0];},
 		factorial: function(n){var result = 1;for (var i = 2; i <= n; i++) {result *= i;} return result;},
 		greater: function(n1, n2){ if (n1 > n2) { return 1; } return 0; },		
 		less: function(n1, n2){ if (n1 < n2) { return 1; } return 0; },					
