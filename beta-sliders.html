@@ -27,7 +27,11 @@ function loadSinWaves() {
 	var equation = "?&$sin(5x)%20-%20cos(5y)&#x&:X Times 5&,y&:5 Times Y&,&%x&:1&,y&:3&,&*";
 	loadSaved(equation);
 }
-
+// custom loadsaved functions for neater HTML downstairs
+function loadBillCalculator() {
+	var equation = "?&$100*(s%20-%20r%20-%20l%20-%20c%20-%20g-m-i)%20-%20n%20-t%20-p%20-a-e%20+%20100*(b%20+%20k)&#s&:Salary (*100 Monthly)&,r&:Rent (*100 Monthly)&,l&:Student Loan Payments (*100 Monthly)&,c&:Car Payments (*100 Monthly)&,g&:Grocery Bill (*100 Monthly)&,n&:Netflix&,t&:Tivo&,p&:Pet Food&,a&:Gas&,m&:Spending Money&,e&:Electric&,i&:Retirement Savings (*100 Monthly)&,b&:Income From Sub Lease (*100 Monthly)&,k&:Income From Stock Market (*100 Monthly)&,&%s&:33&,r&:17&,l&:2&,c&:3&,g&:5&,m&:3&,i&:6&,n&:14&,t&:12&,p&:47&,a&:66&,e&:78&,b&:6&,k&:1&,&*";
+	loadSaved(equation);
+}
 
 <!-- loadSaved uses the passed variables from the address bar to set equations and hashes -->
 function loadSaved() {
@@ -273,8 +277,13 @@ function moreSliders(varName, varTitle) {
 <!-- clearScreen clears out all named elements -->
 function clearScreen() {
 
-   arrayLegendHash = new Array();
-   arrayValueHash = new Array();
+
+   // as we're looping over values, don't clear the legend (annoying!)
+   //arrayLegendHash = null;
+   //arrayLegendHash = [];
+   arrayValueHash = null;
+   colorArray = null;
+   arrayValueHash = [];
    colorArray = [];
 
 	<!-- loop over the collection of cloned sliders and delete their parents -->
@@ -771,8 +780,6 @@ function solveEquation(rawEquation)
 	stringifyPage();
 }
 
-
-
 function updateGraph()
 {	
 	var args = arguments;
@@ -941,7 +948,7 @@ Example: 2x + 3K((y-34x) - (3y/100)) (Could be the cost of a product minus taxes
 	Fun Examples To Load In:
 	<ul>
 	<li><a href="javascript:loadSinWaves();">Sine and Cos Waves Fun</a></li>
-	<li></li>
+	<li><a href="javascript:loadBillCalculator();">Typical Bill Calculator</a></li>
 	<li>Rent and Expenses Calculator:</li>
 	</ul>
 
