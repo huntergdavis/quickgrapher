@@ -628,6 +628,7 @@ function solveEquation(rawEquation)
 			}
 		}
 	}	 
+		
 
 // at this point, we can 	
 <!-- Create an array with one element per item -->	
@@ -678,24 +679,31 @@ function solveEquation(rawEquation)
 <!-- loop over the individual element collection and reorganize into a string -->
 	var newEquationString = '';
 	var skipReplace = 0;
-	for(var i=0;i<eachIndividual.length;i++){	
-
+	var lastAlphaType = -1;
+	var alphaType = -1;
+	for(var i=0;i<eachIndividual.length;i++)
+	{	
+	
+		alphaType = alphaNumericType(eachIndividual[i]);
 		if(i>0){
-			if(alphaNumericType(eachIndividual[i]) == 6 && alphaNumericType(eachIndividual[i-1]) == 2){
+			if(alphaType == 6 && lastAlphaType == 2){
 				newEquationString += '*';
 			}
-			if(alphaNumericType(eachIndividual[i]) == 1 && alphaNumericType(eachIndividual[i-1]) == 2){
+			if(alphaType == 6 && lastAlphaType == 1){
+				newEquationString += '*';
+			}			
+			if(alphaType == 1 && lastAlphaType == 2){
 				newEquationString += '*' + arrayValueHash[eachIndividual[i]];
 				skipReplace = 1;
 			}	
-			if(alphaNumericType(eachIndividual[i]) == 1 && alphaNumericType(eachIndividual[i-1]) == 1){
+			if(alphaType == 1 && lastAlphaType == 1){
 				newEquationString += '*' + arrayValueHash[eachIndividual[i]];
 				skipReplace = 1;
 			}						
-			if(alphaNumericType(eachIndividual[i]) == 2 && alphaNumericType(eachIndividual[i-1]) == 5){
+			if(alphaType == 2 && lastAlphaType == 5){
 				newEquationString += '*';
 			}				
-			if(alphaNumericType(eachIndividual[i]) == 2 && alphaNumericType(eachIndividual[i-1]) == 2){
+			if(alphaType == 2 && lastAlphaType == 2){
 				newEquationString += '*';
 			}								
 		}
@@ -707,7 +715,7 @@ function solveEquation(rawEquation)
 		{		
 			if(skipReplace == 0)
 			{
-				if(alphaNumericType(eachIndividual[i]) == 1)
+				if(alphaType == 1)
 				{
 					newEquationString += arrayValueHash[eachIndividual[i]];
 				}
@@ -721,6 +729,10 @@ function solveEquation(rawEquation)
 				skipReplace = 0;
 			}
 		}
+		if(alphaType > 0)
+		{
+			lastAlphaType = alphaType;
+		}
 	}	// end of loop over element collection for loop
 
 <!-- loop over the reconstituted collection and add implicit * between brackets -->
@@ -733,7 +745,7 @@ function solveEquation(rawEquation)
 				implicitEquationString += '*';
 			}			
 		}	
-		if(newStringAlphaType != ' '){
+		if(newEquationString[i] != ' '){
 			implicitEquationString += newEquationString[i];
 		}	
 	}		
@@ -757,6 +769,9 @@ function solveEquation(rawEquation)
 		//alert(implicitEquationString);
 		//alert("turns into");
 		//alert(implicitEquationStringWithFunctions);
+		//document.getElementById("debugbar").value += implicitEquationStringWithFunctions;
+		//document.getElementById("debugbar").value += "::";
+		
 		
 		var parsedValue;
 		// this is the new math parse method	
@@ -764,8 +779,8 @@ function solveEquation(rawEquation)
 		try{
           parsedValue = p.parse(implicitEquationStringWithFunctions);
     	}catch(e){
-			alert("Could Not Parse the Following:");
-			alert(implicitEquationStringWithFunctions);
+			var alertString = "Could Not Parse The Following:" + implicitEquationStringWithFunctions;
+			alert(alertString);
         	parsedValue = 0;
     	}
 	
