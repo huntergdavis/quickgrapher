@@ -617,7 +617,7 @@ function solveEquation(rawEquation)
 				{
 					// solve for the inside of Parenthesies
 					var parenthesieSolution = solveEquation(insideParenthesies);
-					var newEquation = origEquation.substring(0,lastOpen) + parenthesieSolution;
+					var newEquation = origEquation.substring(0,lastOpen+1) + parenthesieSolution;
 					newEquation = newEquation + origEquation.substring(firstClosed,lenForUs);
 					return solveEquation(newEquation);
 				}
@@ -627,8 +627,7 @@ function solveEquation(rawEquation)
 				}
 			}
 		}
-	}	
-
+	}	 
 
 // at this point, we can 	
 <!-- Create an array with one element per item -->	
@@ -943,6 +942,7 @@ Example: 2x + 3K((y-34x) - (3y/100)) (Could be the cost of a product minus taxes
 	<br>Copy the below Equation Hash to continue editing your equation later. <br>
 	Paste any Equation Hash here and click Load to Continue editing. <br>
 	<input type="text" id="savebar" value="" />
+	<input type="text" id="debugbar" value="" />
 	<input type="button" id="LoadButton" value="Load" onclick="loadSaved()" />
 	
 <h6>
