@@ -500,11 +500,11 @@ function parseEquation() {
 function solveEquation(rawEquation)
 {
 	// always trim whitespace
-	trimmedEquation = rawEquation.replace(/^\s*/, "").replace(/\s*$/, "");
+	var trimmedEquation = rawEquation.replace(/^\s*/, "").replace(/\s*$/, "");
 	//alert(trimmedEquation);
 	
 	// in direct instances this is called twice, which is heinous but not noticible to user
-	origEquation = storeAndReplaceFunctions(trimmedEquation);
+	var origEquation = storeAndReplaceFunctions(trimmedEquation);
 	var lenForUs = origEquation.length;
 	
 <!-- This point is our Recursion, we solve for a smaller paranthesis and recurse --!>
@@ -555,7 +555,7 @@ function solveEquation(rawEquation)
 				{
 					// solve for the inside of Parenthesies
 					var parenthesieSolution = solveEquation(insideParenthesies);
-					var newEquation = origEquation.substring(0,firstOpen) + parenthesieSolution;
+					var newEquation = origEquation.substring(0,firstOpen+1) + parenthesieSolution;
 					newEquation = newEquation + origEquation.substring(lastClosed,lenForUs);
 					return solveEquation(newEquation);
 				}
@@ -631,7 +631,6 @@ function solveEquation(rawEquation)
 
 
 // at this point, we can 	
-	
 <!-- Create an array with one element per item -->	
 	var eachIndividual=new Array();
 	var eachIndividualSize = 0;
@@ -766,6 +765,8 @@ function solveEquation(rawEquation)
 		try{
           parsedValue = p.parse(implicitEquationStringWithFunctions);
     	}catch(e){
+			alert("Could Not Parse the Following:");
+			alert(implicitEquationStringWithFunctions);
         	parsedValue = 0;
     	}
 	
