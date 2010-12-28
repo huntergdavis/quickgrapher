@@ -233,8 +233,10 @@ function loadSaved() {
 		addValuesToHash(ValueHash);		
 	}		
 	
-	
+	// do an initial parse
 	parseEquation();	
+	// update all graphs 
+	updateAllGraphs();
 }
 
 // adds array legend titles to global hash
@@ -302,8 +304,11 @@ function showValue(sliderValue, sliderId) {
 
 
 	<!-- Also update the graph -->	
-	
-	updateGraph(1)
+	if(document.checkboxform.updategraphcheckbox.checked==false)
+	{
+		return;
+	}
+	updateGraph(sliderId);
 
    //document.getElementById(sliderId).nextSibling.innerHTML=sliderValue;
 }
@@ -325,7 +330,11 @@ function renameSlider(sliderName) {
 
 
 	<!-- Also update the graph -->	
-	updateGraph(1)
+	if(document.checkboxform.updategraphcheckbox.checked==false)
+	{
+		return;
+	}	
+	updateGraph(sliderName)
 	
 }
 
@@ -580,6 +589,8 @@ function clearAndParseEquation() {
 	clearScreen();
 	<!-- parse the equation -->	
 	parseEquation();
+	// update all graphs
+	updateAllGraphs()
 }
 
 <!-- parseEquation is an algorithm in 3 steps -->
@@ -638,7 +649,11 @@ function parseEquation() {
 	{
 		if(variableFound > 0)
 		{
-			updateGraph(1);	
+			if(document.checkboxform.updategraphcheckbox.checked==false)
+			{
+				return;
+			}		
+			updateAllGraphs();	
 		}
 	}	
 }
@@ -1054,49 +1069,73 @@ function solveEquation(rawEquation)
 	stringifyPage();
 }
 
-function updateGraph()
-{	
-	var args = arguments;
-	if(args.length > 0)
-	{
-		//test for checkbox here
-		if(document.checkboxform.updategraphcheckbox.checked==false)
-		{
-			return;
-		}
-	}
-
+// updates graphs for all variables
+function updateAllGraphs()
+{
+	// can't graph zero variables....
 	if(variableFound == 0)
 	{
 		return;
-	}	
+	}
 	
-	var subGraphElement = document.getElementById('subgraphChart');
+<!-- loop over each variable in the value hash -->
+<!-- keys[i] is the variable name like x or y-->
+<!-- the hash of keys[i] is the value for said variable-->
+	var iterator = 0;
+	var graphName = "";
+ 	var arrayValuekeys = arrayValueHash;
+	for(var varName in arrayValuekeys)
+	{ 
+	     graphName = "Title" + varName;
+	     updateGraph(graphName); 
+	}
+}
+
+// updates a single graph
+function updateGraph(graphName)
+{	
+	
+	// can't graph zero variables....
+	if(variableFound == 0)
+	{
+		return;
+	}		
+	
+	var graphVariable = graphName[graphName.length-1];;
+    var subGraphChartName = "subgraphChart" + graphVariable;
+    var graphChartName = "graphChart" + graphVariable;
+    var subGraphLegendName = "subgraphLegend" + graphVariable;
+
+	// delete any old graph of this variable
+	var subGraphElement = document.getElementById(subGraphChartName);
 	if(subGraphElement != null)
 	{
-		document.getElementById('graphChart').removeChild(subGraphElement);
+		document.getElementById(graphChartName).removeChild(subGraphElement);
 	}
 
+	// variables for rgraph instance
 	var myGraphElement = document.createElement("div");
-   myGraphElement.id = "subgraphChart";     
-        
-   myGraphElement.innerHTML = "";
-   
+    myGraphElement.id = subGraphChartName;     
+    myGraphElement.innerHTML = "";
+    document.getElementById(graphChartName).appendChild(myGraphElement); 
 
-   document.getElementById('graphChart').appendChild(myGraphElement); 
+	// our x and y variables for our canvas
+	var xsize = 300;
+	var ysize = 150;
+	var xpos = 20;
+	var ypos = 20;
 
-	var rGraph = Raphael("subgraphChart");
+	// our rgraph instance canvas
+	var rGraph = Raphael(subGraphChartName,xpos,ypos,xsize,ysize);
 		
 <!-- set txt type -->
 	rGraph.g.txtattr.font = "12px 'Fontin Sans', Fontin-Sans, sans-serif";
 
 
-<!-- storage for multidimensional arrays of X and Y plot values and legend-->
-	var myXValues = new Array;
-	var myYValues = new Array;
+<!-- storage for singledimensional arrays of X and Y plot values and legend-->
 	var YValueOneDimension = new Array;
 	var XValueOneDimension = new Array;	
-	var legendTxt = "<b>Legend</b><ul>";
+	var legendTxt = "<ul>";
 
 
 <!-- for now X value range is not dynamic, upgrade this later -->
@@ -1105,53 +1144,42 @@ function updateGraph()
 		XValueOneDimension[i] = i;
 	} 		
 
-<!-- loop over each variable in the value hash -->
-<!-- keys[i] is the variable name like x or y-->
-<!-- the hash of keys[i] is the value for said variable-->
-	var iterator = 0;
- 	var arrayValuekeys = arrayValueHash;
-   for(var varName in arrayValuekeys)
-   {   
-<!-- set the color array -->
-		var testColor = colorArray[iterator];
-		if(testColor == null)
-		{
-			colorArray[iterator] = Raphael.getColor();
-		}
-		
-		var testLabel = arrayLegendHash[varName];
 
-		if(testLabel == null)
-		{
-			testLabel = "Unlabeled";
-		}
-		legendTxt += "<li><FONT COLOR=\"" + colorArray[iterator] + "\">" + varName + "(" + testLabel + ")" + ": " +  colorArray[iterator] + "</FONT></li>";   
-   
+<!-- set the color array -->
+	var testColor = colorArray[graphVariable];
+	if(testColor == null)
+	{
+		colorArray[graphVariable] = Raphael.getColor();
+	}
+	
+	var testLabel = arrayLegendHash[graphVariable];
+
+	if(testLabel == null)
+	{
+		testLabel = "Unlabeled";
+	}
+	legendTxt += "<li><FONT COLOR=\"" + colorArray[graphVariable] + "\">" + graphVariable + "(" + testLabel + ")" + ": " +  colorArray[graphVariable] + "</FONT></li>";   
+
 <!-- for each variable, loop 100 times and find the equation solution for each loop iteration with that J var set as the value -->
-		var originalVarValue = arrayValueHash[varName];  
-		YValueOneDimension[0] = 0;
-		for(var j=1;j<100;j++)
+	var originalVarValue = arrayValueHash[graphVariable];  
+	YValueOneDimension[0] = 0;
+	var ourVal = 0;
+	for(var j=1;j<100;j++)
+	{
+		arrayValueHash[graphVariable] = j;
+		ourVal = solveEquation(document.getElementById('mainEquation').value);
+		if(document.getElementById("mainResult").innerHTML == "NaN")
 		{
-			arrayValueHash[varName] = j;
-			solveEquation(document.getElementById('mainEquation').value);
-			if(document.getElementById("mainResult").innerHTML == "NaN")
-			{
-				alert("Cannot Graph Value Which Equates To NaN (Such as asin(4) or 4/0 for example)");
-				return;
-			}
-			YValueOneDimension[j] = document.getElementById("mainResult").innerHTML;
-						
+			alert("Cannot Graph Value Which Equates To NaN (Such as asin(4) or 4/0 for example)");
+			return;
 		}
-		myXValues[iterator] = XValueOneDimension.slice(); 		
-<!-- add the Y value dimension into the Y value multi-dimensional Array --> 
-<!-- slice makes sure it is passed by value and not by reference --> 
-   	myYValues[iterator] = YValueOneDimension.slice();		
+		YValueOneDimension[j] = ourVal;
+					
+	}	
 		
 <!-- reset the key back to original state -->
-		arrayValueHash[varName] = originalVarValue;		
-   
-   	iterator = iterator + 1;
-   } 
+	arrayValueHash[graphVariable] = originalVarValue;		
+ 
 
 <!-- reset the equation back to original state -->
 	solveEquation(document.getElementById('mainEquation').value);
@@ -1164,27 +1192,22 @@ function updateGraph()
 <!-- append the legend -->               	
 	legendTxt += "</ul>"
 	var myLegendElement = document.createElement("div");
-   myLegendElement.id = "subgraphLegend";     
+   myLegendElement.id = subGraphLegendName;     
    myLegendElement.innerHTML = legendTxt;
 
-   document.getElementById('subgraphChart').appendChild(myLegendElement);  
+   document.getElementById(subGraphChartName).appendChild(myLegendElement);  
+   var tempColorArray = [];
+   tempColorArray[0] = colorArray[graphVariable];
 <!-- create the graph -->
-<!-- graph requires 2 multidimensional arrays of numbers -->
-<!-- the first set of arrays is the X axis values of each variable -->
-<!-- the second set of arrays is the Y axis values of each variable -->
-	var lines = rGraph.g.linechart(60, 10, 1000, 300, myXValues, myYValues,
-											 {nostroke: false, axis: "0 0 1 1", symbol: "o", smooth: true, colors: colorArray}).hoverColumn(function () {
-      	              this.tags = rGraph.set();
-        	           for (var i = 0, ii = this.y.length; i < ii; i++) {
-            	            this.tags.push(rGraph.g.tag(this.x, this.y[i], this.values[i], 160, 10).insertBefore(this).attr([{fill: "#fff"}, {fill: this.symbols[i].attr("fill")}]));
-               	     }
-	                }, function () {
-   	                 this.tags && this.tags.remove();
-      	          });
+<!-- graph requires 2 singleimensional arrays of numbers -->
+<!-- the first set of arrays is the X axis values of this variable-->
+<!-- the second set of arrays is the Y axis values of this variable-->
+	var lines = rGraph.g.linechart(xpos, ypos, xsize, ysize, XValueOneDimension, YValueOneDimension,
+											 {nostroke: false, axis: "0 0 1 1", symbol: "o", smooth: true, colors: tempColorArray});
          	       lines.symbols.attr({r: 3});
-            	    // lines.lines[0].animate({"stroke-width": 6}, 1000);
+            	   // lines.lines[0].animate({"stroke-width": 6}, 1000);
                	 // lines.symbols[0].attr({stroke: "#fff"});
-                	// lines.symbols[0][1].animate({fill: "#f00"}, 1000);              	               	
+                // lines.symbols[0][1].animate({fill: "#f00"}, 1000);              	               	
 }
 </script>
 <style type="text/css">
@@ -1194,6 +1217,17 @@ span.leftTitle {
   width: 200px;
 }
 
+svg {
+  height: 190px;
+  width: 340px;
+ }
+ 
+div.slidercontainer {
+	 border: thin;
+	 //border-style: solid;
+	 width: 484px;
+ }
+
 </style>
 
 <title>HTML5+JavaScript Sliders - A work in progress</title>
@@ -1202,10 +1236,9 @@ span.leftTitle {
 
 Equation: <input type="text" id="mainEquation" size="60"/>  = <span id="mainResult">0</span>
 <br>
-<input type="button" value="Parse Equation" onclick="clearAndParseEquation()" />
-<input type="button" value="Graph All Variables For All Ranges" onclick="updateGraph()" />
+<input type="button" value="Parse Equation And Graph Variables" onclick="clearAndParseEquation()" />
 <h6><form name="checkboxform">
-<input type="checkbox" name="updategraphcheckbox" onclick="updateGraph(1)" value=1>
+<input type="checkbox" name="updategraphcheckbox" onclick="updateAllGraphs()" value=1>
 Select the above checkbox to enable dynamic graph updates (Can be Very Processor Intensive)<br>
 Simply click parse equation, and all variables become dynamic html5 sliders<br>
 Use it to easily gauge the effect of multivariable equations in real life<br>
@@ -1215,67 +1248,72 @@ Example: 2x + 3K((y-34x) - (3y/100)) (Could be the cost of a product minus taxes
 
 
  <!-- Invisible Slider Template used to clone sliders -->
-	<div id="slidertemplate" name="sliderNameTemplate" style="display: none">
+	<div id="slidertemplate" name="sliderNameTemplate" style="display: none" class="slidercontainer">
 		<span id="sliderTitle" class="leftTitle"></span>
 		<input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" />
 	   <span id="subrangesliderID">0</span>
 	   <input type="button" id="Title" value="Rename" onclick="renameSlider(this.id)" />
+	   <input type="button" id="Title" value="Graph" onclick="updateGraph(this.id)" />
+	   <div id="graphChart" class="floatingright"></div>
 	</div>
-	<br>
-	<div id="graphChart"></div>
-	<br>Copy the below Equation Hash to continue editing your equation later. <br>
-	Paste any Equation Hash here and click Load to Continue editing. <br>
-	<input type="text" id="savebar" value="" />
-	<input type="button" id="LoadButton" value="Load" onclick="loadSaved()" />
-	
-<h6>
-	Fun Examples To Load In:
-	<ul>
-	<li><a href="javascript:loadSinWaves();">Sine and Cos Waves Fun</a></li>
-	<li><a href="javascript:loadBillCalculator();">Typical Bill Calculator</a></li>
-	<li><a href="javascript:loadNestedFunctions();">Simple Nested Functions With Multiple Arguments</a></li>
-	</ul>
+<p>
+<br>
+<div id="bottomdiv" class="bottomcontainer">
+		<br>
+		<br>Copy the below Equation Hash to continue editing your equation later. <br>
+		Paste any Equation Hash here and click Load to Continue editing. <br>
+		<input type="text" id="savebar" value="" />
+		<input type="button" id="LoadButton" value="Load" onclick="loadSaved()" />
+		
+	<h6>
+		Fun Examples To Load In:
+		<ul>
+		<li><a href="javascript:loadSinWaves();">Sine and Cos Waves Fun</a></li>
+		<li><a href="javascript:loadBillCalculator();">Typical Bill Calculator</a></li>
+		<li><a href="javascript:loadNestedFunctions();">Simple Nested Functions With Multiple Arguments</a></li>
+		</ul>
 
 
-Functions Implemented: 
-	<ol>
-	<li><a href="javascript:loadSine();">sin</a></li>
-	<li><a href="javascript:loadASine();">asin</a></li>
-	<li><a href="javascript:loadCos();">cos</a></li>
-	<li><a href="javascript:loadACos();">acos</a></li>
-	<li><a href="javascript:loadTan();">tan</a></li>
-	<li><a href="javascript:loadATan();">atan</a></li>
-	<li><a href="javascript:loadMult();">* (multiplication)</a></li>
-	<li><a href="javascript:loadAddition();">+ (addition)</a></li>
-	<li><a href="javascript:loadMinus();">- (negation/minus)</a></li>
-	<li><a href="javascript:loadPower();">^ (power) </a></li>
-	<li><a href="javascript:loadDivision();">/ (divison)</a></li>
-	<li><a href="javascript:loadPercentage();">% (percentage)</a></li>
-	<li><a href="javascript:loadSum();">sum(n1, n2, n) (sum of all numbers)</a></li>
-	<li><a href="javascript:loadMedium();">medium(n1, n2, n) (average/medium of all numbers) </a></li>
-	<li><a href="javascript:loadMin();">min(n1,n2,n) (lowest of all numbers)</a></li>
-	<li><a href="javascript:loadMax();">max(n1,n2,n) (greatest of all numbers)</a></li>
-	<li><a href="javascript:loadLess();">less(n1,n2) (returns 1 if n1 < n2, 0 if not)</a></li>
-	<li><a href="javascript:loadGreater();">greater(n1,n2) (returns 1 if n1 > n2, 0 if not)</a></li>
-	<li><a href="javascript:loadEuler();">euler(n) (returns euler's number * passed in value)</a> </li>
-	<li><a href="javascript:loadFactorial();">factorial(n) (returns the nth factorial)</a></li>
-	<li><a href="javascript:loadNatLogTen();">natlogten(n) (returns the natural logarithm of 10 * passed in value)</a></li>		
-	<li><a href="javascript:loadNatLog();">natlog(n) (returns the natural logarithm of 2 * passed in value)</a></li>
-	<li><a href="javascript:loadLogTwoE();">logtwoe(n) (returns the base-2 logarithm of E * passed in value)</a></li>	
-	<li><a href="javascript:loadLogTenE();">logtene(n) (returns the base-10 logarithm of E * passed in value)</a></li>	
-	<li><a href="javascript:loadPi();">pi(n) (returns pi * passed in value)</a></li>		
-	<li><a href="javascript:loadAbs();">abs(n)	Returns the absolute value of x</a></li>
-	<li><a href="javascript:loadCeil();">ceil(n)	Returns n, rounded upwards to the nearest integer</a></li>
-	<li><a href="javascript:loadExp();">exp(n)	Returns the value of En</a></li>
-	<li><a href="javascript:loadFloor();">floor(n)	Returns n, rounded downwards to the nearest integer</a></li>
-	<li><a href="javascript:loadLog();">log(n)	Returns the natural logarithm (base E) of n</a></li>
-	<li><a href="javascript:loadRandom();">random(n)	Returns N * a random number between 0 and 1</a></li>
-	<li><a href="javascript:loadRound();">round(n)	Rounds n to the nearest integer</a></li>
-	<li><a href="javascript:loadSqrt();">sqrt(n)     Returns the square root of n</a></li>
-	<li><a href="javascript:loadFibonacci();">fibonacci(n) Returns the fibbonacci of n</a></li>
-	<li><a href="javascript:loadNextPrime();">nextprime(n) Returns the next prime number after n</a></li>
-	</ol>
-</h6>	
+	Functions Implemented: 
+		<ol>
+		<li><a href="javascript:loadSine();">sin</a></li>
+		<li><a href="javascript:loadASine();">asin</a></li>
+		<li><a href="javascript:loadCos();">cos</a></li>
+		<li><a href="javascript:loadACos();">acos</a></li>
+		<li><a href="javascript:loadTan();">tan</a></li>
+		<li><a href="javascript:loadATan();">atan</a></li>
+		<li><a href="javascript:loadMult();">* (multiplication)</a></li>
+		<li><a href="javascript:loadAddition();">+ (addition)</a></li>
+		<li><a href="javascript:loadMinus();">- (negation/minus)</a></li>
+		<li><a href="javascript:loadPower();">^ (power) </a></li>
+		<li><a href="javascript:loadDivision();">/ (divison)</a></li>
+		<li><a href="javascript:loadPercentage();">% (percentage)</a></li>
+		<li><a href="javascript:loadSum();">sum(n1, n2, n) (sum of all numbers)</a></li>
+		<li><a href="javascript:loadMedium();">medium(n1, n2, n) (average/medium of all numbers) </a></li>
+		<li><a href="javascript:loadMin();">min(n1,n2,n) (lowest of all numbers)</a></li>
+		<li><a href="javascript:loadMax();">max(n1,n2,n) (greatest of all numbers)</a></li>
+		<li><a href="javascript:loadLess();">less(n1,n2) (returns 1 if n1 < n2, 0 if not)</a></li>
+		<li><a href="javascript:loadGreater();">greater(n1,n2) (returns 1 if n1 > n2, 0 if not)</a></li>
+		<li><a href="javascript:loadEuler();">euler(n) (returns euler's number * passed in value)</a> </li>
+		<li><a href="javascript:loadFactorial();">factorial(n) (returns the nth factorial)</a></li>
+		<li><a href="javascript:loadNatLogTen();">natlogten(n) (returns the natural logarithm of 10 * passed in value)</a></li>		
+		<li><a href="javascript:loadNatLog();">natlog(n) (returns the natural logarithm of 2 * passed in value)</a></li>
+		<li><a href="javascript:loadLogTwoE();">logtwoe(n) (returns the base-2 logarithm of E * passed in value)</a></li>	
+		<li><a href="javascript:loadLogTenE();">logtene(n) (returns the base-10 logarithm of E * passed in value)</a></li>	
+		<li><a href="javascript:loadPi();">pi(n) (returns pi * passed in value)</a></li>		
+		<li><a href="javascript:loadAbs();">abs(n)	Returns the absolute value of x</a></li>
+		<li><a href="javascript:loadCeil();">ceil(n)	Returns n, rounded upwards to the nearest integer</a></li>
+		<li><a href="javascript:loadExp();">exp(n)	Returns the value of En</a></li>
+		<li><a href="javascript:loadFloor();">floor(n)	Returns n, rounded downwards to the nearest integer</a></li>
+		<li><a href="javascript:loadLog();">log(n)	Returns the natural logarithm (base E) of n</a></li>
+		<li><a href="javascript:loadRandom();">random(n)	Returns N * a random number between 0 and 1</a></li>
+		<li><a href="javascript:loadRound();">round(n)	Rounds n to the nearest integer</a></li>
+		<li><a href="javascript:loadSqrt();">sqrt(n)     Returns the square root of n</a></li>
+		<li><a href="javascript:loadFibonacci();">fibonacci(n) Returns the fibbonacci of n</a></li>
+		<li><a href="javascript:loadNextPrime();">nextprime(n) Returns the next prime number after n</a></li>
+		</ol>
+	</h6>	
+</div>
 	</body>
 </html>
 
