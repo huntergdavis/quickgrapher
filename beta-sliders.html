@@ -32,6 +32,20 @@ function loadBillCalculator() {
 	var equation = "?&$100*(s%20-%20r%20-%20l%20-%20c%20-%20g-m-i)%20-%20n%20-t%20-p%20-a-e%20+%20100*(b%20+%20k)&#s&:Salary (*100 Monthly)&,r&:Rent (*100 Monthly)&,l&:Student Loan Payments (*100 Monthly)&,c&:Car Payments (*100 Monthly)&,g&:Grocery Bill (*100 Monthly)&,n&:Netflix&,t&:Tivo&,p&:Pet Food&,a&:Gas&,m&:Spending Money&,e&:Electric&,i&:Retirement Savings (*100 Monthly)&,b&:Income From Sub Lease (*100 Monthly)&,k&:Income From Stock Market (*100 Monthly)&,&%s&:33&,r&:17&,l&:2&,c&:3&,g&:5&,m&:3&,i&:6&,n&:14&,t&:12&,p&:47&,a&:66&,e&:78&,b&:6&,k&:1&,&*";
 	loadSaved(equation);
 }
+// custom loadsaved functions for neater HTML downstairs
+function loadNestedFunctions() {
+    var equation = "?&$min(sum(max(1,x,4),min(3,4,5)),sum(max(1,y,3),min(6,5,3)))&#x&:Maximum Quantifier A&,y&:Maximum Quantifier B&,&%x&:7&,y&:7&,&*";
+ 	loadSaved(equation);
+}
+// custom loadsaved functions for neater HTML downstairs
+function loadSine() {
+    var equation = "?&$sin(x)&#x&:Sine&,y&:Maximum Quantifier B&,&%x&:0&,&*";
+    loadSaved(equation);
+}     
+function loadASine() {
+    var equation = "?&$asin(x)&#x&:ASine&,y&:Maximum Quantifier B&,&%x&:0&,&*";
+    loadSaved(equation);
+}    
 
 <!-- loadSaved uses the passed variables from the address bar to set equations and hashes -->
 function loadSaved() {
@@ -324,8 +338,8 @@ function alphaNumericType(singlet) {
 // sin = ú
 // cos = ù
 // tan = _
-// asin = &
-// acos = @
+// asin = Ǵ
+// acos = ǵ
 // atan = #
 // sum = :
 // medium = ;
@@ -362,8 +376,8 @@ function storeAndReplaceFunctions(equation) {
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "logtwoe", "gi" ), "ó" );
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "natlogten", "gi" ), "÷" );
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "natlog", "gi" ), "ö" );
-	sanitizedEquation = sanitizedEquation.replace( new RegExp( "asin", "gi" ), "&" );
-	sanitizedEquation = sanitizedEquation.replace( new RegExp( "acos", "gi" ), "@" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "asin", "gi" ), "Ǵ" );
+	sanitizedEquation = sanitizedEquation.replace( new RegExp( "acos", "gi" ), "ǵ" );
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "atan", "gi" ), "#" );	
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "sin", "gi" ), "ú" );
 	sanitizedEquation = sanitizedEquation.replace( new RegExp( "cos", "gi" ), "ù" );
@@ -416,8 +430,8 @@ function replaceStoredFunctions(sanitizedEquation) {
 	restoredEquation = restoredEquation.replace( new RegExp( "ú", "g" ), "sin" );
 	restoredEquation = restoredEquation.replace( new RegExp( "ù", "g" ), "cos" );
 	restoredEquation = restoredEquation.replace( new RegExp( "_", "g" ), "tan" );
-	restoredEquation = restoredEquation.replace( new RegExp( "&", "g" ), "asin" );
-	restoredEquation = restoredEquation.replace( new RegExp( "@", "g" ), "acos" );
+	restoredEquation = restoredEquation.replace( new RegExp( "Ǵ", "g" ), "asin" );
+	restoredEquation = restoredEquation.replace( new RegExp( "ǵ", "g" ), "acos" );
 	restoredEquation = restoredEquation.replace( new RegExp( "#", "g" ), "atan" );	
 	restoredEquation = restoredEquation.replace( new RegExp( ":", "g" ), "sum" );
 	restoredEquation = restoredEquation.replace( new RegExp( ";", "g" ), "medium" );	
@@ -553,6 +567,62 @@ function solveEquation(rawEquation)
 				// if openParenIndex > 1, we can recurse further...
 				if(openParenIndex > 1)
 				{
+					// at this point, we may be inside a functional argument
+					// test for first level commas
+					var splitPoint = -1;
+					var lastSplitPoint = 0;
+		            var recursiveDepth = 0;
+		            var splitUp = 0;
+		            var equationStringAfterSplitParse = origEquation.substring(0,firstOpen+1);
+					for(var k=0;k<insideParenthesies.length;k++)
+					{
+						if(insideParenthesies[k] == ',')
+						{
+							if(recursiveDepth == 0)
+							{
+								// if we find a split, recurse for this item in the function arguments
+								splitPoint = k;
+								splitUp = 1;
+								var ourSplitFirstPart = insideParenthesies.substr(lastSplitPoint,splitPoint);
+								var ourSplitFirstPartSolution = solveEquation(ourSplitFirstPart);
+								equationStringAfterSplitParse += ourSplitFirstPartSolution;
+								equationStringAfterSplitParse += ",";
+								
+								lastSplitPoint = splitPoint;
+							}
+						}
+						if((k == insideParenthesies.length-1) && splitUp == 1)
+						{
+								var alertString = "got to end of arguments" + "::";
+								//document.getElementById("debugbar").value += alertString;										
+								// if we previously found a split and are at the end, grab the last bit
+								splitPoint = k;
+								var ourSplitFirstPart = insideParenthesies.substr(lastSplitPoint+1,splitPoint);
+								var ourSplitFirstPartSolution = solveEquation(ourSplitFirstPart);
+								equationStringAfterSplitParse += ourSplitFirstPartSolution;
+								lastSplitPoint = splitPoint;	
+						}
+						
+						// if we see an open bracket, ++
+						// if we see a closed bracket, --
+						// 6 = open, 5 = closed
+						var alphaType = alphaNumericType(insideParenthesies[k]);
+						if(alphaType == 6)
+						{
+							recursiveDepth++;
+						}
+						else if(alphaType == 5)
+						{
+							recursiveDepth--;
+						}
+						
+					}
+					if(splitUp == 1)
+					{
+						equationStringAfterSplitParse += origEquation.substring(lastClosed,lenForUs);
+						return solveEquation(equationStringAfterSplitParse);
+					}
+					// else if we have no first level commas,
 					// solve for the inside of Parenthesies
 					var parenthesieSolution = solveEquation(insideParenthesies);
 					var newEquation = origEquation.substring(0,firstOpen+1) + parenthesieSolution;
@@ -615,6 +685,59 @@ function solveEquation(rawEquation)
 				// if openParenIndex > 1, we can recurse further...
 				if(openParenIndex > 1)
 				{
+					// at this point, we may be inside a functional argument
+					// test for first level commas
+					var splitPoint = -1;
+					var lastSplitPoint = insideParenthesies.length;
+		            var recursiveDepth = 0;
+		            var splitUp = 0;
+		            var equationStringAfterSplitParse = origEquation.substring(firstClosed,lenForUs);
+					for(var k=insideParenthesies.length;k>0;k--)
+					{
+						if(insideParenthesies[k] == ',')
+						{
+							if(recursiveDepth == 0)
+							{
+								// if we find a split, recurse for this item in the function arguments
+								splitPoint = k;
+								splitUp = 1;
+								var ourSplitFirstPart = insideParenthesies.substr(splitPoint,lastSplitPoint);
+								var ourSplitFirstPartSolution = solveEquation(ourSplitFirstPart);
+								equationStringAfterSplitParse = ourSplitFirstPartSolution + equationStringAfterSplitParse;
+								
+								lastSplitPoint = splitPoint;
+							}
+						}
+						if(k == insideParenthesies.length && splitUp == 1)
+						{
+								// if we previously found a split and are at the end, grab the last bit
+								splitPoint = k;
+								var ourSplitFirstPart = insideParenthesies.substr(splitPoint,lastSplitPoint);
+								var ourSplitFirstPartSolution = solveEquation(ourSplitFirstPart);
+								equationStringAfterSplitParse = ourSplitFirstPartSolution + equationStringAfterSplitParse;
+								lastSplitPoint = splitPoint;	
+						}
+						
+						// if we see an open bracket, ++
+						// if we see a closed bracket, --
+						// 6 = open, 5 = closed
+						var alphaType = alphaNumericType(insideParenthesies[k]);
+						if(alphaType == 6)
+						{
+							recursiveDepth++;
+						}
+						else if(alphaType == 5)
+						{
+							recursiveDepth--;
+						}
+						
+					}
+					if(splitUp == 1)
+					{
+						equationStringAfterSplitParse = origEquation.substring(0,lastSplitPoint) + equationStringAfterSplitParse;
+						return solveEquation(equationStringAfterSplitParse);
+					}
+					// else if we have no first level commas,					
 					// solve for the inside of Parenthesies
 					var parenthesieSolution = solveEquation(insideParenthesies);
 					var newEquation = origEquation.substring(0,lastOpen+1) + parenthesieSolution;
@@ -627,7 +750,7 @@ function solveEquation(rawEquation)
 				}
 			}
 		}
-	}	 
+	}	 	
 		
 
 // at this point, we can 	
@@ -777,11 +900,13 @@ function solveEquation(rawEquation)
 		var parsedValue;
 		// this is the new math parse method	
 		var p = new MathProcessor()
-		try{
+		try{		
           parsedValue = p.parse(implicitEquationStringWithFunctions);
     	}catch(e){
-			var alertString = "Could Not Parse The Following:" + implicitEquationStringWithFunctions;
-			alert(alertString);
+			//var alertString = "Could Not Parse The Following:" + implicitEquationStringWithFunctions + "::";
+			//document.getElementById("debugbar").value += alertString;
+					
+			//alert(alertString);
         	parsedValue = 0;
     	}
 	
@@ -876,6 +1001,11 @@ function updateGraph()
 		{
 			arrayValueHash[varName] = j;
 			solveEquation(document.getElementById('mainEquation').value);
+			if(document.getElementById("mainResult").innerHTML == "NaN")
+			{
+				alert("Cannot Graph Value Which Equates To NaN (Such as asin(4) for example)");
+				return;
+			}
 			YValueOneDimension[j] = document.getElementById("mainResult").innerHTML;
 						
 		}
@@ -965,13 +1095,14 @@ Example: 2x + 3K((y-34x) - (3y/100)) (Could be the cost of a product minus taxes
 	<ul>
 	<li><a href="javascript:loadSinWaves();">Sine and Cos Waves Fun</a></li>
 	<li><a href="javascript:loadBillCalculator();">Typical Bill Calculator</a></li>
-	<li>Rent and Expenses Calculator:</li>
+	<li><a href="javascript:loadNestedFunctions();">Simple Nested Functions With Multiple Arguments</a></li>
 	</ul>
 
 
 Functions Implemented: 
 	<ol>
-	<li>sin and asin</li> 
+	<li><a href="javascript:loadSine();">sin</a></li>
+	<li><a href="javascript:loadASine();">asin</a></li>
 	<li>cos and acos</li>
 	<li>tan and atan</li>
 	<li>* (multiplication)</li>
@@ -1005,7 +1136,7 @@ Functions Implemented:
 	<li>nextprime(n) Returns the next prime number after n</li>
 	</ol>
 </h6>	
-	
+	<input type="text" id="debugbar" value="" />
 	</body>
 </html>
 
