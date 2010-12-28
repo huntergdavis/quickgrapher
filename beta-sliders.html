@@ -306,7 +306,7 @@ function showValue(sliderValue, sliderId) {
 	<!-- Also update the graph -->	
 	if(document.checkboxform.updategraphcheckbox.checked==false)
 	{
-		updateGraph(sliderId);
+		return;
 	}
 	else
 	{
@@ -1232,7 +1232,7 @@ svg {
 div.slidercontainer {
 	 border: thin;
 	 //border-style: solid;
-	 width: 484px;
+	 width: 544px;
  }
 
 </style>
@@ -1240,7 +1240,8 @@ div.slidercontainer {
 <title>QuickGraph</title>
 <body>
 <h2>QuickGraph</h2>
-<h5>Simply click parse equation, and all variables become dynamic html5 sliders</h5>
+<h5>Simply click parse equation, and all variables become dynamic html5 sliders.  <br>
+Each graph is a snapshot of the current equation for all ranges of that variable.</h5>
 Equation: <input type="text" id="mainEquation" size="60"/>  = <span id="mainResult">0</span>
 <input type="button" value="Parse Equation And Graph Variables" onclick="clearAndParseEquation()" />
  <!-- Invisible Slider Template used to clone sliders -->
@@ -1249,7 +1250,7 @@ Equation: <input type="text" id="mainEquation" size="60"/>  = <span id="mainResu
 		<input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" />
 	   <span id="subrangesliderID">0</span>
 	   <input type="button" id="Title" value="Rename" onclick="renameSlider(this.id)" />
-	   <input type="button" id="Title" value="Graph" onclick="updateGraph(this.id)" />
+	   <input type="button" id="Title" value="Update Graphs" onclick="updateAllGraphs()" />
 	   <div id="graphChart" class="floatingright"></div>
 	</div>
 <div id="bottomdiv" class="bottomcontainer">
