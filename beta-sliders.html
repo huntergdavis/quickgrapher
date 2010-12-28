@@ -200,7 +200,7 @@ function renameSlider(sliderName) {
 <!-- the returned string is exactly what hash.concat({key: 'value', key2: 'value'}) is looking for -->
 function stringifyHash() {
 	var returnString = "";
- 	var keys = arrayLegendHash;
+ 	var keys = arrayValueHash;
     for(var i in keys){
     	returnString += i + "&:" +  arrayLegendHash[i];
     	returnString += "&," 
