@@ -306,9 +306,12 @@ function showValue(sliderValue, sliderId) {
 	<!-- Also update the graph -->	
 	if(document.checkboxform.updategraphcheckbox.checked==false)
 	{
-		return;
+		updateGraph(sliderId);
 	}
-	updateGraph(sliderId);
+	else
+	{
+		updateAllGraphs();
+	}
 
    //document.getElementById(sliderId).nextSibling.innerHTML=sliderValue;
 }
@@ -332,9 +335,13 @@ function renameSlider(sliderName) {
 	<!-- Also update the graph -->	
 	if(document.checkboxform.updategraphcheckbox.checked==false)
 	{
-		return;
+		updateGraph(sliderName);
+	}
+	else
+	{
+		updateAllGraphs();
 	}	
-	updateGraph(sliderName)
+	
 	
 }
 
@@ -1230,23 +1237,12 @@ div.slidercontainer {
 
 </style>
 
-<title>HTML5+JavaScript Sliders - A work in progress</title>
+<title>QuickGraph</title>
 <body>
-<h2>HTML5+JavaScript Sliders - A work in progress</h2>
-
+<h2>QuickGraph</h2>
+<h5>Simply click parse equation, and all variables become dynamic html5 sliders</h5>
 Equation: <input type="text" id="mainEquation" size="60"/>  = <span id="mainResult">0</span>
-<br>
 <input type="button" value="Parse Equation And Graph Variables" onclick="clearAndParseEquation()" />
-<h6><form name="checkboxform">
-<input type="checkbox" name="updategraphcheckbox" onclick="updateAllGraphs()" value=1>
-Select the above checkbox to enable dynamic graph updates (Can be Very Processor Intensive)<br>
-Simply click parse equation, and all variables become dynamic html5 sliders<br>
-Use it to easily gauge the effect of multivariable equations in real life<br>
-Example: 2x + 3K((y-34x) - (3y/100)) (Could be the cost of a product minus taxes, rates, etc)<br>
-**NOTE** - Newer browsers which do not yet support HTML5 sliders will show text entry boxes, graphs may not display
-</form></h6>
-
-
  <!-- Invisible Slider Template used to clone sliders -->
 	<div id="slidertemplate" name="sliderNameTemplate" style="display: none" class="slidercontainer">
 		<span id="sliderTitle" class="leftTitle"></span>
@@ -1256,15 +1252,15 @@ Example: 2x + 3K((y-34x) - (3y/100)) (Could be the cost of a product minus taxes
 	   <input type="button" id="Title" value="Graph" onclick="updateGraph(this.id)" />
 	   <div id="graphChart" class="floatingright"></div>
 	</div>
-<p>
-<br>
 <div id="bottomdiv" class="bottomcontainer">
-		<br>
-		<br>Copy the below Equation Hash to continue editing your equation later. <br>
-		Paste any Equation Hash here and click Load to Continue editing. <br>
+	<br>Copy the below Equation Hash to continue editing your equation later. <br>
+	Paste any Equation Hash here and click Load to Continue editing. <br>
 		<input type="text" id="savebar" value="" />
-		<input type="button" id="LoadButton" value="Load" onclick="loadSaved()" />
-		
+		<input type="button" id="LoadButton" value="Load Equation Hash" onclick="loadSaved()" />
+<form name="checkboxform">
+<input type="checkbox" name="updategraphcheckbox" onclick="updateAllGraphs()" value=1>
+Check to enable dynamic graph updates for all graphs (Can be Very Processor Intensive)
+</form>		
 	<h6>
 		Fun Examples To Load In:
 		<ul>
