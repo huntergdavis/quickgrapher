@@ -1,0 +1,15 @@
+span.leftTitle {
+  display: inline-block;
+  width: 200px;
+}
+
+svg {
+  height: 190px;
+  width: 340px;
+ }
+ 
+div.slidercontainer {
+   border: thin;
+   //border-style: solid;
+   width: 544px;
+ }
