@@ -1,5 +1,5 @@
 /* OUR ONLY GLOBALS ARE DECLARED
-HERE- array of variable names to legend info, array of variable names to values graphial graph*/
+ HERE- array of variable names to legend info, array of variable names to values graphial graph*/
 var arrayLegendHash = new Array();
 var arrayValueHash = new Array();
 var colorArray = [];
@@ -201,7 +201,7 @@ function loadNextPrime() {
 }
 
 /* loadSaved uses the passed variables from the address bar to set equations and
-hashes */
+ hashes */
 function loadSaved() {
     var args = arguments;
     var loadString = "";
@@ -216,7 +216,7 @@ function loadSaved() {
     } else {
 
         /* Clear the
-        Screen */
+         Screen */
         clearScreen();
         /* Set our Equation */
         var equationStart = loadString.indexOf("?&$")+3;
@@ -262,7 +262,7 @@ function addTitlesToHash(titles) {
     var parseBlock = titles;
 
     /* Loop through all
-    values in title bar and add them to hash table reference for names */
+     values in title bar and add them to hash table reference for names */
     while(stillParsing == 1) {
         nextDelimiter = parseBlock.indexOf("&:");
         if(nextDelimiter > -1) {
@@ -286,7 +286,7 @@ function addValuesToHash(titles) {
     var parseBlock = titles;
 
     /* Loop through all
-    values in title bar and add them to hash table reference for names */
+     values in title bar and add them to hash table reference for names */
     while(stillParsing == 1) {
         nextDelimiter = parseBlock.indexOf("&:");
         if(nextDelimiter > -1) {
@@ -305,7 +305,7 @@ function addValuesToHash(titles) {
 
 /* showValue changes the sibling span text of a slider to be its value and recalculates the equation*/
 /* The overall formula based on the
-change in this variable */
+ change in this variable */
 function showValue(sliderValue, sliderId) {
 
     var sliderSubLabel = document.getElementById("sub" + sliderId);
@@ -352,7 +352,7 @@ function renameSlider(sliderName) {
 
 /* stringify hash turns the main arrayLegendHash into a string and returns it */
 /* the returned string is exactly what
-hash.concat({key: 'value', key2: 'value'}) is looking for */
+ hash.concat({key: 'value', key2: 'value'}) is looking for */
 function stringifyHash() {
     var returnString = "";
     var keys = arrayValueHash;
@@ -366,7 +366,7 @@ function stringifyHash() {
 
 /* stringify values hash turns the main arrayValueHash into a string and returns it */
 /* the returned string is exactly what
-hash.concat({key: 'value', key2: 'value'}) is looking for */
+ hash.concat({key: 'value', key2: 'value'}) is looking for */
 function stringifyValueHash() {
     var returnString = "";
     var keys = arrayValueHash;
@@ -379,7 +379,7 @@ function stringifyValueHash() {
 }
 
 /* StringifyPage stringifies the hash as well as the
-equation */
+ equation */
 function stringifyPage() {
     var stringifiedHash = stringifyHash();
     var stringifiedValuesHash = stringifyValueHash();
@@ -390,7 +390,7 @@ function stringifyPage() {
 }
 
 /* moreSliders copies the invisible div slider element "slidertemplate" into a sibling div named sliderOutputX where
-X=numSliders */
+ X=numSliders */
 function moreSliders(varName, varTitle) {
 
     /* Here we set the value hash with the value */
@@ -452,7 +452,7 @@ function clearScreen() {
     colorArray = [];
 
     /* loop over the collection of cloned sliders and
-    delete their parents */
+     delete their parents */
     var cloneSpanCollection = document.getElementsByName("clonedSlider");
     var cloneSpanCollectionLength = cloneSpanCollection.length;
     for (var i=0;i<cloneSpanCollectionLength;i++) {
@@ -462,9 +462,9 @@ function clearScreen() {
 
 /* alphaNumericType returns the alphaNumericType of the single char passed */
 /* alphaNumericType:
-6=open parantheses
-5=closed paranthesis 4=operator,  2 =numeric, 1=alpha, 0=unsupported
-operator*/
+ 6=open parantheses
+ 5=closed paranthesis 4=operator,  2 =numeric, 1=alpha, 0=unsupported
+ operator*/
 function alphaNumericType(singlet) {
     var returnVal;
 
@@ -595,27 +595,27 @@ function replaceStoredFunctions(sanitizedEquation) {
 }
 
 /* clear the screen and parse the
-equation */
+ equation */
 function clearAndParseEquation() {
     /* clear the
-    screen */
+     screen */
     clearScreen();
     /* parse the
-    equation */
+     equation */
     parseEquation();
     // update all graphs
     updateAllGraphs()
 }
 
 /* parseEquation is an
-algorithm in 3 steps */
+ algorithm in 3 steps */
 /* Step
-1 - fill an array with each variable from equation */
+ 1 - fill an array with each variable from equation */
 /* Step
-2 - call moreSliders to create a dynamic slider with each variable from equation */
+ 2 - call moreSliders to create a dynamic slider with each variable from equation */
 /* Step
-3 - moreSliders also creates a named textual field for the dynamic
-slider */
+ 3 - moreSliders also creates a named textual field for the dynamic
+ slider */
 function parseEquation() {
     /* Create a variable and relevant info with the equation from mainEquation field */
     var rawEquation = storeAndReplaceFunctions(document.getElementById('mainEquation').value);
@@ -624,7 +624,7 @@ function parseEquation() {
     /* Also, sanity check that open paranthesis match closed parenthesis */
     /* while we are looping, also throw the sliders up for each alpha type */
     /* This is currently a heinous
-    n^2 algorithm because of programmer laziness and input size */
+     n^2 algorithm because of programmer laziness and input size */
     var variableChars=new Array();
     variableFound = 0;
     var paranthesisCheck = 0;
@@ -642,7 +642,8 @@ function parseEquation() {
                 variableChars[variableChars.length] = rawEquation[i];
                 moreSliders(rawEquation[i],"");
             }
-        } // end alphamatch test else if(innerType == 6) {
+        } else if(innerType == 6) {
+          // end alphamatch test 
             paranthesisCheck = paranthesisCheck + 1;
         } else if(innerType == 5) {
             paranthesisCheck = paranthesisCheck - 1;
@@ -655,7 +656,7 @@ function parseEquation() {
     }
 
     /* solve the first pass at the equation with zero
-    values */
+     values */
     solveEquation(rawEquation);
 
     if(rawEquation.length > 0) {
@@ -906,8 +907,8 @@ function solveEquation(rawEquation) {
     }
     /* start looping over the equation, cleaning up variables */
     /* alphaNumericType:
-    6=open parantheses
-    5=closed paranthesis 4=operator,  2 =numeric, 1=alpha, 0=unsupported operator*/
+     6=open parantheses
+     5=closed paranthesis 4=operator,  2 =numeric, 1=alpha, 0=unsupported operator*/
     /* loop over the individual element collection and reorganize into a string */
     var newEquationString = '';
     var skipReplace = 0;
@@ -958,7 +959,7 @@ function solveEquation(rawEquation) {
     } // end of loop over element collection for loop
 
     /* loop over the reconstituted collection and add
-    implicit * between brackets */
+     implicit * between brackets */
     /* also, remove white spaces! */
     var implicitEquationString = '';
     for(var i=0;i<newEquationString.length;i++) {
