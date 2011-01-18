@@ -1024,6 +1024,8 @@ function updateAllGraphs() {
     if(variableFound == 0) {
         return;
     }
+    
+    document.getElementById("formula").innerHTML = document.getElementById("mainEquation").value;
 
     /* loop over each variable in the value hash */
     /* keys[i] is the variable name like x or y*/

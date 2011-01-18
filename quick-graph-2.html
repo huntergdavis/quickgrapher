@@ -24,14 +24,17 @@ hunter or mark at discursivelabs.com
   </head>
   <body>
       <h1>QuickGraph</h1>
-      <br/>
       <h2>Instructions</h2>
       <h5>Simply click parse equation, and all variables become dynamic html5 sliders.
       <br>
       Each graph is a snapshot of the current equation for all ranges of that variable.</h5>
-      Equation:
-      <input type="text" id="mainEquation" size="60"/>  = <span id="mainResult">0</span>
-      <input type="button" value="Parse Equation And Graph Variables" onclick="clearAndParseEquation()" />
+      Equation:<br/>
+      <input type="text" id="mainEquation" size="60"/>  
+      <input type="button" value="Graph!" onclick="clearAndParseEquation()"/><br/>
+      <div id="result">
+        <span id="formula">0</span> = <span id="mainResult">0</span>
+      </div>
+      <br/>
       <!-- Invisible Slider Template used to clone sliders -->
       <div id="slidertemplate" name="sliderNameTemplate" style="display: none" class="slidercontainer">
           <span id="sliderTitle" class="leftTitle"></span>
