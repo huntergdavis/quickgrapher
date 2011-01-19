@@ -187,7 +187,16 @@ var QGSolver = function() {
                     {
                         // Attempt to recurse until we can close
                         //this.close(curr);
-                        alert("Error: Trying to close function " + curr.toString() + " but status: [closed: "+curr.closed()+",prefixed:"+curr.prefix()+",parenFound:"+parenClosed+",prevType:"+(prev?prev.type:prev)+"]");
+                        console.log("Warning: Trying to close function " + curr.toString() + " but status: [closed: "+curr.closed()+",prefixed:"+curr.prefix()+",parenFound:"+parenClosed+",prevType:"+(prev?prev.type:prev)+"].  Breaking...");
+                        if(parenClosed)
+                        {
+                            // Replace items on stack since we didn't use them
+                            this.active.push(curr);
+                            if(typeof prev != "undefined")
+                            {
+                                this.active.push(prev);
+                            }
+                        }
                     }
                 }
                 else if(curr.type == "QGBlock")
