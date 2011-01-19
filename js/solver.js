@@ -551,6 +551,17 @@ var QGSolver = function() {
                     break;
                 // Closing char
                 case 5:
+                    // Close any open strings
+                    if(builtString.length > 0) {
+                        eq.append(new QGVariable(builtString));
+                        builtString = "";
+                    }
+                    // If we are working on a number, assume its a constant
+                    else if(builtNumber.length > 0)
+                    {
+                        eq.append(new QGConstant(parseInt(builtNumber)));
+                        builtNumber = "";
+                    }
                     eq.close();
                     break;
                 // Opening char
