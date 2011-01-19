@@ -12,19 +12,29 @@ var ComplexFunction = function(pri, prefix, func) {
         }
     };
     
+    var stringify = function() {
+        return f + "["+this.prefix()+","+this.priority()+"]"
+    };
+    
     return {
         priority: p,
         prefix: x,
         evaluate: evaluate,
-        length: f.length
+        length: f.length,
+        toString: stringify
     };
 };
 
 var Constant = function(value) {
     var v = value;
     
+    var stringify = function() {
+        return this.value();
+    };
+    
     return {
-        value : v
+        value : v,
+        toString: stringify
     };
 };
 
