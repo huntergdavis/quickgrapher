@@ -172,12 +172,12 @@ var QGSolver = function() {
                         //     this.close(curr);
                         // }
                     }
-                    else if(!parenClose && curr.closed())
+                    else if(!parenClosed && curr.closed())
                     {
                         // Haven't found parens yet, close
                         this.close(curr, false);
                     }
-                    else //if(!curr.prefix() && curr.closed())
+                    else
                     {
                         // Attempt to recurse until we can close
                         //this.close(curr);
