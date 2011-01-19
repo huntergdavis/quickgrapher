@@ -411,6 +411,7 @@ var QGSolver = function() {
             {
                 var temp = this.args[0];
                 this.args[0] = undefined;
+                console.log("Args for "+ this.funcName +": " + this.args.toString());
                 return temp;
             } else {
                 alert("Error: Trying to pop from 0 args");
@@ -424,6 +425,7 @@ var QGSolver = function() {
             } else {
                 this.args[0] = item;
             }
+            console.log("Args for "+ this.funcName +": " + this.args.toString());
         };
         
         return {
