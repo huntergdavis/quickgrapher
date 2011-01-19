@@ -504,6 +504,8 @@ var QGSolver = function() {
         }
         // Finalize parsing
         eq.finalize();
+        // Show parsed equation
+        alert(eq.toString());
         // Return parsed object
         return eq;
     };
