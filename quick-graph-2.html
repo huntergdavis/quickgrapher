@@ -17,7 +17,7 @@ hunter or mark at discursivelabs.com
     <script src="/js/autocolor.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/realHover.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/graph.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/js/quick_graph.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/solver.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="/css/style.css"/>
     
     <title>QuickGraph</title>
@@ -30,10 +30,11 @@ hunter or mark at discursivelabs.com
       Each graph is a snapshot of the current equation for all ranges of that variable.</h5>
       Equation:<br/>
       <input type="text" id="mainEquation" size="60"/>  
-      <input type="button" value="Graph!" onclick="clearAndParseEquation()"/><br/>
+      <input type="button" value="Graph!" onclick="QGSolver.parse()"/><br/>
       <div id="result">
         <span id="formula">0</span> = <span id="mainResult">0</span>
       </div>
+      <br/>
       </h6>
         Fun Examples To Load In:
           <ul>
