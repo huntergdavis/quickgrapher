@@ -150,7 +150,8 @@ var QGSolver = function() {
                 if(curr.type == "QGFunction")
                 {
                     // Prefixed functions can be closed
-                    if(curr.prefix() && !curr.closed() && prev.type == "QGBlock")
+                    if(!curr.closed() && ( (curr.prefix() && prev.type == "QGBlock")
+                        || !curr.prefix() ) )
                     {
                         // Append current arg and replace
                         curr.append(prev);
