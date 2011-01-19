@@ -23,6 +23,13 @@ var ComplexFunction = function(pri, prefix, func) {
 /* For stored functions */
 var Functions = {};
 
+/*
+ * TODO:
+ * - Add reduction when appending new functions.  Need to check binding for existing items before adding (might need to collapse)
+ * 
+*/
+
+
 var QGSolver = function() {
     /* Inner classes */
     var QGEquation = function() {
@@ -156,6 +163,10 @@ var QGSolver = function() {
                         // Append current arg and replace
                         curr.append(prev);
                         this.active.push(curr);
+                        if((typeof prev == "undefined") || prev.type != "QGBlock")
+                        {
+                            this.close(curr);
+                        }
                     }
                     else //if(!curr.prefix() && curr.closed())
                     {
