@@ -50,7 +50,6 @@ var QGSolver = function() {
         console.log("new QGEquation().");
 
         var append = function(item) {
-            console.log("item("+(item.constructor.toString())+") is: QGFunction("+(item instanceof QGFunction)+"), QGBlock("+(item instanceof QGBlock)+"), QGVariable("+(item instanceof QGVariable)+"), QGConstant("+(item instanceof QGConstant)+")");
             // If we have no item yet
             if(this.active.length == 0) {
                 this.active.push(item);
@@ -59,11 +58,10 @@ var QGSolver = function() {
             {
                 // Active item
                 var curr = this.active.pop();
-                console.log("curr is: QGFunction("+(curr instanceof QGFunction)+"), QGBlock("+(curr instanceof QGBlock)+"), QGVariable("+(curr instanceof QGVariable)+"), QGConstant("+(curr instanceof QGConstant)+")");
                 
-                if(curr instanceof QGFunction)
+                if(curr.type == "QGFunction")
                 {
-                    if(item instanceof QGFunction)
+                    if(item.type == "QGFunction")
                     {
                         // Order of application depends on priority
                         if(item.priority() > curr.priority())
@@ -91,7 +89,7 @@ var QGSolver = function() {
                             curr.append(item);
                             // Replace
                             this.active.push(curr);
-                            if(item instanceof QGBlock)
+                            if(item.type == "QGBlock")
                             {
                                 this.active.push(item);
                             }
@@ -103,10 +101,10 @@ var QGSolver = function() {
                         }
                     }
                 }
-                else if(curr instanceof QGConstant
-                  || curr instanceof QGVariable)
+                else if(curr.type == "QGConstant"
+                  || curr.type == "QGVariable")
                 {
-                    if(item instanceof QGFunction && !item.prefix())
+                    if(item.type == "QGFunction" && !item.prefix())
                     {
                         item.append(curr);
                         // Push new item to stack
@@ -118,7 +116,7 @@ var QGSolver = function() {
                         alert("Error: Curr is " + curr.toString() + ", item is " + item.toString());
                     }
                 }
-                else if(curr instanceof QGBlock)
+                else if(curr.type == "QGBlock")
                 {
                     if(!curr.closed())
                     {
@@ -129,7 +127,7 @@ var QGSolver = function() {
                     }
                     else
                     {
-                        if(item instanceof QGFunction && !item.prefix())
+                        if(item.type == "QGFunction" && !item.prefix())
                         {
                             // Use block as first item in function
                             item.append(curr);
@@ -151,7 +149,7 @@ var QGSolver = function() {
             // Close current item
             if(this.active.length > 0) {
                 var curr = this.active.pop();
-                if(curr instanceof QGFunction)
+                if(curr.type == "QGFunction")
                 {
                     // Prefixed functions can be closed
                     if(curr.prefix && !curr.closed())
@@ -169,7 +167,7 @@ var QGSolver = function() {
                         }
                     }
                 }
-                else if(curr instanceof QGBlock)
+                else if(curr.type == "QGBlock")
                 {
                     if(!curr.closed())
                     {
@@ -206,9 +204,9 @@ var QGSolver = function() {
                 while(this.active.length > 0)
                 {
                     curr = this.active.pop();
-                    if(curr instanceof QGConstant
-                        || curr instanceof QGVariable
-                        || ((curr instanceof QGBlock || curr instanceof QGFunction)
+                    if(curr.type == "QGConstant"
+                        || curr.type == "QGVariable"
+                        || ((curr.type == "QGBlock" || curr.type == "QGFunction")
                           && curr.closed()))
                     {
                         this.content = curr;
@@ -250,7 +248,8 @@ var QGSolver = function() {
             close: close,
             toString: stringify,
             content: inner,
-            active: active
+            active: active,
+            type: "QGEquation"
         };
     };
     
@@ -344,7 +343,8 @@ var QGSolver = function() {
             args: args,
             func: func,
             funcName: funcName,
-            prefix: prefix
+            prefix: prefix,
+            type: "QGFunction"
         };
     };
     
@@ -379,7 +379,8 @@ var QGSolver = function() {
             solve: solve,
             toString: stringify,
             closed: closed,
-            content: inner
+            content: inner,
+            type: "QGBlock"
         };
     };
     
@@ -415,7 +416,8 @@ var QGSolver = function() {
         return {
             solve: solve,
             toString: stringify,
-            value: v
+            value: v,
+            type: "QGVariable"
         };
     };
     
@@ -435,7 +437,8 @@ var QGSolver = function() {
         return {
             solve: solve,
             toString: stringify,
-            value: v
+            value: v,
+            type: "QGConstant"
         };
     };
     
