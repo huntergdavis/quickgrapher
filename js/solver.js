@@ -4,7 +4,7 @@ var ComplexFunction = function(pri, prefix, func) {
     var p = pri, x = prefix, f = func;
     
     var evaluate = function(args) {
-        if(args.length == f.length) {
+        if(args.length == this.length) {
             f.call(this,args)
         } else {
             // Error
