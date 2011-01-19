@@ -27,16 +27,16 @@ var ComplexFunction = function(pri, prefix, func) {
 
 /* Defined functions */
 var Functions = {
-    a : new ComplexFunction(0,false, function(a,b) {
+    + : new ComplexFunction(0,false, function(a,b) {
             return a + b;
           }),
-    b : new ComplexFunction(0,false, function(a,b) {
+    - : new ComplexFunction(0,false, function(a,b) {
             return a - b;
           }),
-    c : new ComplexFunction(1,false, function(a,b) {
+    * : new ComplexFunction(1,false, function(a,b) {
             return a * b;
           }),
-    d : new ComplexFunction(1,false, function(a,b) {
+    / : new ComplexFunction(1,false, function(a,b) {
             return a / b;
           })
 };
