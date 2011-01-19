@@ -201,21 +201,21 @@ var QGSolver = function() {
                 curr = this.active.pop();
                 if(curr.closed())
                 {
-                    this.inner = curr;
+                    this.content = curr;
                 }
                 else
                 {
                     // Error.  Unclosed items
                     alert("Error: Unclosed item in reduce: " + curr.toString());
-                    this.inner = undefined;
+                    this.content = undefined;
                 }
             }
         };
         
         var solve = function(context) {
-            if( typeof this.inner != "undefined" )
+            if( typeof this.content != "undefined" )
             {
-                return this.inner.solve(context);
+                return this.content.solve(context);
             }
             else
             {
@@ -225,7 +225,7 @@ var QGSolver = function() {
         };
         
         var stringify = function() {
-            return this.inner.toString();
+            return this.content.toString();
         };
         
         return {
@@ -233,7 +233,9 @@ var QGSolver = function() {
             finalize: reduce,
             solve: solve,
             close: close,
-            toString: stringify
+            toString: stringify,
+            content: inner,
+            active: active
         };
     };
     
@@ -316,7 +318,10 @@ var QGSolver = function() {
             closed: closed,
             extract: extract,
             solve: solve,
-            toString: stringify
+            toString: stringify,
+            args: args,
+            func: func,
+            funcName: funcName
         };
     };
     
@@ -329,30 +334,27 @@ var QGSolver = function() {
         };
         
         var append = function(item) {
-            this.inner = item;
-        };
-        
-        var c = function() {
-            return this.closed;
+            this.content = item;
         };
         
         var stringify = function() {
-            if(typeof this.inner == "undefined")
+            if(typeof this.content == "undefined")
             {
                 return "()";
             }
             else
             {
-                return "(" + this.inner.toString() + ")";
+                return "(" + this.content.toString() + ")";
             }
         };
         
         return {
             append: append,
             close: close,
-            closed: c,
             solve: solve,
-            toString: stringify
+            toString: stringify,
+            closed: closed,
+            content: inner
         };
     };
     
@@ -360,7 +362,7 @@ var QGSolver = function() {
         var v = variableName;
       
         var solve = function(context) {
-            var val = context[this.v];
+            var val = context[this.value];
             if(typeof val != "undefined")
             {
                 // If context value is a function
@@ -380,12 +382,13 @@ var QGSolver = function() {
         };
         
         var stringify = function() {
-            return this.v;
+            return this.value;
         };
         
         return {
             solve: solve,
-            toString: stringify
+            toString: stringify,
+            value: v
         };
     };
     
@@ -393,16 +396,17 @@ var QGSolver = function() {
         var v = value;
         
         var solve = function(context) {
-            return this.v;
+            return this.value;
         };
         
         var stringify = function() {
-            return this.v;
+            return this.value;
         };
         
         return {
             solve: solve,
-            toString: stringify
+            toString: stringify,
+            value: v
         };
     };
     
