@@ -395,7 +395,7 @@ var QGSolver = function() {
         };
         
         var stringify = function() {
-            var str = "[]";
+            var str = "[";
             if(this.prefix())
             {
                 str += this.funcName;
