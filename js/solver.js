@@ -321,9 +321,15 @@ var QGSolver = function() {
                 }
                 if(this.length() == 2)
                 {
-                    str += this.args[0].toString();
+                    if(this.args.length > 0)
+                    {
+                        str += this.args[0].toString();
+                    }
                     str += this.funcName;
-                    str += this.args[1].toString();
+                    if(this.args.length > 1)
+                    {
+                        str += this.args[1].toString();
+                    }
                 }
             }
             return str;
