@@ -13,15 +13,11 @@ var ComplexFunction = function(pri, prefix, func) {
         }
     };
     
-    var len = function() {
-        return f.length;
-    };
-    
     return {
         priority: p,
         prefix: x,
         evaluate: evaluate,
-        length: len
+        length: f.length
     };
 };
 
@@ -265,11 +261,11 @@ var QGSolver = function() {
             console.log("Args for "+ this.funcName +": " + this.args.toString());
         };
         
-        var priority = function() {
+        var pri = function() {
             return this.func.priority;
         };
         
-        var prefix = function() {
+        var pre = function() {
             return this.func.prefix;
         };
         
@@ -339,7 +335,7 @@ var QGSolver = function() {
         
         return {
             append: append,
-            priority: priority,
+            priority: pri,
             closed: closed,
             extract: extract,
             solve: solve,
@@ -348,7 +344,7 @@ var QGSolver = function() {
             func: func,
             funcName: funcName,
             length: len,
-            prefix: prefix,
+            prefix: pre,
             type: "QGFunction"
         };
     };
