@@ -62,24 +62,34 @@ var QGSolver = function() {
                 {
                     if(item.type == "QGFunction")
                     {
-                        // Order of application depends on priority
-                        if(item.priority() > curr.priority())
+                        if(item.prefix())
                         {
-                            // Extract previous parameter
-                            var oldArg = curr.extract();
-                            // Inject to current function
-                            item.append(oldArg);
-                            // Inject new item into existing function
-                            // This happens on closing
-                            //curr.append(item);
+                            // Re-add old
                             this.active.push(curr);
+                            // Add new
                             this.active.push(item);
                         }
-                        else if(item.priority() <= curr.priority())
+                        else
                         {
-                            // Insert as spot into existing function
-                            item.append(curr);
-                            this.active.push(item);
+                            // Order of application depends on priority
+                            if(item.priority() > curr.priority())
+                            {
+                                // Extract previous parameter
+                                var oldArg = curr.extract();
+                                // Inject to current function
+                                item.append(oldArg);
+                                // Inject new item into existing function
+                                // This happens on closing
+                                //curr.append(item);
+                                this.active.push(curr);
+                                this.active.push(item);
+                            }
+                            else if(item.priority() <= curr.priority())
+                            {
+                                // Insert as spot into existing function
+                                item.append(curr);
+                                this.active.push(item);
+                            }
                         }
                     }
                     else if(item.type == "QGBlock")
