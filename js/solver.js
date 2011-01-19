@@ -205,6 +205,7 @@ var QGSolver = function() {
                 else
                 {
                     // Error.  Unclosed items
+                    alert("Error: Unclosed item in reduce: " + curr.toString());
                     inner = undefined;
                 }
             }
