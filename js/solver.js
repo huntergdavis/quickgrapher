@@ -26,20 +26,19 @@ var ComplexFunction = function(pri, prefix, func) {
 };
 
 /* Defined functions */
-var Functions = {
-    + : new ComplexFunction(0,false, function(a,b) {
+var Functions = {};
+Functions["+"] = new ComplexFunction(0,false, function(a,b) {
             return a + b;
-          }),
-    - : new ComplexFunction(0,false, function(a,b) {
+        });
+Functions["-"] = new ComplexFunction(0,false, function(a,b) {
             return a - b;
-          }),
-    * : new ComplexFunction(1,false, function(a,b) {
+        });
+Functions["*"] = new ComplexFunction(1,false, function(a,b) {
             return a * b;
-          }),
-    / : new ComplexFunction(1,false, function(a,b) {
+        });
+Functions["/"] = new ComplexFunction(1,false, function(a,b) {
             return a / b;
-          })
-};
+        });
 
 var QGSolver = function() {
     /* Inner classes */
