@@ -49,13 +49,13 @@ var QGSolver = function() {
 
         var append = function(item) {
             // If we have no item yet
-            if(active.length == 0) {
-                active.push(item);
+            if(this.active.length == 0) {
+                this.active.push(item);
             }
             else
             {
                 // Active item
-                var curr = active.pop();
+                var curr = this.active.pop();
                 
                 if(curr instanceof QGFunction)
                 {
@@ -70,14 +70,14 @@ var QGSolver = function() {
                             item.append(oldArg);
                             // Inject new item into existing function
                             curr.append(item);
-                            active.push(curr);
-                            active.push(item);
+                            this.active.push(curr);
+                            this.active.push(item);
                         }
                         else if(item.priority() <= curr.priority())
                         {
                             // Insert as spot into existing function
                             item.append(curr);
-                            active.push(item);
+                            this.active.push(item);
                         }
                     }
                     else
@@ -86,10 +86,10 @@ var QGSolver = function() {
                         {
                             curr.append(item);
                             // Replace
-                            active.push(curr);
+                            this.active.push(curr);
                             if(item instanceof QGBlock)
                             {
-                                active.push(item);
+                                this.active.push(item);
                             }
                         }
                         else
@@ -106,7 +106,7 @@ var QGSolver = function() {
                     {
                         item.append(curr);
                         // Push new item to stack
-                        active.push(item);
+                        this.active.push(item);
                     }
                     else 
                     {
@@ -120,8 +120,8 @@ var QGSolver = function() {
                     {
                         // Delay append until closing
                         // curr.append(item);
-                        active.push(curr);
-                        active.push(item);
+                        this.active.push(curr);
+                        this.active.push(item);
                     }
                     else
                     {
@@ -129,7 +129,7 @@ var QGSolver = function() {
                         {
                             // Use block as first item in function
                             item.append(curr);
-                            active.push(item);
+                            this.active.push(item);
                         }
                         else
                         {
@@ -144,8 +144,8 @@ var QGSolver = function() {
         // Called when parenthesis are closed
         var close = function(prev) {
             // Close current item
-            if(active.length > 0) {
-                var curr = active.pop();
+            if(this.active.length > 0) {
+                var curr = this.active.pop();
                 if(curr instanceof QGFunction)
                 {
                     // Prefixed functions can be closed
@@ -153,7 +153,7 @@ var QGSolver = function() {
                     {
                         // Mark block as closed and replace
                         curr.close();
-                        active.push(curr);
+                        this.active.push(curr);
                     }
                     else
                     {
@@ -172,7 +172,7 @@ var QGSolver = function() {
                       curr.append(prev);
                       // Mark block as closed and replace
                       curr.close();
-                      active.push(curr);
+                      this.active.push(curr);
                     }
                     else
                     {
@@ -196,26 +196,26 @@ var QGSolver = function() {
         // Try to close stack
         var reduce = function() {
             var curr;
-            while(active.length > 0)
+            while(this.active.length > 0)
             {
-                curr = active.pop();
+                curr = this.active.pop();
                 if(curr.closed())
                 {
-                    inner = curr;
+                    this.inner = curr;
                 }
                 else
                 {
                     // Error.  Unclosed items
                     alert("Error: Unclosed item in reduce: " + curr.toString());
-                    inner = undefined;
+                    this.inner = undefined;
                 }
             }
         };
         
         var solve = function(context) {
-            if( typeof inner != "undefined" )
+            if( typeof this.inner != "undefined" )
             {
-                return inner.solve(context);
+                return this.inner.solve(context);
             }
             else
             {
@@ -225,7 +225,7 @@ var QGSolver = function() {
         };
         
         var stringify = function() {
-            return inner.toString();
+            return this.inner.toString();
         };
         
         return {
@@ -243,21 +243,21 @@ var QGSolver = function() {
         this.args = [];
 
         var append = function(item) {
-            args.push(item);
+            this.args.push(item);
         };
         
         var priority = function() {
-            return func.priority;
+            return this.func.priority;
         };
         
         var closed = function() {
-            return func.length == args.length;
+            return this.func.length == this.args.length;
         };
         
         // Removes last argument
         var extract = function() {
-            if(args.length > 0) {
-                return args.pop();
+            if(this.args.length > 0) {
+                return this.args.pop();
             }
             else
             {
@@ -268,24 +268,24 @@ var QGSolver = function() {
         var solve = function(context) {
             // Solve args first
             var solvedArgs = [],
-              argsLen = args.length;
+              argsLen = this.args.length;
             for(var i = 0; i < argsLen; i++)
             {
-                solvedArgs.push(args[i].solve(context));
+                solvedArgs.push(this.args[i].solve(context));
             }
             // Pass into functions
-            func.evaluate(solvedArgs);
+            this.func.evaluate(solvedArgs);
         };
         
         var stringify = function() {
             var str = "";
-            if(func.prefix)
+            if(this.func.prefix)
             {
-                str += funcName + "(";
-                var len = args.length;
+                str += this.funcName + "(";
+                var len = this.args.length;
                 for(var i = 0; i < len; i++)
                 {
-                    str += args.toString();
+                    str += this.args.toString();
                     if(i != len - 1)
                     {
                       str += ",";
@@ -295,16 +295,16 @@ var QGSolver = function() {
             }
             else
             {
-                if(func.length == 1)
+                if(this.func.length == 1)
                 {
-                    str += funcName;
-                    str += args[0].toString();
+                    str += this.funcName;
+                    str += this.args[0].toString();
                 }
-                if(func.length == 2)
+                if(this.func.length == 2)
                 {
-                    str += args[0].toString();
-                    str += funcName;
-                    str += args[1].toString();
+                    str += this.args[0].toString();
+                    str += this.funcName;
+                    str += this.args[1].toString();
                 }
             }
             return str;
@@ -325,25 +325,25 @@ var QGSolver = function() {
         this.closed = false;
 
         var close = function() {
-            closed = true;
+            this.closed = true;
         };
         
         var append = function(item) {
-            inner = item;
+            this.inner = item;
         };
         
         var c = function() {
-            return closed;
+            return this.closed;
         };
         
         var stringify = function() {
-            if(typeof inner == "undefined")
+            if(typeof this.inner == "undefined")
             {
                 return "()";
             }
             else
             {
-                return "(" + inner.toString() + ")";
+                return "(" + this.inner.toString() + ")";
             }
         };
         
@@ -360,7 +360,7 @@ var QGSolver = function() {
         this.v = variableName;
       
         var solve = function(context) {
-            var val = context[v];
+            var val = context[this.v];
             if(typeof val != "undefined")
             {
                 // If context value is a function
@@ -380,7 +380,7 @@ var QGSolver = function() {
         };
         
         var stringify = function() {
-            return v;
+            return this.v;
         };
         
         return {
@@ -393,11 +393,11 @@ var QGSolver = function() {
         this.v = value;
         
         var solve = function(context) {
-            return v;
+            return this.v;
         };
         
         var stringify = function() {
-            return v;
+            return this.v;
         };
         
         return {
