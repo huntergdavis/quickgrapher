@@ -162,6 +162,7 @@ var QGSolver = function() {
             // Close current item
             if(this.active.length > 0) {
                 var curr = this.active.pop();
+                console.log("Call to close " + curr.toString() + " with prev: " + prev);
                 if(curr.type == "QGFunction")
                 {
                     // Prefixed functions can be closed
