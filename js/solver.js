@@ -29,11 +29,15 @@ var Constant = function(value) {
     var v = value;
     
     var stringify = function() {
-        return this.value;
+        return this.value();
+    };
+    
+    var val = function() {
+        return v.value;
     };
     
     return {
-        value : v,
+        value : val,
         toString: stringify
     };
 };
