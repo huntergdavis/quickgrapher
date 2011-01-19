@@ -520,7 +520,7 @@ var QGSolver = function() {
         console.log("new QGVariable("+variableName+")");
       
         var solve = function(context) {
-            var val = context[this.value];
+            var val = context[this.name];
             if(typeof val != "undefined")
             {
                 // If context value is a function
@@ -540,13 +540,13 @@ var QGSolver = function() {
         };
         
         var stringify = function() {
-            return this.value;
+            return this.name;
         };
         
         return {
             solve: solve,
             toString: stringify,
-            value: v,
+            name: v,
             type: "QGVariable"
         };
     };
@@ -567,7 +567,7 @@ var QGSolver = function() {
         return {
             solve: solve,
             toString: stringify,
-            value: v,
+            value: v.value,
             type: "QGConstant"
         };
     };
