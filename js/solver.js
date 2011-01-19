@@ -187,6 +187,7 @@ var QGSolver = function() {
                         // Append current arg and replace
                         curr.append(prev);
                         this.active.push(curr);
+                        console.log("Current stack: " + this.active.toString());
                         // if((typeof prev == "undefined") || prev.type != "QGBlock")
                         // {
                         //     this.close(curr);
@@ -200,6 +201,7 @@ var QGSolver = function() {
                     else if(!parenClosed && !curr.closed() && (typeof prev != "undefined"))
                     {
                         curr.append(prev);
+                        console.log("Current stack: " + this.active.toString());
                         // Haven't found parens yet, close
                         this.close(curr, false);
                     }
@@ -216,6 +218,7 @@ var QGSolver = function() {
                             {
                                 this.active.push(prev);
                             }
+                            console.log("Current stack: " + this.active.toString());
                         }
                     }
                 }
