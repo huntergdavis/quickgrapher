@@ -18,8 +18,7 @@ Functions["*"] = new ComplexFunction(1,false,
         });
 Functions["/"] = new ComplexFunction(1,false,
         function(a,b) {
-            var result = a/b;
-            return result;
+            return a / b;
         });
 Functions["^"] = new ComplexFunction(2,false,
         function(a,b) {
@@ -31,4 +30,8 @@ Functions["sin"] = new ComplexFunction(1,true,
         function(a) {
             var result = Math.sin(a);
             return result;
+        });
+Functions["cos"] = new ComplexFunction(1,true,
+        function(a) {
+            return Math.cos(a);
         });
