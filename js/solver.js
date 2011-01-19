@@ -664,7 +664,17 @@ var QGSolver = function() {
                 case 5:
                     // Close any open strings
                     if(builtString.length > 0) {
-                        eq.append(new QGVariable(builtString));
+                        // check if it is a constant
+                        var constant = Constants[builtString]
+                        if(typeof constant != "undefined")
+                        {
+                            eq.append(new QGConstant(constant));
+                        }
+                        else
+                        {
+                            // Otherwise it is a variable
+                            eq.append(new QGVariable(builtString));
+                        }
                         builtString = "";
                     }
                     // If we are working on a number, assume its a constant
