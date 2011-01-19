@@ -94,6 +94,7 @@ var QGSolver = function() {
                         else
                         {
                             // Error
+                            alert("Error: Trying to append to closed function.");
                         }
                     }
                 }
@@ -108,7 +109,8 @@ var QGSolver = function() {
                     }
                     else 
                     {
-                        // Error?
+                        // Error
+                        alert("Error: Curr is " + curr.toString() + ", item is " + item.toString());
                     }
                 }
                 else if(curr instanceof QGBlock)
@@ -122,7 +124,17 @@ var QGSolver = function() {
                     }
                     else
                     {
-                        // Error
+                        if(item instanceof QGFunction && !item.prefix)
+                        {
+                            // Use block as first item in function
+                            item.append(curr);
+                            active.push(item);
+                        }
+                        else
+                        {
+                            // Error
+                            alert("Error: Trying to add to closed block");
+                        }
                     }
                 }
             }
@@ -176,6 +188,7 @@ var QGSolver = function() {
             else
             {
               // Error, no item to close
+              alert("Error: No item to close");
             }
         };
         
@@ -205,19 +218,26 @@ var QGSolver = function() {
             else
             {
                 // Error
+                alert("Error: Cannot solve 'undefined' function");
             }
+        };
+        
+        var stringify = function() {
+            return inner.toString();
         };
         
         return {
             append: append,
             finalize: reduce,
             solve: solve,
-            close: close
+            close: close,
+            toString: stringify
         };
     };
     
     var QGFunction = function(functionString) {
         var func = toFunction(functionString),
+            funcName = functionString,
             args = [];
 
         var append = function(item) {
@@ -239,7 +259,7 @@ var QGSolver = function() {
             }
             else
             {
-                // Error!
+                alert("Error: Call to extract but no available parameters");
             }
         };
         
@@ -255,12 +275,46 @@ var QGSolver = function() {
             func.evaluate(solvedArgs);
         };
         
+        var stringify = function() {
+            var str = "";
+            if(func.prefix)
+            {
+                str += funcName + "(";
+                var len = args.length;
+                for(var i = 0; i < len; i++)
+                {
+                    str += args.toString();
+                    if(i != len - 1)
+                    {
+                      str += ",";
+                    }
+                }
+                str += ")";
+            }
+            else
+            {
+                if(func.length == 1)
+                {
+                    str += funcName;
+                    str += args[0].toString();
+                }
+                if(func.length == 2)
+                {
+                    str += args[0].toString();
+                    str += funcName;
+                    str += args[1].toString();
+                }
+            }
+            return str;
+        };
+        
         return {
             append: append,
             priority: priority,
             closed: closed,
             extract: extract,
-            solve: solve
+            solve: solve,
+            toString: stringify
         };
     };
     
@@ -280,11 +334,23 @@ var QGSolver = function() {
             return closed;
         };
         
+        var stringify = function() {
+            if(typeof inner == "undefined")
+            {
+                return "()";
+            }
+            else
+            {
+                return "(" + inner.toString() + ")";
+            }
+        };
+        
         return {
             append: append,
             close: close,
             closed: c,
-            solve: solve
+            solve: solve,
+            toString: stringify
         };
     };
     
@@ -307,12 +373,17 @@ var QGSolver = function() {
             }
             else
             {
-                // Error
+                alert("Error: Unable to find variable '"+val+"' in context");
             }
         };
         
+        var stringify = function() {
+            return v;
+        };
+        
         return {
-            solve: solve
+            solve: solve,
+            toString: stringify
         };
     };
     
@@ -323,8 +394,13 @@ var QGSolver = function() {
             return v;
         };
         
+        var stringify = function() {
+            return v;
+        };
+        
         return {
-            solve: solve
+            solve: solve,
+            toString: stringify
         };
     };
     
