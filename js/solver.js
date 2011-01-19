@@ -13,7 +13,7 @@ var ComplexFunction = function(pri, prefix, func) {
     };
     
     var stringify = function() {
-        return f + "["+this.prefix()+","+this.priority()+"]"
+        return f + "["+this.prefix+","+this.priority+"]"
     };
     
     return {
@@ -29,7 +29,7 @@ var Constant = function(value) {
     var v = value;
     
     var stringify = function() {
-        return this.value();
+        return this.value;
     };
     
     return {
