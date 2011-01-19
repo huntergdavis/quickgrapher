@@ -5,9 +5,10 @@ var ComplexFunction = function(pri, prefix, func) {
     
     var evaluate = function(args) {
         if(args.length == this.length) {
-            f.call(this,args)
+            return f.call(this,args);
         } else {
             // Error
+            alert("Error:  Incorrect number of args ("+args.length+") given to " + f + " which expects " + this.length + " arguments");
         }
     };
     
