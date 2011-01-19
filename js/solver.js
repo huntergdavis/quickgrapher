@@ -262,7 +262,7 @@ var QGSolver = function() {
 
         var append = function(item) {
             this.args.push(item);
-            console.log("Args for "+ this.funcName +": " + this.active.toString());
+            console.log("Args for "+ this.funcName +": " + this.args.toString());
         };
         
         var priority = function() {
