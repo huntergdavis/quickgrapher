@@ -301,7 +301,7 @@ var QGSolver = function() {
                 solvedArgs.push(this.args[i].solve(context));
             }
             // Pass into functions
-            this.func.evaluate(solvedArgs);
+            return this.func.evaluate(solvedArgs);
         };
         
         var stringify = function() {
@@ -385,6 +385,13 @@ var QGSolver = function() {
             else
             {
                 return "(" + this.content.toString() + ")";
+            }
+        };
+        
+        var solve = function(context) {
+            if(typeof inner != "undefined")
+            {
+                return inner.solve(context);
             }
         };
         
