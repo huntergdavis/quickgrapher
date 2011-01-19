@@ -593,7 +593,7 @@ var QGSolver = function() {
         }
         else if(builtNumber.length > 0)
         {
-            eq.append(new QGConstant(parseInt(builtNumber)));
+            eq.append(new QGConstant(parseFloat(builtNumber)));
             builtNumber = "";
         }
         // Finalize parsing
