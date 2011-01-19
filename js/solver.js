@@ -230,6 +230,7 @@ var QGSolver = function() {
                       curr.append(prev);
                       // Mark block as closed
                       curr.close();
+                      console.log("Current stack: " + this.active.toString());
                       // Look ahead to see if this is a function block or normal block
                       if(this.active.length > 0)
                       {
@@ -237,10 +238,16 @@ var QGSolver = function() {
                           {
                               this.close(curr, true);
                           }
+                          else
+                          {
+                              this.active.push(curr);
+                              console.log("Current stack: " + this.active.toString());
+                          }
                       }
                       else
                       {
                           this.active.push(curr);
+                          console.log("Current stack: " + this.active.toString());
                       }
                     }
                     else
