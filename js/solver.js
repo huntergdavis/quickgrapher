@@ -599,7 +599,7 @@ var QGSolver = function() {
         // Finalize parsing
         eq.finalize();
         // Show parsed equation
-        alert(eq.toString());
+        alert(eq.toString() + " = " + eq.solve({}));
         // Return parsed object
         return eq;
     };
