@@ -104,7 +104,7 @@ var QGSolver = function() {
                 else if(curr instanceof QGConstant
                   || curr instanceof QGVariable)
                 {
-                    if(item instanceof QGFunction && !item.prefix)
+                    if(item instanceof QGFunction && !item.prefix())
                     {
                         item.append(curr);
                         // Push new item to stack
@@ -127,7 +127,7 @@ var QGSolver = function() {
                     }
                     else
                     {
-                        if(item instanceof QGFunction && !item.prefix)
+                        if(item instanceof QGFunction && !item.prefix())
                         {
                             // Use block as first item in function
                             item.append(curr);
@@ -268,6 +268,10 @@ var QGSolver = function() {
             return this.func.priority;
         };
         
+        var prefix = function() {
+            return this.func.prefix;
+        };
+        
         var closed = function() {
             return this.func.length == this.args.length;
         };
@@ -337,7 +341,8 @@ var QGSolver = function() {
             toString: stringify,
             args: args,
             func: func,
-            funcName: funcName
+            funcName: funcName,
+            prefix: prefix
         };
     };
     
