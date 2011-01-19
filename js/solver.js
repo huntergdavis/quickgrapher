@@ -508,7 +508,7 @@ var QGSolver = function() {
         if (/[\é\ê\ò\ñ\ð\ï\î\í\ì\ë\÷\ö\õ\ô\ó\û\ÿ\ù\ø\ü\ú\þ\ÿ\,\&\@\#\~\_\:\;\+\-\/\*\^\%\\\!]/.test(singlet)) {
             returnVal = 4;
         }
-        if (/[0-9.]/.test(singlet)) {
+        if (/[0-9\.]/.test(singlet)) {
             returnVal = 2;
         }
         if (/[a-zA-Z]/.test(singlet)) {
