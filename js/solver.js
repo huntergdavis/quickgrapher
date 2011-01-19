@@ -35,6 +35,9 @@ Functions["*"] = new ComplexFunction(1,false, function(a,b) {
 Functions["/"] = new ComplexFunction(1,false, function(a,b) {
             return a / b;
         });
+Functions["^"] = new ComplexFunction(2,false, function(a,b) {
+            return Math.pow(a,b);
+        });
 Functions["sin"] = new ComplexFunction(1,true, function(a) {
             return Math.sin(a);
         });
