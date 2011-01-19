@@ -46,6 +46,8 @@ var QGSolver = function() {
         // Member variables
         var inner = undefined,
             active = [];
+            
+        console.log("new QGSolver()");
 
         var append = function(item) {
             // If we have no item yet
@@ -250,6 +252,8 @@ var QGSolver = function() {
         var func = toFunction(functionString),
             funcName = functionString,
             args = [];
+            
+        console.log("new QGFunction("+functionString+")");
 
         var append = function(item) {
             this.args.push(item);
@@ -335,6 +339,8 @@ var QGSolver = function() {
     var QGBlock = function() {
         var inner = undefined,
             closed = false;
+            
+        console.log("new QGBlock()");
 
         var close = function() {
             this.closed = true;
@@ -367,6 +373,8 @@ var QGSolver = function() {
     
     var QGVariable = function(variableName) {
         var v = variableName;
+        
+        console.log("new QGVariable("+variableName+")");
       
         var solve = function(context) {
             var val = context[this.value];
@@ -401,6 +409,8 @@ var QGSolver = function() {
     
     var QGConstant = function(value) {
         var v = value;
+        
+        console.log("new QGConstant("+value+")");
         
         var solve = function(context) {
             return this.value;
