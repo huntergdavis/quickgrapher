@@ -20,8 +20,18 @@ var ComplexFunction = function(pri, prefix, func) {
     };
 };
 
-/* For stored functions */
+var Constant = function(value) {
+    var v = value;
+    
+    return {
+        value : v
+    };
+};
+
+/* For defined functions */
 var Functions = {};
+/* For defined constants */
+var Constants = {};
 
 /*
  * TODO:
@@ -615,9 +625,19 @@ var QGSolver = function() {
                     break;
                 // Compressed function reference
                 case 4:
-                    // If we are working on a string, assume its a variable
+                    // If we are working on a string
                     if(builtString.length > 0) {
-                        eq.append(new QGVariable(builtString));
+                        // check if it is a constant
+                        var constant = Constants[builtString]
+                        if(typeof constant != "undefined")
+                        {
+                            eq.append(new QGConstant(constant));
+                        }
+                        else
+                        {
+                            // Otherwise it is a variable
+                            eq.append(new QGVariable(builtString));
+                        }
                         builtString = "";
                     }
                     // If we are working on a number, assume its a constant
@@ -663,7 +683,17 @@ var QGSolver = function() {
         }
         // Clear any final matches
         if(builtString.length > 0) {
-            eq.append(new QGVariable(builtString));
+            // check if it is a constant
+            var constant = Constants[builtString]
+            if(typeof constant != "undefined")
+            {
+                eq.append(new QGConstant(constant));
+            }
+            else
+            {
+                // Otherwise it is a variable
+                eq.append(new QGVariable(builtString));
+            }
             builtString = "";
         }
         else if(builtNumber.length > 0)
