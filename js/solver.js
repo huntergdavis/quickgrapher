@@ -165,10 +165,10 @@ var QGSolver = function() {
                 if(curr.type == "QGFunction")
                 {
                     // Prefixed functions can be closed
-                    if(curr.prefix && !curr.closed())
+                    if(curr.prefix && !curr.closed() && prev.type == "QGBlock")
                     {
-                        // Mark block as closed and replace
-                        curr.close();
+                        // Append current arg and replace
+                        curr.append(prev);
                         this.active.push(curr);
                     }
                     else
@@ -186,9 +186,9 @@ var QGSolver = function() {
                     {
                       // Assign tree head to block
                       curr.append(prev);
-                      // Mark block as closed and replace
+                      // Mark block as closed and try to recurse
                       curr.close();
-                      this.active.push(curr);
+                      this.close(curr);
                     }
                     else
                     {
