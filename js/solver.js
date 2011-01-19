@@ -368,12 +368,12 @@ var QGSolver = function() {
     
     var QGBlock = function() {
         var inner = undefined,
-            closed = false;
+            c = false;
             
         console.log("new QGBlock()");
 
         var close = function() {
-            this.closed = true;
+            this.c = true;
         };
         
         var append = function(item) {
@@ -398,12 +398,17 @@ var QGSolver = function() {
             }
         };
         
+        var closed = function() {
+            return this.c;
+        }
+        
         return {
             append: append,
             close: close,
             solve: solve,
             toString: stringify,
             closed: closed,
+            c: c,
             content: inner,
             type: "QGBlock"
         };
