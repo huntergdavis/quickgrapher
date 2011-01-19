@@ -23,6 +23,12 @@ hunter or mark at discursivelabs.com
     <title>QuickGraph</title>
   </head>
   <body>
+      <script type="text/javascript" charset="utf-8">
+        function parse()
+        {
+            QGSolver.parse(document.getElementById('mainEquation').value);
+        }
+      </script>
       <h1>QuickGraph</h1>
       <h2>Instructions</h2>
       <h5>Simply click parse equation, and all variables become dynamic html5 sliders.
@@ -30,7 +36,7 @@ hunter or mark at discursivelabs.com
       Each graph is a snapshot of the current equation for all ranges of that variable.</h5>
       Equation:<br/>
       <input type="text" id="mainEquation" size="60"/>  
-      <input type="button" value="Graph!" onclick="QGSolver.parse()"/><br/>
+      <input type="button" value="Graph!" onclick="parse()"/><br/>
       <div id="result">
         <span id="formula">0</span> = <span id="mainResult">0</span>
       </div>
