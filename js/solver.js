@@ -42,12 +42,12 @@ Functions["/"] = new ComplexFunction(1,false, function(a,b) {
 
 var QGSolver = function() {
     /* Inner classes */
-    function QGEquation() {
+    var QGEquation = function() {
         // Member variables
         var inner = undefined,
             active = [];
             
-        console.log("new QGEquation()");
+        console.log("new QGEquation().. Instance of QGEquation? " + (this instanceof QGEquation));
 
         var append = function(item) {
             // If we have no item yet
@@ -249,9 +249,9 @@ var QGSolver = function() {
             content: inner,
             active: active
         };
-    }
+    };
     
-    function QGFunction(functionString) {
+    var QGFunction = function(functionString) {
         var func = toFunction(functionString),
             funcName = functionString,
             args = [];
@@ -337,9 +337,9 @@ var QGSolver = function() {
             func: func,
             funcName: funcName
         };
-    }
+    };
     
-    function QGBlock() {
+    var QGBlock = function() {
         var inner = undefined,
             closed = false;
             
@@ -372,9 +372,9 @@ var QGSolver = function() {
             closed: closed,
             content: inner
         };
-    }
+    };
     
-    function QGVariable(variableName) {
+    var QGVariable = function(variableName) {
         var v = variableName;
         
         console.log("new QGVariable("+variableName+")");
@@ -408,9 +408,9 @@ var QGSolver = function() {
             toString: stringify,
             value: v
         };
-    }
+    };
     
-    function QGConstant(value) {
+    var QGConstant = function(value) {
         var v = value;
         
         console.log("new QGConstant("+value+")");
@@ -428,7 +428,7 @@ var QGSolver = function() {
             toString: stringify,
             value: v
         };
-    }
+    };
     
     var toFunction = function(functionName) {
         return Functions[functionName];
