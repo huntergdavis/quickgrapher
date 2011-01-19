@@ -156,7 +156,7 @@ var QGSolver = function() {
                         curr.append(prev);
                         this.active.push(curr);
                     }
-                    else if(!curr.prefix() && curr.closed())
+                    else //if(!curr.prefix() && curr.closed())
                     {
                         // Attempt to recurse until we can close
                         this.close(curr);
