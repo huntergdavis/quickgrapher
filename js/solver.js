@@ -399,9 +399,9 @@ var QGSolver = function() {
         };
         
         var solve = function(context) {
-            if(typeof inner != "undefined")
+            if(typeof this.content != "undefined")
             {
-                return inner.solve(context);
+                return this.content.solve(context);
             }
         };
         
