@@ -324,7 +324,7 @@ var QGSolver = function() {
             var str = "";
             if(this.prefix())
             {
-                str += this.funcName + "(";
+                str += this.funcName;
                 var len = this.args.length;
                 for(var i = 0; i < len; i++)
                 {
@@ -334,7 +334,6 @@ var QGSolver = function() {
                       str += ",";
                     }
                 }
-                str += ")";
             }
             else
             {
