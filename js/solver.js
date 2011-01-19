@@ -163,7 +163,7 @@ var QGSolver = function() {
                         // Attempt to recurse until we can close
                         if(curr.closed())
                         {
-                            close(curr);
+                            this.close(curr);
                         }
                     }
                 }
@@ -180,13 +180,13 @@ var QGSolver = function() {
                     else
                     {
                         // Recurse
-                        close(curr);
+                        this.close(curr);
                     }
                 }
                 else
                 {
                     // Try to recurse
-                    close(curr);
+                    this.close(curr);
                 }
             }
             else
