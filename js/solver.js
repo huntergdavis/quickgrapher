@@ -177,11 +177,17 @@ var QGSolver = function() {
                         // Haven't found parens yet, close
                         this.close(curr, false);
                     }
+                    else if(!parenClosed && !curr.closed() && (typeof prev != "undefined"))
+                    {
+                        curr.append(prev);
+                        // Haven't found parens yet, close
+                        this.close(curr, false);
+                    }
                     else
                     {
                         // Attempt to recurse until we can close
                         //this.close(curr);
-                        alert("Error: Trying to close function " + curr.toString() + " but status: ["+curr.closed()+","+curr.prefix()+","+parenClosed+","+(prev?prev.type:prev)+"]");
+                        alert("Error: Trying to close function " + curr.toString() + " but status: [closed: "+curr.closed()+",prefixed:"+curr.prefix()+",parenFound:"+parenClosed+",prevType:"+(prev?prev.type:prev)+"]");
                     }
                 }
                 else if(curr.type == "QGBlock")
