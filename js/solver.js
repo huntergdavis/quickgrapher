@@ -47,7 +47,7 @@ var QGSolver = function() {
         var inner = undefined,
             active = [];
             
-        console.log("new QGEquation().. Instance of QGEquation? " + (this instanceof QGEquation));
+        console.log("new QGEquation().");
 
         var append = function(item) {
             // If we have no item yet
@@ -141,6 +141,7 @@ var QGSolver = function() {
                     }
                 }
             }
+            console.log("Current stack: " + this.active.toString());
         };
         
         // Called when parenthesis are closed
@@ -260,6 +261,7 @@ var QGSolver = function() {
 
         var append = function(item) {
             this.args.push(item);
+            console.log("Args for "+ this.funcName +": " + this.active.toString());
         };
         
         var priority = function() {
