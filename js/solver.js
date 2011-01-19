@@ -196,19 +196,26 @@ var QGSolver = function() {
         // Try to close stack
         var reduce = function() {
             var curr;
-            while(this.active.length > 0)
+            if(this.active.length > 0)
             {
-                curr = this.active.pop();
-                if(curr.closed())
+                while(this.active.length > 0)
                 {
-                    this.content = curr;
+                    curr = this.active.pop();
+                    if(curr.closed())
+                    {
+                        this.content = curr;
+                    }
+                    else
+                    {
+                        // Error.  Unclosed items
+                        alert("Error: Unclosed item in reduce: " + curr.toString());
+                        this.content = undefined;
+                    }
                 }
-                else
-                {
-                    // Error.  Unclosed items
-                    alert("Error: Unclosed item in reduce: " + curr.toString());
-                    this.content = undefined;
-                }
+            }
+            else
+            {
+                alert("Error: No items to reduce...");
             }
         };
         
