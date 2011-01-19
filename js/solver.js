@@ -81,8 +81,10 @@ var QGSolver = function() {
                     }
                     else if(item.type == "QGBlock")
                     {
-                        // Dont compress to current function yet
+                        // Readd function
                         this.active.push(curr);
+                        // Dont compress to current function yet
+                        this.active.push(item);
                     }
                     else
                     {
