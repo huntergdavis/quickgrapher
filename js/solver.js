@@ -155,7 +155,8 @@ var QGSolver = function() {
                 parenClosed = false;
             }
             // Close current item
-            if(this.active.length > 0) {
+            if(this.active.length > 0)
+            {
                 var curr = this.active.pop();
                 console.log("Call to close " + curr.toString() + " with prev: " + prev + ", parenClosed: " + parenClosed);
                 if(curr.type == "QGFunction")
@@ -170,6 +171,11 @@ var QGSolver = function() {
                         // {
                         //     this.close(curr);
                         // }
+                    }
+                    else if(!parenClose && curr.closed())
+                    {
+                        // Haven't found parens yet, close
+                        this.close(curr, false);
                     }
                     else //if(!curr.prefix() && curr.closed())
                     {
@@ -213,8 +219,8 @@ var QGSolver = function() {
             }
             else
             {
-              // Error, no item to close
-              alert("Error: No item to close: " + this.active);
+                // Error, no item to close
+                alert("Error: No item to close.  " + this.active);
             }
         };
         
