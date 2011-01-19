@@ -67,7 +67,8 @@ var QGSolver = function() {
                             // Inject to current function
                             item.append(oldArg);
                             // Inject new item into existing function
-                            curr.append(item);
+                            // This happens on closing
+                            //curr.append(item);
                             this.active.push(curr);
                             this.active.push(item);
                         }
@@ -194,7 +195,7 @@ var QGSolver = function() {
         
         // Try to close stack
         var reduce = function() {
-            var curr;
+            var curr, prev = undefined;
             if(this.active.length > 0)
             {
                 while(this.active.length > 0)
@@ -207,12 +208,19 @@ var QGSolver = function() {
                     {
                         this.content = curr;
                     }
+                    else if(curr.type == "QGFunction" && !curr.closed() && (typeof prev != "undefined"))
+                    {
+                        curr.append(prev);
+                        // Recheck for closure of this function
+                        this.active.push(curr);
+                    }
                     else
                     {
                         // Error.  Unclosed items
                         alert("Error: Unclosed item in reduce: " + curr.toString());
                         this.content = undefined;
                     }
+                    prev = curr;
                 }
             }
             else
