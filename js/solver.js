@@ -50,6 +50,7 @@ var QGSolver = function() {
         console.log("new QGEquation().");
 
         var append = function(item) {
+            console.log("item is: QGFunction("+(item instanceof QGFunction)+"), QGBlock("+(item instanceof QGBlock)+"), QGVariable("+(item instanceof QGVariable)+"), QGConstant("+(item instanceof QGConstant)+")");
             // If we have no item yet
             if(this.active.length == 0) {
                 this.active.push(item);
