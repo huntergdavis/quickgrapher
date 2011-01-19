@@ -159,7 +159,7 @@ var QGSolver = function() {
                     else
                     {
                         // Attempt to recurse until we can close
-                        if(curr.closed())
+                        if(!curr.closed())
                         {
                             this.close(curr);
                         }
