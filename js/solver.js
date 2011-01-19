@@ -175,7 +175,7 @@ var QGSolver = function() {
                     {
                         // Attempt to recurse until we can close
                         //this.close(curr);
-                        alert("Error: Trying to close function " + curr.toString() + " but status: ["+curr.closed()+","+curr.prefix()+","+parenClosed+","+prev.type+"]");
+                        alert("Error: Trying to close function " + curr.toString() + " but status: ["+curr.closed()+","+curr.prefix()+","+parenClosed+","+(prev?prev.type:prev)+"]");
                     }
                 }
                 else if(curr.type == "QGBlock")
