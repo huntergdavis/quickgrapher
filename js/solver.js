@@ -243,6 +243,18 @@ var QGSolver = function() {
             }
         };
         
+        var solve = function(context) {
+            // Solve args first
+            var solvedArgs = [],
+              argsLen = args.length;
+            for(var i = 0; i < argsLen; i++)
+            {
+                solvedArgs.push(args[i].solve(context));
+            }
+            // Pass into functions
+            func.evaluate(solvedArgs);
+        };
+        
         return {
             append: append,
             priority: priority,
