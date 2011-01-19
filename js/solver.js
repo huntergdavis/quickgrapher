@@ -298,7 +298,7 @@ var QGSolver = function() {
         
         var stringify = function() {
             var str = "";
-            if(this.prefix)
+            if(this.prefix())
             {
                 str += this.funcName + "(";
                 var len = this.args.length;
