@@ -347,7 +347,7 @@ var QGSolver = function() {
             args: args,
             func: func,
             funcName: funcName,
-            length: len
+            length: len,
             prefix: prefix,
             type: "QGFunction"
         };
