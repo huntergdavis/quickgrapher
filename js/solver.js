@@ -302,7 +302,7 @@ var QGSolver = function() {
         
         var stringify = function() {
             var str = "";
-            if(this.func.prefix)
+            if(this.prefix)
             {
                 str += this.funcName + "(";
                 var len = this.args.length;
@@ -318,12 +318,12 @@ var QGSolver = function() {
             }
             else
             {
-                if(this.func.length == 1)
+                if(this.length() == 1)
                 {
                     str += this.funcName;
                     str += this.args[0].toString();
                 }
-                if(this.func.length == 2)
+                if(this.length() == 2)
                 {
                     str += this.args[0].toString();
                     str += this.funcName;
@@ -331,6 +331,10 @@ var QGSolver = function() {
                 }
             }
             return str;
+        };
+        
+        var len = function() {
+            return this.func.length;
         };
         
         return {
@@ -343,6 +347,7 @@ var QGSolver = function() {
             args: args,
             func: func,
             funcName: funcName,
+            length: len
             prefix: prefix,
             type: "QGFunction"
         };
