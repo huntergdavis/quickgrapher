@@ -187,9 +187,20 @@ var QGSolver = function() {
                     {
                       // Assign tree head to block
                       curr.append(prev);
-                      // Mark block as closed and try to recurse
+                      // Mark block as closed
                       curr.close();
-                      this.close(curr);
+                      // Look ahead to see if this is a function block or normal block
+                      if(this.active.length > 0)
+                      {
+                          if(this.active[this.active.length - 1].type == "QGFunction")
+                          {
+                              this.close(curr);
+                          }
+                      }
+                      else
+                      {
+                          this.active.push(curr);
+                      }
                     }
                     else
                     {
