@@ -149,29 +149,33 @@ var QGSolver = function() {
         };
         
         // Called when parenthesis are closed
-        var close = function(prev) {
+        var close = function(prev, parenClosed) {
+            if(typeof parenClosed == "undefined")
+            {
+                parenClosed = false;
+            }
             // Close current item
             if(this.active.length > 0) {
                 var curr = this.active.pop();
-                console.log("Call to close " + curr.toString() + " with prev: " + prev);
+                console.log("Call to close " + curr.toString() + " with prev: " + prev + ", parenClosed: " + parenClosed);
                 if(curr.type == "QGFunction")
                 {
                     // Prefixed functions can be closed
-                    if(!curr.closed() && ( (curr.prefix() && prev.type == "QGBlock")
-                        || !curr.prefix() ) )
+                    if(!curr.closed() && curr.prefix() && parenClosed && prev.type == "QGBlock")
                     {
                         // Append current arg and replace
                         curr.append(prev);
                         this.active.push(curr);
-                        if((typeof prev == "undefined") || prev.type != "QGBlock")
-                        {
-                            this.close(curr);
-                        }
+                        // if((typeof prev == "undefined") || prev.type != "QGBlock")
+                        // {
+                        //     this.close(curr);
+                        // }
                     }
                     else //if(!curr.prefix() && curr.closed())
                     {
                         // Attempt to recurse until we can close
-                        this.close(curr);
+                        //this.close(curr);
+                        alert("Error: Trying to close function " + curr.toString() + " but status: ["+curr.closed()+","+curr.prefix()+","+parenClosed+","+prev.type+"]");
                     }
                 }
                 else if(curr.type == "QGBlock")
@@ -187,7 +191,7 @@ var QGSolver = function() {
                       {
                           if(this.active[this.active.length - 1].type == "QGFunction")
                           {
-                              this.close(curr);
+                              this.close(curr, true);
                           }
                       }
                       else
@@ -197,20 +201,20 @@ var QGSolver = function() {
                     }
                     else
                     {
-                        // Recurse
-                        this.close(curr);
+                        // Recurse because this one was already closed
+                        this.close(curr, false);
                     }
                 }
                 else
                 {
-                    // Try to recurse
-                    this.close(curr);
+                    // Try to recurse since we haven't found item to close yet
+                    this.close(curr,false);
                 }
             }
             else
             {
               // Error, no item to close
-              alert("Error: No item to close");
+              alert("Error: No item to close: " + this.active);
             }
         };
         
