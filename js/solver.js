@@ -29,15 +29,11 @@ var Constant = function(value) {
     var v = value;
     
     var stringify = function() {
-        return this.value();
-    };
-    
-    var val = function() {
-        return v.value;
+        return this.value;
     };
     
     return {
-        value : val,
+        value : v,
         toString: stringify
     };
 };
@@ -668,7 +664,7 @@ var QGSolver = function() {
                     else if(builtNumber.length > 0)
                     {
                         console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                        eq.append(new QGConstant(parseFloat(builtNumber)));
+                        eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
                         builtNumber = "";
                     }
                     // Append function
@@ -695,7 +691,7 @@ var QGSolver = function() {
                     else if(builtNumber.length > 0)
                     {
                         console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                        eq.append(new QGConstant(parseFloat(builtNumber)));
+                        eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
                         builtNumber = "";
                     }
                     eq.close();
@@ -733,7 +729,7 @@ var QGSolver = function() {
         else if(builtNumber.length > 0)
         {
             console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-            eq.append(new QGConstant(parseFloat(builtNumber)));
+            eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
             builtNumber = "";
         }
         // Finalize parsing
