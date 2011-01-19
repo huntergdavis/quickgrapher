@@ -203,7 +203,10 @@ var QGSolver = function() {
                 while(this.active.length > 0)
                 {
                     curr = this.active.pop();
-                    if(curr.closed())
+                    if(curr instanceof QGConstant
+                        || curr instanceof QGVariable
+                        || ((curr instanceof QGBlock || curr instanceof QGFunction)
+                          && curr.closed()))
                     {
                         this.content = curr;
                     }
