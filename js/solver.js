@@ -79,6 +79,11 @@ var QGSolver = function() {
                             this.active.push(item);
                         }
                     }
+                    else if(item.type == "QGBlock")
+                    {
+                        // Dont compress to current function yet
+                        this.active.push(curr);
+                    }
                     else
                     {
                         if(!curr.closed())
@@ -86,10 +91,6 @@ var QGSolver = function() {
                             curr.append(item);
                             // Replace
                             this.active.push(curr);
-                            if(item.type == "QGBlock")
-                            {
-                                this.active.push(item);
-                            }
                         }
                         else
                         {
