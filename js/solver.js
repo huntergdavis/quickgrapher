@@ -150,19 +150,16 @@ var QGSolver = function() {
                 if(curr.type == "QGFunction")
                 {
                     // Prefixed functions can be closed
-                    if(curr.prefix && !curr.closed() && prev.type == "QGBlock")
+                    if(curr.prefix() && !curr.closed() && prev.type == "QGBlock")
                     {
                         // Append current arg and replace
                         curr.append(prev);
                         this.active.push(curr);
                     }
-                    else
+                    else if(!curr.prefix() && curr.close())
                     {
                         // Attempt to recurse until we can close
-                        if(!curr.closed())
-                        {
-                            this.close(curr);
-                        }
+                        this.close(curr);
                     }
                 }
                 else if(curr.type == "QGBlock")
