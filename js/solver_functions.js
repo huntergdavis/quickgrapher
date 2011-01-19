@@ -28,5 +28,6 @@ Functions["^"] = new ComplexFunction(2,false,
 // Sinusoidal
 Functions["sin"] = new ComplexFunction(1,true,
         function(a) {
-            return Math.sin(a);
+            var result = Math.sin(a);
+            return result;
         });
