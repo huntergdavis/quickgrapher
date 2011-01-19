@@ -584,10 +584,8 @@ var QGSolver = function() {
                         eq.append(new QGFunction(builtString));
                         builtString = "";
                     }
-                    // Otherwise, new block
-                    else {
-                        eq.append(new QGBlock());
-                    }
+                    // Always new block
+                    eq.append(new QGBlock());
                     break;
                 // Unknown type
                 default:
