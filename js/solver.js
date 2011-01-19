@@ -58,6 +58,7 @@ var QGSolver = function() {
             {
                 // Active item
                 var curr = this.active.pop();
+                console.log("curr is: QGFunction("+(curr instanceof QGFunction)+"), QGBlock("+(curr instanceof QGBlock)+"), QGVariable("+(curr instanceof QGVariable)+"), QGConstant("+(curr instanceof QGConstant)+")");
                 
                 if(curr instanceof QGFunction)
                 {
