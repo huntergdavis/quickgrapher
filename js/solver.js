@@ -244,6 +244,7 @@ var QGSolver = function() {
             var curr, prev = undefined;
             if(this.active.length > 0)
             {
+                console.log("Reducing "+this.active.length+" items");
                 while(this.active.length > 0)
                 {
                     curr = this.active.pop();
@@ -256,7 +257,20 @@ var QGSolver = function() {
                     }
                     else if(curr.type == "QGFunction" && !curr.closed() && (typeof prev != "undefined"))
                     {
-                        curr.append(prev);
+                        if(prev.type == "QGFunction" && !curr.prefix() && !prev.prefix()
+                            && curr.priority() > prev.priority())
+                        {
+                            // Use first from prev as second for curr
+                            curr.append(prev.pop());
+                            // And then use curr for first from prev
+                            prev.push(curr);
+                            // Re-add prev to stack
+                            this.active.push(prev);
+                        }
+                        else
+                        {
+                            curr.append(prev);
+                        }
                         // Recheck for closure of this function
                         this.active.push(curr);
                     }
@@ -392,6 +406,26 @@ var QGSolver = function() {
             return this.func.length;
         };
         
+        var popLeft = function() {
+            if(this.args.length > 0)
+            {
+                var temp = this.args[0];
+                this.args[0] = undefined;
+                return temp;
+            } else {
+                alert("Error: Trying to pop from 0 args");
+            }
+        };
+        
+        var pushLeft = function(item) {
+            if(this.args.length == 0)
+            {
+                this.args.push(item);
+            } else {
+                this.args[0] = item;
+            }
+        };
+        
         return {
             append: append,
             priority: pri,
@@ -399,6 +433,8 @@ var QGSolver = function() {
             extract: extract,
             solve: solve,
             toString: stringify,
+            pop: popLeft,
+            push: pushLeft,
             args: args,
             func: func,
             funcName: funcName,
