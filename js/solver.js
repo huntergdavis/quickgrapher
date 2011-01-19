@@ -550,7 +550,8 @@ var QGSolver = function() {
                     // If we are working on a number, assume its a constant
                     else if(builtNumber.length > 0)
                     {
-                        eq.append(new QGConstant(parseInt(builtNumber)));
+                        console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                        eq.append(new QGConstant(parseFloat(builtNumber)));
                         builtNumber = "";
                     }
                     // Append function
@@ -566,7 +567,8 @@ var QGSolver = function() {
                     // If we are working on a number, assume its a constant
                     else if(builtNumber.length > 0)
                     {
-                        eq.append(new QGConstant(parseInt(builtNumber)));
+                        console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                        eq.append(new QGConstant(parseFloat(builtNumber)));
                         builtNumber = "";
                     }
                     eq.close();
