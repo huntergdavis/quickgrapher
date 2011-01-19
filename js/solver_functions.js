@@ -18,7 +18,7 @@ Functions["*"] = new ComplexFunction(1,false,
         });
 Functions["/"] = new ComplexFunction(1,false,
         function(a,b) {
-            var result = a / b;
+            var result = a/b;
             return result;
         });
 Functions["^"] = new ComplexFunction(2,false,
