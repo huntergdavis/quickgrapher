@@ -47,7 +47,7 @@ var QGSolver = function() {
         var inner = undefined,
             active = [];
             
-        console.log("new QGSolver()");
+        console.log("new QGEquation()");
 
         var append = function(item) {
             // If we have no item yet
@@ -524,6 +524,16 @@ var QGSolver = function() {
                 default:
                     break;
             };
+        }
+        // Clear any final matches
+        if(builtString.length > 0) {
+            eq.append(new QGVariable(builtString));
+            builtString = "";
+        }
+        else if(builtNumber.length > 0)
+        {
+            eq.append(new QGConstant(parseInt(builtNumber)));
+            builtNumber = "";
         }
         // Finalize parsing
         eq.finalize();
