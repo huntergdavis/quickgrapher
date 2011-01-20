@@ -942,7 +942,7 @@ var QGSolver = function() {
                     }
                     // Check for negation
                     var prevType = alphaNumericType(b);
-                    if(c == "-" && (prevType == 4 || prevType == 6))
+                    if(c == "-" && (prevType == 3 || prevType == 4 || prevType == 6))
                     {
                         // Minus
                         builtNumber += c;
