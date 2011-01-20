@@ -223,10 +223,26 @@ var QGSolver = function() {
                         }
                         else
                         {
-                            curr.append(prev);
-                            console.log("Current stack: " + this.active.toString());
-                            // Haven't found parens yet, close
-                            this.close(curr, false);
+                            // Verify binding of functions
+                            if((typeof prev != "undefined") && prev.type == "QGFunction"
+                                && !curr.prefix() && !curr.closed()
+                                && curr.priority() > prev.priority())
+                            {
+                                // Use first from prev as second for curr
+                                curr.append(prev.pop());
+                                // And then use curr for first from prev
+                                prev.push(curr);
+                                console.log("Current stack: " + this.active.toString());
+                                // Haven't found parens yet, close
+                                this.close(prev, false);
+                            }
+                            else
+                            {
+                                curr.append(prev);
+                                console.log("Current stack: " + this.active.toString());
+                                // Haven't found parens yet, close
+                                this.close(curr, false);
+                            }
                         }
                     }
                     else
