@@ -570,8 +570,8 @@ function replaceStoredFunctions(sanitizedEquation) {
 
 function updateSolution(equation, solution)
 {
-    document.getElementById("formula").value = equation.toString();
-    document.getElementById("solution").value = solution;
+    document.getElementById("formula").innerText = equation.toString();
+    document.getElementById("solution").innerText = solution;
     $("#result").show();
 }
 
