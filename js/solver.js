@@ -1019,7 +1019,7 @@ var QGSolver = function() {
         // Finalize parsing
         eq.finalize();
         // Show parsed equation
-        alert(eq.toString() + " = " + eq.solve({}));
+        alert(eq.toString() + " = " + eq.solve({x: 10}));
         // Return parsed object
         return eq;
     };
