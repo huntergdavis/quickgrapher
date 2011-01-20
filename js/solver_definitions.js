@@ -84,10 +84,13 @@ Functions["floor"] = new ComplexFunction(1,true,
 Functions["average"] = new ComplexFunction(1,true,
         function() {
             var results = 0,
-              len = arguments.length;
-            for(var i = 0; i < len; i++)
+                len = arguments.length;
+            if(len > 1 || (typeof arguments[0] != "undefined"))
             {
-                results += arguments[i];
+                for(var i = 0; i < len; i++)
+                {
+                    results += arguments[i];
+                }
             }
             if(len > 0)
             {
@@ -100,10 +103,13 @@ Functions["average"] = new ComplexFunction(1,true,
 Functions["sum"] = new ComplexFunction(1,true,
         function() {
             var results = 0,
-              len = arguments.length;
-            for(var i = 0; i < len; i++)
+                len = arguments.length;
+            if(len > 1 || (typeof arguments[0] != "undefined"))
             {
-                results += arguments[i];
+              for(var i = 0; i < len; i++)
+              {
+                  results += arguments[i];
+              }
             }
 
             return results;
@@ -111,10 +117,13 @@ Functions["sum"] = new ComplexFunction(1,true,
 Functions["product"] = new ComplexFunction(1,true,
         function() {
             var results = 1,
-              len = arguments.length;
-            for(var i = 0; i < len; i++)
+                len = arguments.length;
+            if(len > 1 || (typeof arguments[0] != "undefined"))
             {
-                results *= arguments[i];
+                for(var i = 0; i < len; i++)
+                {
+                    results *= arguments[i];
+                }
             }
 
             return results;
