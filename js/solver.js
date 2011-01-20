@@ -353,9 +353,17 @@ var QGSolver = function() {
                     }
                     else if(typeof prev != "undefined")
                     {
-                        // alert("Error: Function parameter divider with no trailing parameter or two consecutive dividers");
-                        // Replace curr with prev (just ignore duplicate divider)
-                        this.close(prev,false); 
+                        if(prev.params.length > 0)
+                        {
+                            // alert("Error: Function parameter divider with no trailing parameter or two consecutive dividers");
+                            // Replace curr with prev (just ignore duplicate divider)
+                            this.close(prev,false);
+                        }
+                        else
+                        {
+                            // Double divider
+                            alert("Error: Function parameter divider with no trailing parameter or two consecutive dividers");
+                        } 
                     }
                 }
                 else
