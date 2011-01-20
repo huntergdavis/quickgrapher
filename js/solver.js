@@ -860,7 +860,7 @@ var QGSolver = function() {
             builtNumber = "",
             innerType;
         // Remove whitespace
-        rawEquation.replace(/\s/g,"");
+        rawEquation = rawEquation.replace(/\s/g,"");
         console.log("Parsing: " + rawEquation);
         
         for(var i = 0; i < rawEquation.length; i++) {
