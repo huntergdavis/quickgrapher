@@ -97,7 +97,7 @@ Functions["average"] = new ComplexFunction(1,true,
         },true);
         
 /* Combinators */
-Functions["average"] = new ComplexFunction(1,true,
+Functions["sum"] = new ComplexFunction(1,true,
         function() {
             var results = 0,
               len = arguments.length;
@@ -105,10 +105,18 @@ Functions["average"] = new ComplexFunction(1,true,
             {
                 results += arguments[i];
             }
-            if(len > 0)
+
+            return result;
+        },true);
+Functions["product"] = new ComplexFunction(1,true,
+        function() {
+            var results = 1,
+              len = arguments.length;
+            for(var i = 0; i < len; i++)
             {
-                results /= len;
+                results *= arguments[i];
             }
+
             return result;
         },true);
 
