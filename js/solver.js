@@ -70,12 +70,12 @@ var QGSolver = function() {
                     || objType == "QGConstant")
                 {
                     var className = obj.type;
-                    var jects = objects[className];
+                    var jects = this.objects[className];
                     // No group yet
                     if(typeof jects == "undefined")
                     {
                         jects = {list: [], objs: {}};
-                        objects[className] = jects;
+                        this.objects[className] = jects;
                         // Insert object name into list
                         jects.list.push(className);
                         // Add to object
