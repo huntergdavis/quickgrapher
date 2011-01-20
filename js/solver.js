@@ -201,7 +201,7 @@ var QGSolver = function() {
                     else if(!parenClosed && curr.closed())
                     {
                         // Handle parameter lists
-                        if(prev.type == "QGParamDivider")
+                        if((typeof prev != "undefined") && prev.type == "QGParamDivider")
                         {
                             prev.append(curr);
                             // Haven't found parens yet, close
@@ -215,7 +215,7 @@ var QGSolver = function() {
                     }
                     else if(!parenClosed && !curr.closed() && (typeof prev != "undefined"))
                     {
-                        if(prev.type == "QGParamDivider")
+                        if((typeof prev != "undefined") && prev.type == "QGParamDivider")
                         {
                             // Error.  Can't add incomplete functions to the parameter list
                             // A function must be completed by a block
