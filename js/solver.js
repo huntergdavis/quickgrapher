@@ -945,6 +945,7 @@ var QGSolver = function() {
                     }
                     else
                     {
+                        console.log("Determined '" + c + "' is a function since prevType(" + b + ") is " + prevType);
                         // Append function
                         eq.append(new QGFunction(c));
                     }
