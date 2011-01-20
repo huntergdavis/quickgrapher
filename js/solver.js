@@ -77,7 +77,7 @@ var QGSolver = function() {
                         jects = {list: [], objs: {}};
                         this.objects[className] = jects;
                         // Insert object name into list
-                        jects.list.push(className);
+                        jects.list.push(obj.name());
                         // Add to object
                         jects.objs[obj.name()] = obj;
                     }
