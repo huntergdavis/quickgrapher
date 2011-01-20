@@ -666,7 +666,7 @@ var QGSolver = function() {
             var str = ",";
             for(var i = this.params.length - 1; i > -1; i--)
             {
-                str += this.params.toString();
+                str += this.params[i].toString();
                 if(i != 0)
                 {
                     str += ","
