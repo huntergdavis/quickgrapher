@@ -91,7 +91,7 @@ var QGSolver = function() {
         };
 
         var append = function(item) {
-            logObject(item);
+            this.logObject(item);
             // If we have no item yet
             if(this.active.length == 0) {
                 this.active.push(item);
