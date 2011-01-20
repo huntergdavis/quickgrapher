@@ -608,6 +608,8 @@ var QGSolver = function() {
     var QGParamDivider = function() {
         var params = [];
         
+        console.log("new QGParamDivider()");
+        
         var append = function(param) {
             this.params.push(param);
         };
