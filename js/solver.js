@@ -428,7 +428,28 @@ var QGSolver = function() {
         };
         
         var closed = function() {
-            return this.func.length == this.args.length;
+            var argLen = this.args.length,
+                param, content;
+            if(argLen == 1 && this.prefix())
+            {
+                param = this.args[0];
+                if(typeof param != "undefined")
+                {
+                    if(param.type == "QGBlock")
+                    {
+                        content = param.content;
+                        if(typeof content != "undefined" && content.type == "QGParamDivider")
+                        {
+                            argLen = content.params.length;
+                        }
+                    }
+                    else if(param.type == "QGParamDivider")
+                    {
+                        argLen = param.params.length;
+                    }
+                }
+            }
+            return this.func.length == argLen;
         };
         
         // Removes last argument
