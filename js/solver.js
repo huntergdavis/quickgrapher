@@ -821,7 +821,7 @@ var QGSolver = function() {
         console.log("new QGVariable("+variableName+")");
       
         var solve = function(context) {
-            var val = context[this.name()];
+            var val = context[this.varName];
             if(typeof val != "undefined")
             {
                 // If context value is a function
