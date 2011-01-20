@@ -89,3 +89,14 @@ Functions["floor"] = new ComplexFunction(1,true,
 Constants["pi"] = new Constant(Math.PI);
 // E : ~2.71828
 Constants["e"] = new Constant(Math.E);
+
+
+
+
+
+
+/* Custom functions */
+Functions["cheese"] = new ComplexFunction(1,true,
+        function(a,b) {
+            return a * Math.abs(b);
+        });
