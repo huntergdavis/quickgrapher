@@ -511,7 +511,7 @@ var QGSolver = function() {
             var objs = undefined;
             if(typeof className == "string")
             {
-                objs = this.objects[className];
+                objs = objects[className];
                 if(typeof objs != "undefined")
                 {
                     objs = objs.list;
