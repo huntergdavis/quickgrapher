@@ -507,6 +507,10 @@ var QGSolver = function() {
             return this.content.toString();
         };
         
+        var getVariables = function() {
+            return getObjectClass("QGVariable");
+        };
+        
         var getObjectClass = function(className) {
             var objs = undefined;
             if(typeof className == "string")
@@ -537,7 +541,7 @@ var QGSolver = function() {
             content: inner,
             active: active,
             objects: objs,
-            variables: getObjectClass("QGVariable"),
+            variables: getVariables,
             type: "QGEquation"
         };
     };
