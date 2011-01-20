@@ -345,8 +345,10 @@ var QGSolver = function() {
                         else
                         {
                             curr.append(prev);
+                            this.close(curr,false);
                             // Re-add curr to list
-                            this.active.push(curr);
+                            //this.active.push(curr);
+                            //console.log("Current stack: " + this.active.toString());
                         }
                     }
                     else
