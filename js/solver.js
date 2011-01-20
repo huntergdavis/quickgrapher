@@ -654,7 +654,7 @@ var QGSolver = function() {
         
         var stringify = function() {
             var str = "";
-            for(var i = this.params.length - 1; i > -1; i++)
+            for(var i = this.params.length - 1; i > -1; i--)
             {
                 str += this.params.toString();
                 if(i != 0)
@@ -672,7 +672,7 @@ var QGSolver = function() {
         var solve = function(context) {
             var solvedParams = [],
                 param;
-            for(var i = this.params.length - 1; i > -1; i++)
+            for(var i = this.params.length - 1; i > -1; i--)
             {
                 param = this.params[i];
                 solvedParams[this.params.length - 1 - i] = param.solve(context);
