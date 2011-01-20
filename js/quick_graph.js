@@ -638,7 +638,7 @@ function clearAndParseEquation(equation)
         //parseEquation(equation);
         var parsedEquation = QGSolver.parse(equation);
         // Create context
-        var vars = equation.variables;
+        var vars = parsedEquation.variables;
         var context = createContext(vars);
         console.log("Context: " + context.toString());
         // Solve
