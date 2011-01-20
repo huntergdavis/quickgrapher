@@ -541,6 +541,7 @@ var QGSolver = function() {
             content: inner,
             active: active,
             objects: objs,
+            logObject: logObject,
             variables: getVariables,
             type: "QGEquation"
         };
