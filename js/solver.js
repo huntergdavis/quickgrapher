@@ -196,8 +196,16 @@ var QGSolver = function() {
                 }
                 else if(curr.type == "QGParamDivider")
                 {
-                    // Error
-                    alert("Error: Consecutive parameter dividers in parameter list");
+                    if(item.type == "QGParamDivider")
+                    {
+                        // Error
+                        alert("Error: Consecutive parameter dividers in parameter list");
+                    }
+                    else
+                    {
+                        this.active.push(curr);
+                        this.active.push(item);
+                    }
                 }
             }
             console.log("Current stack: " + this.active.toString());
