@@ -856,10 +856,13 @@ var QGSolver = function() {
     }
     var parseEquation = function(rawEquation) {
         var eq = new QGEquation(),
-        c, builtString = "",
+        b, c, builtString = "",
         builtNumber = "",
         innerType;
         for(var i = 0; i < rawEquation.length; i++) {
+            // Previous character
+            b = c;
+            // Current character
             c = rawEquation[i];
             switch(alphaNumericType(c)) {
                 // Letter
@@ -923,11 +926,28 @@ var QGSolver = function() {
                     else if(builtNumber.length > 0)
                     {
                         console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                        eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                        if(builtNumber == "-")
+                        {
+                            alert("Error:  Standalone '-' is not a number.  Put some numerals after it.");
+                        }
+                        else
+                        {
+                            eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                        }
                         builtNumber = "";
                     }
-                    // Append function
-                    eq.append(new QGFunction(c));
+                    // Check for negation
+                    var prevType = alphaNumericType(b);
+                    if(c == "-" && (prevType == 4 || prevType == 6))
+                    {
+                        // Minus
+                        builtNumber += c;
+                    }
+                    else
+                    {
+                        // Append function
+                        eq.append(new QGFunction(c));
+                    }
                     break;
                 // Closing char
                 case 5:
