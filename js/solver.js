@@ -463,9 +463,10 @@ var QGSolver = function() {
         console.log("new QGFunction("+functionString+")");
 
         var append = function(item) {
-            if(item.type == "QGParamDivider")
+            if(item.type == "QGBlock" && (typeof item.content != "undefined")
+                && item.content.type == "QGParamDivider")
             {
-                var itemList = item.params,
+                var itemList = item.content.params,
                     listLen = itemList.length;
                 for(var i = 0; i < listLen; i++)
                 {
