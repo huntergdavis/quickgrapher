@@ -508,7 +508,7 @@ var QGSolver = function() {
         };
         
         var getVariables = function() {
-            return getObjectClass("QGVariable");
+            return this.getObjectClass("QGVariable");
         };
         
         var getObjectClass = function(className) {
@@ -541,6 +541,7 @@ var QGSolver = function() {
             content: inner,
             active: active,
             objects: objs,
+            getObjectClass: getObjectClass,
             logObject: logObject,
             variables: getVariables,
             type: "QGEquation"
