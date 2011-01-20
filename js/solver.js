@@ -861,6 +861,7 @@ var QGSolver = function() {
             innerType;
         // Remove whitespace
         rawEquation.replace(/\s/g,"");
+        console.log("Parsing: " + rawEquation);
         
         for(var i = 0; i < rawEquation.length; i++) {
             // Previous character
