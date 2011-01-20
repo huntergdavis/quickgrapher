@@ -511,7 +511,7 @@ var QGSolver = function() {
             var objs = undefined;
             if(typeof className == "string")
             {
-                objs = objects[className];
+                objs = this.objects[className];
                 if(typeof objs != "undefined")
                 {
                     objs = objs.list;
@@ -536,6 +536,7 @@ var QGSolver = function() {
             toString: stringify,
             content: inner,
             active: active,
+            objects: objects,
             variables: getObjectClass("QGVariable"),
             type: "QGEquation"
         };
