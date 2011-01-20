@@ -583,10 +583,6 @@ var Context = function(vars) {
         this.values[name] = value;
     };
     
-    var getValues = function() {
-        return this.values;
-    };
-    
     var toObject = function() {
         var result = {},
             varLen = this.vars.length,
@@ -595,7 +591,7 @@ var Context = function(vars) {
         for(var i = 0; i < varLen; i++)
         {
             v = this.vars[i];
-            value = values[v];
+            value = this.values[v];
             if(typeof value != "undefined")
             {
                 result[v] = value;
