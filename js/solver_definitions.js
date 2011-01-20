@@ -93,7 +93,7 @@ Functions["average"] = new ComplexFunction(1,true,
             {
                 results /= len;
             }
-            return result;
+            return results;
         },true);
         
 /* Combinators */
@@ -106,7 +106,7 @@ Functions["sum"] = new ComplexFunction(1,true,
                 results += arguments[i];
             }
 
-            return result;
+            return results;
         },true);
 Functions["product"] = new ComplexFunction(1,true,
         function() {
@@ -117,7 +117,7 @@ Functions["product"] = new ComplexFunction(1,true,
                 results *= arguments[i];
             }
 
-            return result;
+            return results;
         },true);
 
 /* Defined constants */
