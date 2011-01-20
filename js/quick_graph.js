@@ -572,7 +572,7 @@ function updateSolution(equation, solution)
 {
     document.getElementById("formula").value = equation.toString();
     document.getElementById("solution").value = solution;
-    $("result").show();
+    $("#result").show();
 }
 
 var Context = function(vars) {
