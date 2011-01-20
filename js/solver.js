@@ -549,7 +549,7 @@ var QGSolver = function() {
                 }
                 for(var i = 0; i < len; i++)
                 {
-                    str += this.args.toString();
+                    str += this.args[i].toString();
                     if(i != len - 1)
                     {
                       str += ",";
@@ -685,7 +685,7 @@ var QGSolver = function() {
         };
         
         var stringify = function() {
-            var str = "|,";
+            var str = ",";
             for(var i = this.params.length - 1; i > -1; i--)
             {
                 str += this.params[i].toString();
@@ -694,7 +694,6 @@ var QGSolver = function() {
                     str += ","
                 }
             }
-            str += "|";
             return str;
         };
         
