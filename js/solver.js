@@ -255,9 +255,31 @@ var QGSolver = function() {
                     {
                         if((typeof prev != "undefined") && prev.type == "QGParamDivider")
                         {
-                            // Error.  Can't add incomplete functions to the parameter list
-                            // A function must be completed by a block
-                            alert("Error:  Can't add incomplete functions to the parameter list.");
+                            // If we have multiple args in parameter list, take last added and give to function
+                            if(!curr.prefix() && prev.params.length > 1)
+                            {
+                                var prevHeader = prev.params.pop();
+                                if(prevHeader.type == "QGFunction" && !prevHeader.prefix()
+                                    && prevHeader.priority() < curr.priority())
+                                {
+                                    // Swap args
+                                    curr.append(prevHead.pop());
+                                    prevHead.push(curr);
+                                    prev.append(prevHead);
+                                }
+                                else
+                                {
+                                    curr.append(prevHeader);
+                                    prev.append(curr);
+                                }
+                                this.close(prev, false);
+                            }
+                            else
+                            {
+                                // Error.  Can't add incomplete functions to the parameter list
+                                // A function must be completed by a block
+                                alert("Error:  Can't add incomplete functions to the parameter list.");
+                            }
                         }
                         else
                         {
