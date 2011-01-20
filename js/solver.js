@@ -468,7 +468,8 @@ var QGSolver = function() {
             {
                 var itemList = item.content.params,
                     listLen = itemList.length;
-                for(var i = 0; i < listLen; i++)
+                // Params in reverse order in QGParamDivider
+                for(var i = listLen - 1; i > -1; i--)
                 {
                     this.args.push(itemList[i]);
                 }
