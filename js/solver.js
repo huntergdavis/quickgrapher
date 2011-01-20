@@ -507,7 +507,7 @@ var QGSolver = function() {
             return this.content.toString();
         };
         
-        var getObjectClass(className) {
+        var getObjectClass = function(className) {
             var objs = undefined;
             if(typeof className == "string")
             {
