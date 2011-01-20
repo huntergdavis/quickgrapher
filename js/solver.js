@@ -5,7 +5,7 @@ var ComplexFunction = function(pri, prefix, func, infinite) {
         inf = infinite ? infinite : false;
     
     var evaluate = function(args) {
-        if(args.length == this.length) {
+        if(args.length == this.length || this.infinite) {
             return f.apply(this,args);
         } else {
             // Error
