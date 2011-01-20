@@ -543,6 +543,10 @@ var QGSolver = function() {
             {
                 str += this.funcName;
                 var len = this.args.length;
+                if(len == 0 || this.args[0].type != "QGBlock")
+                {
+                    str += "(";
+                }
                 for(var i = 0; i < len; i++)
                 {
                     str += this.args.toString();
@@ -550,6 +554,10 @@ var QGSolver = function() {
                     {
                       str += ",";
                     }
+                }
+                if(len == 0 || this.args[0].type != "QGBlock")
+                {
+                    str += ")";
                 }
             }
             else
