@@ -110,7 +110,14 @@ var QGSolver = function() {
                         // Dont compress to current function yet
                         this.active.push(item);
                     }
-                    else
+                    else if(item.type == "QGParamDivider")
+                    {
+                        // Replace on stack
+                        this.active.push(curr);
+                        // Add divider
+                        this.active.push(item);
+                    }
+                    else 
                     {
                         if(!curr.closed())
                         {
@@ -134,6 +141,13 @@ var QGSolver = function() {
                         // Push new item to stack
                         this.active.push(item);
                     }
+                    else if(item.type == "QGParamDivider")
+                    {
+                        // Replace curr item
+                        this.active.push(curr);
+                        // Push new item to stack
+                        this.active.push(item);
+                    }
                     else 
                     {
                         // Error
@@ -142,32 +156,48 @@ var QGSolver = function() {
                 }
                 else if(curr.type == "QGBlock")
                 {
-                    if(!curr.closed())
+                    if(item.type == "QGParamDivider")
                     {
-                        // Delay append until closing
-                        // curr.append(item);
-                        this.active.push(curr);
-                        this.active.push(item);
+                        if(!curr.closed())
+                        {
+                            // Error
+                            alert("Error: Leading divider in parameter list");
+                        }
+                        else
+                        {
+                            this.active.push(curr);
+                            this.active.push(item);
+                        }
                     }
                     else
                     {
-                        if(item.type == "QGFunction" && !item.prefix())
+                        if(!curr.closed())
                         {
-                            // Use block as first item in function
-                            item.append(curr);
+                            // Delay append until closing
+                            // curr.append(item);
+                            this.active.push(curr);
                             this.active.push(item);
                         }
                         else
                         {
-                            // Error
-                            alert("Error: Trying to add to closed block");
+                            if(item.type == "QGFunction" && !item.prefix())
+                            {
+                                // Use block as first item in function
+                                item.append(curr);
+                                this.active.push(item);
+                            }
+                            else
+                            {
+                                // Error
+                                alert("Error: Trying to add to closed block");
+                            }
                         }
                     }
                 }
                 else if(curr.type == "QGParamDivider")
                 {
-                    this.active.push(curr);
-                    this.active.push(item);
+                    // Error
+                    alert("Error: Consecutive parameter dividers in parameter list");
                 }
             }
             console.log("Current stack: " + this.active.toString());
