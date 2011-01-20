@@ -164,6 +164,11 @@ var QGSolver = function() {
                         }
                     }
                 }
+                else if(curr.type == "QGParamDivider")
+                {
+                    this.active.push(curr);
+                    this.active.push(item);
+                }
             }
             console.log("Current stack: " + this.active.toString());
         };
@@ -195,20 +200,37 @@ var QGSolver = function() {
                     }
                     else if(!parenClosed && curr.closed())
                     {
-                        // Haven't found parens yet, close
-                        this.close(curr, false);
+                        // Handle parameter lists
+                        if(prev.type == "QGParamDivider")
+                        {
+                            prev.append(curr);
+                            // Haven't found parens yet, close
+                            this.close(prev, false);
+                        }
+                        else
+                        {
+                            // Haven't found parens yet, close
+                            this.close(curr, false);
+                        }
                     }
                     else if(!parenClosed && !curr.closed() && (typeof prev != "undefined"))
                     {
-                        curr.append(prev);
-                        console.log("Current stack: " + this.active.toString());
-                        // Haven't found parens yet, close
-                        this.close(curr, false);
+                        if(prev.type == "QGParamDivider")
+                        {
+                            // Error.  Can't add incomplete functions to the parameter list
+                            // A function must be completed by a block
+                            alert("Error:  Can't add incomplete functions to the parameter list.");
+                        }
+                        else
+                        {
+                            curr.append(prev);
+                            console.log("Current stack: " + this.active.toString());
+                            // Haven't found parens yet, close
+                            this.close(curr, false);
+                        }
                     }
                     else
                     {
-                        // Attempt to recurse until we can close
-                        //this.close(curr);
                         console.log("Warning: Trying to close function " + curr.toString() + " but status: [closed: "+curr.closed()+",prefixed:"+curr.prefix()+",parenFound:"+parenClosed+",prevType:"+(prev?prev.type:prev)+"].  Breaking...");
                         if(parenClosed)
                         {
@@ -254,6 +276,28 @@ var QGSolver = function() {
                     {
                         // Recurse because this one was already closed
                         this.close(curr, false);
+                    }
+                }
+                else if(curr.type == "QGParamDivider")
+                {
+                    // If we have a previous argument, add to list
+                    if((typeof prev != "undefined") && prev.type != "QGParamDivider")
+                    {
+                        if(prev.type == "QGFunction" && !prev.closed())
+                        {
+                            // Error
+                            alert("Error:  Can't add incomplete functions to the parameter list.");
+                        }
+                        else
+                        {
+                            curr.append(prev);
+                            // Re-add curr to list
+                            this.active.push(curr);
+                        }
+                    }
+                    else
+                    {
+                        alert("Error: Function parameter divider with no trailing parameter or two consecutive dividers");
                     }
                 }
                 else
@@ -524,6 +568,50 @@ var QGSolver = function() {
         };
     };
     
+    var QGParamDivider = function() {
+        var params = [];
+        
+        var append = function(param) {
+            this.params.push(param);
+        };
+        
+        var stringify = function() {
+            var str = "";
+            for(var i = this.params.length - 1; i > -1; i++)
+            {
+                str += this.params.toString();
+                if(i != 0)
+                {
+                    str += ","
+                }
+            }
+            if(this.params.length == 0)
+            {
+                str += ",";
+            }
+            return str;
+        };
+        
+        var solve = function(context) {
+            var solvedParams = [],
+                param;
+            for(var i = this.params.length - 1; i > -1; i++)
+            {
+                param = this.params[i];
+                solvedParams[this.params.length - 1 - i] = param.solve(context);
+            }
+            return solvedParams;
+        };
+      
+        return {
+            params: params,
+            append: append,
+            solve: solve,
+            toString: stringify,
+            type: "QGParamDivider"
+        };
+    };
+    
     var QGVariable = function(variableName) {
         var v = variableName;
         
@@ -592,9 +680,14 @@ var QGSolver = function() {
 
     /* alphaNumericType returns the alphaNumericType of the single char passed */
     /* alphaNumericType:
-     6=open parentheses
-     5=closed parenthesis 4=operator,  2 =numeric, 1=alpha, 0=unsupported
-     operator*/
+        6 : open parentheses
+        5 : closed parenthesis
+        4 : operator
+        3 : function parameter divider
+        2 : numeric
+        1 : alpha
+        0 : unsupported
+     */
     var alphaNumericType = function(singlet) {
         var returnVal;
 
@@ -610,6 +703,9 @@ var QGSolver = function() {
         }
         if (/[\é\ê\ò\ñ\ð\ï\î\í\ì\ë\÷\ö\õ\ô\ó\û\ÿ\ù\ø\ü\ú\þ\ÿ\,\&\@\#\~\_\:\;\+\-\/\*\^\%\\\!]/.test(singlet)) {
             returnVal = 4;
+        }
+        if (/[,]/.test(singlet)) {
+            returnVal = 3;
         }
         if (/[0-9\\.]/.test(singlet)) {
             returnVal = 2;
@@ -640,8 +736,32 @@ var QGSolver = function() {
                         builtNumber += c;
                     }
                     break;
-                // Not used
+                // Function parameter divider
                 case 3:
+                    // If we are working on a string
+                    if(builtString.length > 0) {
+                        // check if it is a constant
+                        var constant = Constants[builtString]
+                        if(typeof constant != "undefined")
+                        {
+                            eq.append(new QGConstant(constant));
+                        }
+                        else
+                        {
+                            // Otherwise it is a variable
+                            eq.append(new QGVariable(builtString));
+                        }
+                        builtString = "";
+                    }
+                    // If we are working on a number, assume its a constant
+                    else if(builtNumber.length > 0)
+                    {
+                        console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                        eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                        builtNumber = "";
+                    }
+                    // Append divider
+                    eq.append(new QGParamDivider());
                     break;
                 // Compressed function reference
                 case 4:
