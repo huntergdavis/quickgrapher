@@ -221,7 +221,7 @@ var QGSolver = function() {
             if(this.active.length > 0)
             {
                 var curr = this.active.pop();
-                console.log("Call to close " + curr.toString() + " with prev: " + prev + ", parenClosed: " + parenClosed);
+                console.log("Call to close " + curr.toString() + " with prev: " + prev + ", parenClosed: " + parenClosed + ". Stack: " + this.active.toString());
                 if(curr.type == "QGFunction")
                 {
                     // Prefixed functions can be closed
