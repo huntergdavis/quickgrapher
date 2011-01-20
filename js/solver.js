@@ -359,7 +359,15 @@ var QGSolver = function() {
                 else
                 {
                     // Try to recurse since we haven't found item to close yet
-                    this.close(curr,false);
+                    if((typeof prev != "undefined") && prev.type == "QGParamDivider")
+                    {
+                        prev.append(curr);
+                        this.close(prev,false);
+                    }
+                    else
+                    {
+                        this.close(curr,false);
+                    }
                 }
             }
             else
