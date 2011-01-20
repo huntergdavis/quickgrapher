@@ -81,8 +81,36 @@ Functions["floor"] = new ComplexFunction(1,true,
         function(a) {
             return Math.floor(a);
         });
-
-
+Functions["average"] = new ComplexFunction(1,true,
+        function() {
+            var results = 0,
+              len = arguments.length;
+            for(var i = 0; i < len; i++)
+            {
+                results += arguments[i];
+            }
+            if(len > 0)
+            {
+                results /= len;
+            }
+            return result;
+        },true);
+        
+/* Combinators */
+Functions["average"] = new ComplexFunction(1,true,
+        function() {
+            var results = 0,
+              len = arguments.length;
+            for(var i = 0; i < len; i++)
+            {
+                results += arguments[i];
+            }
+            if(len > 0)
+            {
+                results /= len;
+            }
+            return result;
+        },true);
 
 /* Defined constants */
 // PI : ~3.14159

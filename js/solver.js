@@ -1,7 +1,8 @@
 
  /* Function defining object */
-var ComplexFunction = function(pri, prefix, func) {
-    var p = pri, x = prefix, f = func;
+var ComplexFunction = function(pri, prefix, func, infinite) {
+    var p = pri, x = prefix, f = func,
+        inf = infinite ? infinite : false;
     
     var evaluate = function(args) {
         if(args.length == this.length) {
@@ -19,6 +20,7 @@ var ComplexFunction = function(pri, prefix, func) {
     return {
         priority: p,
         prefix: x,
+        infinite: inf,
         evaluate: evaluate,
         length: f.length,
         toString: stringify
@@ -543,7 +545,7 @@ var QGSolver = function() {
                     }
                 }
             }
-            return this.func.length == argLen;
+            return this.func.length == argLen || this.func.infinite;
         };
         
         // Removes last argument
