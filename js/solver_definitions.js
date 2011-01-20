@@ -97,6 +97,6 @@ Constants["e"] = new Constant(Math.E);
 
 /* Custom functions */
 Functions["cheese"] = new ComplexFunction(1,true,
-        function(a,b) {
-            return a * Math.abs(b);
+        function(a,b,c) {
+            return a * b * c;
         });
