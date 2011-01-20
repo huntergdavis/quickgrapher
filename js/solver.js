@@ -58,7 +58,7 @@ var QGSolver = function() {
         // Member variables
         var inner = undefined,
             active = [],
-            objects = {};
+            objs = {};
             
         console.log("new QGEquation().");
         
@@ -536,7 +536,7 @@ var QGSolver = function() {
             toString: stringify,
             content: inner,
             active: active,
-            objects: objects,
+            objects: objs,
             variables: getObjectClass("QGVariable"),
             type: "QGEquation"
         };
