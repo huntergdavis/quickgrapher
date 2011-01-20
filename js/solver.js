@@ -351,9 +351,11 @@ var QGSolver = function() {
                             //console.log("Current stack: " + this.active.toString());
                         }
                     }
-                    else
+                    else if(typeof prev != "undefined")
                     {
-                        alert("Error: Function parameter divider with no trailing parameter or two consecutive dividers");
+                        // alert("Error: Function parameter divider with no trailing parameter or two consecutive dividers");
+                        // Replace curr with prev (just ignore duplicate divider)
+                        this.close(prev,false); 
                     }
                 }
                 else
