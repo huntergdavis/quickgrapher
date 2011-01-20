@@ -600,12 +600,17 @@ var Context = function(vars) {
         
         return result;
     };
+    
+    var stringify = function() {
+        return this.values.toString();
+    };
         
     return {
         vars: varList,
         set: setValue,
         values: v,
-        toObj: toObject
+        toObj: toObject,
+        toString: stringify
     };
 };
 
