@@ -856,9 +856,12 @@ var QGSolver = function() {
     }
     var parseEquation = function(rawEquation) {
         var eq = new QGEquation(),
-        b, c, builtString = "",
-        builtNumber = "",
-        innerType;
+            b, c, builtString = "",
+            builtNumber = "",
+            innerType;
+        // Remove whitespace
+        rawEquation.replace(/\s/g,"");
+        
         for(var i = 0; i < rawEquation.length; i++) {
             // Previous character
             b = c;
