@@ -57,11 +57,41 @@ var QGSolver = function() {
     var QGEquation = function() {
         // Member variables
         var inner = undefined,
-            active = [];
+            active = [],
+            objects = {};
             
         console.log("new QGEquation().");
+        
+        var logObject = function(obj) {
+            if(typeof obj != "undefined" && typeof obj.type == "string")
+            {
+                var objType = obj.type;
+                if(objType == "QGFunction" || objType == "QGVariable"
+                    || objType == "QGConstant")
+                {
+                    var className = obj.type;
+                    var jects = objects[className];
+                    // No group yet
+                    if(typeof jects == "undefined")
+                    {
+                        jects = {list: [], objs: {}};
+                        objects[className] = jects;
+                        // Insert object name into list
+                        jects.list.push(className);
+                        // Add to object
+                        jects.objs[obj.name()] = obj;
+                    }
+                    jects[obj.name()] = obj;
+                }
+            }
+            else
+            {
+                alert("Error: Trying to log invalid object: " + obj);
+            }
+        };
 
         var append = function(item) {
+            logObject(item);
             // If we have no item yet
             if(this.active.length == 0) {
                 this.active.push(item);
@@ -477,6 +507,27 @@ var QGSolver = function() {
             return this.content.toString();
         };
         
+        var getObjectClass(className) {
+            var objs = undefined;
+            if(typeof className == "string")
+            {
+                objs = this.objects[className];
+                if(typeof objs != "undefined")
+                {
+                    objs = objs.list;
+                }
+                else
+                {
+                    objs = [];
+                }
+            }
+            else
+            {
+                objs = [];
+            }
+            return objs;
+        };
+        
         return {
             append: append,
             finalize: reduce,
@@ -485,6 +536,7 @@ var QGSolver = function() {
             toString: stringify,
             content: inner,
             active: active,
+            variables: getObjectClass("QGVariable"),
             type: "QGEquation"
         };
     };
@@ -643,6 +695,10 @@ var QGSolver = function() {
             console.log("Args for "+ this.funcName +": " + this.args.toString());
         };
         
+        var toLabel = function() {
+            return this.funcName;
+        };
+        
         return {
             append: append,
             priority: pri,
@@ -652,6 +708,7 @@ var QGSolver = function() {
             toString: stringify,
             pop: popLeft,
             push: pushLeft,
+            name: toLabel,
             args: args,
             func: func,
             funcName: funcName,
@@ -757,7 +814,7 @@ var QGSolver = function() {
         console.log("new QGVariable("+variableName+")");
       
         var solve = function(context) {
-            var val = context[this.name];
+            var val = context[this.name()];
             if(typeof val != "undefined")
             {
                 // If context value is a function
@@ -777,13 +834,18 @@ var QGSolver = function() {
         };
         
         var stringify = function() {
-            return this.name;
+            return this.varName;
+        };
+        
+        var toLabel = function() {
+            return this.varName;
         };
         
         return {
             solve: solve,
             toString: stringify,
-            name: v,
+            name: toLabel,
+            varName: v,
             type: "QGVariable"
         };
     };
@@ -801,9 +863,14 @@ var QGSolver = function() {
             return this.value;
         };
         
+        var toLabel = function() {
+            return this.value + "";
+        };
+        
         return {
             solve: solve,
             toString: stringify,
+            name: toLabel,
             value: v.value,
             type: "QGConstant"
         };
@@ -815,6 +882,7 @@ var QGSolver = function() {
     
     /* OUR ONLY GLOBALS ARE DECLARED
      HERE- array of variable names to legend info, array of variable names to values graphial graph*/
+     var parsedEquation = undefined;
 
 
     /* alphaNumericType returns the alphaNumericType of the single char passed */
@@ -1018,13 +1086,35 @@ var QGSolver = function() {
         }
         // Finalize parsing
         eq.finalize();
+        // Save object
+        this.equation = eq;
         // Show parsed equation
-        alert(eq.toString() + " = " + eq.solve({x: 10}));
+        //alert(eq.toString() + " = " + eq.solve({x: 10}));
         // Return parsed object
         return eq;
     };
     
+    var solve = function(context) {
+        if(typeof this.equation != "undefined")
+        {
+            if(typeof context != "undefined")
+            {
+                return this.equation.solve(context);
+            }
+            else
+            {
+                alert("Error: No context provided to solver");
+            }
+        }
+        else
+        {
+            alert("Error: Unable to solve because no equation available");
+        }
+    };
+    
     return {
-        parse: parseEquation
+        parse: parseEquation,
+        solve: solve,
+        equation: parsedEquation
     };
 }();

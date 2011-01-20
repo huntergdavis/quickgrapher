@@ -19,6 +19,7 @@ hunter or mark at discursivelabs.com
     <script src="/js/graph.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/solver.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/solver_definitions.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/quick_graph.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="/css/style.css"/>
     
     <title>QuickGraph</title>
@@ -27,7 +28,8 @@ hunter or mark at discursivelabs.com
       <script type="text/javascript" charset="utf-8">
         function parse()
         {
-            QGSolver.parse(document.getElementById('mainEquation').value);
+            //QGSolver.parse(document.getElementById('mainEquation').value);
+            clearAndParseEquation(document.getElementById('mainEquation').value);
         }
       </script>
       <h1>QuickGraph</h1>
@@ -38,8 +40,8 @@ hunter or mark at discursivelabs.com
       Equation:<br/>
       <input type="text" id="mainEquation" size="60"/>  
       <input type="button" value="Graph!" onclick="parse()"/><br/>
-      <div id="result">
-        <span id="formula">0</span> = <span id="mainResult">0</span>
+      <div id="result" style="display: none;">
+        <span id="formula">0</span> = <span id="solution">0</span>
       </div>
       <br/>
       </h6>
