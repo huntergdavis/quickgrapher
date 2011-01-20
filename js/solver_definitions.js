@@ -97,6 +97,6 @@ Constants["e"] = new Constant(Math.E);
 
 /* Custom functions */
 Functions["cheese"] = new ComplexFunction(1,true,
-        function(a,b,c) {
-            return a * b * c;
+        function(a,b,c,d,e,f) {
+            return a * b * c * d * e * f;
         });
