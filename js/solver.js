@@ -655,7 +655,7 @@ var QGSolver = function() {
         };
         
         var stringify = function() {
-            var str = "";
+            var str = ",";
             for(var i = this.params.length - 1; i > -1; i--)
             {
                 str += this.params.toString();
@@ -663,10 +663,6 @@ var QGSolver = function() {
                 {
                     str += ","
                 }
-            }
-            if(this.params.length == 0)
-            {
-                str += ",";
             }
             return str;
         };
