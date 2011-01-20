@@ -463,7 +463,19 @@ var QGSolver = function() {
         console.log("new QGFunction("+functionString+")");
 
         var append = function(item) {
-            this.args.push(item);
+            if(item.type == "QGParamDivider")
+            {
+                var itemList = item.params,
+                    listLen = itemList.length;
+                for(var i = 0; i < listLen; i++)
+                {
+                    this.args.push(itemList[i]);
+                }
+            }
+            else
+            {
+                this.args.push(item);
+            }
             console.log("Args for "+ this.funcName +": " + this.args.toString());
         };
         
