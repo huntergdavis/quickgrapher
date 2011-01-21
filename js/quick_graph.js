@@ -618,7 +618,7 @@ function clearAndParseEquation(equation)
         if(typeof solution != "undefined")
         {
             // Update solution display
-            updateSolution(parsedEquation, context, solution);
+            updateSolution(parsedEquation, context.toObj(), solution);
             // update all graphs
             updateAllGraphs()
         }

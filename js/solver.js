@@ -48,10 +48,6 @@ var Context = function(vars) {
         this.values[name] = value;
     };
     
-    var getValue = function(name) {
-        return this.values[name];
-    };
-    
     var toObject = function() {
         var result = {},
             varLen = this.vars.length,
@@ -77,7 +73,6 @@ var Context = function(vars) {
     return {
         vars: varList,
         set: setValue,
-        get: getValue,
         values: v,
         toObj: toObject,
         toString: stringify
@@ -865,7 +860,7 @@ var QGSolver = function() {
         console.log("new QGVariable("+variableName+")");
       
         var solve = function(context) {
-            var val = context.get(this.varName);
+            var val = context[this.varName];
             if(typeof val != "undefined")
             {
                 // If context value is a function
@@ -887,7 +882,7 @@ var QGSolver = function() {
         var stringify = function(context) {
             if(typeof context != "undefined")
             {
-                var v = context.get(this.varName);
+                var v = context[this.varName];
                 // If we have an entry for this variable and
                 // it has a constant replacement. 
                 if(typeof v != "undefined" && typeof v != "function")
