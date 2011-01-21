@@ -81,7 +81,7 @@ var Context = function(vars) {
                 if(typeof value == "object"
                     && typeof value.value != "undefined")
                 {
-                    result += value.value;
+                    result += "f." + value.value;
                 }
                 else
                 {
