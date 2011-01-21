@@ -503,8 +503,8 @@ var QGSolver = function() {
             }
         };
         
-        var stringify = function() {
-            return this.content.toString();
+        var stringify = function(context) {
+            return this.content.toString(context);
         };
         
         var getVariables = function() {
@@ -630,7 +630,7 @@ var QGSolver = function() {
             return this.func.evaluate(solvedArgs);
         };
         
-        var stringify = function() {
+        var stringify = function(context) {
             var str = "";
             if(this.prefix())
             {
@@ -642,7 +642,7 @@ var QGSolver = function() {
                 }
                 for(var i = 0; i < len; i++)
                 {
-                    str += this.args[i].toString();
+                    str += this.args[i].toString(context);
                     if(i != len - 1)
                     {
                       str += ",";
@@ -658,18 +658,18 @@ var QGSolver = function() {
                 if(this.length() == 1)
                 {
                     str += this.funcName;
-                    str += this.args[0].toString();
+                    str += this.args[0].toString(context);
                 }
                 if(this.length() == 2)
                 {
                     if(this.args.length > 0)
                     {
-                        str += this.args[0].toString();
+                        str += this.args[0].toString(context);
                     }
                     str += this.funcName;
                     if(this.args.length > 1)
                     {
-                        str += this.args[1].toString();
+                        str += this.args[1].toString(context);
                     }
                 }
             }
@@ -739,14 +739,14 @@ var QGSolver = function() {
             this.content = item;
         };
         
-        var stringify = function() {
+        var stringify = function(context) {
             if(typeof this.content == "undefined")
             {
                 return "()";
             }
             else
             {
-                return "(" + this.content.toString() + ")";
+                return "(" + this.content.toString(context) + ")";
             }
         };
         
@@ -782,11 +782,11 @@ var QGSolver = function() {
             this.params.push(param);
         };
         
-        var stringify = function() {
+        var stringify = function(context) {
             var str = ",";
             for(var i = this.params.length - 1; i > -1; i--)
             {
-                str += this.params[i].toString();
+                str += this.params[i].toString(context);
                 if(i != 0)
                 {
                     str += ","
@@ -840,8 +840,25 @@ var QGSolver = function() {
             }
         };
         
-        var stringify = function() {
-            return this.varName;
+        var stringify = function(context) {
+            if(typeof context != "undefined")
+            {
+                var v = context[this.varName];
+                // If we have an entry for this variable and
+                // it has a constant replacement. 
+                if(typeof v != "undefined" && typeof v != "function")
+                {
+                    return val;
+                }
+                else
+                {
+                    return this.varName;
+                }
+            }
+            else
+            {
+                return this.varName;
+            }
         };
         
         var toLabel = function() {
@@ -866,7 +883,7 @@ var QGSolver = function() {
             return this.value;
         };
         
-        var stringify = function() {
+        var stringify = function(context) {
             return this.value;
         };
         

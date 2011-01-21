@@ -568,9 +568,9 @@ function replaceStoredFunctions(sanitizedEquation) {
     return restoredEquation
 }
 
-function updateSolution(equation, solution)
+function updateSolution(equation, context, solution)
 {
-    document.getElementById("formula").innerText = equation.toString();
+    document.getElementById("formula").innerText = equation.toString(context);
     document.getElementById("solution").innerText = solution;
     $("#result").show();
 }
@@ -657,7 +657,7 @@ function clearAndParseEquation(equation)
         if(typeof solution != "undefined")
         {
             // Update solution display
-            updateSolution(parsedEquation, solution);
+            updateSolution(parsedEquation, context, solution);
             // update all graphs
             updateAllGraphs()
         }
