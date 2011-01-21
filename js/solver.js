@@ -95,15 +95,15 @@ var VariableIterator = function(start, step, stepper) {
     // according to the step value and the steppper
     var iterate = function() {
         var result = this.value;
-        this.value = this.stepper(this.value, this.step);
+        this.value = this.stepper(this.value, this.increment);
         return result;
     };
     
     return {
         value: curr,
         stepper: iter,
-        step: inc,
-        next: iterate 
+        increment: inc,
+        step: iterate 
     };
 };
 
@@ -891,9 +891,9 @@ var QGSolver = function() {
             if(typeof val != "undefined")
             {
                 // If context value is a function (VariableIterator)
-                if((typeof val == "object") && (typeof val.next == "function"))
+                if((typeof val == "object") && (typeof val.value != "undefined"))
                 {
-                    return val.next();
+                    return val.value;
                 }
                 else
                 {

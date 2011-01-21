@@ -640,21 +640,25 @@ function updateAllGraphs(equation, context)
     var unifiedGraph = true;
     if(unifiedGraph)
     {
-       // Create graph element
-       var graph = document.createElement("div"),
-          parentElement = $("#graph_container"),
-          graphID = "subgraph";
-       graph.id = graphID;
-       graph.style.position = "relative";
-       graph.style.width = parentElement.width();
-       graph.style.height = parentElement.height();
-       // Add to canvas
-       parentElement.append(graph);
-       // Register with Graph
-       $(graph).graphify({'hue-increment' : 90, 'hue-base' : 36}).attach_legend().realHover({
-          hover: Graph.highlightNearest,
-          out: Graph.removeHighlight
-       });
+        var graphID = "#subgraph";
+        // Check if we already have a graph element
+        if(typeof $(graphID) == "undefined")
+        {
+            // Create graph element
+            var graph = document.createElement("div"),
+                parentElement = $("#graph_container");
+            graph.id = graphID;
+            graph.style.position = "relative";
+            graph.style.width = parentElement.width();
+            graph.style.height = parentElement.height();
+            // Add to canvas
+            parentElement.append(graph);
+            // Register with Graph
+            $(graph).graphify({'hue-increment' : 90, 'hue-base' : 36}).attach_legend().realHover({
+                hover: Graph.highlightNearest,
+                out: Graph.removeHighlight
+            });
+        }
     }
     
     
@@ -674,6 +678,7 @@ function updateAllGraphs(equation, context)
         //name = "Title" + varName;
         // Adjust context
         var fixedPt = localContext[v];
+        // Substitute iterator
         localContext[v] = new VariableIterator(0,1);
         // Create graph
         updateGraph(graphID, v, equation, localContext, 101);
@@ -702,6 +707,8 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
             console.log("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
         }
         data.push([currVarValue, solution]);
+        // Step variable
+        context[graphVariable].step();
     }
     
     // Add plot for this variable (will overwrite existing ones)
