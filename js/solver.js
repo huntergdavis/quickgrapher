@@ -167,10 +167,16 @@ var QGSolver = function() {
                         jects = {list: [], objs: {}};
                         this.objects[className] = jects;
                     }
-                    // Insert object name into list
-                    jects.list.push(obj.name());
-                    // Add to object
-                    jects.objs[obj.name()] = obj;
+                    // Check if we have this item already
+                    var objs = jects.objs,
+                        name = obj.name();
+                    if(typeof objs[name] == "undefined")
+                    {
+                        // Insert object name into list
+                        jects.list.push(name);
+                        // Add to object
+                        objs[name] = obj;
+                    }
                 }
             }
             else
