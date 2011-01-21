@@ -891,7 +891,7 @@ var QGSolver = function() {
             if(typeof val != "undefined")
             {
                 // If context value is a function (VariableIterator)
-                if(typeof val == "function")
+                if((typeof val == "object") && (typeof val.next == "function"))
                 {
                     return val.next();
                 }
