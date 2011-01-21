@@ -887,7 +887,7 @@ var QGSolver = function() {
                 // it has a constant replacement. 
                 if(typeof v != "undefined" && typeof v != "function")
                 {
-                    return val;
+                    return v;
                 }
                 else
                 {
