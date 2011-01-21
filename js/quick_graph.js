@@ -642,7 +642,7 @@ function updateAllGraphs(equation, context)
     {
         var graphID = "subgraph";
         // Check if we already have a graph element
-        if(typeof $("#" + graphID) == "undefined")
+        if($("#" + graphID).length == 0)
         {
             // Create graph element
             var graph = document.createElement("div"),
