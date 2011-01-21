@@ -22,7 +22,19 @@ hunter or mark at discursivelabs.com
     <script src="/js/quick_graph.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="/css/style.css"/>
     
-    <title>QuickGraph</title>
+    <title>QuickGrapher</title>
+    <script type="text/javascript"> 
+ 
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-19995643-2']);
+        _gaq.push(['_trackPageview']);
+        
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
   </head>
   <body>
       <script type="text/javascript" charset="utf-8">
@@ -32,7 +44,7 @@ hunter or mark at discursivelabs.com
             clearAndParseEquation(document.getElementById('mainEquation').value);
         }
       </script>
-      <h1>QuickGraph</h1>
+      <h1>QuickGrapher</h1>
       <h2>Instructions</h2>
       <h5>Simply click parse equation, and all variables become dynamic html5 sliders.
       <br>
