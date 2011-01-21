@@ -575,45 +575,6 @@ function updateSolution(equation, context, solution)
     $("#result").show();
 }
 
-var Context = function(vars) {
-    var varList = vars,
-        v = {};
-        
-    var setValue = function(name, value) {
-        this.values[name] = value;
-    };
-    
-    var toObject = function() {
-        var result = {},
-            varLen = this.vars.length,
-            v, value;
-            
-        for(var i = 0; i < varLen; i++)
-        {
-            v = this.vars[i];
-            value = this.values[v];
-            if(typeof value != "undefined")
-            {
-                result[v] = value;
-            }
-        }
-        
-        return result;
-    };
-    
-    var stringify = function() {
-        return this.values.toString();
-    };
-        
-    return {
-        vars: varList,
-        set: setValue,
-        values: v,
-        toObj: toObject,
-        toString: stringify
-    };
-};
-
 function createContext(vars) {
     var context = new Context(vars),
         varLen = vars.length,

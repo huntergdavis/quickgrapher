@@ -40,6 +40,50 @@ var Constant = function(value) {
     };
 };
 
+var Context = function(vars) {
+    var varList = vars,
+        v = {};
+        
+    var setValue = function(name, value) {
+        this.values[name] = value;
+    };
+    
+    var getValue = function(name) {
+        return this.values[name];
+    };
+    
+    var toObject = function() {
+        var result = {},
+            varLen = this.vars.length,
+            v, value;
+            
+        for(var i = 0; i < varLen; i++)
+        {
+            v = this.vars[i];
+            value = this.values[v];
+            if(typeof value != "undefined")
+            {
+                result[v] = value;
+            }
+        }
+        
+        return result;
+    };
+    
+    var stringify = function() {
+        return this.values.toString();
+    };
+        
+    return {
+        vars: varList,
+        set: setValue,
+        get: getValue,
+        values: v,
+        toObj: toObject,
+        toString: stringify
+    };
+};
+
 /* For defined functions */
 var Functions = {};
 /* For defined constants */
@@ -821,7 +865,7 @@ var QGSolver = function() {
         console.log("new QGVariable("+variableName+")");
       
         var solve = function(context) {
-            var val = context[this.varName];
+            var val = context.get(this.varName);
             if(typeof val != "undefined")
             {
                 // If context value is a function
@@ -843,7 +887,7 @@ var QGSolver = function() {
         var stringify = function(context) {
             if(typeof context != "undefined")
             {
-                var v = context[this.varName];
+                var v = context.get(this.varName);
                 // If we have an entry for this variable and
                 // it has a constant replacement. 
                 if(typeof v != "undefined" && typeof v != "function")
