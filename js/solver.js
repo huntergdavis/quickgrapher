@@ -1044,34 +1044,51 @@ var QGSolver = function() {
                     break;
                 // Compressed function reference
                 case 4:
-                    // If we are working on a string
-                    if(builtString.length > 0) {
-                        // check if it is a constant
-                        var constant = Constants[builtString]
-                        if(typeof constant != "undefined")
+                    // If we are working on a number, check if its a constant
+                    if(builtNumber.length > 0)
+                    {
+                        // Check that we dont have a negated constant
+                        if(builtNumber.charAt(0) != "-" || builtNumber.length > 1)
                         {
-                            eq.append(new QGConstant(constant));
+                            console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                            eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
                         }
                         else
                         {
-                            // Otherwise it is a variable
-                            eq.append(new QGVariable(builtString));
+                            // This is a negated constant.  Append it to the existing constant string
+                            builtString = builtNumber + builtString;
                         }
-                        builtString = "";
+                        builtNumber = "";
                     }
-                    // If we are working on a number, assume its a constant
-                    else if(builtNumber.length > 0)
-                    {
-                        console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                        if(builtNumber == "-")
+                    // If we are working on a string
+                    if(builtString.length > 0) {
+                        if(builtString == "-")
                         {
                             alert("Error:  Standalone '-' is not a number.  Put some numerals after it.");
                         }
                         else
                         {
-                            eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                            // Strip any negative symbols
+                            var negative = false;
+                            if(builtString.charAt(0) == "-")
+                            {
+                                negative = true;
+                                // Take remainder of string
+                                builtString = builtString.substring(1);
+                            }
+                            // check if it is a constant
+                            var constant = Constants[builtString]
+                            if(typeof constant != "undefined")
+                            {
+                                eq.append(new QGConstant(constant, negative));
+                            }
+                            else
+                            {
+                                // Otherwise it is a variable
+                                eq.append(new QGVariable(builtString));
+                            }
                         }
-                        builtNumber = "";
+                        builtString = "";
                     }
                     // Check for negation
                     var prevType = alphaNumericType(b);
