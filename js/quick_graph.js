@@ -640,9 +640,9 @@ function updateAllGraphs(equation, context)
     var unifiedGraph = true;
     if(unifiedGraph)
     {
-        var graphID = "#subgraph";
+        var graphID = "subgraph";
         // Check if we already have a graph element
-        if(typeof $(graphID) == "undefined")
+        if(typeof $("#" + graphID) == "undefined")
         {
             // Create graph element
             var graph = document.createElement("div"),
