@@ -1094,7 +1094,7 @@ var QGSolver = function() {
                     if(builtNumber.length > 0)
                     {
                         // Check that we dont have a negated constant
-                        if(builtNumber.charAt(0) != "-" && builtNumber.length > 1)
+                        if(builtNumber.charAt(0) != "-" || builtNumber.length > 1)
                         {
                             console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
                             eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
