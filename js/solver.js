@@ -1094,8 +1094,7 @@ var QGSolver = function() {
                     if(builtNumber.length > 0)
                     {
                         // Check that we dont have a negated constant
-                        if(builtNumber.charAt(0) != "-"
-                            || (builtNumber.length > 1 && alphaNumericType(builtNumber.charAt(1)) == 2))
+                        if(builtNumber.charAt(0) != "-")
                         {
                             console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
                             eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
@@ -1103,8 +1102,8 @@ var QGSolver = function() {
                         }
                         else
                         {
-                            // This is a negated constant
-                            builtString = builtNumber;
+                            // This is a negated constant.  Append it to the existing constant string
+                            builtString = builtNumber + builtString;
                             builtNumber = "";
                         }
                     }
