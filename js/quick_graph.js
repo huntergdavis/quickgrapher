@@ -645,8 +645,8 @@ function updateAllGraphs(equation, context)
           parentElement = $("#graph_container"),
           graphID = "subgraph";
        graph.id = graphID;
-       graph.width = parentElement.width();
-       graph.height = parentElement.height();
+       graph.style.width = parentElement.width();
+       graph.style.height = parentElement.height();
        // Add to canvas
        parentElement.append(graph);
        // Register with Graph
