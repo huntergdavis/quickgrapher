@@ -67,7 +67,29 @@ var Context = function(vars) {
     };
     
     var stringify = function() {
-        return this.values.toString();
+        var result = "",
+            varLen = this.vars.length,
+            v, value;
+            
+        for(var i = 0; i < varLen; i++)
+        {
+            v = this.vars[i];
+            value = this.values[v];
+            if(typeof value != "undefined")
+            {
+                if(typeof value == "object"
+                    && typeof value.value != "undefined")
+                {
+                    result += value.value;
+                }
+                else
+                {
+                    result += value;
+                }
+            }
+            result += ",";
+        }
+        return result;
     };
         
     return {
