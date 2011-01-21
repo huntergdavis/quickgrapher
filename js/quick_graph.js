@@ -592,7 +592,9 @@ function createContext(vars) {
     for(var i = 0; i < varLen; i++)
     {
         v = vars[i];
-        context.set(v, $("#" + v + "_slider").value);
+        slider = $("#" + v + "_slider");
+        var val = slider.getValue();
+        context.set(v, val);
     }
     
     return context;
@@ -662,7 +664,7 @@ function createSliders(vars)
         sliderParent.append(sliderContainer);
         sliderContainer = $(sliderContainer);
         // Create slider entry
-        sliderLabel = document.createElement("div");
+        sliderLabel = document.createElement("span");
         sliderLabel.setAttribute("class","sliderLabel");
         // Add to container
         sliderContainer.append(sliderLabel);
