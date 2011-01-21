@@ -660,12 +660,14 @@ function createSliders(vars)
         sliderContainer = document.createElement("li");
         sliderContainer.id = v + "_container";
         sliderParent.append(sliderContainer);
+        sliderContainer = $(sliderContainer);
         // Create slider entry
         sliderLabel = document.createElement("div");
         sliderLabel.setAttribute("class","sliderLabel");
         // Add to container
         sliderContainer.append(sliderLabel);
         // Put in label text
+        sliderLabel = $(sliderLabel);
         sliderLabel.append(v)
         // Create slider
         // <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" />
