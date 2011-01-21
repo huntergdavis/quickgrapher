@@ -154,7 +154,7 @@ var QGSolver = function() {
                         else
                         {
                             // Order of application depends on priority
-                            if(item.priority() > curr.priority())
+                            if(!curr.prefix() && item.priority() > curr.priority())
                             {
                                 // Extract previous parameter
                                 var oldArg = curr.extract();
@@ -166,7 +166,7 @@ var QGSolver = function() {
                                 this.active.push(curr);
                                 this.active.push(item);
                             }
-                            else if(item.priority() <= curr.priority())
+                            else
                             {
                                 // Insert as spot into existing function
                                 item.append(curr);
