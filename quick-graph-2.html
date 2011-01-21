@@ -38,10 +38,13 @@ hunter or mark at discursivelabs.com
   </head>
   <body>
       <script type="text/javascript" charset="utf-8">
-        function parse()
+        function clearAndParse()
         {
-            //QGSolver.parse(document.getElementById('mainEquation').value);
             clearAndParseEquation(document.getElementById('mainEquation').value);
+        }
+        function solve()
+        {
+            solveEquation();
         }
       </script>
       <h1>QuickGrapher</h1>
@@ -51,9 +54,13 @@ hunter or mark at discursivelabs.com
       Each graph is a snapshot of the current equation for all ranges of that variable.</h5>
       Equation:<br/>
       <input type="text" id="mainEquation" size="60"/>  
-      <input type="button" value="Graph!" onclick="parse()"/><br/>
+      <input type="button" value="Graph!" onclick="clearAndParse()"/><br/>
       <div id="result" style="display: none;">
         <span id="formula">0</span> = <span id="solution">0</span>
+        <br/>
+        <h5>Adjust Variables. </h5><input type="button" value="Solve" onclick="solve()"/>
+        <ul id="sliders">
+        </ul>
       </div>
       <br/>
       </h6>

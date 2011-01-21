@@ -1,9 +1,10 @@
 /* OUR ONLY GLOBALS ARE DECLARED
  HERE- array of variable names to legend info, array of variable names to values graphial graph*/
-var arrayLegendHash = new Array();
-var arrayValueHash = new Array();
-var colorArray = [];
-var variableFound = 0;
+// var arrayLegendHash = new Array();
+// var arrayValueHash = new Array();
+// var colorArray = [];
+// var variableFound = 0;
+var parsedEquation = undefined;
 
 // custom loadsaved functions for neater HTML downstairs
 function loadSinWaves() {
@@ -460,10 +461,13 @@ function clearScreen()
     //     cloneSpanCollection[0].parentNode.parentNode.removeChild(cloneSpanCollection[0].parentNode);
     // }
     // 
-    var parentElement = $("#graph_container");
+    var graphParent = $("#graph_container"),
+        sliderParent = $("#sliders");
           
     // Clear existing graph
-    parentElement.empty();
+    graphParent.empty();
+    // Clear sliders
+    sliderParent.empty();
     
     // Clear solved result display
     $("#result").hide();
@@ -583,15 +587,45 @@ function updateSolution(equation, context, solution)
 function createContext(vars) {
     var context = new Context(vars),
         varLen = vars.length,
-        v;
+        v, slider;
         
     for(var i = 0; i < varLen; i++)
     {
         v = vars[i];
-        context.set(v, 0);
+        context.set(v, $("#" + v + "_slider").value);
     }
     
     return context;
+}
+
+function solveEquation()
+{
+    if(typeof parsedEquation != "undefined")
+    {
+      // Create context
+      var vars = parsedEquation.variables();
+      var context = createContext(vars);
+      console.log("Context: " + context.toString());
+      // Solve
+      var solution = undefined;
+      try
+      {
+          solution = QGSolver.solve(context.toObj());
+      }
+      catch(exception)
+      {
+          alert("Solve failed: " + exception);
+      }
+      
+      // If we solved the equation, update page
+      if(typeof solution != "undefined")
+      {
+          // Update solution display
+          updateSolution(parsedEquation, context.toObj(), solution);
+          // update all graphs
+          updateAllGraphs(parsedEquation, context);
+      }
+    }
 }
 
 /* clear the screen and parse the equation */
@@ -599,38 +633,52 @@ function clearAndParseEquation(equation)
 {
     if(typeof equation != "undefined")
     {
-        /* clear the screen */
+        // clear the screen
         clearScreen();
-        /* parse the equation */
-        //parseEquation(equation);
-        var parsedEquation = QGSolver.parse(equation);
-        // Create context
-        var vars = parsedEquation.variables();
-        var context = createContext(vars);
-        console.log("Context: " + context.toString());
-        // Solve
-        var solution = undefined;
-        try
-        {
-            solution = QGSolver.solve(context.toObj());
-        }
-        catch(exception)
-        {
-            alert("Solve failed: " + exception);
-        }
-        
-        // If we solved the equation, update page
-        if(typeof solution != "undefined")
-        {
-            // Update solution display
-            updateSolution(parsedEquation, context.toObj(), solution);
-            // update all graphs
-            updateAllGraphs(parsedEquation, context);
-        }
+        // parse the equation
+        parsedEquation = QGSolver.parse(equation);
+        // Create sliders
+        createSliders(parsedEquation.variables());
+        // Solve equation
+        solveEquation();
     }
     else
     {
         alert("Please enter a formula");
+    }
+}
+
+function createSliders(vars)
+{
+    var v, varsLen = vars.length,
+        sliderParent = $("#sliders"),
+        slider, sliderLabel, sliderContainer;
+    for(var i = 0; i < varsLen; i++)
+    {
+        v = vars[i];
+        // Create slider list item
+        sliderContainer = document.createElement("li");
+        sliderContainer.id = v + "_container";
+        sliderParent.append(sliderContainer);
+        // Create slider entry
+        sliderLabel = document.createElement("div");
+        sliderLabel.setAttribute("class","sliderLabel");
+        // Add to container
+        sliderContainer.append(sliderLabel);
+        // Put in label text
+        sliderLabel.append(v)
+        // Create slider
+        // <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" />
+        slider = document.createElement("input");
+        slider.id = v + "_slider";
+        slider.setAttribute("type", "range");
+        slider.setAttribute("min", "0");
+        slider.setAttribute("max", "100");
+        slider.setAttribute("min", "0");
+        slider.setAttribute("value", "0");
+        slider.setAttribute("step", "1");
+        // Add to container
+        sliderContainer.append(slider);
     }
 }
 
@@ -660,13 +708,8 @@ function updateAllGraphs(equation, context)
             });
         }
     }
-    
-    
-    //document.getElementById("formula").innerHTML = document.getElementById("mainEquation").value;
-
-    /* loop over each variable in the value hash */
-    /* keys[i] is the variable name like x or y*/
-    /* the hash of keys[i] is the value for said variable*/
+ 
+    /// Loop over variable
     var name = "",
         v, vars = equation.variables(), varLen = vars.length,
         localContext = context.toObj();
