@@ -110,17 +110,16 @@ var QGSolver = function() {
                 {
                     var className = obj.type;
                     var jects = this.objects[className];
-                    // No group yet
+                    // No group yet.  Create
                     if(typeof jects == "undefined")
                     {
                         jects = {list: [], objs: {}};
                         this.objects[className] = jects;
-                        // Insert object name into list
-                        jects.list.push(obj.name());
-                        // Add to object
-                        jects.objs[obj.name()] = obj;
                     }
-                    jects[obj.name()] = obj;
+                    // Insert object name into list
+                    jects.list.push(obj.name());
+                    // Add to object
+                    jects.objs[obj.name()] = obj;
                 }
             }
             else
