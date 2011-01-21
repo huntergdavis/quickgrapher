@@ -587,13 +587,13 @@ function updateSolution(equation, context, solution)
 function createContext(vars) {
     var context = new Context(vars),
         varLen = vars.length,
-        v, slider;
+        v, slider, val;
         
     for(var i = 0; i < varLen; i++)
     {
         v = vars[i];
         slider = $("#" + v + "_slider");
-        var val = slider.getValue();
+        val = parseInt(slider.getValue());
         context.set(v, val);
     }
     
