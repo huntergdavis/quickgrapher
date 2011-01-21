@@ -913,17 +913,18 @@ var QGSolver = function() {
         };
     };
     
-    var QGConstant = function(value) {
-        var v = value;
+    var QGConstant = function(value, negative) {
+        var v = value,
+            neg = negative;
         
-        console.log("new QGConstant("+value+")");
+        console.log("new QGConstant("+(this.negative?"-":"")+value+")");
         
         var solve = function(context) {
-            return this.value;
+            return (this.negative?-1:1) * this.value;
         };
         
         var stringify = function(context) {
-            return this.value;
+            return (this.negative?"-":"") + this.value;
         };
         
         var toLabel = function() {
@@ -935,6 +936,7 @@ var QGSolver = function() {
             toString: stringify,
             name: toLabel,
             value: v.value,
+            negative: neg,
             type: "QGConstant"
         };
     };
@@ -1088,12 +1090,38 @@ var QGSolver = function() {
                 // Closing char
                 case 5:
                     // Close any open strings
+                    // If we are working on a number, check if its a constant
+                    if(builtNumber.length > 0)
+                    {
+                        // Check that we dont have a negated constant
+                        if(builtNumber.charAt(0) != "-"
+                            || (builtNumber.length > 1 && alphaNumericType(builtNumber.charAt(1)) == 2))
+                        {
+                            console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                            eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                            builtNumber = "";
+                        }
+                        else
+                        {
+                            // This is a negated constant
+                            builtString = builtNumber;
+                            builtNumber = "";
+                        }
+                    }
                     if(builtString.length > 0) {
+                        // Strip any negative symbols
+                        var negative = false;
+                        if(builtNumber.charAt(0) == "-")
+                        {
+                            negative = true;
+                            // Take remainder of string
+                            builtNumber = builtNumber.substring(1);
+                        }
                         // check if it is a constant
                         var constant = Constants[builtString]
                         if(typeof constant != "undefined")
                         {
-                            eq.append(new QGConstant(constant));
+                            eq.append(new QGConstant(constant, negative));
                         }
                         else
                         {
@@ -1101,13 +1129,6 @@ var QGSolver = function() {
                             eq.append(new QGVariable(builtString));
                         }
                         builtString = "";
-                    }
-                    // If we are working on a number, assume its a constant
-                    else if(builtNumber.length > 0)
-                    {
-                        console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                        eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
-                        builtNumber = "";
                     }
                     eq.close();
                     break;
