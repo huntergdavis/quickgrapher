@@ -1111,11 +1111,11 @@ var QGSolver = function() {
                     if(builtString.length > 0) {
                         // Strip any negative symbols
                         var negative = false;
-                        if(builtNumber.charAt(0) == "-")
+                        if(builtString.charAt(0) == "-")
                         {
                             negative = true;
                             // Take remainder of string
-                            builtNumber = builtNumber.substring(1);
+                            builtString = builtString.substring(1);
                         }
                         // check if it is a constant
                         var constant = Constants[builtString]
