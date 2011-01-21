@@ -75,6 +75,7 @@ var Context = function(vars) {
         {
             v = this.vars[i];
             value = this.values[v];
+            result += v + "=";
             if(typeof value != "undefined")
             {
                 if(typeof value == "object"
