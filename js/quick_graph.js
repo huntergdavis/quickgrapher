@@ -446,19 +446,24 @@ function clearScreen()
     // as we're looping over values, don't clear the legend (annoying!)
     //arrayLegendHash = null;
     //arrayLegendHash = [];
-    arrayValueHash = null;
-    colorArray = null;
-    arrayValueHash = [];
-    colorArray = [];
+    // arrayValueHash = null;
+    // colorArray = null;
+    // arrayValueHash = [];
+    // colorArray = [];
 
     /* loop over the collection of cloned sliders and
      delete their parents */
-    var cloneSpanCollection = document.getElementsByName("clonedSlider");
-    var cloneSpanCollectionLength = cloneSpanCollection.length;
-    for (var i = 0; i < cloneSpanCollectionLength; i++)
-    {
-        cloneSpanCollection[0].parentNode.parentNode.removeChild(cloneSpanCollection[0].parentNode);
-    }
+    // var cloneSpanCollection = document.getElementsByName("clonedSlider");
+    // var cloneSpanCollectionLength = cloneSpanCollection.length;
+    // for (var i = 0; i < cloneSpanCollectionLength; i++)
+    // {
+    //     cloneSpanCollection[0].parentNode.parentNode.removeChild(cloneSpanCollection[0].parentNode);
+    // }
+    // 
+    var parentElement = $("#graph_container");
+          
+    // Clear existing graph
+    parentElement.empty();
     
     // Clear solved result display
     $("#result").hide();
@@ -620,7 +625,7 @@ function clearAndParseEquation(equation)
             // Update solution display
             updateSolution(parsedEquation, context.toObj(), solution);
             // update all graphs
-            updateAllGraphs()
+            updateAllGraphs(parsedEquation, context);
         }
     }
     else
@@ -630,128 +635,175 @@ function clearAndParseEquation(equation)
 }
 
 // updates graphs for all variables
-function updateAllGraphs() {
-    // can't graph zero variables....
-    if(variableFound == 0) {
-        return;
+function updateAllGraphs(equation, context)
+{
+    var unifiedGraph = true;
+    if(unifiedGraph)
+    {
+       // Create graph element
+       var graph = document.createElement("div"),
+          parentElement = $("#graph_container"),
+          graphID = "subgraph";
+       graph.id = graphID;
+       graph.width = parentElement.width();
+       graph.height = parentElement.height();
+       // Add to canvas
+       parentElement.append(graph);
+       // Register with Graph
+       graph.graphify({'hue-increment' : 90, 'hue-base' : 36}).attach_legend().realHover({
+          hover: Graph.highlightNearest,
+          out: Graph.removeHighlight
+       });
     }
     
-    document.getElementById("formula").innerHTML = document.getElementById("mainEquation").value;
+    
+    //document.getElementById("formula").innerHTML = document.getElementById("mainEquation").value;
 
     /* loop over each variable in the value hash */
     /* keys[i] is the variable name like x or y*/
     /* the hash of keys[i] is the value for said variable*/
-    var iterator = 0;
-    var graphName = "";
-    var arrayValuekeys = arrayValueHash;
-    for(var varName in arrayValuekeys) {
-        graphName = "Title" + varName;
-        updateGraph(graphName);
+    var name = "",
+        v, vars = equation.variables(), varLen = vars.length,
+        localContext = context.toObj();
+    for(var i = 0; i < varLen; i++)
+    {
+        // Current variable
+        v = vars[i];
+        // ID of graph block
+        //name = "Title" + varName;
+        // Adjust context
+        var fixedPt = localContext[v];
+        localContext[v] = new VariableIterator(0,1);
+        // Create graph
+        updateGraph(graphID, v, equation, localContext, 101);
+        // Replace values into local context for next loop step
+        localContext[v] = fixedPt;
     }
 }
 
 // updates a single graph
-function updateGraph(graphName) {
-
-    // can't graph zero variables....
-    if(variableFound == 0) {
-        return;
+function updateGraph(graphID, graphVariable, equation, context, steps)
+{
+    // Retrieve reference to graph object
+    var graph = $("#" + graphID),
+        currVarValue, solution, data = [];
+        
+    // Solve for the specified points
+    for(var i = 0; i < steps; i++)
+    {
+        currVarValue = context[graphVariable].value;
+        try
+        {
+            solution = equation.solve(context);
+        } catch(error)
+        {
+            solution = 0;
+            console.log("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
+        }
+        data.push([currVarValue, solution]);
     }
-
-    var graphVariable = graphName[graphName.length-1];;
-    var subGraphChartName = "subgraphChart" + graphVariable;
-    var graphChartName = "graphChart" + graphVariable;
-    var subGraphLegendName = "subgraphLegend" + graphVariable;
+    
+    // Add plot for this variable (will overwrite existing ones)
+    graph.plot(
+        graphVariable,
+        data,
+        {'plot-type' : 'line'}
+    );
+    // var subGraphChartName = "subgraphChart" + graphVariable,
+        // graphChartName = "graphChart" + graphVariable,
+        // subGraphLegendName = "subgraphLegend" + graphVariable;
 
     // delete any old graph of this variable
-    var subGraphElement = document.getElementById(subGraphChartName);
-    if(subGraphElement != null) {
-        document.getElementById(graphChartName).removeChild(subGraphElement);
-    }
-
-    // variables for rgraph instance
-    var myGraphElement = document.createElement("div");
-    myGraphElement.id = subGraphChartName;
-    myGraphElement.innerHTML = "";
-    document.getElementById(graphChartName).appendChild(myGraphElement);
-
-    // our x and y variables for our canvas
-    var xsize = 300;
-    var ysize = 150;
-    var xpos = 20;
-    var ypos = 20;
-
-    // our rgraph instance canvas
-    var rGraph = Raphael(subGraphChartName,xpos,ypos,xsize,ysize);
-
-    /* set txt type */
-    rGraph.g.txtattr.font = "12px 'Fontin Sans', Fontin-Sans, sans-serif";
-
-    /* storage for singledimensional arrays of X and Y plot values and legend*/
-    var YValueOneDimension = new Array;
-    var XValueOneDimension = new Array;
-    var legendTxt = "<ul>";
-
-    /* for now X value range is not dynamic, upgrade this later */
-    for(i=0;i<100;i++) {
-        XValueOneDimension[i] = i;
-    }
-
-    /* set the color array */
-    var testColor = colorArray[graphVariable];
-    if(testColor == null) {
-        colorArray[graphVariable] = Raphael.getColor();
-    }
-
-    var testLabel = arrayLegendHash[graphVariable];
-
-    if(testLabel == null) {
-        testLabel = "Unlabeled";
-    }
-    legendTxt += "<li><FONT COLOR=\"" + colorArray[graphVariable] + "\">" + graphVariable + "(" + testLabel + ")" + ": " +  colorArray[graphVariable] + "</FONT></li>";
-
-    /* for each variable, loop 100 times and find the equation solution for each loop iteration with that J var set as the value */
-    var originalVarValue = arrayValueHash[graphVariable];
-    YValueOneDimension[0] = 0;
-    var ourVal = 0;
-    for(var j=1;j<100;j++) {
-        arrayValueHash[graphVariable] = j;
-        ourVal = solveEquation(document.getElementById('mainEquation').value);
-        if(document.getElementById("mainResult").innerHTML == "NaN") {
-            alert("Cannot Graph Value Which Equates To NaN (Such as asin(4) or 4/0 for example)");
-            return;
-        }
-        YValueOneDimension[j] = ourVal;
-
-    }
-
-    /* reset the key back to original state */
-    arrayValueHash[graphVariable] = originalVarValue;
-
-    /* reset the equation back to original state */
-    solveEquation(document.getElementById('mainEquation').value);
-    if(document.getElementById("mainResult").innerHTML == "NaN") {
-        alert("Cannot Graph Value Which Equates To NaN (Such as asin(4) or 4/0 for example)");
-        return;
-    }
-
-    /* append the legend */
-    legendTxt += "</ul>"
-    var myLegendElement = document.createElement("div");
-    myLegendElement.id = subGraphLegendName;
-    myLegendElement.innerHTML = legendTxt;
-
-    document.getElementById(subGraphChartName).appendChild(myLegendElement);
-    var tempColorArray = [];
-    tempColorArray[0] = colorArray[graphVariable];
-    /* create the graph */
-    /* graph requires 2 singleimensional arrays of numbers */
-    /* the first set of arrays is the X axis values of this variable*/
-    /* the second set of arrays is the Y axis values of this variable*/
-    var lines = rGraph.g.linechart(xpos, ypos, xsize, ysize, XValueOneDimension, YValueOneDimension,
-    {nostroke: false, axis: "0 0 1 1", symbol: "o", smooth: true, colors: tempColorArray});
-    lines.symbols.attr({r: 3});
-    // lines.lines[0].animate({"stroke-width": 6}, 1000);
-    // lines.symbols[0].attr({stroke: "#fff"});
-    // lines.symbols[0][1].animate({fill: "#f00"}, 1000);
+    // var subGraphElement = document.getElementById(subGraphChartName);
+    // if(subGraphElement != null)
+    // {
+    //     document.getElementById(graphChartName).removeChild(subGraphElement);
+    // }
+    // 
+    // // variables for rgraph instance
+    // var myGraphElement = document.createElement("div");
+    // myGraphElement.id = subGraphChartName;
+    // myGraphElement.innerHTML = "";
+    // document.getElementById(graphChartName).appendChild(myGraphElement);
+    // 
+    // // our x and y variables for our canvas
+    // var xsize = 300;
+    // var ysize = 150;
+    // var xpos = 20;
+    // var ypos = 20;
+    // 
+    // // our rgraph instance canvas
+    // var rGraph = Raphael(subGraphChartName,xpos,ypos,xsize,ysize);
+    // 
+    // /* set txt type */
+    // rGraph.g.txtattr.font = "12px 'Fontin Sans', Fontin-Sans, sans-serif";
+    // 
+    // /* storage for singledimensional arrays of X and Y plot values and legend*/
+    // var YValueOneDimension = [];
+    // var XValueOneDimension = [];
+    // var legendTxt = "<ul>";
+    // 
+    // /* for now X value range is not dynamic, upgrade this later */
+    // for(var i = 0; i < 100; i++)
+    // {
+    //     XValueOneDimension[i] = i;
+    // }
+    // 
+    // /* set the color array */
+    // var testColor = colorArray[graphVariable];
+    // if(testColor == null) {
+    //     colorArray[graphVariable] = Raphael.getColor();
+    // }
+    // 
+    // var testLabel = arrayLegendHash[graphVariable];
+    // 
+    // if(testLabel == null) {
+    //     testLabel = "Unlabeled";
+    // }
+    // legendTxt += "<li><FONT COLOR=\"" + colorArray[graphVariable] + "\">" + graphVariable + "(" + testLabel + ")" + ": " +  colorArray[graphVariable] + "</FONT></li>";
+    // 
+    // /* for each variable, loop 100 times and find the equation solution for each loop iteration with that J var set as the value */
+    // var originalVarValue = arrayValueHash[graphVariable];
+    // YValueOneDimension[0] = 0;
+    // var ourVal = 0;
+    // for(var j=1;j<100;j++) {
+    //     arrayValueHash[graphVariable] = j;
+    //     ourVal = solveEquation(document.getElementById('mainEquation').value);
+    //     if(document.getElementById("mainResult").innerHTML == "NaN") {
+    //         alert("Cannot Graph Value Which Equates To NaN (Such as asin(4) or 4/0 for example)");
+    //         return;
+    //     }
+    //     YValueOneDimension[j] = ourVal;
+    // 
+    // }
+    // 
+    // /* reset the key back to original state */
+    // arrayValueHash[graphVariable] = originalVarValue;
+    // 
+    // /* reset the equation back to original state */
+    // solveEquation(document.getElementById('mainEquation').value);
+    // if(document.getElementById("mainResult").innerHTML == "NaN") {
+    //     alert("Cannot Graph Value Which Equates To NaN (Such as asin(4) or 4/0 for example)");
+    //     return;
+    // }
+    // 
+    // /* append the legend */
+    // legendTxt += "</ul>"
+    // var myLegendElement = document.createElement("div");
+    // myLegendElement.id = subGraphLegendName;
+    // myLegendElement.innerHTML = legendTxt;
+    // 
+    // document.getElementById(subGraphChartName).appendChild(myLegendElement);
+    // var tempColorArray = [];
+    // tempColorArray[0] = colorArray[graphVariable];
+    // /* create the graph */
+    // /* graph requires 2 singleimensional arrays of numbers */
+    // /* the first set of arrays is the X axis values of this variable*/
+    // /* the second set of arrays is the Y axis values of this variable*/
+    // var lines = rGraph.g.linechart(xpos, ypos, xsize, ysize, XValueOneDimension, YValueOneDimension,
+    // {nostroke: false, axis: "0 0 1 1", symbol: "o", smooth: true, colors: tempColorArray});
+    // lines.symbols.attr({r: 3});
+    // // lines.lines[0].animate({"stroke-width": 6}, 1000);
+    // // lines.symbols[0].attr({stroke: "#fff"});
+    // // lines.symbols[0][1].animate({fill: "#f00"}, 1000);
 }

@@ -79,6 +79,34 @@ var Context = function(vars) {
     };
 };
 
+var VariableIterator = function(start, step, stepper) {
+    var curr = start, inc = step,
+        iter = stepper;
+    // Default stepper if none specified
+    if(typeof iter == "undefined")
+    {
+        // Linear stepper
+        iter = function(curr, step) {
+            return curr + step;
+        };
+    }
+    
+    // Return current value and step once
+    // according to the step value and the steppper
+    var iterate = function() {
+        var result = this.value;
+        this.value = this.stepper(this.value, this.step);
+        return result;
+    };
+    
+    return {
+        value: curr,
+        stepper: iter,
+        step: inc,
+        next: iterate 
+    };
+};
+
 /* For defined functions */
 var Functions = {};
 /* For defined constants */
@@ -862,10 +890,10 @@ var QGSolver = function() {
             var val = context[this.varName];
             if(typeof val != "undefined")
             {
-                // If context value is a function
+                // If context value is a function (VariableIterator)
                 if(typeof val == "function")
                 {
-                    return val();
+                    return val.next();
                 }
                 else
                 {
