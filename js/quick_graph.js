@@ -650,7 +650,7 @@ function updateAllGraphs(equation, context)
        // Add to canvas
        parentElement.append(graph);
        // Register with Graph
-       graph.graphify({'hue-increment' : 90, 'hue-base' : 36}).attach_legend().realHover({
+       $(graph).graphify({'hue-increment' : 90, 'hue-base' : 36}).attach_legend().realHover({
           hover: Graph.highlightNearest,
           out: Graph.removeHighlight
        });
