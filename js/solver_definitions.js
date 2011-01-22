@@ -3,6 +3,34 @@
  */
 
 /* Defined functions */
+/*
+ * Functions are defined by a symbol and
+ * a ComplexFunction object.
+ *   e.g.
+ *      Functions[symbol] = new ComplexFunction(...);
+ * 
+ * With ComplexFunction having the signature:
+ * 
+ *      ComplexFunction(precedence, prefix, function, open-ended)
+ * 
+ * Parameters:
+ * 
+ *    precedence (integer) : Binding precendence for infix arithmetic
+ *        operations.  Only applied to infix functions which are adjacent
+ *        in the equation.
+ *    
+ *    prefix (boolean) : True, if this is a prefix function (i.e. sin).
+ *        False, if this is an infix function (i.e. +).
+ * 
+ *    function (function) : The actual javascript function to call for
+ *        this operator/symbol.
+ * 
+ *    open-ended (boolean) : Optional, default: false.  True, if this
+ *        function can handle an unlimited number of arguments. False, if
+ *        this function has a set number of arguments.  If false, the
+ *        number of arguments expected is infered from the signature of
+ *        the 'function' parameter.
+ */
 /* Arithmetic */
 Functions["+"] = new ComplexFunction(0,false, 
         function(a,b) {
@@ -130,6 +158,22 @@ Functions["product"] = new ComplexFunction(1,true,
         },true);
 
 /* Defined constants */
+/*
+ * Constants are defined by a symbol and
+ * a Constant object.
+ *   e.g.
+ *      Constants[symbol] = new Constant(..);
+ * 
+ * With Constant having the signature:
+ * 
+ *      Constant(value)
+ * 
+ * Parameters:
+ * 
+ *    value (number) : The numerical value to use for
+ *          this constant.
+ *    
+ */
 // PI : ~3.14159
 Constants["pi"] = new Constant(Math.PI);
 // E : ~2.71828
