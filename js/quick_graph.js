@@ -778,7 +778,7 @@ function updateAllGraphs(equation, context)
         // Current variable
         v = vars[i];
         // If we are supposed to draw this variable
-        if($("#" + v + "_graph_toggle").is(":checked"))
+        if($("#" + v + "_graph_checkbox").is(":checked"))
         {
             //name = "Title" + varName;
             // Adjust context
