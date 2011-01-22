@@ -46,6 +46,10 @@ hunter or mark at discursivelabs.com
         {
             solveEquation();
         }
+        function toggleInclude(toggleID)
+        {
+            toggleDraw(toggleID);
+        }
       </script>
       <h1>QuickGrapher</h1>
       <h2>Instructions</h2>
@@ -60,7 +64,7 @@ hunter or mark at discursivelabs.com
         <br/><br/>
         <span style="font-size: 13pt; font-weight: bold; margin: 3px;">Adjust Variables</span>
         <input type="button" value="Solve" onclick="solve()"/>
-        <input id="dynamic_update" type="checkbox"/>
+        <input id="dynamic_update" type="checkbox" onclick="solve()"/>
         <span style="font-size: 10pt; font-weight: bold; margin: 3px;">Realtime Updating</span><span style="font-size: 9pt; margin: 3px;">(may cause browser to lag!)</span>
         <ul id="sliders">
         </ul>

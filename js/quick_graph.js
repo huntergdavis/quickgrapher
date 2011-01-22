@@ -662,12 +662,19 @@ function clearAndParseEquation(equation)
     }
 }
 
+function toggleDraw(toggleID)
+{
+    // var toggled = $("#" + toggleID).is(":checked");
+    solveEquation();
+}
+
 function createSliders(vars)
 {
     var v, varsLen = vars.length,
         sliderParent = $("#sliders"),
         slider, sliderContainer,
-        sliderLabel, sliderValue;
+        sliderLabel, sliderValue,
+        graphCheck, graphCheckLabel;
     for(var i = 0; i < varsLen; i++)
     {
         v = vars[i];
@@ -709,6 +716,29 @@ function createSliders(vars)
         // Put in label text
         sliderValue = $(sliderValue);
         sliderValue.append("1");
+        
+        // Add graph checkbox
+        graphCheck = document.createElement("input");
+        graphCheck.id = v + "_graph_checkbox";
+        graphCheck.setAttribute("type", "checkbox");
+        graphCheck.setAttribute("onchange", "toggleInclude(this.id)");
+        // Add to container
+        sliderContainer.append(graphCheck);
+        
+        graphCheck = $(graphCheck);
+        graphCheck.css("margin","3px");
+        // Graph checkbox label
+        graphCheckLabel = document.createElement("span");
+        graphCheckLabel.id = v + "_graph_checkbox_label";
+        // Add to container
+        sliderContainer.append(graphCheckLabel);
+        // Put in label text
+        graphCheckLabel = $(graphCheckLabel);
+        graphCheckLabel.css({
+            "font-size" : "9pt",
+            "font-weight" : "bold"
+        });
+        graphCheckLabel.append("(graph)");
     }
 }
 
@@ -747,16 +777,19 @@ function updateAllGraphs(equation, context)
     {
         // Current variable
         v = vars[i];
-        // ID of graph block
-        //name = "Title" + varName;
-        // Adjust context
-        var fixedPt = localContext[v];
-        // Substitute iterator
-        localContext[v] = new VariableIterator(0,1);
-        // Create graph
-        updateGraph(graphID, v, equation, localContext, 101);
-        // Replace values into local context for next loop step
-        localContext[v] = fixedPt;
+        // If we are supposed to draw this variable
+        if($("#" + v + "_graph_toggle").is(":checked"))
+        {
+            //name = "Title" + varName;
+            // Adjust context
+            var fixedPt = localContext[v];
+            // Substitute iterator
+            localContext[v] = new VariableIterator(0,1);
+            // Create graph
+            updateGraph(graphID, v, equation, localContext, 101);
+            // Replace values into local context for next loop step
+            localContext[v] = fixedPt;
+        }
     }
 }
 
