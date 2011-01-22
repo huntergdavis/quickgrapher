@@ -745,16 +745,18 @@ function createSliders(vars)
 // updates graphs for all variables
 function updateAllGraphs(equation, context)
 {
-    var unifiedGraph = true;
+    var unifiedGraph = true,
+        graph;
     if(unifiedGraph)
     {
         var graphID = "subgraph";
         // Check if we already have a graph element
-        if($("#" + graphID).length == 0)
+        graph = $("#" + graphID);
+        if(graph.length == 0)
         {
             // Create graph element
-            var graph = document.createElement("div"),
-                parentElement = $("#graph_container");
+            var parentElement = $("#graph_container");
+            graph = document.createElement("div");
             graph.id = graphID;
             graph.style.position = "relative";
             graph.style.width = parentElement.width();
@@ -762,7 +764,8 @@ function updateAllGraphs(equation, context)
             // Add to canvas
             parentElement.append(graph);
             // Register with Graph
-            $(graph).graphify({'hue-increment' : 35, 'hue-base' : 0}).attach_legend().realHover({
+            graph = $(graph);
+            graph.graphify({'hue-increment' : 35, 'hue-base' : 0}).attach_legend().realHover({
                 hover: Graph.highlightNearest,
                 out: Graph.removeHighlight
             });
@@ -789,6 +792,11 @@ function updateAllGraphs(equation, context)
             updateGraph(graphID, v, equation, localContext, 101);
             // Replace values into local context for next loop step
             localContext[v] = fixedPt;
+        }
+        else
+        {
+            // Make sure we have cleared the data for this variable
+            graph.remove(v);
         }
     }
 }
