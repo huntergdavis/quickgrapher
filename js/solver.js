@@ -415,13 +415,31 @@ var QGSolver = function() {
                                 && !curr.prefix() && !curr.closed()
                                 && curr.priority() > prev.priority())
                             {
+                                var prevFront = prev.pop(),
+                                prevStack = [prev];
+                                while((typeof prevFront == "object") && prevFront.type == "QGFunction"
+                                    && !prevFront.prefix() && (curr.priority() >= prev.priority()))
+                                {
+                                    prev = prevFront;
+                                    prevFront = prev.pop();
+                                    prevStack.push(prev);
+                                }
                                 // Use first from prev as second for curr
-                                curr.append(prev.pop());
-                                // And then use curr for first from prev
-                                prev.push(curr);
+                                curr.append(prevFront);
+                                // Go back up stack recomposing
+                                while(prevStack.length > 0)
+                                {
+                                    prev = prevStack.pop();
+                                    prev.push(curr);
+                                    curr = prev;
+                                }
+                                // Use first from prev as second for curr
+                                // curr.append(prev.pop());
+                                // // And then use curr for first from prev
+                                // prev.push(curr);
                                 console.log("Current stack: " + this.active.toString());
                                 // Haven't found parens yet, close
-                                this.close(prev, false);
+                                this.close(curr, false);
                             }
                             else
                             {
