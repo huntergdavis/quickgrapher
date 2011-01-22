@@ -721,7 +721,7 @@ function createSliders(vars)
         graphCheck = document.createElement("input");
         graphCheck.id = v + "_graph_checkbox";
         graphCheck.setAttribute("type", "checkbox");
-        graphCheck.setAttribute("onchange", "toggleInclude(this.id)");
+        graphCheck.setAttribute("onclick", "toggleInclude(this.id)");
         // Add to container
         sliderContainer.append(graphCheck);
         
