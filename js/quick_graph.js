@@ -593,7 +593,7 @@ function createContext(vars) {
     {
         v = vars[i];
         slider = $("#" + v + "_slider");
-        val = parseInt(slider.getValue());
+        val = parseInt(slider.val());
         context.set(v, val);
     }
     
