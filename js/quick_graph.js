@@ -690,7 +690,7 @@ function createSliders(vars)
         // Add to container
         sliderContainer.append(slider);
         // Set initial value
-        slider.val(0);
+        slider.val(1);
         // Add change listener
         slider[0].setAttribute("onchange", "showValue(this.value, this.id)");
         // Add text display
