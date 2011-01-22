@@ -557,12 +557,26 @@ var QGSolver = function() {
                         if(prev.type == "QGFunction" && !curr.prefix() && !prev.prefix()
                             && curr.priority() > prev.priority())
                         {
+                            var prevFront = prev.pop(),
+                                prevStack = [prev];
+                            while((typeof prevFront == "object") && prevFront.type == "QGFunction"
+                                && !prevFront.prefix() && (curr.priority() >= prev.priority()))
+                            {
+                                prev = prevFront;
+                                prevFront = prev.pop();
+                                prevStack.push(prev);
+                            }
                             // Use first from prev as second for curr
-                            curr.append(prev.pop());
-                            // And then use curr for first from prev
-                            prev.push(curr);
-                            // Re-add prev to stack
-                            this.active.push(prev);
+                            curr.append(prevFront);
+                            // Go back up stack recomposing
+                            while(prevStack.length > 0)
+                            {
+                                prev = prevStack.pop();
+                                prev.push(curr);
+                                curr = prev;
+                            }
+                            // Re-add curr to stack
+                            this.active.push(curr);
                         }
                         else
                         {
