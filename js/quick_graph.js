@@ -684,14 +684,15 @@ function createSliders(vars)
         slider.setAttribute("type", "range");
         slider.setAttribute("min", "0");
         slider.setAttribute("max", "100");
-        slider.setAttribute("min", "0");
-        slider.setAttribute("value", "0");
         slider.setAttribute("step", "1");
-        slider.setAttribute("onchange", "showValue(this.value, this.id)");
         slider = $(slider);
         slider.css("margin-top","3px");
         // Add to container
         sliderContainer.append(slider);
+        // Set initial value
+        slider.val(0);
+        // Add change listener
+        slider[0].setAttribute("onchange", "showValue(this.value, this.id)");
         // Add text display
         sliderValue = document.createElement("span");
         sliderValue.id = v + "_slider_value";
