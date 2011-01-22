@@ -307,22 +307,27 @@ function addValuesToHash(titles) {
 /* showValue changes the sibling span text of a slider to be its value and recalculates the equation*/
 /* The overall formula based on the
  change in this variable */
-function showValue(sliderValue, sliderId) {
-
-    var sliderSubLabel = document.getElementById("sub" + sliderId);
-    sliderSubLabel.innerHTML=sliderValue;
-
-    /* Here we set the value hash with the value */
-    arrayValueHash[sliderId[sliderId.length-1]] = sliderValue;
-
-    solveEquation(document.getElementById('mainEquation').value);
-
-    /* Also update the graph */
-    if(document.checkboxform.updategraphcheckbox.checked==false) {
-        return;
-    } else {
-        updateAllGraphs();
-    }
+function showValue(sliderValue, sliderId)
+{
+    var v = sliderId.substring(0,sliderId.indexOf("_")),
+        sliderLabel = $("#" + v + "_slider_value");
+    sliderLabel.empty();
+    sliderLabel.append(sliderValue);
+    
+    // var sliderSubLabel = document.getElementById("sub" + sliderId);
+    // sliderSubLabel.innerHTML=sliderValue;
+    // 
+    // /* Here we set the value hash with the value */
+    // arrayValueHash[sliderId[sliderId.length-1]] = sliderValue;
+    // 
+    // solveEquation(document.getElementById('mainEquation').value);
+    // 
+    // /* Also update the graph */
+    // if(document.checkboxform.updategraphcheckbox.checked==false) {
+    //     return;
+    // } else {
+    //     updateAllGraphs();
+    // }
 
     //document.getElementById(sliderId).nextSibling.innerHTML=sliderValue;
 }
@@ -654,7 +659,8 @@ function createSliders(vars)
 {
     var v, varsLen = vars.length,
         sliderParent = $("#sliders"),
-        slider, sliderLabel, sliderContainer;
+        slider, sliderContainer,
+        sliderLabel, sliderValue;
     for(var i = 0; i < varsLen; i++)
     {
         v = vars[i];
@@ -672,7 +678,7 @@ function createSliders(vars)
         sliderLabel = $(sliderLabel);
         sliderLabel.append(v)
         // Create slider
-        // <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" />
+        // <input type="range" id="x_slider" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" />
         slider = document.createElement("input");
         slider.id = v + "_slider";
         slider.setAttribute("type", "range");
@@ -681,8 +687,19 @@ function createSliders(vars)
         slider.setAttribute("min", "0");
         slider.setAttribute("value", "0");
         slider.setAttribute("step", "1");
+        slider.setAttribute("onchange", "showValue(this.value, this.id)");
+        slider.css("margin-top","3px");
         // Add to container
         sliderContainer.append(slider);
+        // Add text display
+        sliderValue = document.createElement("span");
+        sliderValue.id = v + "_slider_value";
+        sliderValue.setAttribute("class","sliderValue");
+        // Add to container
+        sliderContainer.append(sliderValue);
+        // Put in label text
+        sliderValue = $(sliderValue);
+        sliderValue.append("0");
     }
 }
 
