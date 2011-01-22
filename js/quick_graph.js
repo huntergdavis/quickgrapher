@@ -310,12 +310,13 @@ function addValuesToHash(titles) {
 function showValue(sliderValue, sliderId)
 {
     var v = sliderId.substring(0,sliderId.indexOf("_")),
-        sliderLabel = $("#" + v + "_slider_value");
+        sliderLabel = $("#" + v + "_slider_value"),
+        dynamicUpdate = $("#dynamic_update");
     sliderLabel.empty();
     sliderLabel.append(sliderValue);
     
-    var dynamicUpdate = true;
-    if(dynamicUpdate)
+    var update = dynamicUpdate.is(":checked");
+    if(update)
     {
         solveEquation();
     }
