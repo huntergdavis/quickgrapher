@@ -314,6 +314,12 @@ function showValue(sliderValue, sliderId)
     sliderLabel.empty();
     sliderLabel.append(sliderValue);
     
+    var dynamicUpdate = true;
+    if(dynamicUpdate)
+    {
+        solveEquation();
+    }
+    
     // var sliderSubLabel = document.getElementById("sub" + sliderId);
     // sliderSubLabel.innerHTML=sliderValue;
     // 
@@ -701,7 +707,7 @@ function createSliders(vars)
         sliderContainer.append(sliderValue);
         // Put in label text
         sliderValue = $(sliderValue);
-        sliderValue.append("0");
+        sliderValue.append("1");
     }
 }
 
