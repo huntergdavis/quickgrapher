@@ -769,10 +769,15 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
             solution = equation.solve(context);
         } catch(error)
         {
-            solution = 0;
+            solution = undefined;
             console.log("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
         }
-        data.push([currVarValue, solution]);
+        // Only add the point if it is a valid solution
+        if((typeof solution != "undefined") && isFinite(solution))
+        {
+            data.push([currVarValue, solution]);
+        }
+        
         // Step variable
         context[graphVariable].step();
     }
