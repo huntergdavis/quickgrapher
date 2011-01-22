@@ -688,6 +688,7 @@ function createSliders(vars)
         slider.setAttribute("value", "0");
         slider.setAttribute("step", "1");
         slider.setAttribute("onchange", "showValue(this.value, this.id)");
+        slider = $(slider);
         slider.css("margin-top","3px");
         // Add to container
         sliderContainer.append(slider);

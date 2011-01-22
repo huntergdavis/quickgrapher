@@ -62,6 +62,18 @@ hunter or mark at discursivelabs.com
         <ul id="sliders">
         </ul>
       </div>
+      <!-- Invisible Slider Template used to clone sliders -->
+      <div id="slidertemplate" name="sliderNameTemplate" style="display: none" class="slidercontainer">
+          <span id="sliderTitle" class="leftTitle"></span>
+          <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" />
+          <span id="subrangesliderID">0</span>
+          <input type="button" id="Title" value="Rename" onclick="renameSlider(this.id)" />
+          <input type="button" id="Title" value="Update Graphs" onclick="updateAllGraphs()" />
+          <div id="graphChart" class="floatingright">
+          </div>
+      </div>
+      <div id="graph_container" style="width: 500px; height: 425px;">
+      </div>
       <br/>
       </h6>
         Fun Examples To Load In:
@@ -78,18 +90,6 @@ hunter or mark at discursivelabs.com
           </ul>
         </h6>
       <br/>
-      <!-- Invisible Slider Template used to clone sliders -->
-      <div id="slidertemplate" name="sliderNameTemplate" style="display: none" class="slidercontainer">
-          <span id="sliderTitle" class="leftTitle"></span>
-          <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" />
-          <span id="subrangesliderID">0</span>
-          <input type="button" id="Title" value="Rename" onclick="renameSlider(this.id)" />
-          <input type="button" id="Title" value="Update Graphs" onclick="updateAllGraphs()" />
-          <div id="graphChart" class="floatingright">
-          </div>
-      </div>
-      <div id="graph_container" style="width: 500px; height: 425px;">
-      </div>
       <div id="bottomdiv" class="bottomcontainer">
           <br>Copy the below Equation Hash to continue editing your equation later.
           <br>
