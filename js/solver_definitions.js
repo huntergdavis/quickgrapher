@@ -44,11 +44,11 @@ Functions["*"] = new ComplexFunction(1,false,
         function(a,b) {
             return a * b;
         });
-Functions["/"] = new ComplexFunction(1,false,
+Functions["/"] = new ComplexFunction(2,false,
         function(a,b) {
             return a / b;
         });
-Functions["^"] = new ComplexFunction(2,false,
+Functions["^"] = new ComplexFunction(3,false,
         function(a,b) {
             return Math.pow(a,b);
         });
