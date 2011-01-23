@@ -760,8 +760,8 @@ function updateAllGraphs(equation, context)
             graph = document.createElement("div");
             graph.id = graphID;
             graph.style.position = "relative";
-            graph.style.width = parentElement.width();
-            graph.style.height = parentElement.height();
+            graph.style.width = parentElement.width() + "px";
+            graph.style.height = parentElement.height() + "px";
             // Add to canvas
             parentElement.append(graph);
             // Register with Graph
