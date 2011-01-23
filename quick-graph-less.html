@@ -1,0 +1,248 @@
+<!--
+Sliders.html, a simple javascript equation parser that creats dynamic sliders based on the equation
+based on original work by Hunter Davis, 2010
+Copyright Discursive Labs, LLC
+We still need to decided on a license for our internal tools we share with the community
+So if you'd like this to be gpl, send us an email
+hunter or mark at discursivelabs.com
+-->
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8"/>
+    <title>QuickGrapher</title>
+  
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link rel="stylesheet" media="all" href="/css/less-style.css"/>
+    <meta name="viewport" content="width=device-width; initial-scale=1"/>
+    <!-- Add "maximum-scale=1" to fix the Mobile Safari auto-zoom bug on orientation changes, 
+      but keep in mind that it will disable user-zooming completely. Bad for accessibility. -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    <script src="/js/raphael.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/g.raphael.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/g.line.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/math.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/autocolor.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/realHover.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/graph.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/solver.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/solver_definitions.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/quick_graph.js" type="text/javascript" charset="utf-8"></script>
+    
+  </head>
+
+  <body>
+    <div id="example">
+        <h1>QuickGrapher</h1>
+        <h2>Instructions</h2>
+        <h5>Simply click parse equation, and all variables become dynamic html5 sliders.
+        <br>
+        Each graph is a snapshot of the current equation for all ranges of that variable.</h5>
+        Equation:<br/>
+        <input type="text" id="mainEquation" size="60"/>  
+        <input type="button" value="Graph!" onclick="clearAndParse()"/><br/>
+        <div id="result" style="display: none;">
+          <span id="formula">0</span> = <span id="solution">0</span>
+          <br/><br/>
+          <span style="font-size: 13pt; font-weight: bold; margin: 3px;">Adjust Variables</span>
+          <input type="button" value="Solve" onclick="solve()"/>
+          <input id="dynamic_update" type="checkbox" onclick="solve()"/>
+          <span style="font-size: 10pt; font-weight: bold; margin: 3px;">Realtime Updating</span><span style="font-size: 9pt; margin: 3px;">(may cause browser to lag!)</span>
+          <ul id="sliders">
+          </ul>
+        </div>
+        <!-- Invisible Slider Template used to clone sliders -->
+        <div id="slidertemplate" name="sliderNameTemplate" style="display: none" class="slidercontainer">
+            <span id="sliderTitle" class="leftTitle"></span>
+            <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" />
+            <span id="subrangesliderID">0</span>
+            <input type="button" id="Title" value="Rename" onclick="renameSlider(this.id)" />
+            <input type="button" id="Title" value="Update Graphs" onclick="updateAllGraphs()" />
+            <div id="graphChart" class="floatingright">
+            </div>
+        </div>
+        <div id="graph_container" style="width: 500px; height: 425px;">
+        </div>
+        <br/>
+        </h6>
+          Fun Examples To Load In:
+            <ul>
+                <li>
+                    <a href="javascript:loadSinWaves();">Sine and Cos Waves Fun</a>
+                </li>
+                <li>
+                    <a href="javascript:loadBillCalculator();">Typical Bill Calculator</a>
+                </li>
+                <li>
+                    <a href="javascript:loadNestedFunctions();">Simple Nested Functions With Multiple Arguments</a>
+                </li>
+            </ul>
+          </h6>
+        <br/>
+        <div id="bottomdiv" class="bottomcontainer">
+            <br>Copy the below Equation Hash to continue editing your equation later.
+            <br>
+            Paste any Equation Hash here and click Load to Continue editing.
+            <br>
+            <input type="text" id="savebar" value="" />
+            <input type="button" id="LoadButton" value="Load Equation Hash" onclick="loadSaved()" />
+            <form name="checkboxform">
+                <input type="checkbox" name="updategraphcheckbox" onclick="updateAllGraphs()" value=1>
+                Check to enable dynamic graph updates for all graphs (Can be Very Processor Intensive)
+            </form>
+            <h6>
+            Fun Examples To Load In:
+            <ul>
+                <li>
+                    <a href="javascript:loadSinWaves();">Sine and Cos Waves Fun</a>
+                </li>
+                <li>
+                    <a href="javascript:loadBillCalculator();">Typical Bill Calculator</a>
+                </li>
+                <li>
+                    <a href="javascript:loadNestedFunctions();">Simple Nested Functions With Multiple Arguments</a>
+                </li>
+            </ul>
+            Functions Implemented:
+            <ol>
+                <li>
+                    <a href="javascript:loadSine();">sin</a>
+                </li>
+                <li>
+                    <a href="javascript:loadASine();">asin</a>
+                </li>
+                <li>
+                    <a href="javascript:loadCos();">cos</a>
+                </li>
+                <li>
+                    <a href="javascript:loadACos();">acos</a>
+                </li>
+                <li>
+                    <a href="javascript:loadTan();">tan</a>
+                </li>
+                <li>
+                    <a href="javascript:loadATan();">atan</a>
+                </li>
+                <li>
+                    <a href="javascript:loadMult();">* (multiplication)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadAddition();">+ (addition)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadMinus();">- (negation/minus)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadPower();">^ (power) </a>
+                </li>
+                <li>
+                    <a href="javascript:loadDivision();">/ (divison)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadPercentage();">% (percentage)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadSum();">sum(n1, n2, n) (sum of all numbers)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadMedium();">medium(n1, n2, n) (average/medium of all numbers) </a>
+                </li>
+                <li>
+                    <a href="javascript:loadMin();">min(n1,n2,n) (lowest of all numbers)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadMax();">max(n1,n2,n) (greatest of all numbers)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadLess();">less(n1,n2) (returns 1 if n1 < n2, 0 if not)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadGreater();">greater(n1,n2) (returns 1 if n1 > n2, 0 if not)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadEuler();">euler(n) (returns euler's number * passed in value)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadFactorial();">factorial(n) (returns the nth factorial)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadNatLogTen();">natlogten(n) (returns the natural logarithm of 10 * passed in value)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadNatLog();">natlog(n) (returns the natural logarithm of 2 * passed in value)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadLogTwoE();">logtwoe(n) (returns the base-2 logarithm of E * passed in value)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadLogTenE();">logtene(n) (returns the base-10 logarithm of E * passed in value)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadPi();">pi(n) (returns pi * passed in value)</a>
+                </li>
+                <li>
+                    <a href="javascript:loadAbs();">abs(n)  Returns the absolute value of x</a>
+                </li>
+                <li>
+                    <a href="javascript:loadCeil();">ceil(n)  Returns n, rounded upwards to the nearest integer</a>
+                </li>
+                <li>
+                    <a href="javascript:loadExp();">exp(n)  Returns the value of En</a>
+                </li>
+                <li>
+                    <a href="javascript:loadFloor();">floor(n)  Returns n, rounded downwards to the nearest integer</a>
+                </li>
+                <li>
+                    <a href="javascript:loadLog();">log(n)  Returns the natural logarithm (base E) of n</a>
+                </li>
+                <li>
+                    <a href="javascript:loadRandom();">random(n)  Returns N * a random number between 0 and 1</a>
+                </li>
+                <li>
+                    <a href="javascript:loadRound();">round(n)  Rounds n to the nearest integer</a>
+                </li>
+                <li>
+                    <a href="javascript:loadSqrt();">sqrt(n)     Returns the square root of n</a>
+                </li>
+                <li>
+                    <a href="javascript:loadFibonacci();">fibonacci(n) Returns the fibbonacci of n</a>
+                </li>
+                <li>
+                    <a href="javascript:loadNextPrime();">nextprime(n) Returns the next prime number after n</a>
+                </li>
+            </ol>
+            </h6>
+        </div>
+    </div>
+    <script type="text/javascript"> 
+        function clearAndParse()
+        {
+            clearAndParseEquation(document.getElementById('mainEquation').value);
+        }
+        function solve()
+        {
+            solveEquation();
+        }
+        function toggleInclude(toggleID)
+        {
+            toggleDraw(toggleID);
+        }
+        // Google analytics
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-19995643-2']);
+        _gaq.push(['_trackPageview']);
+        
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+  </body>
+  
+</html>
+
