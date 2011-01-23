@@ -72,7 +72,8 @@ figure img {width: 100%;}
 
 body {
   background: rgb(232,232,232);
-  padding: 84px 60px 0;
+  /*padding: 84px 60px 0;*/
+  margin: 48px auto 0px;
   width: 648px;
   -webkit-tap-highlight-color: rgb(255,255,0);
 }
@@ -94,10 +95,11 @@ img::-moz-selection {background: transparent;}
   1     2      3      4      5      6      7      8      9      10     11     12     13
   60px  144px  228px  312px  396px  480px  564px  648px  732px  816px  900px  984px  1068px */
 
-@media only screen and (min-width: 1212px) {
+@media only screen and (min-width: 1236px) {
   
   body {
-    padding: 96px 72px 0;
+    /*padding: 96px 72px 0;*/
+    margin: 48px auto 0px;
     width: 1068px;
   }
   
@@ -113,7 +115,8 @@ img::-moz-selection {background: transparent;}
 @media only screen and (max-width: 767px) and (min-width: 480px) {
   
   body {
-    padding: 60px 42px 0;
+    /*padding: 60px 42px 0;*/
+    margin: 48px auto 0px;
     width: 396px;
     /* Prevents Mobile Safari from bumping up font sizes in landscape */
     -webkit-text-size-adjust: 100%; 
@@ -131,7 +134,8 @@ img::-moz-selection {background: transparent;}
 @media only screen and (max-width: 479px) {
   
   body {
-    padding: 48px 46px 0;
+    /*padding: 48px 46px 0;*/
+    margin: 48px auto 0px;
     width: 228px;
     /* Prevents Mobile Safari from bumping up font sizes in landscape */
     -webkit-text-size-adjust: 100%;
