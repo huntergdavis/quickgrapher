@@ -766,7 +766,7 @@ function updateAllGraphs(equation, context)
             parentElement.append(graph);
             // Register with Graph
             graph = $(graph);
-            graph.graphify({'hue-increment' : 35, 'hue-base' : 0}).attach_legend().realHover({
+            graph.graphify({'hue-increment' : 35, 'hue-base' : 0, 'value-base': 75}).attach_legend().realHover({
                 hover: Graph.highlightNearest,
                 out: Graph.removeHighlight
             });
