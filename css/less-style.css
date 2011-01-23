@@ -84,7 +84,7 @@ img::selection    {background: transparent;}
 img::-moz-selection {background: transparent;}
 
 #example {
-  height: 600px;
+  /*height: 600px;*/
   background: rgb(60,97,158);
 }
 
