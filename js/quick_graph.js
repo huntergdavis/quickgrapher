@@ -273,7 +273,7 @@ function clearScreen()
     
     // Clear sliders
     $("tr.variable").empty();
-    $("tbody").remove("tr.variable");
+    $("tr.variable").remove();
 }
 
 // sin = ú
@@ -707,7 +707,7 @@ function updateAllGraphs(equation, context)
         else
         {
             // Make sure we have cleared the data for this variable
-            graph.remove(v);
+            graph.remove_data(v);
         }
     }
 }
