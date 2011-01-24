@@ -46,9 +46,11 @@ hunter or mark at discursivelabs.com
             Simply click parse equation, and all variables become dynamic html5 sliders.
             Each graph is a snapshot of the current equation for all ranges of that variable.
         </div><br/>
-        Equation:<br/>
-        <input type="text" id="mainEquation" size="60"/>  
-        <input type="button" value="Graph!" onclick="clearAndParse()"/><br/>
+        <h2>Try It</h2>
+        <span class="equation">
+          Fxn = <input type="text" id="mainEquation" class="input" size="60"/>  
+          <input type="button" value="Graph!" onclick="clearAndParse()"/><br/>
+        </span>
         <div id="result" style="display: none;">
           <span id="formula">0</span> = <span id="solution">0</span>
           <br/><br/>

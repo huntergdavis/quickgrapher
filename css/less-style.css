@@ -170,19 +170,28 @@ img::-moz-selection {background: transparent;}
 
 .logo {
   padding-top: 24px;
-  padding-left: 16px;
+  padding-left: 22px;
 }
 
 .instructions {
   border: 1px solid rgb(164, 157, 143);
   background: rgb(255,255,255);
-  margin: 2px 0px 10px 16px;
-  width: 368px;
+  margin: 2px 0px 10px 22px;
+  padding: 8px;
+  width: 362px;
   color: rgb(164,157,143);
   font-family: Times, "Times New Roman", serif;
-  font-size: 12pt;
+  font-size: 10pt;
+}
+.equation {
+  margin: 2px 0px 0px 20px;
+}
+.input {
+  background: rgb(255,255,255);
+  border: 1px solid rgb(0,0,0);
 }
 h2 {
   color: rgb(164, 157, 143);
-  margin: 8px 0px 0px 16px;
+  margin: 8px 0px 0px 22px;
+  font-size: 16pt;
 }
