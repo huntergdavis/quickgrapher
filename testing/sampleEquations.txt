@@ -64,6 +64,42 @@ Glomerular filtration rate (Creatinine Clearance CCr) (Kidney Filtration Rate)
 -----------------
 (CreatineConcentration * FlowRate)/PlasmaConcentration
 
+Watts
+-----------------
+Amps * Volts
+
+Velocity
+-----------------
+InitialVelocity + Acceleration*Time
+
+Position of a Moving Object
+-----------------
+InitialPosition + InitialVelocity*Time + 1/2 * acceleration * Time^2
+
+torque
+----------------
+radius * force * sin(angle)
+
+Surface area of cylinder
+----------------
+2*pi*radius*length + 2*pi*radius^2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
