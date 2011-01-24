@@ -263,10 +263,18 @@ h2 {
   font-weight: bold;
   padding: 10px;
 }
+.variable > td {
+  vertical-align: top;
+}
 .show_select {
-  margin-top: 3px;
+  margin-top: 6px;
+  margin-left: 2px;
 }
 .range {
   width: 270px;
+}
+.range > input {
+  margin-left: 22px;
+  width: 184px;
 }
 

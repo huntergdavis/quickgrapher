@@ -457,7 +457,7 @@ function clearAndParseEquation(equation)
         // parse the equation
         parsedEquation = QGSolver.parse(equation);
         // Create sliders
-        createSliders(parsedEquation.variables());
+        createSliders2(parsedEquation.variables());
         // Solve equation
         solveEquation();
     }
@@ -545,6 +545,120 @@ function createSliders(vars)
             "font-weight" : "bold"
         });
         graphCheckLabel.append("(graph)");
+    }
+}
+/*
+ * 
+ * <tr class="variable">
+      <td rowspan="2"><input type="checkbox" class="show_select" onclick="solve()"/></td>
+      <td rowspan="2"><div style="vertical-align: top;">x = 6</div></td>
+      <td class="minimum"><input type="text" class="range_input" size="10" value="0"/></td>
+      <td class="step"><input type="text" class="range_input" size="10" value="1"/></td>
+      <td class="maximum"><input type="text" class="range_input" size="10" value="100"/></td>
+    </tr>
+    <tr class="variable">
+      <td colspan="3" class="range">
+        <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" style="margin-left: 22px;width: 184px;"/>
+      </td>
+    </tr>
+ * 
+ * 
+*/
+
+function createSliders2(vars)
+{
+    var v, varsLen = vars.length,
+        sliderParent = $("#variables"),
+        el, inp, first,
+        sliderLabel, sliderValue,
+        graphCheck, graphCheckLabel;
+    for(var i = 0; i < varsLen; i++)
+    {
+        v = vars[i];
+        // Create slider list item
+        first = document.createElement("tr");
+        first.setAttribute("class","variable");
+        sliderParent.append(first);
+        first = $(first);
+        // Create show checkbox
+        el = document.createElement("td");
+        el.setAttribute("rowspan","2");
+        el = $(el);
+        
+        inp = document.createElement("input");
+        inp.setAttribute("class","show_select");
+        inp.id = v + "_graph_checkbox";
+        inp.setAttribute("type", "checkbox");
+        inp.setAttribute("onclick", "toggleInclude(this.id)");
+        inp.setAttribute("checked", "checked");
+        el.append(inp);
+        first.append(el);
+        
+        // Variable name and value
+        el = document.createElement("td");
+        el.setAttribute("rowspan","2");
+        el = $(el);
+        inp = document.createElement("div");
+        inp.innerHTML = v + " = 6";
+        el.append(inp);
+        first.append(el);
+        
+        el = document.createElement("td");
+        el.setAttribute("class","minimum");
+        el = $(el);
+        // <input type="text" class="range_input" size="10" value="0"/>
+        inp = document.createElement("input");
+        inp.setAttribute("type", "text");
+        inp.setAttribute("class", "range_input");
+        inp.setAttribute("size", "10");
+        inp.setAttribute("value", "0");
+        el.append(inp);
+        first.append(el);
+        
+        el = document.createElement("td");
+        el.setAttribute("class","step");
+        el = $(el);
+        inp = document.createElement("input");
+        inp.setAttribute("type", "text");
+        inp.setAttribute("class", "range_input");
+        inp.setAttribute("size", "10");
+        inp.setAttribute("value", "1");
+        el.append(inp);
+        first.append(el);
+        
+        el = document.createElement("td");
+        el.setAttribute("class","maximum");
+        el = $(el);
+        inp = document.createElement("input");
+        inp.setAttribute("type", "text");
+        inp.setAttribute("class", "range_input");
+        inp.setAttribute("size", "10");
+        inp.setAttribute("value", "100");
+        el.append(inp);
+        first.append(el);
+        
+        first = document.createElement("tr");
+        first.setAttribute("class","variable");
+        sliderParent.append(first);
+        first = $(first);
+        
+        el = document.createElement("td");
+        el.setAttribute("class","range");
+        el.setAttribute("colspan","3");
+        el = $(el);
+        inp = document.createElement("input");
+        inp.id = v + "_slider";
+        inp.setAttribute("type", "range");
+        inp.setAttribute("min", "0");
+        inp.setAttribute("max", "100");
+        inp.setAttribute("step", "1");
+        el.append(inp);
+        first.append(el);
+        inp = $(inp);
+        // Set initial value
+        inp.val(1);
+        // Add change listener
+        inp[0].setAttribute("onchange", "showValue(this.value, this.id)");
     }
 }
 
