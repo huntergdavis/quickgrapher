@@ -90,12 +90,13 @@ img::-moz-selection {background: transparent;}
   background-image: url('/images/grid_1.gif');
   background-repeat: no-repeat;
   background-position: right top;
-  border: 1px solid #000000;
+  border: 1px solid rgb(0,0,0);
   margin: 24px 60px 60px;
 }
 
 #inner {
-  /*height: 600px;*/
+  border-bottom: 1px solid rgb(0,0,0);
+  border-right: 1px solid rgb(0,0,0);
   background-image: url('/images/grid_2.gif');
   background-repeat: no-repeat;
   background-position: left bottom;
@@ -206,4 +207,35 @@ h2 {
   margin: 0px 0px 0px 22px;
   font-size: 16pt;
   line-height: 36px;
+}
+.graph_container {
+  border: 1px solid rgb(0,0,0);
+  background: rgb(255,255,255);
+  width: 500px;
+  height: 425px
+}
+.bar {
+  border-bottom: 1px solid rgb(164, 157, 143);
+  width: 500px;
+}
+.variable_label {
+  color: rgb(0,0,0);
+  font-family: Times, "Times New Roman", serif;
+  font-size: 10pt;
+  font-weight: bold;
+}
+.show {
+  width: 60px;
+}
+.value {
+  width: 170px;
+}
+.minimum {
+  width: 100px;
+}
+.step {
+  width: 70px;
+}
+.maximum {
+  width: 100px;
 }
