@@ -792,6 +792,7 @@ function createSliders2(vars)
         // Variable name and value
         el = document.createElement("td");
         el.setAttribute("rowspan","2");
+        el = $(el);
         inp = document.createElement("div");
         inp.innerHTML = v + " = 6";
         el.append(inp);
