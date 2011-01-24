@@ -76,11 +76,16 @@ hunter or mark at discursivelabs.com
             <td class="maximum">Maximum</td>
           </tr>
           <tr class="variable">
-            <td><input type="checkbox" class="show_select" onclick="solve()"/></td>
-            <td>x = 6</td>
+            <td rowspan="2"><input type="checkbox" class="show_select" onclick="solve()"/></td>
+            <td rowspan="2"><div style="vertical-align: top;">x = 6</div></td>
             <td class="minimum"><input type="text" class="range_input" size="10" value="0"/></td>
             <td class="step"><input type="text" class="range_input" size="10" value="1"/></td>
             <td class="maximum"><input type="text" class="range_input" size="10" value="100"/></td>
+          </tr>
+          <tr class="variable">
+            <td colspan="3">
+              <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" />
+            </td>
           </tr>
         </table>
         <!--h6>
