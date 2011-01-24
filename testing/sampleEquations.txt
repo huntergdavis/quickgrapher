@@ -32,3 +32,16 @@ Flake Equation (XKCD)
 --------------------
 7*1000^3 * (CrazyPeople + Misinterpret)/10000 * TellProbability/10 * NumberPeopleTold * FirstHandRetellings * IgnoredDataProbability/10 * WiderAudienceFraction/100
 
+Only Date Above (HIMYM/XKCD/OTHERS)
+-------------------
+Age/2 + 7
+
+
+TV Romantic Drama Equation (Gay) (XKCD)
+---------------------------------
+AllCast*(AllCast - 1)/2 + SameSex*(SameSex - AllCast)
+
+
+TV Romantic Drama Equation (Straight) (XKCD)
+---------------------------------
+SameSex*(AllCast - SameSex)
