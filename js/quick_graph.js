@@ -757,11 +757,33 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         context[graphVariable].step();
     }
     
+    var lbl = "Fxn(",
+        v, vars = equation.variables(),
+        varLen = vars.length;
+    for(var i = 0; i < varLen; i++)
+    {
+        v = vars[i];
+        if(v == graphVariable)
+        {
+            lbl += v;
+        }
+        else
+        {
+            lbl += context[v];
+        }
+        if(i != varLen - 1)
+        {
+            lbl += ",";
+        }
+    }
+    lbl += ")";
+    
     // Add plot for this variable (will overwrite existing ones)
     graph.plot(
         graphVariable,
         data,
-        {'plot-type' : 'line'}
+        {'plot-type' : 'line',
+          'label' : lbl}
     );
     // var subGraphChartName = "subgraphChart" + graphVariable,
         // graphChartName = "graphChart" + graphVariable,
