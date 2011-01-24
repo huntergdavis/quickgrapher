@@ -108,7 +108,9 @@ Mechanical Work
 -----------------
 1/2 * mass * (secondVelocity^2 - firstVelocity^2)
 
-
+Procrastination Equation
+-----------------
+ExpectationOfSuccess*ValueofCompletion / (ImmediacyOfTask * PersonalDelaySensitivity)
 
 
 
