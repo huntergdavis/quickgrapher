@@ -104,7 +104,9 @@ Gaussian
 -----------------
 a * e^(-((x-b)^2/2*c^2))
 
-
+Mechanical Work
+-----------------
+1/2 * mass * (secondVelocity^2 - firstVelocity^2)
 
 
 
