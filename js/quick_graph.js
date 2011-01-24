@@ -657,6 +657,7 @@ function createSliders2(vars)
         inp.setAttribute("min", "0");
         inp.setAttribute("max", "100");
         inp.setAttribute("step", "1");
+        inp.setAttribute("value", "1");
         el.append(inp);
         first.append(el);
         inp = $(inp);
