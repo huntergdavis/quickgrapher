@@ -178,6 +178,9 @@ img::-moz-selection {background: transparent;}
   background: rgb(255,255,255);
   margin: 10px 0px 10px 16px;
   width: 368px;
+  color: rgb(164,157,143);
+  font-family: Times, "Times New Roman", serif;
+  font-size: 14pt;
 }
 .h2 {
   color: rgb(164, 157, 143);
