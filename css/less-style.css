@@ -85,7 +85,8 @@ img::-moz-selection {background: transparent;}
 
 #example {
   /*height: 600px;*/
-  background: rgb(60,97,158);
+  background: rgb(241,241,241);
+  border: 1px solid #000000;
 }
 
 
@@ -101,6 +102,9 @@ img::-moz-selection {background: transparent;}
     /*padding: 96px 72px 0;*/
     margin: 48px auto 0px;
     width: 1068px;
+    background-image: url('/images/grid_1.gif');
+    background-repeat: no-repeat;
+    background-position: right top;
   }
   
 }
@@ -118,8 +122,11 @@ img::-moz-selection {background: transparent;}
     /*padding: 60px 42px 0;*/
     margin: 48px auto 0px;
     width: 396px;
+    background-image: url('/images/grid_1.gif');
+    background-repeat: no-repeat;
+    background-position: right top;
     /* Prevents Mobile Safari from bumping up font sizes in landscape */
-    -webkit-text-size-adjust: 100%; 
+    -webkit-text-size-adjust: 100%;
   }
   
 }
@@ -137,6 +144,9 @@ img::-moz-selection {background: transparent;}
     /*padding: 48px 46px 0;*/
     margin: 48px auto 0px;
     width: 228px;
+    background-image: url('/images/grid_1.gif');
+    background-repeat: no-repeat;
+    background-position: right top;
     /* Prevents Mobile Safari from bumping up font sizes in landscape */
     -webkit-text-size-adjust: 100%;
   }
@@ -153,7 +163,7 @@ img::-moz-selection {background: transparent;}
   only screen and (min-device-pixel-ratio: 2) {
   
   #example {
-    background: rgb(255,158,97);
+    background: rgb(241,241,241);
   }
   
 }
