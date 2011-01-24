@@ -178,10 +178,11 @@ img::-moz-selection {background: transparent;}
   background: rgb(255,255,255);
   margin: 2px 0px 10px 22px;
   padding: 8px;
-  width: 362px;
+  width: 340px;
   color: rgb(164,157,143);
   font-family: Times, "Times New Roman", serif;
   font-size: 10pt;
+  font-weight: bold;
 }
 .equation {
   margin: 2px 0px 0px 20px;
@@ -192,6 +193,7 @@ img::-moz-selection {background: transparent;}
 }
 h2 {
   color: rgb(164, 157, 143);
-  margin: 8px 0px 0px 22px;
+  margin: 0px 0px 0px 22px;
   font-size: 16pt;
+  line-height: 36px;
 }
