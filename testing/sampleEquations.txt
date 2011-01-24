@@ -84,10 +84,13 @@ Surface area of cylinder
 ----------------
 2*pi*radius*length + 2*pi*radius^2
 
+First Order Derivitive of X^N
+-----------------
+n*x^(n-1)
 
-
-
-
+First Order Integral of x^N dx (real)
+--------------------------------
+1/(n+1) * x^(n+1)
 
 
 
