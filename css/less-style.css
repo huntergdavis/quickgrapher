@@ -84,7 +84,7 @@ body {
 img::selection    {background: transparent;}
 img::-moz-selection {background: transparent;}
 
-#example {
+#container {
   /*height: 600px;*/
   background: rgb(241,241,241);
   background-image: url('/images/grid_1.gif');
@@ -92,6 +92,16 @@ img::-moz-selection {background: transparent;}
   background-position: right top;
   border: 1px solid #000000;
   margin: 24px 60px 60px;
+}
+
+#inner {
+  /*height: 600px;*/
+  background-image: url('/images/grid_2.gif');
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
 }
 
 
