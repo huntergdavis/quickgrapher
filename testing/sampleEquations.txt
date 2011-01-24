@@ -100,7 +100,9 @@ Vertical Change Delta for a Weighted String between 2 Points
 -----------------
 sqrt(((StringLength + PointsDistance)/2)*((StringLength - PointsDistance)/2))
 
-
+Gaussian 
+-----------------
+a * e^(-((x-b)^2/2*c^2))
 
 
 
