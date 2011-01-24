@@ -267,7 +267,8 @@ h2 {
   vertical-align: top;
 }
 .show_select {
-  margin-top: 5px;
+  margin-top: 6px;
+  margin-left: 2px;
 }
 .range {
   width: 270px;
