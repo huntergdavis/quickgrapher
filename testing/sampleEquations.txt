@@ -112,19 +112,20 @@ Procrastination Equation
 -----------------
 ExpectationOfSuccess*ValueofCompletion / (ImmediacyOfTask * PersonalDelaySensitivity)
 
-
 Pressure Loss with friction coefficient .019
 ----------------
 .019 * (length / hydraulicDiameter) * (density * velocity^2 /2)
-
 
 Time Dilation qith Regard to Speed of Observer
 ----------------
 sqrt(1-(velocity^2/(300000)^2))
 
-
 Distance Between 2 Points in 2D space on Grid
 -----------------
 sqrt((xTwo-xOne)^2 + (yTwo-yOne)^2)
+
+Quadratic Equation (First Solution)
+-----------------
+(-x + sqrt(b^2 - 4*a*c))/2*a
 
 
