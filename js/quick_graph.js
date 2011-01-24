@@ -279,15 +279,16 @@ function clearScreen()
     // }
     // 
     var graphParent = $("#graph_container"),
-        sliderParent = $("#sliders");
+        sliderParent = $("#variables");
           
     // Clear existing graph
     graphParent.empty();
-    // Clear sliders
-    sliderParent.empty();
     
     // Clear solved result display
     $("#result").hide();
+    
+    // Clear sliders
+    $("tr").remove(".variable");
 }
 
 // sin = ú
@@ -602,6 +603,7 @@ function createSliders2(vars)
         inp.innerHTML = v + " =";
         el.append(inp);
         inp = document.createElement("div");
+        inp.innerHTML = "0";
         inp.id = v + "_slider_value";
         el.append(inp);
         first.append(el);
