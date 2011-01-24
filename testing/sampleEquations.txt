@@ -60,7 +60,6 @@ Fiber Optic Response Time
 -----------------
 ProcessingTime + (2*Distance)/(200*(1000^2))
 
-
 Watts
 -----------------
 Amps * Volts
@@ -97,8 +96,9 @@ IPAT Environmental Impact Equation
 -----------------
 Population * Affluence * Technology
 
-
-
+Vertical Change Delta for a Weighted String between 2 Points
+-----------------
+sqrt(((StringLength + PointsDistance)/2)*((StringLength - PointsDistance)/2))
 
 
 
