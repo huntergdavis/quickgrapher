@@ -80,7 +80,9 @@ torque
 ----------------
 radius * force * sin(angle)
 
-
+Surface area of cylinder
+----------------
+2*pi*radius*length + 2*pi*radius^2
 
 
 
