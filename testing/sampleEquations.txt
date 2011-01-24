@@ -45,3 +45,11 @@ AllCast*(AllCast - 1)/2 + SameSex*(SameSex - AllCast)
 TV Romantic Drama Equation (Straight) (XKCD)
 ---------------------------------
 SameSex*(AllCast - SameSex)
+
+Post-Game Seasonal Batting Average
+---------------------------------
+(SeasonBats * (SeasonalAverage/100) + Hits)/(SeasonBats + TimesAtBat)
+
+Focal Length
+--------------
+(ObjectDistance * LensToImageDistance)/(ObjectDistance + LensToImageDistance)
