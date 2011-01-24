@@ -273,7 +273,7 @@ function clearScreen()
     
     // Clear sliders
     $("tr.variable").empty();
-    $("tr.variable").remove();
+    $("table").remove(".variable");
 }
 
 // sin = ú
