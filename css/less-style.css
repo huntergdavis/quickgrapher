@@ -74,7 +74,8 @@ body {
   background: rgb(255,255,255);
   /*padding: 84px 60px 0;*/
   margin: 48px auto 0px;
-  width: 648px;
+  /*width: 648px;*/
+  width: 768px;
   -webkit-tap-highlight-color: rgb(255,255,0);
 }
 
@@ -90,6 +91,7 @@ img::-moz-selection {background: transparent;}
   background-repeat: no-repeat;
   background-position: right top;
   border: 1px solid #000000;
+  margin: 24px 60px 60px;
 }
 
 
