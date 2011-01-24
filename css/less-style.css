@@ -174,8 +174,12 @@ img::-moz-selection {background: transparent;}
 }
 
 .instructions {
-  border: 1px solid #A49D8F;
+  border: 1px solid rgb(164, 157, 143);
   background: rgb(255,255,255);
   margin: 10px 0px 10px 16px;
   width: 368px;
+}
+.h2 {
+  color: rgb(164, 157, 143);
+  margin: 8px 0px 0px 16px;
 }
