@@ -778,6 +778,7 @@ function createSliders2(vars)
         // Create show checkbox
         el = document.createElement("td");
         el.setAttribute("rowspan","2");
+        el = $(el);
         
         inp = document.createElement("input");
         inp.setAttribute("class","show_select");
@@ -798,6 +799,7 @@ function createSliders2(vars)
         
         el = document.createElement("td");
         el.setAttribute("class","minimum");
+        el = $(el);s
         // <input type="text" class="range_input" size="10" value="0"/>
         inp = document.createElement("div");
         inp.setAttribute("type", "text");
@@ -809,6 +811,7 @@ function createSliders2(vars)
         
         el = document.createElement("td");
         el.setAttribute("class","step");
+        el = $(el);
         inp = document.createElement("div");
         inp.setAttribute("type", "text");
         inp.setAttribute("class", "range_input");
@@ -819,6 +822,7 @@ function createSliders2(vars)
         
         el = document.createElement("td");
         el.setAttribute("class","maximum");
+        el = $(el);
         inp = document.createElement("div");
         inp.setAttribute("type", "text");
         inp.setAttribute("class", "range_input");
@@ -835,6 +839,7 @@ function createSliders2(vars)
         el = document.createElement("td");
         el.setAttribute("class","range");
         el.setAttribute("colspan","3");
+        el = $(el);
         inp = document.createElement("input");
         inp.id = v + "_slider";
         inp.setAttribute("type", "range");
