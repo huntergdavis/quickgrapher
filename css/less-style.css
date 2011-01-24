@@ -263,6 +263,9 @@ h2 {
   font-weight: bold;
   padding: 10px;
 }
+.variable > td {
+  vertical-align: top;
+}
 .show_select {
   margin-top: 3px;
 }
