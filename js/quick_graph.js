@@ -599,7 +599,10 @@ function createSliders2(vars)
         el.setAttribute("rowspan","2");
         el = $(el);
         inp = document.createElement("div");
-        inp.innerHTML = v + " = 6";
+        inp.innerHTML = v + " =";
+        el.append(inp);
+        inp = document.createElement("div");
+        inp.id = v + "_slider_value";
         el.append(inp);
         first.append(el);
         
