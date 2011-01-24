@@ -274,6 +274,9 @@ function clearScreen()
     // Clear sliders
     $("tr.variable").empty();
     $("tr.variable").remove();
+    
+    // Clear variables
+    $("#variable_list").empty();
 }
 
 // sin = ú
@@ -384,6 +387,19 @@ function updateSolution(equation, context, solution)
 {
     document.getElementById("formula").innerText = equation.toString(context);
     document.getElementById("solution").innerText = solution;
+    var v, vars = equation.variables(),
+        varLen = vars.length,
+        varList = "";
+    for(var i = 0; i < varLen; i++)
+    {
+        v = vars[i];
+        varList += v;
+        if(i != varLen - 1)
+        {
+            varList += ",";
+        }
+    }
+    document.getElementById("variable_list").innerText = varList;
     $("#result").show();
 }
 
