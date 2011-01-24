@@ -52,7 +52,7 @@ hunter or mark at discursivelabs.com
           Fxn = <input type="text" id="mainEquation" class="input" size="60"/>  
           <input type="button" value="Graph!" onclick="clearAndParse()"/><br/>
         </span>
-        <div id="result" style="display: none;">
+        <div style="display: none;">
           <span id="formula">0</span> = <span id="solution">0</span>
           <br/><br/>
           <span style="font-size: 13pt; font-weight: bold; margin: 3px;">Adjust Variables</span>
@@ -64,30 +64,37 @@ hunter or mark at discursivelabs.com
         </div>
         <div id="graph_container" class="graph_container">
         </div>
-        <div class="bar">
-          <h2>Variables</h2>
+        <div id="result" style="display:hidden;">
+          <span class="label">
+            <span id="formula">0</span> = <span id="solution">0</span>
+          </span>
+          <div class="bar">
+            <h2 style="display: inline;">Variables</h2>
+            <input id="dynamic_update" type="checkbox" onclick="solve()"/>
+            <span style="font-size: 10pt; font-weight: bold; margin: 3px;">Realtime Updating</span><span style="font-size: 9pt; margin: 3px;">(may cause browser to lag!)</span>
+          </div>
+          <table id="variables" class="variable_table">
+            <tr class="variable_label">
+              <td class="show">Show?</td>
+              <td class="value">Value</td>
+              <td class="minimum">Minimum</td>
+              <td class="step">Step</td>
+              <td class="maximum">Maximum</td>
+            </tr>
+            <!--tr class="variable">
+              <td rowspan="2"><input type="checkbox" class="show_select" onclick="solve()"/></td>
+              <td rowspan="2"><div style="vertical-align: top;">x = 6</div></td>
+              <td class="minimum"><input type="text" class="range_input" size="10" value="0"/></td>
+              <td class="step"><input type="text" class="range_input" size="10" value="1"/></td>
+              <td class="maximum"><input type="text" class="range_input" size="10" value="100"/></td>
+            </tr>
+            <tr class="variable">
+              <td colspan="3" class="range">
+                <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" style="margin-left: 22px;width: 184px;"/>
+              </td>
+            </tr-->
+          </table>
         </div>
-        <table id="variables" class="variable_table">
-          <tr class="variable_label">
-            <td class="show">Show?</td>
-            <td class="value">Value</td>
-            <td class="minimum">Minimum</td>
-            <td class="step">Step</td>
-            <td class="maximum">Maximum</td>
-          </tr>
-          <!--tr class="variable">
-            <td rowspan="2"><input type="checkbox" class="show_select" onclick="solve()"/></td>
-            <td rowspan="2"><div style="vertical-align: top;">x = 6</div></td>
-            <td class="minimum"><input type="text" class="range_input" size="10" value="0"/></td>
-            <td class="step"><input type="text" class="range_input" size="10" value="1"/></td>
-            <td class="maximum"><input type="text" class="range_input" size="10" value="100"/></td>
-          </tr>
-          <tr class="variable">
-            <td colspan="3" class="range">
-              <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" style="margin-left: 22px;width: 184px;"/>
-            </td>
-          </tr-->
-        </table>
         <!--h6>
           Fun Examples To Load In:
             <ul>

@@ -277,4 +277,10 @@ h2 {
   margin-left: 22px;
   width: 184px;
 }
-
+#result {
+  margin: 0px;
+  padding: 0px;
+}
+.label {
+  margin: 16px 0px 16px 0px;
+}
