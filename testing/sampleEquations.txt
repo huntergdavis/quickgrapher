@@ -1,0 +1,25 @@
+This file is a list of sample equations for quickgraph
+
+Bill Calculator (classic)
+-------------------------
+100*(salary - rent - studentloans - carpayments - grocery-spendingmoney-retirement) - netflix -tivo -petfood -gas-electric + 100*(subleaseincome + stockportfolio)
+
+
+Drake Equation
+-------------------------
+StarFormationRate * StarsWithPlanets * LifeSustainingPlanets * PlanetsWhichActuallyDevelopLife * PlanetsWithIntelligentLife * CivilizationsWithDetectors * DurationOfSpaceSignals
+
+
+Monthly Loan Payments Calculator
+--------------------------
+Princpial*((rate/1200)*(1 + rate/1200)^Months)/((1 + rate/1200)^Months - 1)
+
+Gravity
+---------------
+GravConstant * massOne * massTwo / distance^2
+
+Einstein E=mc2
+-------------------
+mass*(300*1000*1000)^2
+
+
