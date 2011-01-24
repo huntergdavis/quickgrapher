@@ -261,23 +261,7 @@ function moreSliders(varName, varTitle) {
 /* clearScreen clears out all named elements */
 function clearScreen()
 {
-    // as we're looping over values, don't clear the legend (annoying!)
-    //arrayLegendHash = null;
-    //arrayLegendHash = [];
-    // arrayValueHash = null;
-    // colorArray = null;
-    // arrayValueHash = [];
-    // colorArray = [];
 
-    /* loop over the collection of cloned sliders and
-     delete their parents */
-    // var cloneSpanCollection = document.getElementsByName("clonedSlider");
-    // var cloneSpanCollectionLength = cloneSpanCollection.length;
-    // for (var i = 0; i < cloneSpanCollectionLength; i++)
-    // {
-    //     cloneSpanCollection[0].parentNode.parentNode.removeChild(cloneSpanCollection[0].parentNode);
-    // }
-    // 
     var graphParent = $("#graph_container"),
         sliderParent = $("#variables");
           
@@ -288,7 +272,7 @@ function clearScreen()
     $("#result").hide();
     
     // Clear sliders
-    $("tr").remove(".variable");
+    $(".variable").remove();
 }
 
 // sin = ú
