@@ -802,7 +802,7 @@ function createSliders2(vars)
         el.setAttribute("class","minimum");
         el = $(el);
         // <input type="text" class="range_input" size="10" value="0"/>
-        inp = document.createElement("div");
+        inp = document.createElement("input");
         inp.setAttribute("type", "text");
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");
@@ -813,7 +813,7 @@ function createSliders2(vars)
         el = document.createElement("td");
         el.setAttribute("class","step");
         el = $(el);
-        inp = document.createElement("div");
+        inp = document.createElement("input");
         inp.setAttribute("type", "text");
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");
@@ -824,7 +824,7 @@ function createSliders2(vars)
         el = document.createElement("td");
         el.setAttribute("class","maximum");
         el = $(el);
-        inp = document.createElement("div");
+        inp = document.createElement("input");
         inp.setAttribute("type", "text");
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");

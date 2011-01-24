@@ -273,4 +273,8 @@ h2 {
 .range {
   width: 270px;
 }
+.range > input {
+  margin-left: 22px;
+  width: 184px;
+}
 
