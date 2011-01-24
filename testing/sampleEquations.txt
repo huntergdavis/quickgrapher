@@ -53,3 +53,7 @@ Post-Game Seasonal Batting Average
 Focal Length
 --------------
 (ObjectDistance * LensToImageDistance)/(ObjectDistance + LensToImageDistance)
+
+Population Growth
+----------------
+LastYearPopulation + LastYearPopulation*(ReprodiveRate - Attrition)
