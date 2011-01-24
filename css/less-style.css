@@ -212,11 +212,15 @@ h2 {
   border: 1px solid rgb(0,0,0);
   background: rgb(255,255,255);
   width: 500px;
-  height: 425px
+  height: 425px;
 }
 .bar {
   border-bottom: 1px solid rgb(164, 157, 143);
   width: 500px;
+  margin: 0px 0px 0px 22px;
+}
+.bar > h2 {
+  margin: 0px;
 }
 .variable_label {
   color: rgb(0,0,0);
