@@ -4,11 +4,9 @@ Bill Calculator (classic)
 -------------------------
 100*(salary - rent - studentloans - carpayments - grocery-spendingmoney-retirement) - netflix -tivo -petfood -gas-electric + 100*(subleaseincome + stockportfolio)
 
-
 Drake Equation
 -------------------------
 StarFormationRate * StarsWithPlanets * LifeSustainingPlanets * PlanetsWhichActuallyDevelopLife * PlanetsWithIntelligentLife * CivilizationsWithDetectors * DurationOfSpaceSignals
-
 
 Monthly Loan Payments Calculator
 --------------------------
@@ -22,4 +20,15 @@ Einstein E=mc2
 -------------------
 mass*(300*1000*1000)^2
 
+area of circle
+-------------------
+pi * radius^2
+
+circumference of a circle
+-------------------
+2*pi*radius
+
+Flake Equation (XKCD)
+--------------------
+7*1000^3 * (CrazyPeople + Misinterpret)/10000 * TellProbability/10 * NumberPeopleTold * FirstHandRetellings * IgnoredDataProbability/10 * WiderAudienceFraction/100
 
