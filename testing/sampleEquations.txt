@@ -36,11 +36,9 @@ Only Date Above (HIMYM/XKCD/OTHERS)
 -------------------
 Age/2 + 7
 
-
 TV Romantic Drama Equation (Gay) (XKCD)
 ---------------------------------
 AllCast*(AllCast - 1)/2 + SameSex*(SameSex - AllCast)
-
 
 TV Romantic Drama Equation (Straight) (XKCD)
 ---------------------------------
@@ -57,3 +55,17 @@ Focal Length
 Population Growth
 ----------------
 LastYearPopulation + LastYearPopulation*(ReprodiveRate - Attrition)
+
+Fiber Optic Response Time
+-----------------
+ProcessingTime + (2*Distance)/(200*(1000^2))
+
+Glomerular filtration rate (Creatinine Clearance CCr) (Kidney Filtration Rate)
+-----------------
+(CreatineConcentration * FlowRate)/PlasmaConcentration
+
+
+
+
+
+
