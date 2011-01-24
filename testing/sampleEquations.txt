@@ -60,9 +60,6 @@ Fiber Optic Response Time
 -----------------
 ProcessingTime + (2*Distance)/(200*(1000^2))
 
-Glomerular filtration rate (Creatinine Clearance CCr) (Kidney Filtration Rate)
------------------
-(CreatineConcentration * FlowRate)/PlasmaConcentration
 
 Watts
 -----------------
@@ -91,6 +88,14 @@ n*x^(n-1)
 First Order Integral of x^N dx (real)
 --------------------------------
 1/(n+1) * x^(n+1)
+
+Glomerular filtration rate (Creatinine Clearance CCr) (Kidney Filtration Rate)
+-----------------
+(CreatineConcentration * FlowRate)/PlasmaConcentration
+
+IPAT Environmental Impact Equation
+-----------------
+Population * Affluence * Technology
 
 
 
