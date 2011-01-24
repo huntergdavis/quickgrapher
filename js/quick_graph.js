@@ -800,7 +800,7 @@ function createSliders2(vars)
         
         el = document.createElement("td");
         el.setAttribute("class","minimum");
-        el = $(el);s
+        el = $(el);
         // <input type="text" class="range_input" size="10" value="0"/>
         inp = document.createElement("div");
         inp.setAttribute("type", "text");
