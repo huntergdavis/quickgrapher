@@ -123,3 +123,8 @@ Time Dilation qith Regard to Speed of Observer
 sqrt(1-(velocity^2/(300000)^2))
 
 
+Distance Between 2 Points in 2D space on Grid
+-----------------
+sqrt((xTwo-xOne)^2 + (yTwo-yOne)^2)
+
+
