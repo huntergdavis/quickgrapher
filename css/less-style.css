@@ -206,7 +206,10 @@ img::-moz-selection {background: transparent;}
   background: rgb(255,255,255);
   border: 1px solid rgb(164,157,143);
   width: 39px;
-  margin: 0px auto 0px;
+  margin: 0px 0px 0px 7px;
+}
+.step > .range_input {
+  margin: 0px;
 }
 h2 {
   color: rgb(164, 157, 143);
