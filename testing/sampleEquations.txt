@@ -118,6 +118,8 @@ Pressure Loss with friction coefficient .019
 .019 * (length / hydraulicDiameter) * (density * velocity^2 /2)
 
 
-
+Time Dilation qith Regard to Speed of Observer
+----------------
+sqrt(1-(velocity^2/(300000)^2))
 
 
