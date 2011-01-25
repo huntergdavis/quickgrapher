@@ -590,7 +590,7 @@ function updateMaximum(inputID)
         slider = $("#" + v + "_slider"),
         curr = parseFloat(slider.val());
     // Make sure the value is grater than the minimum
-    if(min <= max)
+    if(max <= min)
     {
         max = min + 1;
         maxField.val(max);
