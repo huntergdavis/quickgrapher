@@ -1110,6 +1110,11 @@ var loadExamples = function()
     }
 }(); // Load this as soon as it is parsed
 
+function compressName(name)
+{
+    
+}
+
 function resetExamples()
 {
     curr_page = 0;
@@ -1126,6 +1131,8 @@ function resetExamples()
         ex = examples[i];
         example = document.createElement("li");
         example.innerHTML == ex.name + " - " + ex.fxn;
+        example.setAttribute("id","example_" + compressName(ex.name));
+        example.setAttribute("onclick","loadExample(this.id)");
         list.append(example);
     }
         
@@ -1133,4 +1140,27 @@ function resetExamples()
     {
         $("#nextExamples").show();
     }
+}
+
+function loadExample(exampleID)
+{
+    var exampleName = exampleID.substring(8,exampleID.length),
+        ex, exLen = examples.length;
+    
+    // Close examples list
+    hideExamples($("#" + exampleID).parent().id());
+    
+    // Load display
+    for(var i = 0; i < exLen; i++)
+    {
+        ex = examples[i];
+        if(compressName(ex.name) == exampleName)
+        {
+            $("#mainEquation").val(ex.fxn);
+            $("#graphBtn").click();
+            break;
+        }
+    }
+    
+    return false;
 }
