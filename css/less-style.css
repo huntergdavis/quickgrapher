@@ -216,10 +216,12 @@ img::-moz-selection {background: transparent;}
 .instructions > div {
   margin-top: -13px;
   text-decoration: none;
+  color: inherit;
 }
 
-.instructions > div :hover {
+.instructions > div:hover {
   text-decoration: underline;
+  color: rgb(255,0,0);
 }
 
 .equation {
