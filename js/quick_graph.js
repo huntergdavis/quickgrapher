@@ -1151,7 +1151,8 @@ function loadExample(exampleID)
         ex, exLen = examples.length;
     
     // Close examples list
-    hideExamples($("#" + exampleID).parent().id());
+    var p = $("#" + exampleID).parent();
+    hideExamples(p.id());
     
     // Load display
     for(var i = 0; i < exLen; i++)
