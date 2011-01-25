@@ -1032,3 +1032,102 @@ function hideExamples(exampleID)
     return false;
 }
 
+function nextExamples()
+{
+    var exLen = examples.length;
+    if((curr_page + 1) * 5 < exLen)
+    {
+        curr_page = curr_page + 1;
+        // Clear display
+        var list = $("#example_list").empty();
+        
+        var ex, example;
+        
+        for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
+        {
+            ex = examples[i];
+            example = document.createElement("li");
+            example.innerHTML == ex.name + " - " + ex.fxn;
+            list.append(example);
+        }
+            
+        if( curr_page > 0 )
+        {
+            $("#prevExamples").show();
+        }
+        if( ((curr_page+1)*5) > exLen )
+        {
+            $("#nextExamples").hide();
+        }
+    }
+    return false;
+}
+
+function prevExamples()
+{
+    var exLen = examples.length;
+    if(curr_page > 0)
+    {
+        curr_page = curr_page - 1;
+        // Clear display
+        var list = $("#example_list").empty();
+        
+        var ex, example;
+        
+        for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
+        {
+            ex = examples[i];
+            example = document.createElement("li");
+            example.innerHTML == ex.name + " - " + ex.fxn;
+            list.append(example);
+        }
+        
+        $("#nextExamples").show();
+        if( curr_page == 0 )
+        {
+            $("#prevExamples").hide();
+        }
+    }
+    return false;
+}
+
+var examples,
+    curr_page;
+
+function loadExamples()
+{
+    // Load examples
+    examples = Examples
+    // If there was nothing to load, just create empty array
+    if(typeof examples == "undefined")
+    {
+        examples = [];
+    }
+    
+    resetExamples();
+}(); // Load this as soon as it is parsed
+
+function resetExamples()
+{
+    curr_page = 0;
+    
+    // Clear display
+    var list = $("#example_list").empty();
+    
+    // Display
+    var exLen = examples.length,
+        ex, example;
+    
+    for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
+    {
+        ex = examples[i];
+        example = document.createElement("li");
+        example.innerHTML == ex.name + " - " + ex.fxn;
+        list.append(example);
+    }
+        
+    if( exLen > 5 )
+    {
+        $("#nextExamples").show();
+    }
+}

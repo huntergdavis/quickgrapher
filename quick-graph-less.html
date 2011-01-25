@@ -49,16 +49,11 @@ hunter or mark at discursivelabs.com
         <h2>Try It <div class="examples">» <a href="#" onclick="toggleExamples('examples')">examples</a></div></h2>
         <div id="examples" class="instructions" style="display: none; width: 650px;">
           <span style="width: 100%;">
-            <ul class="example_list">
-              <li>a</li>
-              <li>b</li>
-              <li>c</li>
-              <li>d</li>
-              <li>e</li>
+            <ul id="example_list" class="example_list">
             </ul>
           </span>
-          <div style="float: left;">« previous</div>
-          <div style="float: right;">more »</div>
+          <div id="prevExamples" style="float: left; display: none;" onclick="nextExamples()">« previous</div>
+          <div id="nextExamples" style="float: right; display: none;" onlick="prevExamples()">more »</div>
         </div>
         <span class="equation">
           Fxn = <input type="text" id="mainEquation" class="input" size="60"/>  
@@ -86,18 +81,6 @@ hunter or mark at discursivelabs.com
               <td class="step">Step</td>
               <td class="maximum">Maximum</td>
             </tr>
-            <!--tr class="variable">
-              <td rowspan="2"><input type="checkbox" class="show_select" onclick="solve()"/></td>
-              <td rowspan="2"><div style="vertical-align: top;">x = 6</div></td>
-              <td class="minimum"><input type="text" class="range_input" size="10" value="0"/></td>
-              <td class="step"><input type="text" class="range_input" size="10" value="1"/></td>
-              <td class="maximum"><input type="text" class="range_input" size="10" value="100"/></td>
-            </tr>
-            <tr class="variable">
-              <td colspan="3" class="range">
-                <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" style="margin-left: 22px;width: 184px;"/>
-              </td>
-            </tr-->
           </table>
         </div>
         <!--h6>
