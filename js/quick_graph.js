@@ -1112,7 +1112,9 @@ var loadExamples = function()
 
 function compressName(name)
 {
-    
+    // Remove spaces
+    var compressed = name.replace(/\s/g,"");
+    return compressed;
 }
 
 function resetExamples()
