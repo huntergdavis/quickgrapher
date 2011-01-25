@@ -1094,7 +1094,7 @@ function prevExamples()
 var examples,
     curr_page;
 
-function loadExamples()
+var loadExamples = function()
 {
     // Load examples
     examples = Examples
