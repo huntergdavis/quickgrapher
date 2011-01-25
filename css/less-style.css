@@ -350,6 +350,12 @@ h2 > .examples {
   margin-bottom: 20px;
 }
 
+.examples > div:hover {
+    color: rgb(255,0,0);
+    text-decoration: underline;
+    cursor: hand;
+}
+
 .example_list > li {
   margin-left: 17px;
   text-decoration: none;
