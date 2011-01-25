@@ -1008,11 +1008,13 @@ function showExamples(exampleID)
 {
     var ex = $("#" + exampleID);
     ex.show();
+    return false;
 }
 
 function hideExamples(exampleID)
 {
     var ex = $("#" + exampleID);
     ex.hide();
+    return false;
 }
 
