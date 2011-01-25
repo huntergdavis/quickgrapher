@@ -389,17 +389,24 @@ function parseInput(input, step)
     var val = parseFloat(input),
         prec = val / step,
         str = prec + "",
-        decimal = str.indexOf("."),
-        rounded = parseInt(decimal),
+        /*decimal = str.indexOf("."),*/
+        rounded = Math.round(parseFloat(str)),
         result = 0;
+        
+    str = rounded + "";
+    decimal = str.indexOf(".")
+    
     
     if(decimal != -1)
     {
-        rounded = parseInt(str.substring(0,decimal));
+        //rounded = parseInt(str.substring(0,decimal));
+        result = parseInt(str.substring(0,decimal)) * step;
     }
-    
-    result = rounded * step;
-        
+    else
+    {
+        result = parseInt(str) * step;
+    }
+
     return result;
 }
 
