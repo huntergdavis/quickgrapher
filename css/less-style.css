@@ -332,10 +332,14 @@ h2 > .examples {
     color: rgb(164, 157, 143);
 }
 
+.examples > div {
+  margin-top: -13px;
+}
+
 .example_list {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .example_list > li {
-  margin-left: 20px;
+  margin-left: 17px;
 }
