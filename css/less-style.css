@@ -212,6 +212,11 @@ img::-moz-selection {background: transparent;}
   font-size: 10pt;
   font-weight: bold;
 }
+
+.instructions > div {
+  margin-top: -13px;
+}
+
 .equation {
   margin: 2px 0px 0px 20px;
 }
@@ -330,10 +335,6 @@ h2 > .examples {
 }
 .examples > a:visited {
     color: rgb(164, 157, 143);
-}
-
-.examples > div {
-  margin-top: -13px;
 }
 
 .example_list {
