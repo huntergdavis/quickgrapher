@@ -3,8 +3,7 @@
 
 Examples.push({
     name: "Bill Calculator (classic)",
-    fxn : "100*(salary - rent - studentloans - carpayments - grocery-spendingmoney-retirement) - netflix -tivo -petfood -gas-electric + 100*(subleaseincome + stockportfolio)",
-    hash: "at43qyhw4hsdh456h4"
+    fxn : "100*(salary - rent - studentloans - carpayments - grocery-spendingmoney-retirement) - netflix -tivo -petfood -gas-electric + 100*(subleaseincome + stockportfolio)"
 });
 
 Examples.push({
