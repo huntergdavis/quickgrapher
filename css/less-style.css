@@ -222,6 +222,7 @@ img::-moz-selection {background: transparent;}
 .instructions > div:hover {
   text-decoration: underline;
   color: rgb(255,0,0);
+  cursor: hand;
 }
 
 .equation {
@@ -339,6 +340,7 @@ h2 > .examples {
 .examples > a:hover {
     color: rgb(195,220,235);
     text-decoration: none;
+    cursor: hand;
 }
 .examples > a:visited {
     color: rgb(164, 157, 143);
@@ -357,4 +359,5 @@ h2 > .examples {
 .example_list > li:hover {
   text-decoration: underline;
   color: rgb(255,0,0);
+  cursor: hand;
 }

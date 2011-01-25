@@ -1147,9 +1147,14 @@ function resetExamples()
     {
         ex = examples[i];
         example = document.createElement("li");
-        example.innerHTML = ex.name; // + " - " + ex.fxn;
+        var inner = "<a href='/?";
+        inner += compressName(ex.fxn);
+        inner += "'>"
+        inner += ex.name;
+        inner += "</a>";
+        example.innerHTML = inner;
         example.setAttribute("id","example_" + compressName(ex.name));
-        example.setAttribute("onclick","loadExample(this.id)");
+        //example.setAttribute("onclick","loadExample(this.id)");
         list.append(example);
     }
         
