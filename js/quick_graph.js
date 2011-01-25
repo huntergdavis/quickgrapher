@@ -389,7 +389,7 @@ function parseInput(input, step)
     var val = parseFloat(input),
         prec = val / step,
         str = prec + "",
-        /*decimal = str.indexOf("."),*/
+        decimal,
         rounded = Math.round(parseFloat(str)),
         result = 0;
         
