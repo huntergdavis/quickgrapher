@@ -1138,7 +1138,7 @@ function createExampleLink(example, parent)
     ex.innerHTML = inner;
     ex.setAttribute("id","example_" + compressName(example.name));
     //example.setAttribute("onclick","loadExample(this.id)");
-    parent.append(example);
+    parent.append(ex);
 }
 
 function resetExamples()
