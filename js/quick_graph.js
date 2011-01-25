@@ -1003,3 +1003,16 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     // // lines.symbols[0].attr({stroke: "#fff"});
     // // lines.symbols[0][1].animate({fill: "#f00"}, 1000);
 }
+
+function showExamples(exampleID)
+{
+    var ex = $("#" + exampleID);
+    ex.show();
+}
+
+function hideExamples(exampleID)
+{
+    var ex = $("#" + exampleID);
+    ex.hide();
+}
+
