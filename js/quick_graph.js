@@ -394,6 +394,8 @@ function updateSolution(equation, context, solution)
     {
         v = vars[i];
         varList += v;
+        varList += "=";
+        varList += context[v];
         if(i != varLen - 1)
         {
             varList += ",";
