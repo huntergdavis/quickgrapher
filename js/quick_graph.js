@@ -1122,7 +1122,8 @@ function resetExamples()
     curr_page = 0;
     
     // Clear display
-    var list = $("#example_list").empty();
+    var list = $("#example_list");
+    list.empty();
     
     // Display
     var exLen = examples.length,
