@@ -222,7 +222,7 @@ img::-moz-selection {background: transparent;}
 .instructions > div:hover {
   text-decoration: underline;
   color: rgb(255,0,0);
-  cursor: hand;
+  cursor: pointer, hand;
 }
 
 .equation {
@@ -350,11 +350,6 @@ h2 > .examples {
   margin-bottom: 20px;
 }
 
-.examples > div:hover {
-    color: rgb(255,0,0);
-    text-decoration: underline;
-    cursor: hand;
-}
 
 .example_list > li {
   margin-left: 17px;
