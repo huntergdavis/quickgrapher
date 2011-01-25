@@ -331,3 +331,7 @@ h2 > .examples {
 .examples > a:visited {
     color: rgb(164, 157, 143);
 }
+
+.example_list > li {
+  margin-left: 20px;
+}

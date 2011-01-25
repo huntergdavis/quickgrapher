@@ -1004,6 +1004,20 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     // // lines.symbols[0][1].animate({fill: "#f00"}, 1000);
 }
 
+function toggleExamples(exampleID)
+{
+    var ex = $("#" + exampleID);
+    if(ex.is(":visible"))
+    {
+        ex.hide();
+    }
+    else
+    {
+        ex.show();
+    }
+    return false;
+}
+
 function showExamples(exampleID)
 {
     var ex = $("#" + exampleID);
