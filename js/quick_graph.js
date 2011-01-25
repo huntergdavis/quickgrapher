@@ -1039,7 +1039,7 @@ function nextExamples()
     {
         curr_page = curr_page + 1;
         // Clear display
-        var list = $("#example_list").empty();
+        var list = $("#examplelist").empty();
         
         var ex, example;
         
@@ -1070,7 +1070,7 @@ function prevExamples()
     {
         curr_page = curr_page - 1;
         // Clear display
-        var list = $("#example_list").empty();
+        var list = $("#examplelist").empty();
         
         var ex, example;
         
@@ -1122,7 +1122,7 @@ function resetExamples()
     curr_page = 0;
     
     // Clear display
-    var list = $("#example_list");
+    var list = $("#examplelist");
     list.empty();
     
     // Display
