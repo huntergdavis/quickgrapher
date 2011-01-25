@@ -1133,7 +1133,7 @@ function resetExamples()
     {
         ex = examples[i];
         example = document.createElement("li");
-        example.innerHTML == ex.name + " - " + ex.fxn;
+        example.innerHTML = ex.name + " - " + ex.fxn;
         example.setAttribute("id","example_" + compressName(ex.name));
         example.setAttribute("onclick","loadExample(this.id)");
         list.append(example);
