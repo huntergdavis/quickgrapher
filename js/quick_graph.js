@@ -603,11 +603,12 @@ function createSliders2(vars)
         el.setAttribute("rowspan","2");
         el = $(el);
         inp = document.createElement("div");
-        inp.innerHTML = v + " =";
+        inp.innerHTML = v + " = ";
         el.append(inp);
         inp = $(inp);
         inp.css({"float":"left"});
         inp = document.createElement("div");
+        inp.setAttribute("class","variable_value");
         inp.innerHTML = "0";
         inp.id = v + "_slider_value";
         el.append(inp);
