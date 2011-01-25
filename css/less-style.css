@@ -351,8 +351,10 @@ h2 > .examples {
 .example_list > li {
   margin-left: 17px;
   text-decoration: none;
+  color: inherit;
 }
 
 .example_list > li:hover {
   text-decoration: underline;
+  color: rgb(255,0,0);
 }
