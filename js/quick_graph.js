@@ -1104,7 +1104,10 @@ var loadExamples = function()
         examples = [];
     }
     
-    resetExamples();
+    if(examples.length > 0)
+    {
+        resetExamples();
+    }
 }(); // Load this as soon as it is parsed
 
 function resetExamples()
