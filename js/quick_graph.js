@@ -551,6 +551,61 @@ function createSliders(vars)
         graphCheckLabel.append("(graph)");
     }
 }
+
+function updateMinimum(inputID)
+{
+    // Retrieve variable name
+    var v = inputID.substring(0,inputID.indexOf("_")),
+        minField = $("#" + v + "_min"),
+        min = minField.val(),
+        maxField = $("#" + v + "_max"),
+        max = maxField.val(),
+        slider = $("#" + v + "_slider"),
+        curr = slider.val();
+    // Make sure the value is less than the maximum
+    if(min >= max)
+    {
+        minField.val(max-1);
+    }
+    // Make sure slider value is within new range
+    if(curr < min)
+    {
+        slider.val(min);
+    }
+    // Resolve with new parameters
+    solve();
+}
+
+function updateMaximum(inputID)
+{
+    // Retrieve variable name
+    var v = inputID.substring(0,inputID.indexOf("_")),
+        minField = $("#" + v + "_min"),
+        min = minField.val(),
+        maxField = $("#" + v + "_max"),
+        max = maxField.val(),
+        slider = $("#" + v + "_slider"),
+        curr = slider.val();
+    // Make sure the value is grater than the minimum
+    if(min <= max)
+    {
+        maxField.val(min+1);
+    }
+    // Make sure slider value is within new range
+    if(curr > max)
+    {
+        slider.val(max);
+    }
+    // Resolve with new parameters
+    solve();
+}
+
+function updateStep(inputID)
+{
+    // Resolve with new parameters
+    solve();
+}
+
 /*
  * 
  * <tr class="variable">
@@ -621,6 +676,7 @@ function createSliders2(vars)
         el = $(el);
         // <input type="text" class="range_input" size="10" value="0"/>
         inp = document.createElement("input");
+        inp.setAttribute("id", v + "_min");
         inp.setAttribute("type", "text");
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");
@@ -633,6 +689,7 @@ function createSliders2(vars)
         el.setAttribute("class","step");
         el = $(el);
         inp = document.createElement("input");
+        inp.setAttribute("id", v + "_step");
         inp.setAttribute("type", "text");
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");
@@ -645,6 +702,7 @@ function createSliders2(vars)
         el.setAttribute("class","maximum");
         el = $(el);
         inp = document.createElement("input");
+        inp.setAttribute("id", v + "_max");
         inp.setAttribute("type", "text");
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");
@@ -712,7 +770,8 @@ function updateAllGraphs(equation, context)
     /// Loop over variable
     var name = "",
         v, vars = equation.variables(), varLen = vars.length,
-        localContext = context.toObj();
+        localContext = context.toObj(),
+        step, min, max;
     for(var i = 0; i < varLen; i++)
     {
         // Current variable
@@ -722,11 +781,15 @@ function updateAllGraphs(equation, context)
         {
             //name = "Title" + varName;
             // Adjust context
-            var fixedPt = localContext[v];
+            var fixedPt = localContext[v],
+                min = $("#" + v + "_min").val(),
+                step = $("#" + v + "_step").val(),
+                max = $("#" + v + "_max").val(),
+                steps = ((max - min)/step) + 1;
             // Substitute iterator
-            localContext[v] = new VariableIterator(0,1);
+            localContext[v] = new VariableIterator(min,step);
             // Create graph
-            updateGraph(graphID, v, equation, localContext, 101);
+            updateGraph(graphID, v, equation, localContext, steps);
             // Replace values into local context for next loop step
             localContext[v] = fixedPt;
         }
