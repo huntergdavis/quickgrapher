@@ -609,7 +609,7 @@ function createSliders2(vars)
         inp.css({"float":"left"});
         inp = document.createElement("div");
         inp.setAttribute("class","variable_value");
-        inp.innerHTML = "0";
+        inp.innerHTML = "1";
         inp.id = v + "_slider_value";
         el.append(inp);
         inp = $(inp);
@@ -625,6 +625,7 @@ function createSliders2(vars)
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");
         inp.setAttribute("value", "0");
+        inp.setAttribute("onchange", "updateMinimum(this.id)");
         el.append(inp);
         first.append(el);
         
@@ -636,6 +637,7 @@ function createSliders2(vars)
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");
         inp.setAttribute("value", "1");
+        inp.setAttribute("onchange", "updateStep(this.id)");
         el.append(inp);
         first.append(el);
         
@@ -647,6 +649,7 @@ function createSliders2(vars)
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");
         inp.setAttribute("value", "100");
+        inp.setAttribute("onchange", "updateMaximum(this.id)");
         el.append(inp);
         first.append(el);
         
