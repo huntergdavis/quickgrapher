@@ -5,7 +5,96 @@
 // var colorArray = [];
 // var variableFound = 0;
 var parsedEquation = undefined;
+var variableMinHash = new Array();
+var variableMaxHash = new Array();
+var variableStepHash = new Array();
 
+/* LoadTitleBarHash loads in passed-in title bar equation */
+function loadTitleBarHash() {
+	var addressBar = window.location.href;
+        var equationStart = addressBar.indexOf("?")+1;
+        var equationEnd = addressBar.indexOf("=");
+	var varsStart = equationEnd + 1;
+	var varsStop = addressBar.length;
+        var equationString = "";                   
+	var equationValid = 0;     
+        if(equationStart > 0)
+        {
+	    if(equationEnd < 1)
+	    {
+	        equationEnd = addressBar.length;
+	    }
+            equationString = addressBar.substring(equationStart,equationEnd);
+	    equationValid = 1;
+        }
+	if(varsStart > 1)
+	{
+	    	var variableString = addressBar.substring(varsStart,varsStop);
+		var nextDelimiter = 0;
+		var minStart = 0;
+		var minStop  = variableString.indexOf("{");
+		var maxStart = minStop + 1;
+		var maxStop  = variableString.indexOf("}");
+		var stepStart = maxStop + 1;
+		var stepStop = variableString.length;
+		var stillParsing = 1;
+
+		/* grab the minimum address*/
+		var parseBlock = variableString.substring(minStart,minStop);
+		/* Loop through all
+		 values in title bar and add them to hash table reference for names */
+		while(stillParsing == 1) {
+		    nextDelimiter = parseBlock.indexOf(":");
+		    if(nextDelimiter > -1) {
+		        var minValue = parseBlock.substring(0,nextDelimiter);
+		        parseBlock = parseBlock.substring(nextDelimiter+1,parseBlock.length);
+		        variableMinHash.push(minValue);
+	            } 
+                    else {
+		        stillParsing = 0;
+        	    }
+    		}
+
+		stillParsing = 1;
+                /* grab the maximum address*/
+                var parseBlock = variableString.substring(maxStart,maxStop);
+                /* Loop through all
+                 values in title bar and add them to hash table reference for names */
+                while(stillParsing == 1) {
+                    nextDelimiter = parseBlock.indexOf(":");
+                    if(nextDelimiter > -1) {
+                        var maxValue = parseBlock.substring(0,nextDelimiter);
+                        parseBlock = parseBlock.substring(nextDelimiter+1,parseBlock.length);
+                        variableMaxHash.push(maxValue);
+                    } 
+                    else {
+                        stillParsing = 0;
+                    }
+                }
+
+		stillParsing = 1;
+                /* grab the step address*/
+                var parseBlock = variableString.substring(stepStart,stepStop);
+                /* Loop through all
+                 values in title bar and add them to hash table reference for names */
+                while(stillParsing == 1) {
+                    nextDelimiter = parseBlock.indexOf(":");
+                    if(nextDelimiter > -1) {
+                        var stepValue = parseBlock.substring(0,nextDelimiter);
+                        parseBlock = parseBlock.substring(nextDelimiter+1,parseBlock.length);
+                        variableStepHash.push(stepValue);
+                    } 
+                    else {
+                        stillParsing = 0;
+                    }
+                }
+	} 	
+	if(equationValid > 0)
+	{
+	    $("#mainEquation").val(equationString);
+            $("#graphBtn").click();
+	}
+}
 /* loadSaved uses the passed variables from the address bar to set equations and
  hashes */
 function loadSaved() {
@@ -116,9 +205,10 @@ function showValue(sliderValue, sliderId)
 {
     var v = sliderId.substring(0,sliderId.indexOf("_")),
         sliderLabel = $("#" + v + "_slider_value"),
+        step = parseFloat($("#" + v + "_step").val()),
         dynamicUpdate = $("#dynamic_update");
     sliderLabel.empty();
-    sliderLabel.append(sliderValue);
+    sliderLabel.append(parseInput(sliderValue,step));
     
     var update = dynamicUpdate.is(":checked");
     if(update)
@@ -387,9 +477,25 @@ function parseInput(input, step)
 {
     var val = parseFloat(input),
         prec = val / step,
-        rounded = Math.round(prec),
-        result = rounded * step;
+        str = prec + "",
+        decimal,
+        rounded = Math.round(parseFloat(str)),
+        result = 0;
         
+    str = rounded + "";
+    decimal = str.indexOf(".");
+    
+    
+    if(decimal != -1)
+    {
+        //rounded = parseInt(str.substring(0,decimal));
+        result = parseInt(str.substring(0,decimal)) * step;
+    }
+    else
+    {
+        result = parseInt(str) * step;
+    }
+
     return result;
 }
 
@@ -516,9 +622,10 @@ function createSliders(vars)
         slider = document.createElement("input");
         slider.id = v + "_slider";
         slider.setAttribute("type", "range");
-        slider.setAttribute("min", "0");
-        slider.setAttribute("max", "100");
-        slider.setAttribute("step", "1");
+	alert(variableMinHash[i]);
+        slider.setAttribute("min", variableMinHash[i]);
+        slider.setAttribute("max", variableMaxHash[i]);
+        slider.setAttribute("step", variableStepHash[i]);
         slider = $(slider);
         slider.css("margin-top","3px");
         // Add to container
@@ -748,9 +855,9 @@ function createSliders2(vars)
         inp = document.createElement("input");
         inp.id = v + "_slider";
         inp.setAttribute("type", "range");
-        inp.setAttribute("min", "0");
-        inp.setAttribute("max", "100");
-        inp.setAttribute("step", "1");
+        inp.setAttribute("min", variableMinHash[i]);
+        inp.setAttribute("max", variableMaxHash[i]);
+        inp.setAttribute("step", variableStepHash[i]);
         inp.setAttribute("value", "1");
         el.append(inp);
         first.append(el);
@@ -785,7 +892,10 @@ function updateAllGraphs(equation, context)
             parentElement.append(graph);
             // Register with Graph
             graph = $(graph);
-            graph.graphify({'hue-increment' : 35, 'hue-base' : 0, 'value-base': 75}).attach_legend().realHover({
+            graph.graphify({'hue-increment' : 35, 'hue-base' : 0, 'value-base': 75}).attach_legend({
+              'legend-mode': false,
+              'legend-container': $("#legend"),
+            }).realHover({
                 hover: Graph.highlightNearest,
                 out: Graph.removeHighlight
             });
@@ -855,26 +965,31 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         context[graphVariable].step();
     }
     
-    var lbl = "Fxn(",
+    var lbl = "Fxn ( ",
         v, vars = equation.variables(),
         varLen = vars.length;
-    for(var i = 0; i < varLen; i++)
+    // for(var i = 0; i < varLen; i++)
+    // {
+    //     v = vars[i];
+    //     if(v == graphVariable)
+    //     {
+    //         lbl += v;
+    //     }
+    //     else
+    //     {
+    //         lbl += context[v];
+    //     }
+    //     if(i != varLen - 1)
+    //     {
+    //         lbl += ",";
+    //     }
+    // }
+    lbl += graphVariable;
+    if( varLen > 1)
     {
-        v = vars[i];
-        if(v == graphVariable)
-        {
-            lbl += v;
-        }
-        else
-        {
-            lbl += context[v];
-        }
-        if(i != varLen - 1)
-        {
-            lbl += ",";
-        }
+        lbl += ", ..."
     }
-    lbl += ")";
+    lbl += " )";
     
     // Add plot for this variable (will overwrite existing ones)
     graph.plot(
@@ -980,4 +1095,175 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     // // lines.lines[0].animate({"stroke-width": 6}, 1000);
     // // lines.symbols[0].attr({stroke: "#fff"});
     // // lines.symbols[0][1].animate({fill: "#f00"}, 1000);
+}
+
+function toggleExamples(exampleID)
+{
+    var ex = $("#" + exampleID);
+    if(ex.is(":visible"))
+    {
+        ex.hide();
+    }
+    else
+    {
+        ex.show();
+    }
+    return false;
+}
+
+function showExamples(exampleID)
+{
+    var ex = $("#" + exampleID);
+    ex.show();
+    return false;
+}
+
+function hideExamples(exampleID)
+{
+    var ex = $("#" + exampleID);
+    ex.hide();
+    return false;
+}
+
+function nextExamples()
+{
+    var exLen = examples.length;
+    if((curr_page + 1) * 5 < exLen)
+    {
+        curr_page = curr_page + 1;
+        // Clear display
+        var list = $("#examplelist").empty();
+        
+        var ex, example;
+        
+        for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
+        {
+            ex = examples[i];
+            createExampleLink(ex, list);
+        }
+            
+        if( curr_page > 0 )
+        {
+            $("#prevExamples").show();
+        }
+        if( ((curr_page+1)*5) > exLen )
+        {
+            $("#nextExamples").hide();
+        }
+    }
+    return false;
+}
+
+function prevExamples()
+{
+    var exLen = examples.length;
+    if(curr_page > 0)
+    {
+        curr_page = curr_page - 1;
+        // Clear display
+        var list = $("#examplelist").empty();
+        
+        var ex, example;
+        
+        for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
+        {
+            ex = examples[i];
+            createExampleLink(ex, list);
+        }
+        
+        $("#nextExamples").show();
+        if( curr_page == 0 )
+        {
+            $("#prevExamples").hide();
+        }
+    }
+    return false;
+}
+
+var examples,
+    curr_page;
+
+function loadExamples()
+{
+    // Load examples
+    examples = Examples;
+    // If there was nothing to load, just create empty array
+    if(typeof examples == "undefined")
+    {
+        examples = [];
+    }
+    
+    if(examples.length > 0)
+    {
+        resetExamples();
+    }
+}
+
+function compressName(name)
+{
+    // Remove spaces
+    var compressed = name.replace(/\s/g,"");
+    return compressed;
+}
+
+function createExampleLink(example, parent)
+{
+    var ex = document.createElement("li"),
+        inner = "<a href='/?";
+    inner += compressName(example.fxn);
+    inner += "'>"
+    inner += example.name;
+    inner += "</a>";
+    ex.innerHTML = inner;
+    ex.setAttribute("id","example_" + compressName(example.name));
+    //example.setAttribute("onclick","loadExample(this.id)");
+    parent.append(ex);
+}
+
+function resetExamples()
+{
+    curr_page = 0;
+    
+    // Clear display
+    var list = $("#examplelist");
+    list.empty();
+    
+    // Display
+    var exLen = examples.length,
+        ex, example;
+    
+    for(var i = (curr_page * 5); i < exLen && i < (curr_page + 1)*5; i++)
+    {
+        ex = examples[i];
+        createExampleLink(ex, list);
+    }
+        
+    if( exLen > 5 )
+    {
+        $("#nextExamples").show();
+    }
+}
+
+function loadExample(exampleID)
+{
+    var exampleName = exampleID.substring(8,exampleID.length),
+        ex, exLen = examples.length;
+    
+    // Close examples list
+    var p = $("#" + exampleID).parent();
+    hideExamples(p.id());
+    
+    // Load display
+    for(var i = 0; i < exLen; i++)
+    {
+        ex = examples[i];
+        if(compressName(ex.name) == exampleName)
+        {
+            $("#mainEquation").val(ex.fxn);
+            $("#graphBtn").click();
+            break;
+        }
+    }
+    
+    return false;
 }
