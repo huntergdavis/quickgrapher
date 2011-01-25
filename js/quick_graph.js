@@ -116,9 +116,10 @@ function showValue(sliderValue, sliderId)
 {
     var v = sliderId.substring(0,sliderId.indexOf("_")),
         sliderLabel = $("#" + v + "_slider_value"),
+        step = parseFloat($("#" + v + "_step").val()),
         dynamicUpdate = $("#dynamic_update");
     sliderLabel.empty();
-    sliderLabel.append(sliderValue);
+    sliderLabel.append(parseInput(sliderValue,step));
     
     var update = dynamicUpdate.is(":checked");
     if(update)
