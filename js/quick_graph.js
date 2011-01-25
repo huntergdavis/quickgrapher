@@ -414,7 +414,7 @@ function createContext(vars) {
     {
         v = vars[i];
         slider = $("#" + v + "_slider");
-        val = parseInt(slider.val());
+        val = parseFloat(slider.val());
         context.set(v, val);
     }
     
@@ -557,11 +557,11 @@ function updateMinimum(inputID)
     // Retrieve variable name
     var v = inputID.substring(0,inputID.indexOf("_")),
         minField = $("#" + v + "_min"),
-        min = minField.val(),
+        min = parseFloat(minField.val()),
         maxField = $("#" + v + "_max"),
-        max = maxField.val(),
+        max = parseFloat(maxField.val()),
         slider = $("#" + v + "_slider"),
-        curr = slider.val();
+        curr = parseFloat(slider.val());
     // Make sure the value is less than the maximum
     if(min >= max)
     {
@@ -581,11 +581,11 @@ function updateMaximum(inputID)
     // Retrieve variable name
     var v = inputID.substring(0,inputID.indexOf("_")),
         minField = $("#" + v + "_min"),
-        min = minField.val(),
+        min = parseFloat(minField.val()),
         maxField = $("#" + v + "_max"),
-        max = maxField.val(),
+        max = parseFloat(maxField.val()),
         slider = $("#" + v + "_slider"),
-        curr = slider.val();
+        curr = parseFloat(slider.val());
     // Make sure the value is grater than the minimum
     if(min <= max)
     {
@@ -782,9 +782,9 @@ function updateAllGraphs(equation, context)
             //name = "Title" + varName;
             // Adjust context
             var fixedPt = localContext[v],
-                min = $("#" + v + "_min").val(),
-                step = $("#" + v + "_step").val(),
-                max = $("#" + v + "_max").val(),
+                min = parseFloat($("#" + v + "_min").val()),
+                step = parseFloat($("#" + v + "_step").val()),
+                max = parseFloat($("#" + v + "_max").val()),
                 steps = ((max - min)/step) + 1;
             // Substitute iterator
             localContext[v] = new VariableIterator(min,step);
