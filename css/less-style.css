@@ -222,7 +222,7 @@ h2 {
   background: rgb(255,255,255);
   width: 500px;
   height: 425px;
-  margin: 10px 0px 0px 22px;
+  margin: 10px 0px 30px 22px;
 }
 .bar {
   border-bottom: 1px solid rgb(164, 157, 143);
@@ -279,7 +279,7 @@ h2 {
 }
 #result {
   margin: 0px;
-  margin-bottom: 30px;
+  margin-bottom: -30px;
   padding: 0px;
 }
 .label {
