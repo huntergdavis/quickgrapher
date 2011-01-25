@@ -195,6 +195,9 @@ img::-moz-selection {background: transparent;}
   
 }
 
+a > img {
+  border: 0px;
+}
 
 .logo {
   padding-top: 24px;
