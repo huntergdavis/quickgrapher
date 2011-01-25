@@ -351,6 +351,6 @@ h2 > .examples {
   text-decoration: none;
 }
 
-.example_list > li :hover {
+.example_list > li:hover {
   text-decoration: underline;
 }
