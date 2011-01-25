@@ -1094,7 +1094,7 @@ function prevExamples()
 var examples,
     curr_page;
 
-var loadExamples = function()
+function loadExamples()
 {
     // Load examples
     examples = Examples;
@@ -1108,7 +1108,7 @@ var loadExamples = function()
     {
         resetExamples();
     }
-}(); // Load this as soon as it is parsed
+}
 
 function compressName(name)
 {
