@@ -1,8 +1,11 @@
 /* Examples
  * */
 
-ExampleEquations[0][0] = "";
-ExampleEquations[0][1] = "";
+Examples.push({
+    name: "",
+    fxn : ""
+});
+
 
 ExampleEquations[1][0] = "";
 ExampleEquations[1][1] = "";
