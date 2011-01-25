@@ -394,7 +394,7 @@ function parseInput(input, step)
         result = 0;
         
     str = rounded + "";
-    decimal = str.indexOf(".")
+    decimal = str.indexOf(".");
     
     
     if(decimal != -1)
