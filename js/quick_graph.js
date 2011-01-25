@@ -16,9 +16,9 @@ function loadTitleBarHash() {
         if(equationStart > -1)
         {
             equationString = addressBar.substring(equationStart,equationEnd);
+            $("#mainEquation").val(equationString);                                 
+            $("#graphBtn").click();
         } 	
-	$("#mainEquation").val(equationString);
-        $("#graphBtn").click();
 }
 /* loadSaved uses the passed variables from the address bar to set equations and
  hashes */
