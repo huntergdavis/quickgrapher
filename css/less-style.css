@@ -215,6 +215,11 @@ img::-moz-selection {background: transparent;}
 
 .instructions > div {
   margin-top: -13px;
+  text-decoration: none;
+}
+
+.instructions > div :hover {
+  text-decoration: underline;
 }
 
 .equation {
@@ -343,4 +348,9 @@ h2 > .examples {
 
 .example_list > li {
   margin-left: 17px;
+  text-decoration: none;
+}
+
+.example_list > li :hover {
+  text-decoration: underline;
 }
