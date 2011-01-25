@@ -565,13 +565,16 @@ function updateMinimum(inputID)
     // Make sure the value is less than the maximum
     if(min >= max)
     {
-        minField.val(max-1);
+        min = max - 1;
+        minField.val(min);
     }
     // Make sure slider value is within new range
     if(curr < min)
     {
         slider.val(min);
     }
+    // Update slider values
+    slider[0].setAttribute("min", min);
     // Resolve with new parameters
     solve();
 }
@@ -589,19 +592,27 @@ function updateMaximum(inputID)
     // Make sure the value is grater than the minimum
     if(min <= max)
     {
-        maxField.val(min+1);
+        max = min + 1;
+        maxField.val(max);
     }
     // Make sure slider value is within new range
     if(curr > max)
     {
         slider.val(max);
     }
+    // Update slider values
+    slider[0].setAttribute("max", max);
     // Resolve with new parameters
     solve();
 }
 
 function updateStep(inputID)
 {
+    // Retrieve variable name
+    var v = inputID.substring(0,inputID.indexOf("_")),
+        stepField = $("#" + v + "_step"),
+    // Update slider values
+    slider[0].setAttribute("step", parseFloat(stepField.val()));
     // Resolve with new parameters
     solve();
 }
