@@ -605,10 +605,14 @@ function createSliders2(vars)
         inp = document.createElement("div");
         inp.innerHTML = v + " =";
         el.append(inp);
+        inp = $(inp);
+        inp.css({"float":"left"});
         inp = document.createElement("div");
         inp.innerHTML = "0";
         inp.id = v + "_slider_value";
         el.append(inp);
+        inp = $(inp);
+        inp.css({"float":"left"});
         first.append(el);
         
         el = document.createElement("td");
