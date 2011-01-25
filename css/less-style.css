@@ -318,4 +318,14 @@ h2 > .examples {
   font-size: 9pt;
   font-weight: bold;
   margin-left: 30px;
+  display: inline;
+}
+.examples > a {
+    color: rgb(195,220,235);
+}
+.examples > a:hover {
+    color: rgb(164, 157, 143);
+}
+.examples > a:visited {
+    color: rgb(195,220,235);
 }
