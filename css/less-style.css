@@ -269,6 +269,7 @@ h2 {
   font-size: 12pt;
   font-weight: bold;
   margin-left: 5px;
+  width: 120px;
 }
 .variable > td {
   vertical-align: top;
