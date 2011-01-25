@@ -611,6 +611,7 @@ function updateStep(inputID)
     // Retrieve variable name
     var v = inputID.substring(0,inputID.indexOf("_")),
         stepField = $("#" + v + "_step"),
+        slider = $("#" + v + "_slider");
     // Update slider values
     slider[0].setAttribute("step", parseFloat(stepField.val()));
     // Resolve with new parameters
