@@ -383,6 +383,16 @@ function replaceStoredFunctions(sanitizedEquation) {
     return restoredEquation
 }
 
+function parseInput(input, step)
+{
+    var val = parseFloat(input),
+        prec = val / step,
+        rounded = Math.round(prec),
+        result = rounded * step;
+        
+    return result;
+}
+
 function updateSolution(equation, context, solution)
 {
     document.getElementById("formula").innerText = equation.toString(context);
@@ -408,13 +418,14 @@ function updateSolution(equation, context, solution)
 function createContext(vars) {
     var context = new Context(vars),
         varLen = vars.length,
-        v, slider, val;
+        v, slider, val, step;
         
     for(var i = 0; i < varLen; i++)
     {
         v = vars[i];
+        step = parseFloat($("#" + v + "_step").val());
         slider = $("#" + v + "_slider");
-        val = parseFloat(slider.val());
+        val = parseInput(slider.val(),step);
         context.set(v, val);
     }
     
@@ -560,8 +571,9 @@ function updateMinimum(inputID)
         min = parseFloat(minField.val()),
         maxField = $("#" + v + "_max"),
         max = parseFloat(maxField.val()),
+        step = parseFloat($("#" + v + "_step").val()),
         slider = $("#" + v + "_slider"),
-        curr = parseFloat(slider.val());
+        curr = parseInput(slider.val(), step);
     // Make sure the value is less than the maximum
     if(min >= max)
     {
@@ -587,8 +599,9 @@ function updateMaximum(inputID)
         min = parseFloat(minField.val()),
         maxField = $("#" + v + "_max"),
         max = parseFloat(maxField.val()),
+        step = parseFloat($("#" + v + "_step").val()),
         slider = $("#" + v + "_slider"),
-        curr = parseFloat(slider.val());
+        curr = parseInput(slider.val(), step);
     // Make sure the value is grater than the minimum
     if(max <= min)
     {
