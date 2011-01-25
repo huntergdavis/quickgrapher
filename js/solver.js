@@ -134,6 +134,8 @@ var VariableIterator = function(start, step, stepper) {
 var Functions = {};
 /* For defined constants */
 var Constants = {};
+/* For defined examples */
+var Examples = [];
 
 /*
  * TODO:

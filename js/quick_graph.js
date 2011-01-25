@@ -1097,7 +1097,7 @@ var examples,
 var loadExamples = function()
 {
     // Load examples
-    examples = Examples
+    examples = Examples;
     // If there was nothing to load, just create empty array
     if(typeof examples == "undefined")
     {
