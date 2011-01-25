@@ -395,7 +395,7 @@ function parseInput(input, step)
     
     if(decimal != -1)
     {
-        rounded = parseInt(str.substring(0,decimal)),
+        rounded = parseInt(str.substring(0,decimal));
     }
     
     result = rounded * step;
