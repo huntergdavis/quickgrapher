@@ -279,9 +279,9 @@ h2 {
 }
 #result {
   margin: 0px;
-  margin-bottom: -30px;
+  margin-bottom: 30px;
   padding: 0px;
 }
 .label {
-  margin: 16px 0px 10px 20px;
+  margin: 0px 0px 10px 22px;
 }
