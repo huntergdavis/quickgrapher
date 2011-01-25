@@ -222,7 +222,7 @@ img::-moz-selection {background: transparent;}
 .instructions > div:hover {
   text-decoration: underline;
   color: rgb(255,0,0);
-  cursor: pointer, hand;
+  cursor: pointer;
 }
 
 .equation {
