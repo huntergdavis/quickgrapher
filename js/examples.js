@@ -160,3 +160,7 @@ Examples.push({
     name: "Quadratic Equation (First Solution)",
     fxn : "(-x + sqrt(b^2 - 4*a*c))/2*a"
 });
+Examples.push({
+    name: "Parenthesis test",
+    fxn : "sum(b*sin((x^(n-1))*pi),n*sin((x^(n-1))*pi),x^(n-2),(7*x*n))=-180:0.5:0:{100:1.1:100:}0.5:0.001:0.01:[-111.5:1.069:45.660000000000004:"
+});
