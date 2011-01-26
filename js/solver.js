@@ -394,12 +394,14 @@ var QGSolver = function() {
                                     // Swap args
                                     curr.append(prevHead.pop());
                                     prevHead.push(curr);
-                                    prev.append(prevHead);
+                                    //prev.append(prevHead);
+                                    prev.push(prevHead);
                                 }
                                 else
                                 {
                                     curr.append(prevHeader);
-                                    prev.append(curr);
+                                    //prev.append(curr);
+                                    prev.push(prevHead);
                                 }
                                 this.close(prev, false);
                             }
