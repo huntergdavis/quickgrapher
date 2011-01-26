@@ -277,7 +277,7 @@ function parseInput(input, step)
             if(str.charAt(i) != "0")
             {
                 i++;
-               break; 
+                break; 
             }
         }
         // If we found a 0 chain at the end
