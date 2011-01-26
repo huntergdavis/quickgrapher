@@ -382,7 +382,7 @@ var QGSolver = function() {
                     }
                     else if(!parenClosed && !curr.closed() && (typeof prev != "undefined"))
                     {
-                        if((typeof prev != "undefined") && prev.type == "QGParamDivider")
+                        if(prev.type == "QGParamDivider")
                         {
                             // If we have multiple args in parameter list, take last added and give to function
                             if(!curr.prefix() && prev.params.length > 1)
