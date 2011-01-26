@@ -579,7 +579,10 @@ var QGSolver = function() {
                         {
                             var prevFront = prev.pop(),
                                 prevStack = [prev];
-                            console.log("Took " + prevFront.toString() + " from " + prev.toString());
+                            if(typeof prevFront != "undefined")
+                            {
+                                console.log("Took " + prevFront.toString() + " from " + prev.toString());
+                            }
                             while((typeof prevFront == "object") && prevFront.type == "QGFunction"
                                 && !prevFront.prefix() && (curr.priority() >= prevFront.priority()))
                             {
@@ -789,16 +792,19 @@ var QGSolver = function() {
                 if(this.length() == 1)
                 {
                     str += this.funcName;
-                    str += this.args[0].toString(context);
+                    if(typeof this.args[0] != "undefined")
+                    {
+                        str += this.args[0].toString(context);
+                    }
                 }
                 if(this.length() == 2)
                 {
-                    if(this.args.length > 0)
+                    if(typeof this.args[0] != "undefined")
                     {
                         str += this.args[0].toString(context);
                     }
                     str += this.funcName;
-                    if(this.args.length > 1)
+                    if(typeof this.args[1] != "undefined")
                     {
                         str += this.args[1].toString(context);
                     }
