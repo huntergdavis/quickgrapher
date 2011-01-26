@@ -592,18 +592,11 @@ function createSliders2(vars)
             lastValue = variableLastHash[i];
         }
         if(typeof variableVisHash[i] == "undefined") {
-            visValue = "checked";
+            visValue = 1;
         }
         else
         {
-            if(variableVisHash[i] == 0)
-            {
-                visValue = "unchecked";
-            }
-            else
-            {
-                visValue = "checked";
-            }
+            visValue = variableVisHash[i];
         }
         
         v = vars[i];
@@ -622,7 +615,10 @@ function createSliders2(vars)
         inp.id = v + "_graph_checkbox";
         inp.setAttribute("type", "checkbox");
         inp.setAttribute("onclick", "toggleInclude(this.id)");
-        inp.setAttribute("checked", visValue);
+        if(visValue == 1)
+        {
+            inp.setAttribute("checked", "checked");
+        }
         el.append(inp);
         first.append(el);
         
