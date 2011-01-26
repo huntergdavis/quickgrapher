@@ -185,16 +185,16 @@ Examples.push({
 Examples.push({
     name: "Distance Between 2 Points in 2D space on Grid",
     fxn : "sqrt((xTwo-xOne)^2 + (yTwo-yOne)^2)",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?sqrt((xTwo-xOne)^2+(yTwo-yOne)^2)=0:0:0:0:{100:100:100:100:}1:1:1:1:[27:53:40:53:;1:1:1:1:'Distance%20Between%20Two%20Points]"
 });
 
 Examples.push({
     name: "Quadratic Equation (First Solution)",
     fxn : "(-x + sqrt(b^2 - 4*a*c))/2*a",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?(-x+sqrt(b^2-4*a*c))/2*a=0:0:0:0:{100:100:100:100:}1:1:1:1:[5:22:3:5:;1:1:1:1:'Quadratic%20Graph]"
 });
 Examples.push({
-    name: "Parenthesis test",
-    fxn : "sum(b*sin((x^(n-1))*pi),n*sin((x^(n-1))*pi),x^(n-2),(7*x*n))=-180:0.5:0:{100:1.1:100:}0.5:0.001:0.01:[-111.5:1.069:45.660000000000004:",
-    URL : ""
+    name: "Complex Parenthesis Function",
+    fxn : "sum(b*sin((x^(n-1))*pi),n*sin((x^(n-1))*pi),x^(n-2),(7*x*n))",
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?sum(b*sin((x^(n-1))*pi),n*sin((x^(n-1))*pi),x^(n-2),(7*x*n))=-100:-10:-4:{100:100:100:}1:1:1:[-85:-2:15:;1:1:1:'Complex%20Function]"
 });
