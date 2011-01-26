@@ -924,11 +924,11 @@ var QGSolver = function() {
         console.log("new QGParamDivider()");
         
         var append = function(param) {
-            this.params.push(param);
+            this.params.unshift(param);
         };
         
         var push = function(param) {
-            this.params.unshift(param);
+            this.params.push(param);
         };
         
         var stringify = function(context) {
