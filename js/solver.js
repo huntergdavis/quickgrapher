@@ -370,7 +370,8 @@ var QGSolver = function() {
                         // Handle parameter lists
                         if((typeof prev != "undefined") && prev.type == "QGParamDivider")
                         {
-                            prev.append(curr);
+                            //prev.append(curr);
+                            prev.push(curr);
                             // Haven't found parens yet, close
                             this.close(prev, false);
                         }
