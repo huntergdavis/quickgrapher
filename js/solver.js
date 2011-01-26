@@ -579,13 +579,13 @@ var QGSolver = function() {
                         {
                             var prevFront = prev.pop(),
                                 prevStack = [prev];
-                            console.log("Took " + prevFron.toString() + " from " + prev.toString());
+                            console.log("Took " + prevFront.toString() + " from " + prev.toString());
                             while((typeof prevFront == "object") && prevFront.type == "QGFunction"
                                 && !prevFront.prefix() && (curr.priority() >= prevFront.priority()))
                             {
                                 prev = prevFront;
                                 prevFront = prev.pop();
-                                console.log("Took " + prevFron.toString() + " from " + prev.toString());
+                                console.log("Took " + prevFront.toString() + " from " + prev.toString());
                                 prevStack.push(prev);
                             }
                             // Use first from prev as second for curr
