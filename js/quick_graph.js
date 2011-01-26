@@ -22,7 +22,7 @@ function loadTitleBarHash() {
     var equationStart = addressBar.indexOf("?")+1;
     var equationEnd = addressBar.indexOf("=");
 	var varsStart = equationEnd + 1;
-	var varsStop = addressBar.length;
+	var varsStop = addressBar.indexOf("]");
     var equationString = "";                   
 	var equationValid = 0;     
     
@@ -510,7 +510,7 @@ function updateStep(inputID)
 /* function generateHashURL generates a save hash url for the current equation, receives variables as argument*/
 function generateHashURL(vars)
 {
-    var URL = "file:///home/programmer/Projects/sliders/quick-graph-less.html?";
+    var URL = "www.quickgrapher.com/index.html?";
     
     // add equation to url
     var localEquation = $("#mainEquation").val();
@@ -550,7 +550,7 @@ function generateHashURL(vars)
     }    
     
     // add the fully constituted strings to URL
-    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString;
+    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + "]";
 
     // put the URL as our new url
     console.log(URL);
