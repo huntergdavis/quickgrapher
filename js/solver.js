@@ -778,7 +778,7 @@ var QGSolver = function() {
             {
                 str += this.funcName;
                 var len = this.args.length;
-                if(len == 0 || this.args[0].type != "QGBlock")
+                if(len == 0 || this.args[0].type != "QGBlock" || true)
                 {
                     str += "(";
                 }
@@ -790,7 +790,7 @@ var QGSolver = function() {
                       str += ",";
                     }
                 }
-                if(len == 0 || this.args[0].type != "QGBlock")
+                if(len == 0 || this.args[0].type != "QGBlock" || true)
                 {
                     str += ")";
                 }
