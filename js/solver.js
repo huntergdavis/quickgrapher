@@ -401,7 +401,7 @@ var QGSolver = function() {
                                 {
                                     curr.append(prevHeader);
                                     //prev.append(curr);
-                                    prev.push(prevHead);
+                                    prev.push(curr);
                                 }
                                 this.close(prev, false);
                             }
