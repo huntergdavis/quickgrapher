@@ -108,7 +108,7 @@ Examples.push({
 
 Examples.push({
     name: "First Order Integral of x^N dx (real)",
-    fxn : "1/(n+1) * x^(n+1)"
+    fxn : "1/(n+1) * x^(n+1) + C"
 });
 
 Examples.push({
