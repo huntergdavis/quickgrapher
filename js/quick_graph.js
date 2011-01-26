@@ -568,7 +568,7 @@ function createSliders2(vars)
             minValue = variableMinHash[i];
         }
         // default max value
-        if(!variableMaxHash[i]) {
+        if(typeof variableMaxHash[i] == "undefined") {
             maxValue = 100;
         }
         else
@@ -576,7 +576,7 @@ function createSliders2(vars)
             maxValue = variableMaxHash[i];
         }
          // default step value
-        if(!variableStepHash[i]) {
+        if(typeof variableStepHash[i] == "undefined") {
             stepValue = 1;
         }
         else
@@ -584,14 +584,14 @@ function createSliders2(vars)
             stepValue = variableStepHash[i];
         }       
         // default last value
-        if(!variableLastHash[i]) {
+        if(typeof variableLastHash[i] == "undefined") {
             lastValue = 0;
         }
         else
         {
             lastValue = variableLastHash[i];
         }
-        if(!variableVisHash[i]) {
+        if(typeof variableVisHash[i] == "undefined") {
             visValue = "checked";
         }
         else
@@ -599,6 +599,10 @@ function createSliders2(vars)
             if(variableVisHash[i] == 0)
             {
                 visValue = "unchecked";
+            }
+            else
+            {
+                visValue = "checked";
             }
         }
         
