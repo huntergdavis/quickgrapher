@@ -167,44 +167,6 @@ function renameSlider(sliderName) {
 
 }
 
-/* stringify hash turns the main arrayLegendHash into a string and returns it */
-/* the returned string is exactly what
- hash.concat({key: 'value', key2: 'value'}) is looking for */
-function stringifyHash() {
-    var returnString = "";
-    var keys = arrayValueHash;
-    for(var i in keys) {
-        returnString += i + "&:" +  arrayLegendHash[i];
-        returnString += "&,"
-    }
-    returnString += "";
-    return returnString;
-}
-
-/* stringify values hash turns the main arrayValueHash into a string and returns it */
-/* the returned string is exactly what
- hash.concat({key: 'value', key2: 'value'}) is looking for */
-function stringifyValueHash() {
-    var returnString = "";
-    var keys = arrayValueHash;
-    for(var i in keys) {
-        returnString += i + "&:" +  arrayValueHash[i];
-        returnString += "&,"
-    }
-    returnString += "";
-    return returnString;
-}
-
-/* StringifyPage stringifies the hash as well as the
- equation */
-function stringifyPage() {
-    var stringifiedHash = stringifyHash();
-    var stringifiedValuesHash = stringifyValueHash();
-    var stringifiedEquation = document.getElementById('mainEquation').value;
-    stringifiedEquation=stringifiedEquation.replace(/\s/g,"%20");
-    var returnString = "?&$" + stringifiedEquation + "&#" + stringifiedHash + "&%" + stringifiedValuesHash + "&*";
-    document.getElementById("savebar").value = returnString;
-}
 
 /* moreSliders copies the invisible div slider element "slidertemplate" into a sibling div named sliderOutputX where
  X=numSliders */
@@ -276,110 +238,6 @@ function clearScreen()
     
     // Clear variables
     $("#variable_list").empty();
-}
-
-// sin = ú
-// cos = ù
-// tan = _
-// asin = Ǵ
-// acos = ǵ
-// atan = #
-// sum = :
-// medium = ;
-// min = ÿ
-// max = þ
-// less = ý
-// greater = ü
-// euler = û
-// factorial = ø
-// natlogten = ÷
-// natlog = ö
-// pi = õ
-// logtene = ô
-// logtwoe = ó
-// abs = ò
-// ceil = ñë
-// exp = ð
-// floor = ï
-// log = î
-// random = í
-// round = ì
-// sqrt = ë
-// fibonacci = ê
-// nextprime = é
-// replace all known functions with pipeesque characters
-// store these pipe characters incrementally in the functions array
-function storeAndReplaceFunctions(equation) {
-    var sanitizedEquation = equation;
-
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "nextprime", "gi" ), "é" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "fibonacci", "gi" ), "ê" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "pi", "gi" ), "õ" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "logtene", "gi" ), "ô" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "logtwoe", "gi" ), "ó" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "natlogten", "gi" ), "÷" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "natlog", "gi" ), "ö" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "asin", "gi" ), "Ǵ" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "acos", "gi" ), "ǵ" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "atan", "gi" ), "#" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "sin", "gi" ), "ú" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "cos", "gi" ), "ù" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "tan", "gi" ), "_" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "sum", "gi" ), ":" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "medium", "gi" ), ";" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "min", "gi" ), "ÿ" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "max", "gi" ), "þ" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "less", "gi" ), "ý" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "greater", "gi" ), "ü" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "euler", "gi" ), "û" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "factorial", "gi" ), "ø" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "abs", "gi" ), "ò" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "ceil", "gi" ), "ñ" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "exp", "gi" ), "ð" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "floor", "gi" ), "ï" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "log", "gi" ), "î" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "random", "gi" ), "í" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "round", "gi" ), "ì" );
-    sanitizedEquation = sanitizedEquation.replace( new RegExp( "sqrt", "gi" ), "ë" );
-
-    return sanitizedEquation;
-}
-
-// replace all known pipette characters with function names
-function replaceStoredFunctions(sanitizedEquation) {
-
-    var restoredEquation = sanitizedEquation;
-
-    restoredEquation = restoredEquation.replace( new RegExp( "é", "g" ), "nextprime" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ê", "g" ), "fibonacci" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ò", "g" ), "abs" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ñ", "g" ), "ceil" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ð", "g" ), "exp" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ï", "g" ), "floor" );
-    restoredEquation = restoredEquation.replace( new RegExp( "î", "g" ), "log" );
-    restoredEquation = restoredEquation.replace( new RegExp( "í", "g" ), "random" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ì", "g" ), "round" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ë", "g" ), "sqrt" );
-    restoredEquation = restoredEquation.replace( new RegExp( "õ", "g" ), "pi" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ô", "g" ), "logtene" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ó", "g" ), "logtwoe" );
-    restoredEquation = restoredEquation.replace( new RegExp( "÷", "g" ), "natlogten" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ö", "g" ), "natlog" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ø", "g" ), "factorial" );
-    restoredEquation = restoredEquation.replace( new RegExp( "û", "g" ), "euler" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ü", "g" ), "greater" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ý", "g" ), "less" );
-    restoredEquation = restoredEquation.replace( new RegExp( "þ", "g" ), "max" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ÿ", "g" ), "min" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ú", "g" ), "sin" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ù", "g" ), "cos" );
-    restoredEquation = restoredEquation.replace( new RegExp( "_", "g" ), "tan" );
-    restoredEquation = restoredEquation.replace( new RegExp( "Ǵ", "g" ), "asin" );
-    restoredEquation = restoredEquation.replace( new RegExp( "ǵ", "g" ), "acos" );
-    restoredEquation = restoredEquation.replace( new RegExp( "#", "g" ), "atan" );
-    restoredEquation = restoredEquation.replace( new RegExp( ":", "g" ), "sum" );
-    restoredEquation = restoredEquation.replace( new RegExp( ";", "g" ), "medium" );
-    return restoredEquation
 }
 
 function parseInput(input, step)
@@ -490,6 +348,8 @@ function clearAndParseEquation(equation)
         createSliders2(parsedEquation.variables());
         // Solve equation
         solveEquation();
+        // generate a hash
+        generateHashURL(parsedEquation.variables());
     }
     else
     {
@@ -645,6 +505,56 @@ function updateStep(inputID)
     slider[0].setAttribute("step", parseFloat(stepField.val()));
     // Resolve with new parameters
     solve();
+}
+
+/* function generateHashURL generates a save hash url for the current equation, receives variables as argument*/
+function generateHashURL(vars)
+{
+    var URL = "file:///home/programmer/Projects/sliders/quick-graph-less.html?";
+    
+    // add equation to url
+    var localEquation = $("#mainEquation").val();
+    if(typeof localEquation != "undefined")
+    {
+        URL = URL + localEquation + "=";
+    }
+    
+    // variables to store hash values
+    var delimiter = ":";
+    var minString = "";
+    var maxString = "";
+    var stepString = "";
+    var lastString = "";
+    
+    
+    // Loop over variables
+    var name = "",
+        v, varLen = vars.length,
+        step, minVal, maxVal, last;    
+    for(var i = 0; i < varLen; i++)
+    {
+        // Current variable
+        v = vars[i];
+        
+        // get current variable's values
+        lastVal = parseFloat($("#" + v + "_slider").val()),
+        minVal = parseFloat($("#" + v + "_min").val()),
+        stepVal = parseFloat($("#" + v + "_step").val()),
+        maxVal = parseFloat($("#" + v + "_max").val());
+        
+        // add current values to correct hash strings
+        minString = minString + minVal + delimiter;
+        maxString = maxString + maxVal + delimiter;
+        stepString = stepString + stepVal + delimiter;
+        lastString = lastString + lastVal + delimiter;
+    }    
+    
+    // add the fully constituted strings to URL
+    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString;
+
+    // put the URL somewhere
+    alert(URL);
+           
 }
 
 /*
