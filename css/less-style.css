@@ -376,15 +376,13 @@ h2 > .examples {
 }
 
 .example_list > li a {
-  text-decoration: underline;
-  color: inherit;
+  color: rgb(0,0,0);
 }
 .example_list > li a:hover {
   text-decoration: none;
   color: rgb(255,0,0);
 }
 .example_list > li a:visited {
-  text-decoration: underline;
-  color: inherit;
+  color: rgb(0,0,0);
 }
 
