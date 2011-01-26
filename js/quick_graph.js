@@ -264,8 +264,8 @@ function parseInput(input, step)
     }
     
     // Do final rounding check
-    var len = str.length;
     str = result + "";
+    var len = str.length;
     decimal = str.indexOf(".");
     // We have a possible rounding error
     if(decimal != -1 && len > decimal + 3)
