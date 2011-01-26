@@ -391,7 +391,7 @@ function createSliders(vars)
         slider = document.createElement("input");
         slider.id = v + "_slider";
         slider.setAttribute("type", "range");
-	alert(variableMinHash[i]);
+        //alert(variableMinHash[i]);
         slider.setAttribute("min", variableMinHash[i]);
         slider.setAttribute("max", variableMaxHash[i]);
         slider.setAttribute("step", variableStepHash[i]);
@@ -553,7 +553,7 @@ function generateHashURL(vars)
     URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString;
 
     // put the URL as our new url
-    alert(URL);
+    //alert(URL);
            
 }
 
