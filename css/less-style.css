@@ -351,11 +351,25 @@ h2 > .examples {
     text-decoration: none;
 }
 
-.examples > div:hover {
+.link {
+    color: rgb(164, 157, 143);
+    text-decoration: none;
+}
+.link:hover {
+    color: rgb(195,220,235);
+    text-decoration: underline;
+    cursor: hand;
+}
+.link:visited {
+    color: rgb(164, 157, 143);
+    text-decoration: none;
+}
+
+/*.examples > div:hover {
     color: rgb(255,0,0);
     text-decoration: underline;
 }
-
+*/
 .example_list {
   margin-bottom: 13px;
   padding-bottom: 7px;
