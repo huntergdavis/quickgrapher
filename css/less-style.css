@@ -217,14 +217,14 @@ a > img {
 }
 
 .instructions > div {
-  margin-top: -13px;
-  text-decoration: underline;
-  color: inherit;
+  margin-top: -15px;
+  text-decoration: none;
+  color: rgb(255,0,0);
 }
 
 .instructions > div:hover {
-  text-decoration: none;
-  color: rgb(255,0,0);
+  text-decoration: underline;
+  color: inherit;
   cursor: pointer;
 }
 
