@@ -1059,7 +1059,7 @@ function createExampleLink(example, parent)
 {
     var ex = document.createElement("li"),
         inner = "<a href='/?";
-    inner += compressName(example.fxn);
+    inner += compressName(example.url);
     inner += "'>"
     inner += example.name;
     inner += "</a>";
