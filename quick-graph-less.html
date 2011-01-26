@@ -49,15 +49,15 @@ hunter or mark at discursivelabs.com
         <div class="instructions">
             Enter an equation into the box below and then click "Graph!"  For each variable, a line will be graphed for your equation with that variable free and the others as the values selected below.
         </div>
-        <h2>Try It <div class="examples">» <div class="link" onclick="toggleExamples('examples')">examples</div></div></h2>
+        <h2>Try It <div class="examples">» <span class="link" onclick="toggleExamples('examples')">examples</span></div></h2>
         <div id="examples" class="instructions" style="display: none; width: 484px;">
           <span style="width: 100%;">
             <ul id="examplelist" class="example_list">
                 <li>No examples!</li>
             </ul>
           </span>
-          <div id="prevExamples" class="link" style="float: left; display: none;" onclick="prevExamples()">previous «</div>
-          <div id="nextExamples" class="link" style="float: right; display: none;" onclick="nextExamples()">» more</div>
+          <div id="prevExamples" class="link" style="float: left; display: none;" onclick="prevExamples()">previous <font style="color: rgb(0,0,0); text-decoration: none;">«</font></div>
+          <div id="nextExamples" class="link" style="float: right; display: none;" onclick="nextExamples()"><font style="color: rgb(0,0,0); text-decoration: none;">»</font> more</div>
         </div>
         <span class="equation">
           Fxn = <input type="text" id="mainEquation" class="input" size="60"/>  
