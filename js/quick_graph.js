@@ -14,6 +14,7 @@ var variableMaxHash = new Array();
 var variableStepHash = new Array();
 var variableLastHash = new Array();
 var variableVisHash = new Array();
+var graphName = "Unnamed Graph";
 
 /* LoadTitleBarHash loads in passed-in title bar equation */
 function loadTitleBarHash() {
@@ -57,8 +58,10 @@ function loadTitleBarHash() {
         var lastStart = stepStop + 1;
         var lastStop = variableString.indexOf(";");
         var visStart = lastStop + 1;
-        var visStop = variableString.length;
-
+        var visStop = variableString.indexOf("'");
+        var nameStart = visStop + 1;
+        var nameStop = variableString.length;
+        
 		/* grab the minimum address*/
 		var parseBlock = variableString.substring(minStart,minStop);
         parseAndAddToHash(parseBlock,":",variableMinHash);
@@ -78,6 +81,10 @@ function loadTitleBarHash() {
          /* grab the visibility*/
         parseBlock = variableString.substring(visStart,visStop);
         parseAndAddToHash(parseBlock,":",variableVisHash);
+        
+        /* grab the name*/
+        var tempName = variableString.substring(nameStart,nameStop);
+        graphName = tempName.replace("%20"," ");
 
         
 	} 	
@@ -517,8 +524,11 @@ function generateHashURL(vars)
         visString = visString + visVal + delimiter;
     }    
     
+    // replace spaces with %20 for web addresses
+    var cleanedGraphName = graphName.replace(/\s/g,"%20");
+    
     // add the fully constituted strings to URL
-    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "]";
+    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "'" + cleanedGraphName + "]";
 
     // put the URL as our new url
     console.log(URL);
