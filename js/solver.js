@@ -580,7 +580,7 @@ var QGSolver = function() {
                             var prevFront = prev.pop(),
                                 prevStack = [prev];
                             while((typeof prevFront == "object") && prevFront.type == "QGFunction"
-                                && !prevFront.prefix() && (curr.priority() >= prev.priority()))
+                                && !prevFront.prefix() && (curr.priority() >= prevFront.priority()))
                             {
                                 prev = prevFront;
                                 prevFront = prev.pop();
