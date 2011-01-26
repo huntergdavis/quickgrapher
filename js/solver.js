@@ -584,6 +584,7 @@ var QGSolver = function() {
                             {
                                 prev = prevFront;
                                 prevFront = prev.pop();
+                                console.log("Took " + prevFron.toString() + " from " + prev.toString());
                                 prevStack.push(prev);
                             }
                             // Use first from prev as second for curr
