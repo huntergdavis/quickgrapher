@@ -5,96 +5,107 @@
 // var colorArray = [];
 // var variableFound = 0;
 var parsedEquation = undefined;
+
+// I put the passed in values into separate arrays
+// we should move them to objects
+// if we need them after the initial parse 
 var variableMinHash = new Array();
 var variableMaxHash = new Array();
 var variableStepHash = new Array();
+var variableLastHash = new Array();
 
 /* LoadTitleBarHash loads in passed-in title bar equation */
 function loadTitleBarHash() {
+    
+    /* find the locations of */
 	var addressBar = window.location.href;
-        var equationStart = addressBar.indexOf("?")+1;
-        var equationEnd = addressBar.indexOf("=");
+    var equationStart = addressBar.indexOf("?")+1;
+    var equationEnd = addressBar.indexOf("=");
 	var varsStart = equationEnd + 1;
 	var varsStop = addressBar.length;
-        var equationString = "";                   
+    var equationString = "";                   
 	var equationValid = 0;     
-        if(equationStart > 0)
-        {
-	    if(equationEnd < 1)
-	    {
-	        equationEnd = addressBar.length;
-	    }
-            equationString = addressBar.substring(equationStart,equationEnd);
-	    equationValid = 1;
-        }
+    
+    /* ensure we've got an equation to parse*/
+    if(equationStart < 0)
+    {
+        return;
+    }
+    
+    /* assume the equation is the entire bar if no other hash material
+     * (for people hotlinking or apis to work later) */
+    if(equationEnd < 1)
+    {
+        equationEnd = addressBar.length;
+    }
+    
+    /* Pull out our equation and set to be valid*/
+    equationString = addressBar.substring(equationStart,equationEnd);
+    equationValid = 1;
+    
+    /* if we have variable hashes passed in, deal with them */
 	if(varsStart > 1)
 	{
-	    	var variableString = addressBar.substring(varsStart,varsStop);
-		var nextDelimiter = 0;
+        var variableString = addressBar.substring(varsStart,varsStop);
 		var minStart = 0;
 		var minStop  = variableString.indexOf("{");
 		var maxStart = minStop + 1;
 		var maxStop  = variableString.indexOf("}");
 		var stepStart = maxStop + 1;
-		var stepStop = variableString.length;
-		var stillParsing = 1;
+		var stepStop = variableString.indexOf("[");
+        var lastStart = stepStop + 1;
+        var lastStop = variableString.length;
 
 		/* grab the minimum address*/
 		var parseBlock = variableString.substring(minStart,minStop);
-		/* Loop through all
-		 values in title bar and add them to hash table reference for names */
-		while(stillParsing == 1) {
-		    nextDelimiter = parseBlock.indexOf(":");
-		    if(nextDelimiter > -1) {
-		        var minValue = parseBlock.substring(0,nextDelimiter);
-		        parseBlock = parseBlock.substring(nextDelimiter+1,parseBlock.length);
-		        variableMinHash.push(minValue);
-	            } 
-                    else {
-		        stillParsing = 0;
-        	    }
-    		}
+        parseAndAddToHash(parseBlock,":",variableMinHash);
 
-		stillParsing = 1;
-                /* grab the maximum address*/
-                var parseBlock = variableString.substring(maxStart,maxStop);
-                /* Loop through all
-                 values in title bar and add them to hash table reference for names */
-                while(stillParsing == 1) {
-                    nextDelimiter = parseBlock.indexOf(":");
-                    if(nextDelimiter > -1) {
-                        var maxValue = parseBlock.substring(0,nextDelimiter);
-                        parseBlock = parseBlock.substring(nextDelimiter+1,parseBlock.length);
-                        variableMaxHash.push(maxValue);
-                    } 
-                    else {
-                        stillParsing = 0;
-                    }
-                }
+        /* grab the maximum address*/
+        parseBlock = variableString.substring(maxStart,maxStop);
+        parseAndAddToHash(parseBlock,":",variableMaxHash);
 
-		stillParsing = 1;
-                /* grab the step address*/
-                var parseBlock = variableString.substring(stepStart,stepStop);
-                /* Loop through all
-                 values in title bar and add them to hash table reference for names */
-                while(stillParsing == 1) {
-                    nextDelimiter = parseBlock.indexOf(":");
-                    if(nextDelimiter > -1) {
-                        var stepValue = parseBlock.substring(0,nextDelimiter);
-                        parseBlock = parseBlock.substring(nextDelimiter+1,parseBlock.length);
-                        variableStepHash.push(stepValue);
-                    } 
-                    else {
-                        stillParsing = 0;
-                    }
-                }
+        /* grab the step address*/
+        parseBlock = variableString.substring(stepStart,stepStop);
+        parseAndAddToHash(parseBlock,":",variableStepHash);
+        
+         /* grab the last address*/
+        parseBlock = variableString.substring(lastStart,lastStop);
+        parseAndAddToHash(parseBlock,":",variableLastHash);
+        
 	} 	
 	if(equationValid > 0)
 	{
 	    $("#mainEquation").val(equationString);
-            $("#graphBtn").click();
+        $("#graphBtn").click();
 	}
 }
+
+/* function parseAndAddToHash parses a string at delimeter and adds to a hash*/
+function parseAndAddToHash(stringToParse,delimiter,hashToGrow) {
+    
+        /* should we continue parsing? */
+        var stillParsing = 1;
+        
+        /* local variable for splitting */
+        var parseBlock = stringToParse
+        
+        /* loop through a string and split at indicies */
+    	while(stillParsing == 1) {
+            
+            /* break down the string and go to next delimiter*/
+		    var nextDelimiter = parseBlock.indexOf(delimiter);
+		    if(nextDelimiter > -1) {
+		        var hashValue = parseBlock.substring(0,nextDelimiter);
+		        parseBlock = parseBlock.substring(nextDelimiter+1,parseBlock.length);
+		        hashToGrow.push(hashValue);
+	            } 
+                    else {
+		        stillParsing = 0;
+        	    }
+    		}    
+}
+
+
 /* loadSaved uses the passed variables from the address bar to set equations and
  hashes */
 function loadSaved() {
