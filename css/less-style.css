@@ -339,14 +339,21 @@ h2 > .examples {
 }
 .examples > a {
     color: rgb(164, 157, 143);
+    text-decoration: none;
 }
 .examples > a:hover {
     color: rgb(195,220,235);
-    text-decoration: none;
+    text-decoration: underline;
     cursor: hand;
 }
 .examples > a:visited {
     color: rgb(164, 157, 143);
+    text-decoration: none;
+}
+
+.examples > div:hover {
+    color: rgb(255,0,0);
+    text-decoration: underline;
 }
 
 .example_list {
