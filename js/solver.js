@@ -927,6 +927,10 @@ var QGSolver = function() {
             this.params.push(param);
         };
         
+        var push = function(param) {
+            this.params.unshift(param);
+        };
+        
         var stringify = function(context) {
             var str = ",";
             for(var i = this.params.length - 1; i > -1; i--)
@@ -954,6 +958,7 @@ var QGSolver = function() {
         return {
             params: params,
             append: append,
+            push: push,
             solve: solve,
             toString: stringify,
             type: "QGParamDivider"
