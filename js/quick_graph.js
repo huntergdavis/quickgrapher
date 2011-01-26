@@ -332,6 +332,8 @@ function solveEquation()
           // update all graphs
           updateAllGraphs(parsedEquation, context);
       }
+        // generate a hash
+        generateHashURL(parsedEquation.variables());
     }
 }
 
@@ -348,8 +350,6 @@ function clearAndParseEquation(equation)
         createSliders2(parsedEquation.variables());
         // Solve equation
         solveEquation();
-        // generate a hash
-        generateHashURL(parsedEquation.variables());
     }
     else
     {
@@ -516,7 +516,7 @@ function generateHashURL(vars)
     var localEquation = $("#mainEquation").val();
     if(typeof localEquation != "undefined")
     {
-        URL = URL + localEquation + "=";
+        URL = URL + compressName(localEquation) + "=";
     }
     
     // variables to store hash values
