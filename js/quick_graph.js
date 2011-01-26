@@ -253,6 +253,7 @@ function clearScreen()
     
     // Clear variables
     $("#variable_list").empty();
+    
 }
 
 function parseInput(input, step)
@@ -473,7 +474,8 @@ function updateStep(inputID)
 /* function generateHashURL generates a save hash url for the current equation, receives variables as argument*/
 function generateHashURL(vars)
 {
-    var URL = "www.quickgrapher.com/index.html?";
+    //var URL = "www.quickgrapher.com/index.html?";
+    var URL = "file:///home/programmer/Projects/sliders/quick-graph-less.html?";
     
     // add equation to url
     var localEquation = $("#mainEquation").val();

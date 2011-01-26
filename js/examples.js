@@ -3,22 +3,27 @@
 
 Examples.push({
     name: "Bill Calculator (classic)",
-    fxn : "100*(salary - rent - studentloans - carpayments - grocery-spendingmoney-retirement) - netflix -tivo -petfood -gas-electric + 100*(subleaseincome + stockportfolio)"
+    fxn : "100*(salary - rent - studentloans - carpayments - grocery-spendingmoney-retirement) - netflix -tivo -petfood -gas-electric + 100*(subleaseincome + stockportfolio)",
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?salary-rent-studentloans-carpayments-grocery-spendingmoney-retirement-netflix-tivo-petfood-gas-electric+subleaseincome+stockportfolio=0:0:0:0:0:0:0:7:0:0:0:0:0:0:{8000:3400:500:600:1000:500:1000:27:30:200:500:200:1000:1000:}100:100:50:50:20:10:100:3:3:20:30:10:100:50:[4000:400:100:250:300:500:300:13:12:100:120:90:600:100:;0:1:1:1:1:1:1:1:1:1:1:1:1:1:'Bill%20Calculator]"
 });
 
 Examples.push({
     name: "Drake Equation",
-    fxn : "StarFormationRate * StarsWithPlanets * LifeSustainingPlanets * PlanetsWhichActuallyDevelopLife * PlanetsWithIntelligentLife * CivilizationsWithDetectors * DurationOfSpaceSignals"
-});
+    fxn : "StarFormationRate * StarsWithPlanets * LifeSustainingPlanets * PlanetsWhichActuallyDevelopLife * PlanetsWithIntelligentLife * CivilizationsWithDetectors * DurationOfSpaceSignals",
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?StarFormationRate*StarsWithPlanets*LifeSustainingPlanets*PlanetsWhichActuallyDevelopLife*PlanetsWithIntelligentLife*CivilizationsWithDetectors*DurationOfSpaceSignals=0:0:0:0:0:0:0:{20:1:10:1:1:1:20:}1:0.1:1:0.1:0.1:0.1:1:[10:0.5:2:1:0.1:0.1:10:;1:1:1:1:1:1:1:'Drake%20Equation]"
+    
+    });
 
 Examples.push({
     name: "Monthly Loan Payments Calculator",
-    fxn : "Princpial*((rate/1200)*(1 + rate/1200)^Months)/((1 + rate/1200)^Months - 1)"
+    fxn : "Princpial*((rate/1200)*(1 + rate/1200)^Months)/((1 + rate/1200)^Months - 1)",
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?Princpial*((rate/1200)*(1+rate/1200)^Months)/((1+rate/1200)^Months-1)=0:0:0:{200:100:100:}10:1:1:[110:9:23:;1:1:1:'Loan%20Calculator]"
 });
 
 Examples.push({
     name: "Gravity",
-    fxn : "GravConstant * massOne * massTwo / distance^2"
+    fxn : "GravConstant * massOne * massTwo / distance^2",
+    URL : ""
 });
 
 Examples.push({
