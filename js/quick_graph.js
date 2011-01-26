@@ -552,7 +552,7 @@ function generateHashURL(vars)
     // add the fully constituted strings to URL
     URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString;
 
-    // put the URL somewhere
+    // put the URL as our new url
     alert(URL);
            
 }
