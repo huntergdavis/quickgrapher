@@ -102,12 +102,12 @@ Examples.push({
 });
 
 Examples.push({
-    name: "First Order Derivitive of X^N",
+    name: "First Order Derivitive of x^n",
     fxn : "n*x^(n-1)"
 });
 
 Examples.push({
-    name: "First Order Integral of x^N dx (real)",
+    name: "First Order Integral of x^n dx",
     fxn : "1/(n+1) * x^(n+1) + C"
 });
 

@@ -497,6 +497,14 @@ var QGSolver = function() {
                     }
                     else
                     {
+                        // We might be a parameter
+                        if(typeof prev == "object" && prev.type == "QGParamDivider")
+                        {
+                            // Push to front of param list
+                            prev.push(curr);
+                            // Treat list as curr
+                            curr = prev;
+                        } 
                         // Recurse because this one was already closed
                         this.close(curr, false);
                     }
