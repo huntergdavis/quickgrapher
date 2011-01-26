@@ -13,6 +13,7 @@ var variableMinHash = new Array();
 var variableMaxHash = new Array();
 var variableStepHash = new Array();
 var variableLastHash = new Array();
+var variableVisHash = new Array();
 
 /* LoadTitleBarHash loads in passed-in title bar equation */
 function loadTitleBarHash() {
@@ -54,7 +55,9 @@ function loadTitleBarHash() {
 		var stepStart = maxStop + 1;
 		var stepStop = variableString.indexOf("[");
         var lastStart = stepStop + 1;
-        var lastStop = variableString.length;
+        var lastStop = variableString.indexOf(";");
+        var visStart = lastStop + 1;
+        var visStop = variableString.length;
 
 		/* grab the minimum address*/
 		var parseBlock = variableString.substring(minStart,minStop);
@@ -71,6 +74,11 @@ function loadTitleBarHash() {
          /* grab the last address*/
         parseBlock = variableString.substring(lastStart,lastStop);
         parseAndAddToHash(parseBlock,":",variableLastHash);
+
+         /* grab the visibility*/
+        parseBlock = variableString.substring(visStart,visStop);
+        parseAndAddToHash(parseBlock,":",variableVisHash);
+
         
 	} 	
 	if(equationValid > 0)
@@ -473,6 +481,7 @@ function generateHashURL(vars)
     var maxString = "";
     var stepString = "";
     var lastString = "";
+    var visString = "";
     
     
     // Loop over variables
@@ -489,16 +498,27 @@ function generateHashURL(vars)
         minVal = parseFloat($("#" + v + "_min").val()),
         stepVal = parseFloat($("#" + v + "_step").val()),
         maxVal = parseFloat($("#" + v + "_max").val());
+        var visVal;
+        
+        if($("#" + v + "_graph_checkbox").is(":checked"))
+        {
+            visVal = 1;
+        }        
+        else
+        {
+            visVal = 0;
+        }
         
         // add current values to correct hash strings
         minString = minString + minVal + delimiter;
         maxString = maxString + maxVal + delimiter;
         stepString = stepString + stepVal + delimiter;
         lastString = lastString + lastVal + delimiter;
+        visString = visString + visVal + delimiter;
     }    
     
     // add the fully constituted strings to URL
-    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + "]";
+    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "]";
 
     // put the URL as our new url
     console.log(URL);
@@ -537,6 +557,7 @@ function createSliders2(vars)
         var maxValue = "";
         var stepValue = "";
         var lastValue = "";
+        var visValue = 1;
         // if not, use the default values
         // default min value
         if(!variableMinHash[i]) {
@@ -547,7 +568,7 @@ function createSliders2(vars)
             minValue = variableMinHash[i];
         }
         // default max value
-        if(!variableMaxHash[i]) {
+        if(typeof variableMaxHash[i] == "undefined") {
             maxValue = 100;
         }
         else
@@ -555,7 +576,7 @@ function createSliders2(vars)
             maxValue = variableMaxHash[i];
         }
          // default step value
-        if(!variableStepHash[i]) {
+        if(typeof variableStepHash[i] == "undefined") {
             stepValue = 1;
         }
         else
@@ -563,12 +584,19 @@ function createSliders2(vars)
             stepValue = variableStepHash[i];
         }       
         // default last value
-        if(!variableLastHash[i]) {
+        if(typeof variableLastHash[i] == "undefined") {
             lastValue = 0;
         }
         else
         {
             lastValue = variableLastHash[i];
+        }
+        if(typeof variableVisHash[i] == "undefined") {
+            visValue = 1;
+        }
+        else
+        {
+            visValue = variableVisHash[i];
         }
         
         v = vars[i];
@@ -587,7 +615,10 @@ function createSliders2(vars)
         inp.id = v + "_graph_checkbox";
         inp.setAttribute("type", "checkbox");
         inp.setAttribute("onclick", "toggleInclude(this.id)");
-        inp.setAttribute("checked", "checked");
+        if(visValue == 1)
+        {
+            inp.setAttribute("checked", "checked");
+        }
         el.append(inp);
         first.append(el);
         
