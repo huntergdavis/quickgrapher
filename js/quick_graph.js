@@ -27,7 +27,7 @@ function loadTitleBarHash() {
 	var equationValid = 0;     
     
     /* ensure we've got an equation to parse*/
-    if(equationStart < 0)
+    if(equationStart < 1)
     {
         return;
     }
