@@ -218,14 +218,14 @@ a > img {
 
 .instructions > div {
   margin-top: -15px;
-  text-decoration: none;
-  color: rgb(255,0,0);
+  /*text-decoration: none;
+  color: rgb(255,0,0);*/
 }
 
 .instructions > div:hover {
-  text-decoration: underline;
+  /*text-decoration: underline;
   color: inherit;
-  cursor: pointer;
+  cursor: pointer;*/
 }
 
 .equation {
