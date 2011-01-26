@@ -106,108 +106,6 @@ function parseAndAddToHash(stringToParse,delimiter,hashToGrow) {
 }
 
 
-/* loadSaved uses the passed variables from the address bar to set equations and
- hashes */
-function loadSaved() {
-    var args = arguments;
-    var loadString = "";
-    if (args.length > 0) {
-        loadString = args[0];
-    } else {
-        loadString= String(document.getElementById("savebar").value);
-    }
-
-    if(loadString.length < 3) {
-        alert("Could Not Load Saved Function from Hash");
-    } else {
-
-        /* Clear the
-         Screen */
-        clearScreen();
-        /* Set our Equation */
-        var equationStart = loadString.indexOf("?&$")+3;
-        if(loadString.indexOf("?&$") > -1) {
-            var equationEnd = loadString.indexOf("&#");
-            var equation = loadString.substring(equationStart,equationEnd);
-            equation=equation.replace(/%20/g," ");
-            equation=equation.replace(/%25/g,"%");
-            equation=equation.replace(/%28/g,"(");
-            equation=equation.replace(/%29/g,")");
-            document.getElementById('mainEquation').value = equation;
-        }
-    }
-
-    /* Set our Titles */
-    var titleHashStart = loadString.indexOf("&#")+2;
-    var titleHashEnd = loadString.indexOf("&%");
-    if(loadString.indexOf("&#") > 0) {
-        var TitleHash = loadString.substring(titleHashStart,titleHashEnd);
-        TitleHash=TitleHash.replace(/%20/g," ");
-        addTitlesToHash(TitleHash);
-    }
-
-    /* Set our Values */
-    var valueHashStart = loadString.indexOf("&%")+2;
-    var valueHashEnd = loadString.indexOf("&*");
-    if(loadString.indexOf("&%") > 0) {
-        var ValueHash = loadString.substring(valueHashStart,valueHashEnd);
-        ValueHash=ValueHash.replace(/%20/g," ");
-        addValuesToHash(ValueHash);
-    }
-
-    // do an initial parse
-    parseEquation();
-    // update all graphs
-    updateAllGraphs();
-}
-
-// adds array legend titles to global hash
-function addTitlesToHash(titles) {
-    var nextDelimiter = 0;
-    var stillParsing = 1;
-    var parseBlock = titles;
-
-    /* Loop through all
-     values in title bar and add them to hash table reference for names */
-    while(stillParsing == 1) {
-        nextDelimiter = parseBlock.indexOf("&:");
-        if(nextDelimiter > -1) {
-            stopDelimiter = parseBlock.indexOf("&,");
-            var myVar = parseBlock.substring(0,nextDelimiter);
-            var myLabel = parseBlock.substring(nextDelimiter+2,stopDelimiter);
-            parseBlock = parseBlock.substring(stopDelimiter+2,parseBlock.length);
-            arrayLegendHash[myVar] = myLabel;
-
-        } else {
-            stillParsing = 0;
-        }
-    }
-    // x&:testme&;&,K&:hello&;&,y&:whats up&;&%
-}
-
-// adds array variable values to global hash
-function addValuesToHash(titles) {
-    var nextDelimiter = 0;
-    var stillParsing = 1;
-    var parseBlock = titles;
-
-    /* Loop through all
-     values in title bar and add them to hash table reference for names */
-    while(stillParsing == 1) {
-        nextDelimiter = parseBlock.indexOf("&:");
-        if(nextDelimiter > -1) {
-            stopDelimiter = parseBlock.indexOf("&,");
-            var myVar = parseBlock.substring(0,nextDelimiter);
-            var myLabel = parseBlock.substring(nextDelimiter+2,stopDelimiter);
-            parseBlock = parseBlock.substring(stopDelimiter+2,parseBlock.length);
-            arrayValueHash[myVar] = myLabel;
-
-        } else {
-            stillParsing = 0;
-        }
-    }
-    // x&:testme&;&,K&:hello&;&,y&:whats up&;&%
-}
 
 /* showValue changes the sibling span text of a slider to be its value and recalculates the equation*/
 /* The overall formula based on the
@@ -776,6 +674,45 @@ function createSliders2(vars)
         graphCheck, graphCheckLabel;
     for(var i = 0; i < varsLen; i++)
     {
+        // each variable may have a stored min, max, step, last
+        var minValue = "";
+        var maxValue = "";
+        var stepValue = "";
+        var lastValue = "";
+        // if not, use the default values
+        // default min value
+        if(!variableMinHash[i]) {
+            minValue = 0;
+        }
+        else
+        {
+            minValue = variableMinHash[i];
+        }
+        // default max value
+        if(!variableMaxHash[i]) {
+            maxValue = 100;
+        }
+        else
+        {
+            maxValue = variableMaxHash[i];
+        }
+         // default step value
+        if(!variableStepHash[i]) {
+            stepValue = 1;
+        }
+        else
+        {
+            stepValue = variableStepHash[i];
+        }       
+        // default last value
+        if(!variableLastHash[i]) {
+            lastValue = 0;
+        }
+        else
+        {
+            lastValue = variableLastHash[i];
+        }
+        
         v = vars[i];
         // Create slider list item
         first = document.createElement("tr");
@@ -807,7 +744,7 @@ function createSliders2(vars)
         inp.css({"float":"left"});
         inp = document.createElement("div");
         inp.setAttribute("class","variable_value");
-        inp.innerHTML = "1";
+        inp.innerHTML = lastValue;
         inp.id = v + "_slider_value";
         el.append(inp);
         inp = $(inp);
@@ -823,7 +760,7 @@ function createSliders2(vars)
         inp.setAttribute("type", "text");
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");
-        inp.setAttribute("value", "0");
+        inp.setAttribute("value", minValue);
         inp.setAttribute("onchange", "updateMinimum(this.id)");
         el.append(inp);
         first.append(el);
@@ -836,7 +773,7 @@ function createSliders2(vars)
         inp.setAttribute("type", "text");
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");
-        inp.setAttribute("value", "1");
+        inp.setAttribute("value", stepValue);
         inp.setAttribute("onchange", "updateStep(this.id)");
         el.append(inp);
         first.append(el);
@@ -849,7 +786,7 @@ function createSliders2(vars)
         inp.setAttribute("type", "text");
         inp.setAttribute("class", "range_input");
         inp.setAttribute("size", "10");
-        inp.setAttribute("value", "100");
+        inp.setAttribute("value", maxValue);
         inp.setAttribute("onchange", "updateMaximum(this.id)");
         el.append(inp);
         first.append(el);
@@ -869,12 +806,12 @@ function createSliders2(vars)
         inp.setAttribute("min", variableMinHash[i]);
         inp.setAttribute("max", variableMaxHash[i]);
         inp.setAttribute("step", variableStepHash[i]);
-        inp.setAttribute("value", "1");
+        inp.setAttribute("value", lastValue);
         el.append(inp);
         first.append(el);
         inp = $(inp);
         // Set initial value
-        inp.val(1);
+        inp.val(lastValue);
         // Add change listener
         inp[0].setAttribute("onchange", "showValue(this.value, this.id)");
     }
