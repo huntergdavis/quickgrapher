@@ -262,6 +262,30 @@ function parseInput(input, step)
     {
         result = parseInt(str) * step;
     }
+    
+    // Do final rounding check
+    var len = str.length;
+    str = result + "";
+    decimal = str.indexOf(".");
+    // We have a possible rounding error
+    if(decimal != -1 && len > decimal + 3)
+    {
+        // As long as we find zeros
+        var i;
+        for(i = len - 2; i > -1; i--)
+        {
+            if(str.charAt(i) != "0")
+            {
+                i++;
+               break; 
+            }
+        }
+        // If we found a 0 chain at the end
+        if(i != len - 2)
+        {
+            result = parseFloat(str.substring(0,i));
+        }
+    }
 
     return result;
 }
@@ -361,82 +385,6 @@ function toggleDraw(toggleID)
 {
     // var toggled = $("#" + toggleID).is(":checked");
     solveEquation();
-}
-
-function createSliders(vars)
-{
-    var v, varsLen = vars.length,
-        sliderParent = $("#sliders"),
-        slider, sliderContainer,
-        sliderLabel, sliderValue,
-        graphCheck, graphCheckLabel;
-    for(var i = 0; i < varsLen; i++)
-    {
-        v = vars[i];
-        // Create slider list item
-        sliderContainer = document.createElement("li");
-        sliderContainer.id = v + "_container";
-        sliderParent.append(sliderContainer);
-        sliderContainer = $(sliderContainer);
-        // Create slider entry
-        sliderLabel = document.createElement("span");
-        sliderLabel.setAttribute("class","sliderLabel");
-        // Add to container
-        sliderContainer.append(sliderLabel);
-        // Put in label text
-        sliderLabel = $(sliderLabel);
-        sliderLabel.append(v)
-        // Create slider
-        // <input type="range" id="x_slider" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" />
-        slider = document.createElement("input");
-        slider.id = v + "_slider";
-        slider.setAttribute("type", "range");
-        console.log(variableMinHash[i]);
-        slider.setAttribute("min", variableMinHash[i]);
-        slider.setAttribute("max", variableMaxHash[i]);
-        slider.setAttribute("step", variableStepHash[i]);
-        slider = $(slider);
-        slider.css("margin-top","3px");
-        // Add to container
-        sliderContainer.append(slider);
-        // Set initial value
-        slider.val(1);
-        // Add change listener
-        slider[0].setAttribute("onchange", "showValue(this.value, this.id)");
-        // Add text display
-        sliderValue = document.createElement("span");
-        sliderValue.id = v + "_slider_value";
-        sliderValue.setAttribute("class","sliderValue");
-        // Add to container
-        sliderContainer.append(sliderValue);
-        // Put in label text
-        sliderValue = $(sliderValue);
-        sliderValue.append("1");
-        
-        // Add graph checkbox
-        graphCheck = document.createElement("input");
-        graphCheck.id = v + "_graph_checkbox";
-        graphCheck.setAttribute("type", "checkbox");
-        graphCheck.setAttribute("onclick", "toggleInclude(this.id)");
-        graphCheck.setAttribute("checked", "checked");
-        // Add to container
-        sliderContainer.append(graphCheck);
-        
-        graphCheck = $(graphCheck);
-        graphCheck.css("margin","3px");
-        // Graph checkbox label
-        graphCheckLabel = document.createElement("span");
-        graphCheckLabel.id = v + "_graph_checkbox_label";
-        // Add to container
-        sliderContainer.append(graphCheckLabel);
-        // Put in label text
-        graphCheckLabel = $(graphCheckLabel);
-        graphCheckLabel.css({
-            "font-size" : "9pt",
-            "font-weight" : "bold"
-        });
-        graphCheckLabel.append("(graph)");
-    }
 }
 
 function updateMinimum(inputID)
