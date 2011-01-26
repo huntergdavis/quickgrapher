@@ -83,103 +83,103 @@ Examples.push({
 Examples.push({
     name: "Population Growth",
     fxn : "LastYearPopulation + LastYearPopulation*(ReprodiveRate - Attrition)",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?LastYearPopulation+LastYearPopulation*(ReprodiveRate-Attrition)=0:0:0:{10000:1:1:}1:0.01:0.01:[4162:0.37:0.16:;0:1:1:'Population%20Growth]"
 });
 
 Examples.push({
     name: "Fiber Optic Response Time",
     fxn : "ProcessingTime + (2*Distance)/(200*(1000^2))",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?ProcessingTime+(2*Distance)/(200*(1000^2))=0:0:{100:100:}1:1:[12:40:;1:1:'Fiber%20Response%20Time]"
 });
 
 Examples.push({
     name: "Watts",
     fxn : "Amps * Volts",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?Amps*Volts=0:0:{100:100:}0.01:0.01:[41.04:28.32:;1:1:'Watts]"
 });
 
 Examples.push({
     name: "Velocity",
     fxn : "InitialVelocity + Acceleration*Time",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?InitialVelocity+Acceleration*Time=0:0:0:{100:100:100:}1:0.1:1:[42:9.8:10:;1:1:1:'Velocity]"
 });
 
 Examples.push({
     name: "Position of a Moving Object",
     fxn : "InitialPosition + InitialVelocity*Time + 1/2 * acceleration * Time^2",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?InitialPosition+InitialVelocity*Time+1/2*acceleration*Time^2=0:0:0:0:{100:100:100:100:}1:1:0.1:0.1:[18:41:31:9.8:;1:1:1:1:'Position%20of%20a%20Moving%20Object]"
 });
 
 Examples.push({
     name: "torque",
     fxn : "radius * force * sin(angle)",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?radius*force*sin(angle)=0:0:-360:{100:100:360:}1:1:1:[19:53:69:;1:1:1:'Torque]"
 });
 
 Examples.push({
     name: "Surface area of cylinder",
     fxn : "2*pi*radius*length + 2*pi*radius^2",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?2*pi*radius*length+2*pi*radius^2=0:0:{100:100:}1:1:[31:17:;1:1:'Surface%20Area%20of%20Cylinder]"
 });
 
 Examples.push({
     name: "First Order Derivitive of x^n",
     fxn : "n*x^(n-1)",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?n*x^(n-1)=0:0:{100:100:}1:1:[7:1:;1:1:'Derivative%20of%20x^N]"
 });
 
 Examples.push({
     name: "First Order Integral of x^n dx",
     fxn : "1/(n+1) * x^(n+1) + C",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?1/(n+1)*x^(n+1)+C=0:0:0:{100:100:100:}1:1:1:[14:2:10:;1:1:1:'First%20Order%20Integral]"
 });
 
 Examples.push({
     name: "Glomerular filtration rate (Creatinine Clearance CCr) (Kidney Filtration Rate)",
     fxn : "(CreatineConcentration * FlowRate)/PlasmaConcentration",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?(CreatineConcentration*FlowRate)/PlasmaConcentration=0:0:0:{100:100:100:}1:1:1:[53:31:10:;1:1:1:'Glomular%20Filtration]"
 });
 
 Examples.push({
     name: "IPAT Environmental Impact Equation",
     fxn : "Population * Affluence * Technology",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?Population*Affluence*Technology=0:0:0:{100:100:100:}1:1:1:[20:40:31:;1:1:1:'IPAT]"
 });
 
 Examples.push({
     name: "Vertical Change Delta for a Weighted String between 2 Points",
     fxn : "sqrt(((StringLength + PointsDistance)/2)*((StringLength - PointsDistance)/2))",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?sqrt(((StringLength+PointsDistance)/2)*((StringLength-PointsDistance)/2))=0:0:{100:100:}1:1:[33:18:;1:1:'Weighed%20String]"
 });
 
 Examples.push({
     name: "Gaussian",
     fxn : "a * e^(-1*((x-b)^2/2*c^2))",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?a*e^(-1*((x-b)^2/2*c^2))=0:0:0:0:{100:100:100:100:}1:1:1:1:[8:30:17:5:;1:1:1:1:'Gaussian]"
 });
 
 Examples.push({
     name: "Mechanical Work",
     fxn : "1/2 * mass * (secondVelocity^2 - firstVelocity^2)",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?1/2*mass*(secondVelocity^2-firstVelocity^2)=0:0:0:{100:100:100:}1:1:1:[71:34:42:;1:1:1:'Mechanical%20Work]"
 });
 
 Examples.push({
     name: "Procrastination Equation",
     fxn : "ExpectationOfSuccess*ValueofCompletion / (ImmediacyOfTask * PersonalDelaySensitivity)",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?ExpectationOfSuccess*ValueofCompletion/(ImmediacyOfTask*PersonalDelaySensitivity)=0:0:0:0:{100:100:100:100:}1:1:1:1:[6:9:6:11:;1:1:1:1:'Procrastination%20Equation]"
 });
 
 Examples.push({
-    name: "Pressure Loss with friction coefficient .019",
-    fxn : ".019 * (length / hydraulicDiameter) * (density * velocity^2 /2)",
-    URL : ""
+    name: "Pressure Loss with friction coefficient",
+    fxn : "FrictionCoefficient * (length / hydraulicDiameter) * (density * velocity^2 /2)",
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?FrictionCoefficient*(length/hydraulicDiameter)*(density*velocity^2/2)=0:0:0:0:0:{0.5:100:100:100:100:}0.001:1:1:1:1:[0.029:13:25:14:20:;1:1:1:1:1:'Pressure%20Loss]"
 });
 
 Examples.push({
     name: "Time Dilation qith Regard to Speed of Observer",
     fxn : "sqrt(1-(velocity^2/(300000)^2))",
-    URL : ""
+    URL : "file:///home/programmer/Projects/sliders/quick-graph-less.html?sqrt(1-(velocity^2/(300000)^2))=0:{10000:}1:[4798:;1:'Time%20Dilation]"
 });
 
 Examples.push({
