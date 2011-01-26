@@ -579,6 +579,7 @@ var QGSolver = function() {
                         {
                             var prevFront = prev.pop(),
                                 prevStack = [prev];
+                            console.log("Took " + prevFron.toString() + " from " + prev.toString());
                             while((typeof prevFront == "object") && prevFront.type == "QGFunction"
                                 && !prevFront.prefix() && (curr.priority() >= prevFront.priority()))
                             {
