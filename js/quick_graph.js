@@ -780,10 +780,11 @@ function updateAllGraphs(equation, context)
                 color = $("#subgraph").color(v);
                 if(typeof color == "undefined")
                 {
-                    color = "(0,0,0)";
+                    color = "rgb(0,0,0)";
                 }
                 
-                $("#" + v + "_variable_name").css({"color": color});
+                //$("#" + v + "_variable_name").css({"color": color});
+                $("#" + v + "_slider_value").css({"color": color});
             }
         }
     }
@@ -897,7 +898,8 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
             color = "rgb(0,0,0)";
         }
         
-        $("#" + lbl + "_variable_name").css({"color": color});
+        //$("#" + lbl + "_variable_name").css({"color": color});
+        $("#" + lbl + "_slider_value").css({"color": color});
     // }
 }
 
