@@ -28,8 +28,8 @@ Examples.push({
 
 Examples.push({
     name: "E = mc^2",
-    fxn : "mass*(300*1000*1000)^2",
-    url : "mass*(300*1000*1000)^2=0:{100:}1:[20:;1:;Einstein]"
+    fxn : "mass*299792458^2",
+    url : "mass*299792458^2=0:{100:}1:[20:;1:;E]"
 });
 
 Examples.push({
@@ -179,7 +179,7 @@ Examples.push({
 Examples.push({
     name: "Lorentz Factor",
     fxn : "1 / sqrt(1-(velocity^2/c^2))",
-    url : "1/sqrt(1-(velocity^2/c^2))=0:290000000:{10000:310000000:}1:[4798:299792458:;1:100:=Lorentz%20Factor]"
+    url : "1/sqrt(1-(velocity^2/c^2))=290000000:290000000:{300000000:310000000:}1:[299792000:299792458:;1000:1000:=Lorentz%20Factor]"
 });
 
 Examples.push({
