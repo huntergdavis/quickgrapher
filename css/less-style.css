@@ -260,13 +260,17 @@ h2 > .examples {
   margin-left: 10px;
   display: inline;
 }
+
+.menu {
+  
+}
+
 .menu > .examples {
   color: rgb(0, 0, 0);
   font-family: Times, "Times New Roman", serif;
   font-size: 9pt;
   font-weight: bold;
-  margin-top: -5px;
-  margin-left: 10px;
+  margin-top: -3px;
   display: inline;
 }
 .examples > a {
