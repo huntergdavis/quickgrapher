@@ -821,7 +821,7 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         context[graphVariable].step();
     }
     
-    var lbl = "";//"Fxn ( ",
+    var lbl = "",//"Fxn ( ",
         v, vars = equation.variables(),
         varLen = vars.length;
     // for(var i = 0; i < varLen; i++)
