@@ -132,7 +132,7 @@ img::-moz-selection {background: transparent;}
 }
 
 #mainEquation {
-  width: 250px;
+  width: 400px;
 }
 
 #legend {
@@ -152,11 +152,11 @@ img::-moz-selection {background: transparent;}
 }
 .input {
   background: rgb(255,255,255);
-  border: 1px solid rgb(0,0,0);
+  border: 1px solid rgb(195,220,235);
 }
 .range_input {
   background: rgb(255,255,255);
-  border: 1px solid rgb(164,157,143);
+  border: 1px solid rgb(195,220,235); /*164,157,143);*/
   width: 39px;
   margin: 0px 0px 0px 7px;
 }
@@ -345,7 +345,7 @@ h2 > .examples {
   }
   
   #mainEquation {
-    width: 476px;
+    width: 696px;
   }
   
   #legend {
@@ -380,7 +380,7 @@ h2 > .examples {
   }
   
   #mainEquation {
-    width: 350px;
+    width: 530px;
   }
   
   #legend {
@@ -418,8 +418,17 @@ h2 > .examples {
     margin: 10px 0px 17px 7px;
   }
   
+  equation {
+      margin: 2px 7px 0px 7px;
+  }
+  
+  #equationName {
+      margin-left: 0px;
+  }
+  
   #mainEquation {
-    width: 170px;
+      width: 196px;
+      margin: 3px 0px 0px 7px; 
   }
 }
 
@@ -446,7 +455,8 @@ h2 > .examples {
   }
   
   .instructions {
-    width: 124px;
+    width: 172px;
+    margin: 2px 0px 8px 12px;
   }
   
   .graph_container {
