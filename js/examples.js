@@ -82,8 +82,8 @@ Examples.push({
 
 Examples.push({
     name: "Population Growth",
-    fxn : "LastYearPopulation + LastYearPopulation*(ReprodiveRate - Attrition)",
-    url : "LastYearPopulation+LastYearPopulation*(ReprodiveRate-Attrition)=0:0:0:{10000:1:1:}1:0.01:0.01:[4162:0.37:0.16:;0:1:1:=Population%20Growth]"
+    fxn : "LastYearPopulation + LastYearPopulation*(ReproductiveRate - AttritionRate)",
+    url : "LastYearPopulation+LastYearPopulation*(ReproductiveRate-AttritionRate)=0:0:0:{10000:1:1:}1:0.01:0.01:[4162:0.37:0.16:;0:1:1:=Population]"
 });
 
 Examples.push({
@@ -99,13 +99,13 @@ Examples.push({
 });
 
 Examples.push({
-    name: "Velocity",
+    name: "Velocity - 1st Integral of Acceleration",
     fxn : "InitialVelocity + Acceleration*Time",
     url : "InitialVelocity+Acceleration*Time=0:0:0:{100:100:100:}1:0.1:1:[42:9.8:10:;1:1:1:=Velocity]"
 });
 
 Examples.push({
-    name: "Position of a Moving Object",
+    name: "Position - 2nd Integral of Acceleration",
     fxn : "InitialPosition + InitialVelocity*Time + 1/2 * acceleration * Time^2",
     url : "InitialPosition+InitialVelocity*Time+1/2*acceleration*Time^2=0:0:0:0:{100:100:100:100:}1:1:0.1:0.1:[18:41:31:9.8:;1:1:1:1:=Position]"
 });
