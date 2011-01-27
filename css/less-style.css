@@ -131,6 +131,10 @@ img::-moz-selection {background: transparent;}
   cursor: pointer;*/
 }
 
+#mainEquation {
+  width: 300px;
+}
+
 .equation {
   margin: 2px 0px 0px 20px;
 }
@@ -316,12 +320,16 @@ h2 > .examples {
   }
   
   .instructions {
-    width: 652px;
+    width: 628px;
   }
   
   .graph_container {
-    width: 712px;
+    width: 704px;
     height: 550px;
+  }
+  
+  #mainEquation {
+    width: 400px;
   }
 }
 
@@ -346,6 +354,10 @@ h2 > .examples {
   .graph_container {
     width: 598px;
     height: 550px;
+  }
+  
+  #mainEquation {
+    width: 350px;
   }
 }
 
@@ -376,6 +388,10 @@ h2 > .examples {
     width: 260px;
     height: 220px;
   }
+  
+  #mainEquation {
+    width: 170px;
+  }
 }
 
 
@@ -403,6 +419,10 @@ h2 > .examples {
   .graph_container {
     width: 176px;
     height: 150px;
+  }
+  
+  #mainEquation {
+    width: 84px;
   }
 }
 

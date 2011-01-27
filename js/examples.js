@@ -16,8 +16,8 @@ Examples.push({
 
 Examples.push({
     name: "Monthly Loan Payments Calculator",
-    fxn : "Princpial*((rate/1200)*(1 + rate/1200)^Months)/((1 + rate/1200)^Months - 1)",
-    url : "Princpial*((rate/1200)*(1+rate/1200)^Months)/((1+rate/1200)^Months-1)=0:0:0:{200:100:100:}10:1:1:[110:9:23:;1:1:1:=Loan%20Calculator]"
+    fxn : "principal*((rate/1200)*(1 + rate/1200)^months)/((1 + rate/1200)^months - 1)",
+    url : "principal*((rate/1200)*(1+rate/1200)^months)/((1+rate/1200)^months-1)=0:0:0:{200:100:100:}10:1:1:[110:9:23:;1:1:1:=Loan%20Calculator]"
 });
 
 Examples.push({
