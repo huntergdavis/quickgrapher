@@ -820,7 +820,7 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         context[graphVariable].step();
     }
     
-    var lbl = "Fxn ( ",
+    var lbl = "";//"Fxn ( ",
         v, vars = equation.variables(),
         varLen = vars.length;
     // for(var i = 0; i < varLen; i++)
@@ -840,11 +840,11 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     //     }
     // }
     lbl += graphVariable;
-    if( varLen > 1)
-    {
-        lbl += ", ..."
-    }
-    lbl += " )";
+    // if( varLen > 1)
+    // {
+    //     lbl += ", ..."
+    // }
+    // lbl += " )";
     
     // Add plot for this variable (will overwrite existing ones)
     graph.plot(
