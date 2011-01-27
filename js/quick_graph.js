@@ -648,7 +648,9 @@ function createSliders2(vars)
         inp.css({
           "float":"left",
           "font-size":"13pt",
-          "width":"100%"
+          "width":"100%",
+          // Need to load this from graph
+          "color":"rgb" + "(0,0,0)"
         });
         inp = document.createElement("div");
         inp.setAttribute("class","variable_value");
