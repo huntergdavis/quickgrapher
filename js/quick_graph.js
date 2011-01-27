@@ -248,7 +248,7 @@ function clearScreen()
     $("#result").hide();
     
     // Hide legend title
-    $("#legendTitle").hide();
+    //$("#legendTitle").hide();
     
     // Clear sliders
     $("tr.variable").empty();
@@ -721,7 +721,7 @@ function createSliders2(vars)
     }
     
     // Show legend title
-    $("#legendTitle").show();
+    //$("#legendTitle").show();
 }
 
 // updates graphs for all variables
@@ -747,10 +747,10 @@ function updateAllGraphs(equation, context)
             parentElement.append(graph);
             // Register with Graph
             graph = $(graph);
-            graph.graphify({'hue-increment' : 35, 'hue-base' : 0, 'value-base': 75}).attach_legend({
+            graph.graphify({'hue-increment' : 35, 'hue-base' : 0, 'value-base': 75})/*.attach_legend({
               'legend-mode': false,
               'legend-container': $("#legend"),
-            }).realHover({
+            })*/.realHover({
                 hover: Graph.highlightNearest,
                 out: Graph.removeHighlight
             });
