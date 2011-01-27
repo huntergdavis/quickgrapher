@@ -14,7 +14,7 @@ var variableMaxHash = new Array();
 var variableStepHash = new Array();
 var variableLastHash = new Array();
 var variableVisHash = new Array();
-var graphName = "Unnamed Graph";
+//var graphName = "Unnamed Graph";
 
 /* LoadTitleBarHash loads in passed-in title bar equation */
 function loadTitleBarHash() {
@@ -84,13 +84,14 @@ function loadTitleBarHash() {
         
         /* grab the name*/
         var tempName = variableString.substring(nameStart,nameStop);
-        graphName = tempName.replace("%20"," ");
+        tempName = tempName.replace("%20"," ");
 
         
 	} 	
 	if(equationValid > 0)
 	{
 	    $("#mainEquation").val(equationString);
+        $("#equationName").val(tempName);
         $("#graphBtn").click();
 	}
 }
@@ -530,6 +531,7 @@ function generateHashURL(vars)
     }    
     
     // replace spaces with %20 for web addresses
+    var graphName =  $("#equationName").val();
     var cleanedGraphName = graphName.replace(/\s/g,"%20");
     
     // add the fully constituted strings to URL
