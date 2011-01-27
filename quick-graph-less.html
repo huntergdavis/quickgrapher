@@ -47,12 +47,12 @@ hunter or mark at discursivelabs.com
         <div class="instructions">
             Enter an equation into the box below and click "Graph!"   For each variable, a line will be graphed of the full range of that variable in the equation, with the other variables using the values selected below.
         </div>
-        <!--h2>Try It! <div class="examples" style="display: none;">» <span class="link" onclick="toggleExamples('examples')">examples</span></div></h2-->
-        <div class="bar" style="width: 617px;">
+        <h2>Try It! <div class="examples" style="display: none;">» <span class="link" onclick="toggle('examples')">examples</span></div></h2>
+        <!--div class="bar" style="width: 617px; margin-left: 22px;">
           <h2 style="display: inline;">Try It!</h2>
-        </div>
-        <div class="menu"><div class="examples">» <span class="link" onclick="toggleExamples('examples')">examples</span></div><div class="examples" style="margin-left: 86px;">» <span class="link" onclick="toggleExamples('examples')">functions</span></div></div>
-        <div id="examples" class="instructions" style="display: none; width: 484px;">
+        </div-->
+        <div class="menu"><div class="examples">» <span class="link" onclick="toggle('examples')">examples</span></div><div class="examples" style="margin-left: 86px;">» <span class="link" onclick="toggle('functions')">functions</span></div></div>
+        <div id="examples" class="example_box menu_item">
           <span style="width: 100%;">
             <ul id="examplelist" class="example_list">
                 <li>No examples!</li>
@@ -60,6 +60,13 @@ hunter or mark at discursivelabs.com
           </span>
           <div id="prevExamples" class="link" style="float: left; display: none;" onclick="prevExamples()">previous <font style="color: rgb(0,0,0); text-decoration: none;">«</font></div>
           <div id="nextExamples" class="link" style="float: right; display: none;" onclick="nextExamples()"><font style="color: rgb(0,0,0); text-decoration: none;">»</font> more</div>
+        </div>
+        <div id="functions" class="function_box menu_item">
+          <span style="width: 100%;">
+            <ul id="functionlist" class="function_list">
+                <li>No examples!</li>
+            </ul>
+          </span>
         </div>
         <span class="equation">
           <input type="text" id="equationName" class="input" size="10" value="Fxn"/><font style="font-weight: bold; font-size: 12pt; margin: 0px 20px 0px 20px;">=</font><input type="text" id="mainEquation" class="input"/>  

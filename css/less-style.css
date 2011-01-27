@@ -132,6 +132,32 @@ img::-moz-selection {background: transparent;}
   cursor: pointer;*/
 }
 
+.example_box {
+  border: 1px solid rgb(164, 157, 143);
+  background: rgb(255,255,255);
+  margin: 2px 0px 10px 22px;
+  padding: 8px;
+  color: rgb(164,157,143);
+  font-family: Times, "Times New Roman", serif;
+  font-size: 10pt;
+  font-weight: bold;
+  display: none;
+  width: 484px;
+}
+
+.function_box {
+  border: 1px solid rgb(164, 157, 143);
+  background: rgb(255,255,255);
+  margin: 2px 0px 10px 97px;
+  padding: 8px;
+  color: rgb(164,157,143);
+  font-family: Times, "Times New Roman", serif;
+  font-size: 10pt;
+  font-weight: bold;
+  display: none;
+  width: 484px;
+}
+
 #mainEquation {
   width: 380px;
 }
@@ -259,6 +285,10 @@ h2 > .examples {
   margin-top: -5px;
   margin-left: 10px;
   display: inline;
+}
+
+.menu_item {
+  
 }
 
 .menu {

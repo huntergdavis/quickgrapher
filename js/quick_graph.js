@@ -905,7 +905,7 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     // }
 }
 
-function toggleExamples(exampleID)
+function toggle(exampleID)
 {
     var ex = $("#" + exampleID);
     if(ex.is(":visible"))
@@ -914,6 +914,9 @@ function toggleExamples(exampleID)
     }
     else
     {
+        // Hide all others
+        $(".menu_item").hide();
+        // Show this one
         ex.show();
     }
     return false;
