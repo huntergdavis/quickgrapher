@@ -746,8 +746,9 @@ function updateAllGraphs(equation, context)
             // Add to canvas
             parentElement.append(graph);
             // Register with Graph
+            var graphName = $("#equationName").val();
             graph = $(graph);
-            graph.graphify({'hue-increment' : 35, 'hue-base' : 0, 'value-base': 75})/*.attach_legend({
+            graph.graphify({'hue-increment' : 35, 'hue-base' : 0, 'value-base': 75, 'name': graphName})/*.attach_legend({
               'legend-mode': false,
               'legend-container': $("#legend"),
             })*/.realHover({
