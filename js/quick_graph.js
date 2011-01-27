@@ -1135,3 +1135,7 @@ function loadExample(exampleID)
     
     return false;
 }
+
+console.log("Math.PI: " + Math.sin(Math.PI) + " | " + Math.sin(Math.PI/2));
+console.log("3.141592653589793: " + Math.sin(3.141592653589793) + " | " + Math.sin(3.141592653589793/2));
+
