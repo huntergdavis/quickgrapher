@@ -645,6 +645,7 @@ function createSliders2(vars)
         el = $(el);
         inp = document.createElement("div");
         inp.innerHTML = v; // + " = ";
+        inp.id = v + "_variable_name";
         el.append(inp);
         inp = $(inp);
         inp.css({
@@ -768,6 +769,22 @@ function updateAllGraphs(equation, context)
                 hover: Graph.highlightNearest,
                 out: Graph.removeHighlight
             });
+            
+            // Set variable colors from plot
+            var color,
+                v, vars = equation.variables(),
+                varLen = vars.length;
+            for(var i = 0; i < varLen; i++)
+            {
+                v = vars[i];
+                color = $("#subgraph").color(v);
+                if(typeof color == "undefined")
+                {
+                    color = "(0,0,0)";
+                }
+                
+                $("#" + v + "_variable_name").css({"color": color});
+            }
         }
     }
  
