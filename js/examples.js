@@ -23,13 +23,13 @@ Examples.push({
 Examples.push({
     name: "Force of Gravity",
     fxn : "GravConstant * massOne * massTwo / distance^2",
-    url : "GravConstant*massOne*massTwo/distance^2=0:0:0:0:{20:100:100:100:}0.01:1:1:1:[8.73:29:19:3:;1:1:1:1:;Gravity]"
+    url : "GravConstant*massOne*massTwo/distance^2=0:0:0:0:{20:100:100:100:}0.01:1:1:1:[8.73:29:19:3:;1:1:1:1:=Gravity]"
 });
 
 Examples.push({
     name: "E = mc^2",
     fxn : "mass*299792458^2",
-    url : "mass*299792458^2=0:{100:}1:[20:;1:;E]"
+    url : "mass*299792458^2=0:{100:}1:[20:;1:=E]"
 });
 
 Examples.push({
