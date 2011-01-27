@@ -165,23 +165,3 @@ FxnExamples.push({
     url : "product(x,1,3,4)=0:{100:}1:[8:;1:=Product%20Graph]"
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
