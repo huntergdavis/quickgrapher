@@ -314,6 +314,7 @@ function updateSolution(equation, context, solution)
 {
     document.getElementById("formula").innerText = equation.toString(context);
     document.getElementById("solution").innerText = solution;
+    document.getElementById("function_name").innerText = $("#equationName").val();
     var v, vars = equation.variables(),
         varLen = vars.length,
         varList = "";
