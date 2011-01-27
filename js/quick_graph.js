@@ -600,7 +600,7 @@ function createSliders2(vars)
         }       
         // default last value
         if(typeof variableLastHash[i] == "undefined") {
-            lastValue = 0;
+            lastValue = 1;
         }
         else
         {
