@@ -72,9 +72,7 @@ figure img {width: 100%;}
 
 body {
   background: rgb(255,255,255);
-  /*padding: 84px 60px 0;*/
   margin: 48px auto 0px;
-  /*width: 648px;*/
   width: 768px;
   -webkit-tap-highlight-color: rgb(255,255,0);
 }
@@ -85,7 +83,6 @@ img::selection    {background: transparent;}
 img::-moz-selection {background: transparent;}
 
 #container {
-  /*height: 600px;*/
   background: rgb(241,241,241);
   background-image: url('/images/grid_1.gif');
   background-repeat: no-repeat;
@@ -103,100 +100,6 @@ img::-moz-selection {background: transparent;}
   margin: 0px;
   padding: 0px;
   width: 100%;
-}
-
-
-/*  13-column layout
-  60 px columns, 24 px gutters, 72 px margins, 1212 px total (extra space for scrollbars)
-  ---------------------------------------------------------------------------------------
-  1     2      3      4      5      6      7      8      9      10     11     12     13
-  60px  144px  228px  312px  396px  480px  564px  648px  732px  816px  900px  984px  1068px */
-
-@media only screen and (min-width: 1045px) {
-  
-  body {
-    /*padding: 96px 72px 0;*/
-    margin: 48px auto 0px;
-    width: 1068px;
-    background: rgb(255,255,255);
-  }
-  
-}
-
-/*  11-column layout
-  60 px columns, 24 px gutters, 42 px margins, 1044 px total (extra space for scrollbars)
-  -------------------------------------------------------------------------------------------
-  1     2      3      4      5      6      7      8      9      10     11    
-  60px  144px  228px  312px  396px  480px  564px  648px  732px  816px  900px */
-
-@media only screen and (max-width: 1044px) and (min-width: 1044px) {
-  
-  body {
-    /*padding: 60px 42px 0;*/
-    margin: 48px auto 0px;
-    width: 900px;
-    background: rgb(255,255,255);
-  }
-  
-}
-
-
-/*  5-column layout
-  60 px columns, 24 px gutters, 42 px margins, 480 px total
-  ---------------------------------------------------------
-  1     2      3      4      5
-  60px  144px  228px  312px  396px  */
-
-@media only screen and (max-width: 756px) and (min-width: 480px) {
-  
-  body {
-    /*padding: 60px 42px 0;*/
-    margin: 48px auto 0px;
-    width: 396px;
-    background: rgb(255,255,255);
-    /* Prevents Mobile Safari from bumping up font sizes in landscape */
-    -webkit-text-size-adjust: 100%;
-  }
-  
-}
-
-
-/*  3-column layout
-  60 px columns, 24 px gutters, 46 px margins, 320 px total
-  ---------------------------------------------------------
-  1     2      3
-  60px  144px  228px  */
-
-@media only screen and (max-width: 479px) {
-  
-  body {
-    /*padding: 48px 46px 0;*/
-    margin: 48px auto 0px;
-    width: 228px;
-    background: rgb(255,255,255);
-    /* Prevents Mobile Safari from bumping up font sizes in landscape */
-    -webkit-text-size-adjust: 100%;
-  }
-  
-}
-
-
-/*  Overrides for iPhone 4 
-  and other high device-pixel-ratio devices
-  ----------------------------------------- */
-
-@media 
-  only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (min-device-pixel-ratio: 2) {
-  
-  #example {
-    background: rgb(241,241,241);
-  }
-  
-}
-
-a > img {
-  border: 0px;
 }
 
 .logo {
@@ -358,18 +261,13 @@ h2 > .examples {
 .link:hover {
     color: rgb(255,0,0);
     text-decoration: none;
-    cursor: hand;
+    cursor: pointer;
 }
 .link:visited {
     color: rgb(164, 157, 143);
     text-decoration: underline;
 }
 
-/*.examples > div:hover {
-    color: rgb(255,0,0);
-    text-decoration: underline;
-}
-*/
 .example_list {
   margin-bottom: 13px;
   padding-bottom: 7px;
@@ -398,5 +296,107 @@ h2 > .examples {
 }
 .example_list > li a:visited {
   color: inherit;
+}
+
+
+
+/*  13-column layout
+  60 px columns, 24 px gutters, 72 px margins, 1212 px total (extra space for scrollbars)
+  ---------------------------------------------------------------------------------------
+  1     2      3      4      5      6      7      8      9      10     11     12     13
+  60px  144px  228px  312px  396px  480px  564px  648px  732px  816px  900px  984px  1068px */
+
+@media only screen and (min-width: 1045px) {
+  
+  body {
+    /*padding: 96px 72px 0;*/
+    margin: 48px auto 0px;
+    width: 1068px;
+    background: rgb(255,255,255);
+  }
+  
+  .instructions {
+    width: 760px;
+  }
+}
+
+/*  11-column layout
+  60 px columns, 24 px gutters, 42 px margins, 1044 px total (extra space for scrollbars)
+  -------------------------------------------------------------------------------------------
+  1     2      3      4      5      6      7      8      9      10     11    
+  60px  144px  228px  312px  396px  480px  564px  648px  732px  816px  900px */
+
+@media only screen and (max-width: 1044px) and (min-width: 1044px) {
+  
+  body {
+    /*padding: 60px 42px 0;*/
+    margin: 48px auto 0px;
+    width: 900px;
+    background: rgb(255,255,255);
+  }
+  .instructions {
+    width: 592px;
+  }
+}
+
+
+/*  5-column layout
+  60 px columns, 24 px gutters, 42 px margins, 480 px total
+  ---------------------------------------------------------
+  1     2      3      4      5
+  60px  144px  228px  312px  396px  */
+
+@media only screen and (max-width: 756px) and (min-width: 480px) {
+  
+  body {
+    /*padding: 60px 42px 0;*/
+    margin: 48px auto 0px;
+    width: 396px;
+    background: rgb(255,255,255);
+    /* Prevents Mobile Safari from bumping up font sizes in landscape */
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  .instructions {
+    width: 208px;
+  }
+}
+
+
+/*  3-column layout
+  60 px columns, 24 px gutters, 46 px margins, 320 px total
+  ---------------------------------------------------------
+  1     2      3
+  60px  144px  228px  */
+
+@media only screen and (max-width: 479px) {
+  
+  body {
+    /*padding: 48px 46px 0;*/
+    margin: 48px auto 0px;
+    width: 228px;
+    background: rgb(255,255,255);
+    /* Prevents Mobile Safari from bumping up font sizes in landscape */
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  .instructions {
+    width: 124px;
+  }
+}
+
+
+/*  Overrides for iPhone 4 
+  and other high device-pixel-ratio devices
+  ----------------------------------------- */
+
+@media 
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-device-pixel-ratio: 2) {
+  
+  #example {
+    background: rgb(241,241,241);
+  }
+  
 }
 
