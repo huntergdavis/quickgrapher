@@ -208,7 +208,7 @@ h2 {
   width: 70px;
 }
 .maximum {
-  width: 100px;
+  width: 76px;
 }
 .variable {
   color: rgb(0,0,0);
@@ -351,6 +351,14 @@ h2 > .examples {
   #legend {
     width: 204px;
     font-size: 11pt;
+  }
+  
+  .bar {
+    margin: 0px 0px 0px 422px;
+  }
+  
+  .variable_table {
+    margin: 8px 0px 0px 427px;
   }
 }
 
