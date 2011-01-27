@@ -181,14 +181,15 @@ h2 {
 .bar {
   border-bottom: 1px solid rgb(164, 157, 143);
   width: 500px;
-  margin: 0px 0px 0px 22px;
+  margin: 0px 0px 0px 422px;/*22px*/
 }
 .bar > h2 {
   margin: 0px;
 }
 .variable_table {
-  margin: 8px 0px 0px 22px;
+  margin: 8px 0px 0px 427px;/*22px*/
 }
+
 .variable_label {
   color: rgb(0,0,0);
   font-family: Times, "Times New Roman", serif;
@@ -389,6 +390,14 @@ h2 > .examples {
   
   #mainEquation {
     width: 512px;
+  }
+  
+  .bar {
+    margin: 0px 0px 0px 422px;
+  }
+  
+  .variable_table {
+    margin: 8px 0px 0px 427px;
   }
   
   #legend {
