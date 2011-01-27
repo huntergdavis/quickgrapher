@@ -741,8 +741,8 @@ function updateAllGraphs(equation, context)
             graph = document.createElement("div");
             graph.id = graphID;
             graph.style.position = "relative";
-            graph.style.width = parentElement.width() + "px";
-            graph.style.height = parentElement.height() + "px";
+            graph.style.width = "100%";//parentElement.width() + "px";
+            graph.style.height = "100%";//parentElement.height() + "px";
             // Add to canvas
             parentElement.append(graph);
             // Register with Graph
