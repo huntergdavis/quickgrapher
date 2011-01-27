@@ -21,7 +21,7 @@ Examples.push({
 });
 
 Examples.push({
-    name: "Forve of Gravity",
+    name: "Force of Gravity",
     fxn : "GravConstant * massOne * massTwo / distance^2",
     url : "GravConstant*massOne*massTwo/distance^2=0:0:0:0:{20:100:100:100:}0.01:1:1:1:[8.73:29:19:3:;1:1:1:1:;Gravity]"
 });
