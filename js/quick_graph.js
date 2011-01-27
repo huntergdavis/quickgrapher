@@ -645,14 +645,23 @@ function createSliders2(vars)
         inp.innerHTML = v + " = ";
         el.append(inp);
         inp = $(inp);
-        inp.css({"float":"left"});
+        inp.css({
+          "float":"left",
+          "font-size":"18pt",
+          "width":"100%"
+        });
         inp = document.createElement("div");
         inp.setAttribute("class","variable_value");
         inp.innerHTML = lastValue;
         inp.id = v + "_slider_value";
         el.append(inp);
         inp = $(inp);
-        inp.css({"float":"left"});
+        inp.css({
+          "float":"left",
+          "font-weight":"bold",
+          "font-size":"20pt",
+          "margin-left":"20px"
+        });
         first.append(el);
         
         el = document.createElement("td");
