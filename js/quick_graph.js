@@ -798,7 +798,8 @@ function updateAllGraphs(equation, context)
         else
         {
             // Make sure we have cleared the data for this variable
-            graph.remove_data(v);
+            //graph.remove(v);
+            graph.hide(v);
         }
     }
 }
