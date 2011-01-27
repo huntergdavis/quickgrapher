@@ -176,7 +176,7 @@ h2 {
   height: 425px;*/
   width: 600px;
   height: 475px;
-  margin: 10px 0px 30px 22px;
+  margin: 10px 0px 12px 22px;
 }
 .bar {
   border-bottom: 1px solid rgb(164, 157, 143);
@@ -246,7 +246,7 @@ h2 {
   padding: 0px;
 }
 .label {
-  margin: 0px 0px 10px 22px;
+  margin: 0px 0px 2px 22px;
 }
 
 h2 > .examples {
@@ -415,7 +415,7 @@ h2 > .examples {
   .graph_container {
     width: 258px;
     height: 220px;
-    margin: 10px 0px 17px 7px;
+    margin: 10px 0px 12px 7px;
   }
   
   .equation {
