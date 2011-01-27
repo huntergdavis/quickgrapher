@@ -645,12 +645,18 @@ function createSliders2(vars)
         inp.innerHTML = v; // + " = ";
         el.append(inp);
         inp = $(inp);
+        // Color from plot
+        var color = $("#subgraph").color(v);
+        if(typeof color == "undefined")
+        {
+            color = "(0,0,0)";
+        }
         inp.css({
           "float":"left",
           "font-size":"13pt",
           "width":"100%",
           // Need to load this from graph
-          "color":"rgb" + "(0,0,0)"
+          "color":"rgb" + color
         });
         inp = document.createElement("div");
         inp.setAttribute("class","variable_value");
