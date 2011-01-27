@@ -643,20 +643,15 @@ function createSliders2(vars)
         el = $(el);
         inp = document.createElement("div");
         inp.innerHTML = v; // + " = ";
+        inp.id = v + "_variable_name";
         el.append(inp);
         inp = $(inp);
-        // Color from plot
-        var color = $("#subgraph").color(v);
-        if(typeof color == "undefined")
-        {
-            color = "(0,0,0)";
-        }
         inp.css({
           "float":"left",
           "font-size":"13pt",
           "width":"100%",
           // Need to load this from graph
-          "color":"rgb" + color
+          "color":"rgb" + "(0,0,0)"
         });
         inp = document.createElement("div");
         inp.setAttribute("class","variable_value");
@@ -772,6 +767,22 @@ function updateAllGraphs(equation, context)
                 hover: Graph.highlightNearest,
                 out: Graph.removeHighlight
             });
+            
+            // Set variable colors from plot
+            var color,
+                v, vars = equation.variables(),
+                varLen = vars.length;
+            for(var i = 0; i < varLen; i++)
+            {
+                v = vars[i];
+                color = $("#subgraph").color(v);
+                if(typeof color == "undefined")
+                {
+                    color = "(0,0,0)";
+                }
+                
+                $("#" + v + "_variable_name").css({"color": color});
+            }
         }
     }
  
