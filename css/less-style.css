@@ -331,7 +331,7 @@ h2 > .examples {
   1     2      3      4      5      6      7      8      9      10     11    
   60px  144px  228px  312px  396px  480px  564px  648px  732px  816px  900px */
 
-@media only screen and (max-width: 1044px) and (min-width: 1044px) {
+@media only screen and (max-width: 1044px) and (min-width: 757px) {
   
   body {
     /*padding: 60px 42px 0;*/
