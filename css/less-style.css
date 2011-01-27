@@ -132,7 +132,7 @@ img::-moz-selection {background: transparent;}
 }
 
 #mainEquation {
-  width: 400px;
+  width: 380px;
 }
 
 #legend {
@@ -345,7 +345,7 @@ h2 > .examples {
   }
   
   #mainEquation {
-    width: 696px;
+    width: 680px;
   }
   
   #legend {
@@ -380,7 +380,7 @@ h2 > .examples {
   }
   
   #mainEquation {
-    width: 530px;
+    width: 512px;
   }
   
   #legend {
