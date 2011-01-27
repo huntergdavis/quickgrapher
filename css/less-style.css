@@ -316,7 +316,12 @@ h2 > .examples {
   }
   
   .instructions {
-    width: 760px;
+    width: 676px;
+  }
+  
+  .graph_container {
+    width: 736px;
+    height: 550px;
   }
 }
 
@@ -336,6 +341,11 @@ h2 > .examples {
   }
   .instructions {
     width: 592px;
+  }
+  
+  .graph_container {
+    width: 646px;
+    height: 550px;
   }
 }
 
@@ -360,6 +370,11 @@ h2 > .examples {
   .instructions {
     width: 208px;
   }
+  
+  .graph_container {
+    width: 260px;
+    height: 220px;
+  }
 }
 
 
@@ -383,6 +398,11 @@ h2 > .examples {
   .instructions {
     width: 124px;
   }
+  
+  .graph_container {
+    width: 176px;
+    height: 150px;
+  }
 }
 
 
@@ -397,6 +417,5 @@ h2 > .examples {
   #example {
     background: rgb(241,241,241);
   }
-  
 }
 
