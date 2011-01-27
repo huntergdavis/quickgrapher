@@ -800,7 +800,8 @@ function updateAllGraphs(equation, context)
         // Current variable
         v = vars[i];
         // If we are supposed to draw this variable
-        if($("#" + v + "_graph_checkbox").is(":checked"))
+        if($("#" + v + "_graph_checkbox").is(":checked")
+            || (typeof graph.color(v) == "undefined"))
         {
             //name = "Title" + varName;
             // Adjust context
@@ -816,7 +817,7 @@ function updateAllGraphs(equation, context)
             // Replace values into local context for next loop step
             localContext[v] = fixedPt;
         }
-        else
+        if(!$("#" + v + "_graph_checkbox").is(":checked"))
         {
             // Make sure we have cleared the data for this variable
             //graph.remove_data(v);
