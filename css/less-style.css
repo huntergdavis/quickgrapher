@@ -148,7 +148,7 @@ img::-moz-selection {background: transparent;}
 .function_box {
   border: 1px solid rgb(164, 157, 143);
   background: rgb(255,255,255);
-  margin: 2px 0px 10px 97px;
+  margin: 2px 0px 10px 166px;
   padding: 8px;
   color: rgb(164,157,143);
   font-family: Times, "Times New Roman", serif;
@@ -156,6 +156,7 @@ img::-moz-selection {background: transparent;}
   font-weight: bold;
   display: none;
   width: 484px;
+  overflow: hidden;
 }
 
 #mainEquation {
