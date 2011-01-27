@@ -58,7 +58,7 @@ function loadTitleBarHash() {
         var lastStart = stepStop + 1;
         var lastStop = variableString.indexOf(";");
         var visStart = lastStop + 1;
-        var visStop = variableString.indexOf("'");
+        var visStop = variableString.indexOf("=");
         var nameStart = visStop + 1;
         var nameStop = variableString.length;
         
@@ -533,7 +533,7 @@ function generateHashURL(vars)
     var cleanedGraphName = graphName.replace(/\s/g,"%20");
     
     // add the fully constituted strings to URL
-    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "'" + cleanedGraphName + "]";
+    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + cleanedGraphName + "]";
 
     // put the URL as our new url
     console.log(URL);
