@@ -29,7 +29,7 @@ Examples.push({
 Examples.push({
     name: "E = mc^2",
     fxn : "mass*(300*1000*1000)^2",
-    url : "mass*(300*1000*1000)^2=0:{100:}1:[20:;1:'Einstein]"
+    url : "mass*(300*1000*1000)^2=0:{100:}1:[20:;1:;Einstein]"
 });
 
 Examples.push({
