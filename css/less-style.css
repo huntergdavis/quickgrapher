@@ -112,7 +112,7 @@ img::-moz-selection {background: transparent;}
   1     2      3      4      5      6      7      8      9      10     11     12     13
   60px  144px  228px  312px  396px  480px  564px  648px  732px  816px  900px  984px  1068px */
 
-@media only screen and (min-width: 1272px) {
+@media only screen and (min-width: 1045px) {
   
   body {
     /*padding: 96px 72px 0;*/
@@ -129,7 +129,7 @@ img::-moz-selection {background: transparent;}
   1     2      3      4      5      6      7      8      9      10     11    
   60px  144px  228px  312px  396px  480px  564px  648px  732px  816px  900px */
 
-@media only screen and (max-width: 1271px) and (min-width: 1044px) {
+@media only screen and (max-width: 1044px) and (min-width: 1044px) {
   
   body {
     /*padding: 60px 42px 0;*/
