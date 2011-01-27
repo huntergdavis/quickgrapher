@@ -642,12 +642,12 @@ function createSliders2(vars)
         el.setAttribute("rowspan","2");
         el = $(el);
         inp = document.createElement("div");
-        inp.innerHTML = v + " = ";
+        inp.innerHTML = v; // + " = ";
         el.append(inp);
         inp = $(inp);
         inp.css({
           "float":"left",
-          "font-size":"18pt",
+          "font-size":"13pt",
           "width":"100%"
         });
         inp = document.createElement("div");
