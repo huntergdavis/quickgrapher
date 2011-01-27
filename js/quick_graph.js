@@ -247,6 +247,9 @@ function clearScreen()
     // Clear solved result display
     $("#result").hide();
     
+    // Hide legend title
+    $("#legendTitle").hide();
+    
     // Clear sliders
     $("tr.variable").empty();
     $("tr.variable").remove();
@@ -716,6 +719,9 @@ function createSliders2(vars)
         // Add change listener
         inp[0].setAttribute("onchange", "showValue(this.value, this.id)");
     }
+    
+    // Show legend title
+    $("#legendTitle").show();
 }
 
 // updates graphs for all variables
