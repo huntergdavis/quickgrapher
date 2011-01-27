@@ -370,7 +370,7 @@ h2 > .examples {
   
   .graph_container {
     width: 548px;
-    height: 550px;
+    height: 525px;
   }
   
   #mainEquation {
@@ -378,8 +378,8 @@ h2 > .examples {
   }
   
   #legend {
-    width: 204px;
-    font-size: 11pt;
+    width: 176px;
+    font-size: 10pt;
   }
 }
 
