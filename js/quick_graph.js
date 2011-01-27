@@ -888,17 +888,17 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     
     // Set variable colors from plot
     var color;
-    for(var i = 0; i < varLen; i++)
-    {
-        v = vars[i];
-        color = $("#subgraph").color(v);
+    // for(var i = 0; i < varLen; i++)
+    // {
+        //v = vars[i];
+        color = $("#subgraph").color(lbl);
         if(typeof color == "undefined")
         {
-            color = "(0,0,0)";
+            color = "rgb(0,0,0)";
         }
         
-        $("#" + v + "_variable_name").css({"color": color});
-    }
+        $("#" + lbl + "_variable_name").css({"color": color});
+    // }
 }
 
 function toggleExamples(exampleID)
