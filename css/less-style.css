@@ -89,7 +89,7 @@ img::-moz-selection {background: transparent;}
   background-repeat: no-repeat;
   background-position: right top;
   border: 1px solid rgb(0,0,0);
-  margin: 24px 60px 60px;
+  margin: 24px 60px 30px 60px;
 }
 
 #inner {
@@ -526,7 +526,7 @@ h2 > .examples {
   
   .range > input {
     margin-left: 22px;
-    width: 140px;
+    width: 195px;
   }
   
   #dynamic_label {
