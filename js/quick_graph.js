@@ -1022,7 +1022,7 @@ function loadFunctions()
     }
   
     var list = $("#functionlist"), fxn,
-        col, row = 0, cols = 4,
+        col, row = 0, cols = 5,
         fxnCount = 0, colSize = 1, colWidth,
         emptied = false, margins;
     // Count functions
