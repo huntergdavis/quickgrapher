@@ -1168,7 +1168,7 @@ function createFunctionLink(fxnStr, style, parent)
 function createExampleLink(example, parent)
 {
     var ex = document.createElement("li"),
-        inner = "<a href='/?";
+        inner = "<a href='http://www.quickgrapher.com/index.html?";
     inner += compressName(example.url);
     inner += "'>"
     inner += example.name;
