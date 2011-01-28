@@ -439,10 +439,10 @@ h2 > .examples {
 }
 
 #dynamic_label {
-    font-size: 9pt;
+    font-size: 7pt;
     font-weight: bold;
-    margin: 3px;
-    display: inline;
+    margin-bottom: -3px;
+    display: block;
 }
 
 
@@ -524,6 +524,13 @@ h2 > .examples {
     margin-left: 22px;
     width: 140px;
   }
+  
+  #dynamic_label {
+    font-size: 9pt;
+    font-weight: bold;
+    margin: 3px;
+    display: inline;
+  }
 }
 
 /*  11-column layout
@@ -594,6 +601,13 @@ h2 > .examples {
   }
   .variable_label > .maximum {
     width: 70px;
+  }
+  
+  #dynamic_label {
+    font-size: 9pt;
+    font-weight: bold;
+    margin: 3px;
+    display: inline;
   }
 }
 
