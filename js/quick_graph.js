@@ -919,7 +919,7 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         
         //$("#" + lbl + "_variable_name").css({"color": color});
         $("#" + lbl + "_slider_value").css({"color": color});
-        $("#" + lbl + "_param").css({"color": color});
+        $("#" + lbl + "_param").css({"color": color, "font-weight": "bold"});
     // }
 }
 
