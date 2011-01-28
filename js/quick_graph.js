@@ -84,7 +84,8 @@ function loadTitleBarHash() {
         
         /* grab the name*/
         var tempName = variableString.substring(nameStart,nameStop);
-        tempName = tempName.replace("%20"," ");
+        tempName = tempName.replace(/%20/g," ");
+       
 
         
 	} 	
