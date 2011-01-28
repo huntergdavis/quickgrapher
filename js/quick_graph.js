@@ -1054,12 +1054,12 @@ function loadFunctions()
         }
         
         margins += top + "px;";
-        margins += "margin-left: " + (col * colSize) + "px";
+        margins += " margin-left: " + (col * colSize) + "px;";
         // If last row
         var next = row + 1;
         if(next == fxnCount && next % colSize != 0)
         {
-            margins += "margin-bottom: " +  (15 * (colSize - (next%colSize))) + "px";
+            margins += " margin-bottom: " +  (15 * (colSize - (next%colSize))) + "px;";
         }
         createFunctionLink(fxnName, margins, list);
         row++;
