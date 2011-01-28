@@ -369,6 +369,12 @@ h2 > .examples {
   cursor: pointer;
 }
 
+.example_list > li:hover {
+  text-decoration: none;
+  color: rgb(255,0,0);
+  cursor: pointer;
+}
+
 .function_list > li.column1 {
   margin-left: 0px;
 }
