@@ -445,6 +445,10 @@ h2 > .examples {
     display: block;
 }
 
+#resolve_btn {
+  margin-left: 195px;
+}
+
 
 /*  13-column layout
   60 px columns, 24 px gutters, 72 px margins, 1212 px total (extra space for scrollbars)
@@ -528,8 +532,11 @@ h2 > .examples {
   #dynamic_label {
     font-size: 9pt;
     font-weight: bold;
-    margin: 3px;
     display: inline;
+  }
+  
+  #resolve_btn {
+    margin-left: 75px;
   }
 }
 
@@ -606,8 +613,11 @@ h2 > .examples {
   #dynamic_label {
     font-size: 9pt;
     font-weight: bold;
-    margin: 3px;
     display: inline;
+  }
+  
+  #resolve_btn {
+    margin-left: 15px;
   }
 }
 
