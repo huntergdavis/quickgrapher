@@ -498,7 +498,7 @@ function updateStep(inputID)
 function generateHashURL(vars)
 {
     //var URL = "www.quickgrapher.com/index.html?";
-    var URL = "http://www.quickgraph.com/index.html?";
+    var URL = "http://www.quickgrapher.com/index.html?";
     
     // add equation to url
     var localEquation = $("#mainEquation").val();
