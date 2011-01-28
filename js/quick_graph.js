@@ -321,8 +321,8 @@ function updateSolution(equation, context, solution)
     for(var i = 0; i < varLen; i++)
     {
         v = vars[i];
-        varList += v;
-        varList += "=";
+        //varList += v;
+        //varList += "=";
         varList += context[v];
         if(i != varLen - 1)
         {
