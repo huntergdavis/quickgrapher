@@ -1021,7 +1021,7 @@ function loadFunctions()
         functions = {};
     }
   
-    var list, fxn,
+    var list = $("#functionlist"), fxn,
         col, row = 0, cols = 4,
         fxnCount = 0, colSize = 1, colWidth,
         emptied = false, margins;
@@ -1031,7 +1031,19 @@ function loadFunctions()
         fxnCount++;
     }
     colSize = Math.ceil(fxnCount / cols);
-    colWidth = 100;
+    var item = list;
+    while(item.width() == 0)
+    {
+        if(typeof item.parent() != "undefined")
+        {
+            item = item.parent();
+        }
+        else
+        {
+            break;
+        }
+    }
+    colWidth = Math.floor(item.width() / cols);
     if(colSize < 1)
     {
         colSize = 1;
@@ -1041,7 +1053,6 @@ function loadFunctions()
     {
         if(!emptied)
         {
-            list = $("#functionlist");
             list.empty();
             emptied = true;
         }
