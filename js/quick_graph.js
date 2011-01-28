@@ -662,7 +662,7 @@ function createSliders2(vars)
         el.setAttribute("rowspan","2");
         el = $(el);
         inp = document.createElement("div");
-        inp.innerHTML = v + "<font style='font-size: 4pt;'> = </font>";
+        inp.innerHTML = v + "<font style='font-size: 7pt; margin-left: 3px;'> = </font>";
         inp.id = v + "_variable_name";
         el.append(inp);
         inp = $(inp);
@@ -1218,6 +1218,22 @@ function loadExample(exampleID)
     return false;
 }
 
-console.log("Math.PI: " + Math.sin(0 * Math.PI) + " | " + Math.sin(Math.PI) + " | " + Math.sin(Math.PI/2));
-console.log("3.141592653589793: " + Math.sin(0 * 3.141592653589793) + " | "  + Math.sin(3.141592653589793) + " | " + Math.sin(3.141592653589793/2));
-
+/* From page */
+function clearAndParse()
+{
+    clearAndParseEquation(document.getElementById('mainEquation').value);
+}
+function solve()
+{
+    solveEquation();
+}
+function toggleInclude(toggleID)
+{
+    toggleDraw(toggleID);
+}
+// Load examples
+loadExamples();
+// Load functions
+loadFunctions();
+// Load From TitleBar
+loadTitleBarHash();
