@@ -1234,9 +1234,11 @@ function toggleInclude(toggleID)
 {
     toggleDraw(toggleID);
 }
-// Load examples
-loadExamples();
-// Load functions
-loadFunctions();
-// Load From TitleBar
-loadTitleBarHash();
+$(document).ready(function() {
+    // Load examples
+    loadExamples();
+    // Load functions
+    loadFunctions();
+    // Load From TitleBar
+    loadTitleBarHash();
+});
