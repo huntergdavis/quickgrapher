@@ -429,13 +429,19 @@ h2 > .examples {
 }
 
 .variable_label > .minimum {
-  width: 45px;
+  width: 55px;
 }
 .variable_label > .step {
-  width: 35px;
+  width: 30px;
 }
 .variable_label > .maximum {
   width: 50px;
+}
+
+.dynamic_label {
+    font-size: 9pt;
+    font-weight: bold;
+    margin: 3px;
 }
 
 
@@ -580,10 +586,10 @@ h2 > .examples {
   }
   
   .variable_label > .minimum {
-    width: 45px;
+    width: 55px;
   }
   .variable_label > .step {
-    width: 70px;
+    width: 30px;
   }
   .variable_label > .maximum {
     width: 70px;
