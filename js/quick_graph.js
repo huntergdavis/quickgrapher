@@ -1047,7 +1047,7 @@ function loadFunctions()
         //fxn = functions[fxnName];
         col = Math.floor(row/colSize) + 1;
         top = 0;
-        if(row == 0 || col != (Math.floor((row-1)/colSize) + 1))
+        if(row > 0 && col != (Math.floor((row-1)/colSize) + 1))
         {
             top = -15 * colSize;
         }
