@@ -166,7 +166,7 @@ img::-moz-selection {background: transparent;}
   font-size: 10pt;
   font-weight: bold;
   display: none;
-  width: 484px;
+  width: 380px;
   overflow: hidden;
 }
 
@@ -425,7 +425,16 @@ h2 > .examples {
   margin-left: 60px;
 }
 
+.solution_column {
+  float: left;
+  margin-left: 22px;
+  width: 350px;
+}
 
+.variables_column {
+  width: 500px;
+  margin-left: 357px;
+}
 
 
 /*  13-column layout
@@ -475,6 +484,19 @@ h2 > .examples {
   .variable_table {
     margin: 8px 0px 0px 427px;
   }
+  
+  .menu > .functions_list {
+      margin-left: 110px;
+  }
+  
+  .function_box {
+    margin-left: 196px;
+  }
+  
+  .solution_column {
+    margin-left: 22px;
+    width: 350px;
+  }
 }
 
 /*  11-column layout
@@ -523,6 +545,18 @@ h2 > .examples {
     width: 176px;
     font-size: 10pt;
   }
+  
+  .menu > .functions_list {
+      margin-left: 93px;
+  }
+  
+  .function_box {
+    margin-left: 176px;
+  }
+  
+  .solution_column {
+    width: 275px;
+  }
 }
 
 
@@ -563,7 +597,7 @@ h2 > .examples {
   }
   
   .equation {
-      margin: 2px 7px 0px 7px;
+      margin: 0px;
   }
   
   #equationName {
@@ -579,6 +613,17 @@ h2 > .examples {
   .menu > .functions_list {
     display: block;
     margin-left: 0px;
+  }
+  
+  .function_box {
+    margin-left: 2px;
+    width: 252px;
+    font-size: 8pt;
+  }
+  
+  .function_box {
+    margin-left: 2px;
+    width: 252px;
   }
 }
 
