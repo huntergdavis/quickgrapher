@@ -498,7 +498,7 @@ function updateStep(inputID)
 function generateHashURL(vars)
 {
     //var URL = "www.quickgrapher.com/index.html?";
-    var URL = "http://www.quickgraph.com/index.html?";
+    var URL = "http://www.quickgrapher.com/index.html?";
     
     // add equation to url
     var localEquation = $("#mainEquation").val();
@@ -863,7 +863,10 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         } catch(error)
         {
             solution = undefined;
-            console.log("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
+            if(QGSolver.DEBUG)
+            {
+                console.log("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
+            }
         }
         // Only add the point if it is a valid solution
         if((typeof solution != "undefined") && isFinite(solution))

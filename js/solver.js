@@ -154,8 +154,10 @@ var QGSolver = function() {
             active = [],
             objs = {};
             
-        console.log("new QGEquation().");
-        
+       if(QGSolver.DEBUG)
+       {    
+            console.log("new QGEquation().");
+        }
         var logObject = function(obj) {
             if(typeof obj != "undefined" && typeof obj.type == "string")
             {
@@ -339,7 +341,10 @@ var QGSolver = function() {
                     }
                 }
             }
+        if(QGSolver.DEBUG)
+         {  
             console.log("Current stack: " + this.active.toString());
+         }
         };
         
         // Called when parenthesis are closed
@@ -352,7 +357,10 @@ var QGSolver = function() {
             if(this.active.length > 0)
             {
                 var curr = this.active.pop();
-                console.log("Call to close " + curr.toString() + " with prev: " + prev + ", parenClosed: " + parenClosed + ". Stack: " + this.active.toString());
+                if(QGSolver.DEBUG)
+                {  
+                    console.log("Call to close " + curr.toString() + " with prev: " + prev + ", parenClosed: " + parenClosed + ". Stack: " + this.active.toString());
+                }
                 if(curr.type == "QGFunction")
                 {
                     // Prefixed functions can be closed
@@ -361,7 +369,10 @@ var QGSolver = function() {
                         // Append current arg and replace
                         curr.append(prev);
                         this.active.push(curr);
-                        console.log("Current stack: " + this.active.toString());
+                        if(QGSolver.DEBUG)
+                        {  
+                            console.log("Current stack: " + this.active.toString());
+                        }
                         // if((typeof prev == "undefined") || prev.type != "QGBlock")
                         // {
                         //     this.close(curr);
@@ -444,14 +455,20 @@ var QGSolver = function() {
                                 // curr.append(prev.pop());
                                 // // And then use curr for first from prev
                                 // prev.push(curr);
-                                console.log("Current stack: " + this.active.toString());
+                                if(QGSolver.DEBUG)
+                                {
+                                    console.log("Current stack: " + this.active.toString());
+                                }
                                 // Haven't found parens yet, close
                                 this.close(curr, false);
                             }
                             else
                             {
                                 curr.append(prev);
-                                console.log("Current stack: " + this.active.toString());
+                                if(QGSolver.DEBUG)
+                                {
+                                    console.log("Current stack: " + this.active.toString());
+                                }
                                 // Haven't found parens yet, close
                                 this.close(curr, false);
                             }
@@ -459,7 +476,10 @@ var QGSolver = function() {
                     }
                     else
                     {
-                        console.log("Warning: Trying to close function " + curr.toString() + " but status: [closed: "+curr.closed()+",prefixed:"+curr.prefix()+",parenFound:"+parenClosed+",prevType:"+(prev?prev.type:prev)+"].  Breaking...");
+                        if(QGSolver.DEBUG)
+                        {
+                            console.log("Warning: Trying to close function " + curr.toString() + " but status: [closed: "+curr.closed()+",prefixed:"+curr.prefix()+",parenFound:"+parenClosed+",prevType:"+(prev?prev.type:prev)+"].  Breaking...");
+                        }
                         if(parenClosed)
                         {
                             // Replace items on stack since we didn't use them
@@ -468,7 +488,10 @@ var QGSolver = function() {
                             {
                                 this.active.push(prev);
                             }
-                            console.log("Current stack: " + this.active.toString());
+                            if(QGSolver.DEBUG)
+                            {
+                                console.log("Current stack: " + this.active.toString());
+                            }
                         }
                     }
                 }
@@ -480,7 +503,10 @@ var QGSolver = function() {
                       curr.append(prev);
                       // Mark block as closed
                       curr.close();
-                      console.log("Current stack: " + this.active.toString());
+                      if(QGSolver.DEBUG)
+                        {
+                            console.log("Current stack: " + this.active.toString());
+                        }
                       // Look ahead to see if this is a function block or normal block
                       if(this.active.length > 0)
                       {
@@ -491,13 +517,19 @@ var QGSolver = function() {
                           else
                           {
                               this.active.push(curr);
-                              console.log("Current stack: " + this.active.toString());
+                              if(QGSolver.DEBUG)
+                              {
+                                  console.log("Current stack: " + this.active.toString());
+                              }
                           }
                       }
                       else
                       {
                           this.active.push(curr);
-                          console.log("Current stack: " + this.active.toString());
+                          if(QGSolver.DEBUG)
+                          {
+                            console.log("Current stack: " + this.active.toString());
+                          }
                       }
                     }
                     else
@@ -574,7 +606,10 @@ var QGSolver = function() {
             var curr, prev = undefined;
             if(this.active.length > 0)
             {
-                console.log("Reducing "+this.active.length+" items");
+                if(QGSolver.DEBUG)
+                {
+                    console.log("Reducing "+this.active.length+" items");
+                }
                 while(this.active.length > 0)
                 {
                     curr = this.active.pop();
@@ -594,14 +629,20 @@ var QGSolver = function() {
                                 prevStack = [prev];
                             if(typeof prevFront != "undefined")
                             {
-                                console.log("Took " + prevFront.toString() + " from " + prev.toString());
+                                if(QGSolver.DEBUG)
+                                {
+                                    console.log("Took " + prevFront.toString() + " from " + prev.toString());
+                                }
                             }
                             while((typeof prevFront == "object") && prevFront.type == "QGFunction"
                                 && !prevFront.prefix() && (curr.priority() >= prevFront.priority()))
                             {
                                 prev = prevFront;
                                 prevFront = prev.pop();
-                                console.log("Took " + prevFront.toString() + " from " + prev.toString());
+                                if(QGSolver.DEBUG)
+                                {
+                                    console.log("Took " + prevFront.toString() + " from " + prev.toString());
+                                }
                                 prevStack.push(prev);
                             }
                             // Use first from prev as second for curr
@@ -700,7 +741,10 @@ var QGSolver = function() {
             funcName = functionString,
             args = [];
             
-        console.log("new QGFunction("+functionString+")");
+        if(QGSolver.DEBUG)
+        {    
+            console.log("new QGFunction("+functionString+")");
+        }
 
         var append = function(item) {
             if(item.type == "QGBlock" && (typeof item.content != "undefined")
@@ -718,7 +762,10 @@ var QGSolver = function() {
             {
                 this.args.push(item);
             }
-            console.log("Args for "+ this.funcName +": " + this.args.toString());
+            if(QGSolver.DEBUG)
+            {
+                console.log("Args for "+ this.funcName +": " + this.args.toString());
+            }
         };
         
         var pri = function() {
@@ -835,7 +882,10 @@ var QGSolver = function() {
             {
                 var temp = this.args[0];
                 this.args[0] = undefined;
-                console.log("Args for "+ this.funcName +": " + this.args.toString());
+                if(QGSolver.DEBUG)
+                {
+                    console.log("Args for "+ this.funcName +": " + this.args.toString());
+                }
                 return temp;
             } else {
                 alert("Error: Trying to pop from 0 args");
@@ -849,7 +899,10 @@ var QGSolver = function() {
             } else {
                 this.args[0] = item;
             }
-            console.log("Args for "+ this.funcName +": " + this.args.toString());
+            if(QGSolver.DEBUG)
+            {
+                console.log("Args for "+ this.funcName +": " + this.args.toString());
+            }
         };
         
         var toLabel = function() {
@@ -878,8 +931,10 @@ var QGSolver = function() {
     var QGBlock = function() {
         var inner = undefined,
             c = false;
-            
-        console.log("new QGBlock()");
+        if(QGSolver.DEBUG)
+        {    
+            console.log("new QGBlock()");
+        }
 
         var close = function() {
             this.c = true;
@@ -926,8 +981,10 @@ var QGSolver = function() {
     var QGParamDivider = function() {
         var params = [];
         
-        console.log("new QGParamDivider()");
-        
+        if(QGSolver.DEBUG)
+        {
+            console.log("new QGParamDivider()");
+        }
         var append = function(param) {
             this.params.unshift(param);
         };
@@ -974,7 +1031,10 @@ var QGSolver = function() {
     var QGVariable = function(variableName) {
         var v = variableName;
         
-        console.log("new QGVariable("+variableName+")");
+        if(QGSolver.DEBUG)
+        {
+            console.log("new QGVariable("+variableName+")");
+        }
       
         var solve = function(context) {
             var val = context[this.varName];
@@ -1034,7 +1094,10 @@ var QGSolver = function() {
         var v = value,
             neg = negative;
         
-        console.log("new QGConstant("+(this.negative?"-":"")+value+")");
+        if(QGSolver.DEBUG)
+        {
+            console.log("new QGConstant("+(this.negative?"-":"")+value+")");
+        }
         
         var solve = function(context) {
             return (this.negative?-1:1) * this.value;
@@ -1111,7 +1174,10 @@ var QGSolver = function() {
             innerType;
         // Remove whitespace
         rawEquation = rawEquation.replace(/\s/g,"");
-        console.log("Parsing: " + rawEquation);
+        if(QGSolver.DEBUG)
+        {
+            console.log("Parsing: " + rawEquation);
+        }
         
         for(var i = 0; i < rawEquation.length; i++) {
             // Previous character
@@ -1152,7 +1218,10 @@ var QGSolver = function() {
                     // If we are working on a number, assume its a constant
                     else if(builtNumber.length > 0)
                     {
-                        console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                        if(QGSolver.DEBUG)
+                        {
+                            console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                        }
                         eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
                         builtNumber = "";
                     }
@@ -1167,7 +1236,10 @@ var QGSolver = function() {
                         // Check that we dont have a negated constant
                         if(builtNumber.charAt(0) != "-" || builtNumber.length > 1)
                         {
-                            console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                            if(QGSolver.DEBUG)
+                            {
+                                console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                            }
                             eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
                         }
                         else
@@ -1216,7 +1288,10 @@ var QGSolver = function() {
                     }
                     else
                     {
-                        console.log("Determined '" + c + "' is a function since prevType(" + b + ") is " + prevType);
+                        if(QGSolver.DEBUG)
+                        {
+                            console.log("Determined '" + c + "' is a function since prevType(" + b + ") is " + prevType);
+                        }
                         // Append function
                         eq.append(new QGFunction(c));
                     }
@@ -1230,7 +1305,10 @@ var QGSolver = function() {
                         // Check that we dont have a negated constant
                         if(builtNumber.charAt(0) != "-" || builtNumber.length > 1)
                         {
-                            console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                            if(QGSolver.DEBUG)
+                            {
+                                console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                            }
                             eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
                             builtNumber = "";
                         }
@@ -1297,7 +1375,10 @@ var QGSolver = function() {
         }
         else if(builtNumber.length > 0)
         {
-            console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+            if(QGSolver.DEBUG)
+            {
+                console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+            }
             eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
             builtNumber = "";
         }
