@@ -360,7 +360,7 @@ function createContext(vars) {
     {
         v = vars[i];
         step = parseFloat($("#" + v + "_step").val());
-        slider = $("#" + v + "_slider");
+        slider = $("#" + v + "_slider_value");//$("#" + v + "_slider");
         val = parseInput(slider.val(),step);
         context.set(v, val);
     }
