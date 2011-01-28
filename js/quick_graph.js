@@ -480,7 +480,7 @@ function updateStep(inputID)
 function generateHashURL(vars)
 {
     //var URL = "www.quickgrapher.com/index.html?";
-    var URL = "file:///home/programmer/Projects/sliders/quick-graph-less.html?";
+    var URL = "http://www.quickgraph.com/index.html?";
     
     // add equation to url
     var localEquation = $("#mainEquation").val();
@@ -539,8 +539,10 @@ function generateHashURL(vars)
     URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + cleanedGraphName + "]";
 
     // put the URL as our new url
-    console.log(URL);
-           
+    //console.log(URL);
+    
+    // sneak the url into the instructions block    
+    $("#instruct").attr("href", URL);
 }
 
 /*
