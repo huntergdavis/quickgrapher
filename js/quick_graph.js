@@ -326,7 +326,7 @@ function updateSolution(equation, context, solution)
         varList += context[v];
         if(i != varLen - 1)
         {
-            varList += ",";
+            varList += ", ";
         }
     }
     document.getElementById("variable_list").innerText = varList;
