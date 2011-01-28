@@ -231,7 +231,7 @@ h2 {
   margin: 0px;
 }
 .variable_table {
-  margin: 8px 0px 0px 134px;/*22px*/
+  margin: 8px 0px 0px;
   display: block;
 }
 
@@ -433,7 +433,7 @@ h2 > .examples {
 
 .variables_column {
   width: 500px;
-  margin-left: 357px;
+  margin-left: 427px;
 }
 
 
@@ -481,9 +481,7 @@ h2 > .examples {
     margin: 0px 0px 0px 422px;
   }
   
-  .variable_table {
-    margin: 8px 0px 0px 427px;
-  }
+  
   
   .menu > .functions_list {
       margin-left: 110px;
@@ -496,6 +494,11 @@ h2 > .examples {
   .solution_column {
     margin-left: 22px;
     width: 350px;
+  }
+  
+  .variables_column {
+    margin-left: 423px;
+    width: 500px;
   }
 }
 
@@ -537,10 +540,6 @@ h2 > .examples {
     margin: 0px 0px 0px 257px;
   }
   
-  .variable_table {
-    margin: 8px 0px 0px 262px;
-  }
-  
   #legend {
     width: 176px;
     font-size: 10pt;
@@ -556,6 +555,21 @@ h2 > .examples {
   
   .solution_column {
     width: 275px;
+  }
+  
+  .variables_column {
+    margin-left: 320px;
+    width: 435px;
+  }
+  
+  .variable_label > .minimum {
+    width: 70px;
+  }
+  .variable_label > .step {
+    width: 70px;
+  }
+  .variable_label > .minimum {
+    width: 70px;
   }
 }
 

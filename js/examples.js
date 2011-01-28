@@ -179,7 +179,7 @@ Examples.push({
 Examples.push({
     name: "Lorentz Factor",
     fxn : "1 / sqrt(1-(velocity^2/c^2))",
-    url : "1/sqrt(1-(velocity^2/c^2))=290000000:290000000:{300000000:310000000:}1:[299792000:299792458:;1000:1000:=Lorentz%20Factor]"
+    url : "1/sqrt(1-(velocity^2/c^2))=290000000:290000000:{300000000:310000000:}1000:1000:[299792000:299792458:;1:0:=Lorentz%20Factor]"
 });
 
 Examples.push({
