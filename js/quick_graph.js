@@ -1045,9 +1045,9 @@ function loadFunctions()
             emptied = true;
         }
         //fxn = functions[fxnName];
-        col = Math.floor(row/colSize) + 1;
+        col = Math.floor(row/colSize);
         top = 0;
-        if(row > 0 && col != (Math.floor((row-1)/colSize) + 1))
+        if(row > 0 && col != Math.floor((row-1)/colSize))
         {
             top = -15 * colSize;
         }
@@ -1074,7 +1074,7 @@ function insertFunction(linkID)
             append += " ";
         }
         append += fxnName;
-        if(fxn.prefix())
+        if(fxn.prefix)
         {
             append += "()";
         }
@@ -1093,12 +1093,13 @@ function compressName(name)
 
 function createFunctionLink(fxnStr, col, margin, parent)
 {
-    var ex = document.createElement("li");
+    var ex = document.createElement("li"),
+        colSize = 100;
     
     ex.setAttribute("id","fxn_" + fxnStr);
-    ex.setAttribute("class","column" + col);
+    //ex.setAttribute("class","column" + col);
     ex.setAttribute("onclick","insertFunction(this.id)");
-    ex.setAttribute("style","margin-top: " + margin + "px;");
+    ex.setAttribute("style","margin-top: " + margin + "px; margin-left: " + (col * colSize) + "px");
     
     // Text to add
     ex.innerHTML = fxnStr;
