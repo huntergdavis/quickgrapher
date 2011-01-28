@@ -680,7 +680,6 @@ var QGSolver = function() {
         };
         
         return {
-            DEBUG: debug,
             append: append,
             finalize: reduce,
             solve: solve,
@@ -1331,6 +1330,7 @@ var QGSolver = function() {
     };
     
     return {
+        DEBUG: debug,
         parse: parseEquation,
         solve: solve,
         equation: parsedEquation

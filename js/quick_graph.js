@@ -372,7 +372,10 @@ function solveEquation()
       // Create context
       var vars = parsedEquation.variables();
       var context = createContext(vars);
-      console.log("Context: " + context.toString());
+      if(QGSolver.DEBUG)
+      {
+        console.log("Context: " + context.toString());
+      }
       // Solve
       var solution = undefined;
       try
