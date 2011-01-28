@@ -132,6 +132,17 @@ img::-moz-selection {background: transparent;}
   cursor: pointer;*/
 }
 
+.instructions >  a {
+  color: rgb(0,0,0);
+}
+.instructions >  a:hover {
+  text-decoration: none;
+  color: rgb(255,0,0);
+}
+.instructions >  a:visited {
+  color: rgb(0,0,0);
+}
+
 .example_box {
   border: 1px solid rgb(164, 157, 143);
   background: rgb(255,255,255);
@@ -161,6 +172,11 @@ img::-moz-selection {background: transparent;}
 
 #mainEquation {
   width: 380px;
+}
+
+#equationName {
+    margin-left: 3px;
+    width: 101px;
 }
 
 #legend {
@@ -439,7 +455,12 @@ h2 > .examples {
   }
   
   #mainEquation {
-    width: 680px;
+    width: 660px;
+  }
+  
+  #equationName {
+      margin-left: 3px;
+      width: 121px;
   }
   
   #legend {
@@ -485,6 +506,11 @@ h2 > .examples {
     width: 512px;
   }
   
+  #equationName {
+      margin-left: 3px;
+      width: 101px;
+  }
+  
   .bar {
     margin: 0px 0px 0px 257px;
   }
@@ -518,6 +544,10 @@ h2 > .examples {
     -webkit-text-size-adjust: 100%;
   }
   
+  h2 {
+    margin-left: 7px;
+  }
+  
   .instructions {
     width: 208px;
   }
@@ -528,17 +558,27 @@ h2 > .examples {
     margin: 10px 0px 12px 7px;
   }
   
+  .menu {
+    margin-left: 7px;
+  }
+  
   .equation {
       margin: 2px 7px 0px 7px;
   }
   
   #equationName {
-      margin-left: 0px;
+      margin-left: 7px;
+      width: 101px;
   }
   
   #mainEquation {
       width: 196px;
       margin: 3px 0px 0px 7px; 
+  }
+  
+  .menu > .functions_list {
+    display: block;
+    margin-left: 0px;
   }
 }
 
@@ -560,6 +600,10 @@ h2 > .examples {
     -webkit-text-size-adjust: 100%;
   }
   
+  h2 {
+    margin-left: 7px;
+  }
+  
   #container {
     margin: 6px;
   }
@@ -575,12 +619,32 @@ h2 > .examples {
     margin: 10px 0px 17px 7px;
   }
   
+  .menu {
+    margin-left: 7px;
+  }
+  
+  .equation {
+      margin-left: 0px;
+  }
+  
   #mainEquation {
-    width: 84px;
+    margin-left: 7px;
+    width: 196px;
+  }
+  
+  #equationName {
+      margin-left: 7px;
+      width: 101px;
   }
   
   .menu > .functions_list {
     display: block;
+    margin-left: 0px;
+  }
+  
+  #graphBtn {
+      margin-left: 9px;
+      margin-bottom: -5px;
   }
 }
 
