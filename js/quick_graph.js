@@ -686,7 +686,8 @@ function createSliders2(vars)
         inp.id = v + "_slider_value";
         el.append(inp);
         inp = $(inp);
-        cs = {"float":"left"};
+        cs = {};
+        cs["float"] = "left";
         cs["font-weight"]="bold";
         cs["font-size"]="20pt";
         cs["margin-left"]="20px";
