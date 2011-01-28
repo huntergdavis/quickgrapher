@@ -85,7 +85,7 @@ img::-moz-selection {background: transparent;}
 
 #container {
   background: rgb(241,241,241);
-  background-image: url('/images/grid_1.gif');
+  background-image: url('http://www.hunterdavis.com/quickgrapher/images/grid_1.gif');
   background-repeat: no-repeat;
   background-position: right top;
   border: 1px solid rgb(0,0,0);
@@ -95,7 +95,7 @@ img::-moz-selection {background: transparent;}
 #inner {
   border-bottom: 1px solid rgb(0,0,0);
   border-right: 1px solid rgb(0,0,0);
-  background-image: url('/images/grid_2.gif');
+  background-image: url('http://www.hunterdavis.com/quickgrapher/images/grid_2.gif');
   background-repeat: no-repeat;
   background-position: left bottom;
   margin: 0px;
