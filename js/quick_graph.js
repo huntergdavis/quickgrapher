@@ -813,7 +813,7 @@ function updateAllGraphs(equation, context)
                 }
                 
                 //$("#" + v + "_variable_name").css({"color": color});
-                $("#" + v + "_slider_value").css({"color": color});
+                $("#" + v + "_slider_value").css({color: color});
             }
         }
     }
@@ -933,8 +933,10 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         }
         
         //$("#" + lbl + "_variable_name").css({"color": color});
-        $("#" + lbl + "_slider_value").css({"color": color});
-        $("#" + lbl + "_param").css({"color": color, "font-weight": "bold"});
+        $("#" + lbl + "_slider_value").css({color: color});
+        cs = {color: color};
+        cs["font-weight"] = "bold";
+        $("#" + lbl + "_param").css(cs);
     // }
 }
 
