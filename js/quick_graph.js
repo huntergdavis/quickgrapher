@@ -1024,7 +1024,7 @@ function loadFunctions()
     var list, fxn,
         col, row = 0, cols = 4,
         fxnCount = 0, colSize = 1,
-        emptied = false, top;
+        emptied = false, margins;
     // Count functions
     for(var f in functions)
     {
@@ -1045,13 +1045,23 @@ function loadFunctions()
             emptied = true;
         }
         //fxn = functions[fxnName];
+        margins = "margin-top: ";
         col = Math.floor(row/colSize);
-        top = 0;
-        if(row > 0 && col != Math.floor((row-1)/colSize))
+        var top = 0;
+        if(row > 0 && row % colSize == 0)
         {
             top = -15 * colSize;
         }
-        createFunctionLink(fxnName, col, top, list);
+        
+        margins += top + "px;";
+        margins += "margin-left: " + (col * colSize) + "px";
+        // If last row
+        var next = row + 1;
+        if(next == fxnCount && next % colSize != 0)
+        {
+            margins += "margin-bottom: " +  (15 * (colSize - (next%colSize))) + "px";
+        }
+        createFunctionLink(fxnName, margins, list);
         row++;
     }
 }
@@ -1091,15 +1101,14 @@ function compressName(name)
     return compressed;
 }
 
-function createFunctionLink(fxnStr, col, margin, parent)
+function createFunctionLink(fxnStr, style, parent)
 {
-    var ex = document.createElement("li"),
-        colSize = 100;
+    var ex = document.createElement("li");
     
     ex.setAttribute("id","fxn_" + fxnStr);
     //ex.setAttribute("class","column" + col);
     ex.setAttribute("onclick","insertFunction(this.id)");
-    ex.setAttribute("style","margin-top: " + margin + "px; margin-left: " + (col * colSize) + "px");
+    ex.setAttribute("style",style);
     
     // Text to add
     ex.innerHTML = fxnStr;
