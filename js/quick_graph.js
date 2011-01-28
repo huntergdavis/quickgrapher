@@ -672,25 +672,25 @@ function createSliders2(vars)
         inp.id = v + "_variable_name";
         el.append(inp);
         inp = $(inp);
-        inp.css({
-          "float":"left",
-          "font-size":"13pt",
-          "width":"100%",
+        var cs = {
+          width:"100%",
           // Need to load this from graph
-          "color":"rgb" + "(0,0,0)"
-        });
+          color:"rgb" + "(0,0,0)"
+        };
+        cs["float"] = "left";
+        cs["font-size"] = "13pt";
+        inp.css(cs);
         inp = document.createElement("div");
         inp.setAttribute("class","variable_value");
         inp.innerHTML = lastValue;
         inp.id = v + "_slider_value";
         el.append(inp);
         inp = $(inp);
-        inp.css({
-          "float":"left",
-          "font-weight":"bold",
-          "font-size":"20pt",
-          "margin-left":"20px"
-        });
+        cs = {"float":"left"};
+        cs["font-weight"]="bold";
+        cs["font-size"]="20pt";
+        cs["margin-left"]="20px";
+        inp.css(cs);
         first.append(el);
         
         el = document.createElement("td");
@@ -786,7 +786,11 @@ function updateAllGraphs(equation, context)
             // Register with Graph
             var graphName = $("#equationName").val();
             graph = $(graph);
-            graph.graphify({'hue-increment' : 35, 'hue-base' : 0, 'value-base': 75, 'name': graphName})/*.attach_legend({
+            var opts = {name: graphName};
+            opts['hue-increment'] = 35;
+            opts['hue-base'] = 0;
+            opts['value-base'] = 75;
+            graph.graphify(opts)/*.attach_legend({
               'legend-mode': false,
               'legend-container': $("#legend"),
             })*/.realHover({
@@ -908,11 +912,12 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     // lbl += " )";
     
     // Add plot for this variable (will overwrite existing ones)
+    var cs = {label : lbl};
+    cs['plot-type'] = 'line';
     graph.plot(
         graphVariable,
         data,
-        {'plot-type' : 'line',
-          'label' : lbl}
+        cs
     );
     
     // Set variable colors from plot
