@@ -1235,7 +1235,6 @@ function toggleInclude(toggleID)
     toggleDraw(toggleID);
 }
 $(document).ready(function() {
-    QGSolver.DEBUG = true;
     // Load examples
     loadExamples();
     // Load functions
