@@ -131,7 +131,7 @@ Examples.push({
 Examples.push({
     name: "First Order Integral of x^n dx",
     fxn : "1/(n+1) * x^(n+1) + C",
-    url : "1/(n+1)*x^(n+1)+C=0:0:0:{100:100:100:}1:1:1:[14:2:10:;1:1:1:=First%20Order%20Integral]"
+    url : "1/(n+1)*x^(n+1)+C=0:-10:0:{3:10:100:}1:0.001:1:[1:12:13:;0:1:0:=First%20Order%20Integral]"
 });
 
 Examples.push({
