@@ -438,10 +438,11 @@ h2 > .examples {
   width: 50px;
 }
 
-.dynamic_label {
+#dynamic_label {
     font-size: 9pt;
     font-weight: bold;
     margin: 3px;
+    display: inline;
 }
 
 
