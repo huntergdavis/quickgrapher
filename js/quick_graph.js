@@ -662,7 +662,7 @@ function createSliders2(vars)
         el.setAttribute("rowspan","2");
         el = $(el);
         inp = document.createElement("div");
-        inp.innerHTML = v; // + " = ";
+        inp.innerHTML = v + "<font style='font-size: 4pt;'> = </font>";
         inp.id = v + "_variable_name";
         el.append(inp);
         inp = $(inp);

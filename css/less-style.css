@@ -216,6 +216,7 @@ h2 {
 }
 .variable_table {
   margin: 8px 0px 0px 134px;/*22px*/
+  display: block;
 }
 
 .variable_label {
