@@ -1079,19 +1079,27 @@ function insertFunction(linkID)
         var append = "",
             eq = $("#mainEquation"),
         // Add a space if none there
-            curr = eq.val();
+            curr = eq.val(),
+            cursorOffset = 0;
         if(curr.length > 0 && curr.charAt(curr.length - 1) != " ")
         {
             append += " ";
+            
         }
         append += fxnName;
         if(fxn.prefix)
         {
             append += "()";
+            cursorOffset = -2;
         }
         append += " ";
-        
-        eq.val(curr + append);
+        curr += append;
+        eq.val(curr);
+        // Focus
+        eq.focus();
+        // Set cursor
+        eq[0].selectionStart = curr.length + cursorOffset;
+        eq[0].selectionEnd = curr.length + cursorOffset;
     }
 }
 
