@@ -863,7 +863,10 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         } catch(error)
         {
             solution = undefined;
-            console.log("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
+            if(QGSolver.DEBUG)
+            {
+                console.log("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
+            }
         }
         // Only add the point if it is a valid solution
         if((typeof solution != "undefined") && isFinite(solution))
