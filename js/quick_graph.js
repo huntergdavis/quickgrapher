@@ -1033,7 +1033,7 @@ function loadFunctions()
     colSize = Math.ceil(fxnCount / cols);
     var item = list,
       w = item.width();
-    while(w == 0)
+    while(w == 0 || item.css("width").indexOf("%") != -1)
     {
         if(typeof item.parent() != "undefined")
         {
