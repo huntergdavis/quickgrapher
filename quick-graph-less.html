@@ -78,34 +78,31 @@ hunter or mark at discursivelabs.com
         </div>
         <div style="clear: both;"></div>
         <div id="result" style="display: none;">
-          <!--div class="label" style="display: none;">
-            <span id="function_name">Fxn</span>(<span id="variable_list">0</span>)<br/>
-            <span id="formula" style="display: none;">0</span>
-            &nbsp;&nbsp;&nbsp;&nbsp; = <span id="solution">0</span>
-          </div-->
-          <div style="width: 350px; margin-left: 22px; float: left;">
-              <div class="bar" style="margin-left: 0px; width: 350px">
+          <div class="solution_column">
+              <div class="bar" style="margin-left: 0px; width: 100%;">
                   <h2 style="display: inline;">Solution</h2>
               </div>
               <span id="function_name" style="font-weight: bold;">Fxn</span> ( <span id="variable_list">0</span> )<br/>
               &nbsp;&nbsp;&nbsp;&nbsp; <font style="font-weight: bold;">=</font> <span id="formula">0</span><br/>
               &nbsp;&nbsp;&nbsp;&nbsp; <font style="font-weight: bold;">=</font> <span id="solution">0</span>
           </div>
-          <div class="bar">
-            <h2 style="display: inline;">Variables</h2>
-            <input type="button" value="Re-Solve" onclick="solve()" style="margin: 0px 0px 0px 50px;"/>
-            <input id="dynamic_update" type="checkbox" onclick="solve()"/>
-            <span style="font-size: 9pt; font-weight: bold; margin: 3px;">Realtime Updating</span><span style="font-size: 7pt; margin: 3px;">[may cause browser to lag!]</span>
+          <div class="variables_column">
+            <div class="bar" style="margin-left: 0px; width: 100%;">
+              <h2 style="display: inline;">Variables</h2>
+              <input type="button" value="Re-Solve" onclick="solve()" style="margin: 0px 0px 0px 50px;"/>
+              <input id="dynamic_update" type="checkbox" onclick="solve()"/>
+              <span style="font-size: 9pt; font-weight: bold; margin: 3px;">Realtime Updating</span><span style="font-size: 7pt; margin: 3px;">[may cause browser to lag!]</span>
+            </div>
+            <table id="variables" class="variable_table">
+              <tr class="variable_label">
+                <td class="show">Show?</td>
+                <td class="value"></td>
+                <td class="minimum">Minimum</td>
+                <td class="step">Step</td>
+                <td class="maximum">Maximum</td>
+              </tr>
+            </table>
           </div>
-          <table id="variables" class="variable_table">
-            <tr class="variable_label">
-              <td class="show">Show?</td>
-              <td class="value"></td>
-              <td class="minimum">Minimum</td>
-              <td class="step">Step</td>
-              <td class="maximum">Maximum</td>
-            </tr>
-          </table>
         </div>
       </div>
     </div>
