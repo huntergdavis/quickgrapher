@@ -310,6 +310,18 @@ function parseInput(input, step)
     return result;
 }
 
+// function colorText(text, color)
+// {
+//     var result = text;
+//     if(typeof color != undefined)
+//     {
+//         result = "<font style='color: "++"'>";
+//         result += color;
+//         result += "</font>";
+//     }
+//     return result;
+// }
+
 function updateSolution(equation, context, solution)
 {
     document.getElementById("formula").innerText = equation.toString(context);
@@ -323,7 +335,9 @@ function updateSolution(equation, context, solution)
         v = vars[i];
         //varList += v;
         //varList += "=";
+        varList += "<font id='" + v + "_param'>";
         varList += context[v];
+        varList += "</font>";
         if(i != varLen - 1)
         {
             varList += ", ";
@@ -902,6 +916,7 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         
         //$("#" + lbl + "_variable_name").css({"color": color});
         $("#" + lbl + "_slider_value").css({"color": color});
+        $("#" + lbl + "_param").css({"color": color});
     // }
 }
 
