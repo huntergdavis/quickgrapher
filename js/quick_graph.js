@@ -1090,7 +1090,7 @@ function insertFunction(linkID)
         }
         append += " ";
         
-        eq.append(append);
+        eq.val(curr + append);
     }
 }
 
