@@ -270,7 +270,7 @@ function parseInput(input, step)
         rounded = Math.round(parseFloat(str)),
         result = input;
         
-    if(step > 1)
+    if(step < 1)
     {
         str = rounded + "";
         decimal = str.indexOf(".");
