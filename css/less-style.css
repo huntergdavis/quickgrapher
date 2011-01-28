@@ -364,6 +364,8 @@ h2 > .examples {
 
 .function_list > li {
   list-style-type: none;
+  line-height: 15px;
+  width: 50px;
 }
 
 .function_list > li.column1 {

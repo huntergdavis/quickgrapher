@@ -1022,9 +1022,9 @@ function loadFunctions()
     }
   
     var list, fxn,
-        col = 0, cols = 3,
+        col, row = 0, cols = 4,
         fxnCount = 0, colSize = 1,
-        emptied = false;
+        emptied = false, top;
     // Count functions
     for(var f in functions)
     {
@@ -1045,8 +1045,14 @@ function loadFunctions()
             emptied = true;
         }
         //fxn = functions[fxnName];
-        createFunctionLink(fxnName, Math.floor(col/colSize) + 1, list);
-        col++;
+        col = Math.floor(row/colSize) + 1;
+        top = 0;
+        if(row == 0 || col != (Math.floor((row-1)/colSize) + 1))
+        {
+            top = -15 * colSize;
+        }
+        createFunctionLink(fxnName, col, top, list);
+        row++;
     }
 }
 
@@ -1085,13 +1091,14 @@ function compressName(name)
     return compressed;
 }
 
-function createFunctionLink(fxnStr, col, parent)
+function createFunctionLink(fxnStr, col, margin, parent)
 {
     var ex = document.createElement("li");
     
     ex.setAttribute("id","fxn_" + fxnStr);
     ex.setAttribute("class","column" + col);
     ex.setAttribute("onclick","insertFunction(this.id)");
+    ex.setAttribute("style","margin-top: " + margin + "px;");
     
     // Text to add
     ex.innerHTML = fxnStr;
