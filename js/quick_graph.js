@@ -1023,7 +1023,7 @@ function loadFunctions()
   
     var list, fxn,
         col, row = 0, cols = 4,
-        fxnCount = 0, colSize = 1,
+        fxnCount = 0, colSize = 1, colWidth,
         emptied = false, margins;
     // Count functions
     for(var f in functions)
@@ -1031,6 +1031,7 @@ function loadFunctions()
         fxnCount++;
     }
     colSize = Math.ceil(fxnCount / cols);
+    colWidth = 100;
     if(colSize < 1)
     {
         colSize = 1;
@@ -1054,7 +1055,7 @@ function loadFunctions()
         }
         
         margins += top + "px;";
-        margins += " margin-left: " + (col * colSize) + "px;";
+        margins += " margin-left: " + (col * colWidth) + "px;";
         // If last row
         var next = row + 1;
         if(next == fxnCount && next % colSize != 0)
