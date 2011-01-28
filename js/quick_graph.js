@@ -268,43 +268,46 @@ function parseInput(input, step)
         str = prec + "",
         decimal,
         rounded = Math.round(parseFloat(str)),
-        result = 0;
+        result = inpu;
         
-    str = rounded + "";
-    decimal = str.indexOf(".");
-    
-    
-    if(decimal != -1)
+    if(step > 1)
     {
-        //rounded = parseInt(str.substring(0,decimal));
-        result = parseInt(str.substring(0,decimal)) * step;
-    }
-    else
-    {
-        result = parseInt(str) * step;
-    }
-    
-    // Do final rounding check
-    str = result + "";
-    var len = str.length;
-    decimal = str.indexOf(".");
-    // We have a possible rounding error
-    if(decimal != -1 && len > decimal + 3)
-    {
-        // As long as we find zeros
-        var i;
-        for(i = len - 2; i > -1; i--)
+        str = rounded + "";
+        decimal = str.indexOf(".");
+        
+        
+        if(decimal != -1)
         {
-            if(str.charAt(i) != "0")
-            {
-                i++;
-                break; 
-            }
+            //rounded = parseInt(str.substring(0,decimal));
+            result = parseInt(str.substring(0,decimal)) * step;
         }
-        // If we found a 0 chain at the end
-        if(i != len - 2)
+        else
         {
-            result = parseFloat(str.substring(0,i));
+            result = parseInt(str) * step;
+        }
+        
+        // Do final rounding check
+        str = result + "";
+        var len = str.length;
+        decimal = str.indexOf(".");
+        // We have a possible rounding error
+        if(decimal != -1 && len > decimal + 3)
+        {
+            // As long as we find zeros
+            var i;
+            for(i = len - 2; i > -1; i--)
+            {
+                if(str.charAt(i) != "0")
+                {
+                    i++;
+                    break; 
+                }
+            }
+            // If we found a 0 chain at the end
+            if(i != len - 2)
+            {
+                result = parseFloat(str.substring(0,i));
+            }
         }
     }
 

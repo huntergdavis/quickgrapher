@@ -247,15 +247,7 @@ h2 {
 .value {
   width: 170px;
 }
-.minimum {
-  width: 100px;
-}
-.step {
-  width: 70px;
-}
-.maximum {
-  width: 76px;
-}
+
 .variable {
   color: rgb(0,0,0);
   font-family: Times, "Times New Roman", serif;
@@ -283,8 +275,8 @@ h2 {
   width: 270px;
 }
 .range > input {
-  margin-left: 22px;
-  width: 184px;
+  margin-left: 10px;
+  width: 140px;
 }
 #result {
   margin: 0px;
@@ -428,12 +420,22 @@ h2 > .examples {
 .solution_column {
   float: left;
   margin-left: 22px;
-  width: 350px;
+  width: 225px;
 }
 
 .variables_column {
-  width: 500px;
-  margin-left: 427px;
+  width: 365px;
+  margin-left: 260px;
+}
+
+.variable_label > .minimum {
+  width: 45px;
+}
+.variable_label > .step {
+  width: 35px;
+}
+.variable_label > .maximum {
+  width: 50px;
 }
 
 
@@ -499,6 +501,21 @@ h2 > .examples {
   .variables_column {
     margin-left: 423px;
     width: 500px;
+  }
+  
+  .variable_label > .minimum {
+    width: 100px;
+  }
+  .variable_label > .step {
+    width: 70px;
+  }
+  .variable_label > .maximum {
+    width: 76px;
+  }
+  
+  .range > input {
+    margin-left: 22px;
+    width: 140px;
   }
 }
 
@@ -568,7 +585,7 @@ h2 > .examples {
   .variable_label > .step {
     width: 70px;
   }
-  .variable_label > .minimum {
+  .variable_label > .maximum {
     width: 70px;
   }
 }
