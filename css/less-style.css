@@ -362,6 +362,21 @@ h2 > .examples {
   color: inherit;
 }
 
+.function_list > li {
+  list-style-type: none;
+}
+
+.function_list > li.column1 {
+  margin-left: 0px;
+}
+.function_list > li.column2 {
+  margin-left: 30px;
+}
+.function_list > li.column3 {
+  margin-left: 60px;
+}
+
+
 
 
 /*  13-column layout

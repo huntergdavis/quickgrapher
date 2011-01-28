@@ -992,6 +992,7 @@ function prevExamples()
 }
 
 var examples,
+    functions,
     curr_page;
 
 function loadExamples()
@@ -1010,11 +1011,92 @@ function loadExamples()
     }
 }
 
+function loadFunctions()
+{
+    // Load functions
+    functions = Functions;
+    // If there was nothing to load, just create empty array
+    if(typeof functions == "undefined")
+    {
+        functions = {};
+    }
+  
+    var list, fxn,
+        col = 0, cols = 3,
+        fxnCount = 0, colSize = 1,
+        emptied = false;
+    // Count functions
+    for(var f in functions)
+    {
+        fxnCount++;
+    }
+    colSize = Math.ceil(fxnCount / cols);
+    if(colSize < 1)
+    {
+        colSize = 1;
+    }
+    // Create links
+    for(var fxnName in functions)
+    {
+        if(!emptied)
+        {
+            list = $("#functionlist");
+            list.empty();
+            emptied = true;
+        }
+        //fxn = functions[fxnName];
+        createFunctionLink(fxnName, Math.floor(col/colSize) + 1, list);
+        col++;
+    }
+}
+
+function insertFunction(linkID)
+{
+    // 
+  
+    var fxnName = linkID.substring(linkID.indexOf("_")+1,linkID.length),
+        fxn = functions[fxnName];
+    
+    if(typeof fxn != "undefined")
+    {
+        var append = "",
+            eq = $("#mainEquation"),
+        // Add a space if none there
+            curr = eq.val();
+        if(curr.length > 0 && curr.charAt(curr.length - 1) != " ")
+        {
+            append += " ";
+        }
+        append += fxnName;
+        if(fxn.prefix())
+        {
+            append += "()";
+        }
+        append += " ";
+        
+        eq.append(append);
+    }
+}
+
 function compressName(name)
 {
     // Remove spaces
     var compressed = name.replace(/\s/g,"");
     return compressed;
+}
+
+function createFunctionLink(fxnStr, col, parent)
+{
+    var ex = document.createElement("li");
+    
+    ex.setAttribute("id","fxn_" + fxnStr);
+    ex.setAttribute("class","column" + col);
+    ex.setAttribute("onclick","insertFunction(this.id)");
+    
+    // Text to add
+    ex.innerHTML = fxnStr;
+    
+    parent.append(ex);
 }
 
 function createExampleLink(example, parent)
