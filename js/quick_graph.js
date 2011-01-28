@@ -1031,12 +1031,14 @@ function loadFunctions()
         fxnCount++;
     }
     colSize = Math.ceil(fxnCount / cols);
-    var item = list;
-    while(item.width() == 0 || item.width().indexOf("%") != -1)
+    var item = list,
+      w = item.width();
+    while(w == 0)
     {
         if(typeof item.parent() != "undefined")
         {
             item = item.parent();
+            w = item.width();
         }
         else
         {
