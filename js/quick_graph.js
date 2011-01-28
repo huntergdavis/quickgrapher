@@ -268,7 +268,7 @@ function parseInput(input, step)
         str = prec + "",
         decimal,
         rounded = Math.round(parseFloat(str)),
-        result = inpu;
+        result = input;
         
     if(step > 1)
     {
