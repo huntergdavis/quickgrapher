@@ -343,7 +343,7 @@ function updateSolution(equation, context, solution)
             varList += ", ";
         }
     }
-    document.getElementById("variable_list").innerText = varList;
+    document.getElementById("variable_list").innerHTML = varList;
     $("#result").show();
 }
 
