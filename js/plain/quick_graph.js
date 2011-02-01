@@ -43,6 +43,10 @@ function loadTitleBarHash() {
     
     /* Pull out our equation and set to be valid*/
     equationString = addressBar.substring(equationStart,equationEnd);
+    
+    // replace plus signs in equation they are not usually supported
+    equationString = equationString.replace(/%2B/g,"+");
+    
     equationValid = 1;
     
     /* if we have variable hashes passed in, deal with them */
@@ -556,6 +560,10 @@ function generateHashURL(vars)
     var graphName =  $("#equationName").val();
     var cleanedGraphName = graphName.replace(/\s/g,"%20");
     
+    
+    // replace plus signs in equation they are not usually supported
+    URL = URL.replace(/\+/g,"%2B");
+    
     // add the fully constituted strings to URL
     URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + cleanedGraphName + "]";
 
@@ -564,6 +572,17 @@ function generateHashURL(vars)
     
     // sneak the url into the instructions block    
     $("#instruct").attr("href", URL);
+    
+    // sneak the url into social sharing services
+    $("#twitter_share").attr("st_url",URL);
+    $("#facebook_share").attr("st_url",URL);
+    $("#linkedin_share").attr("st_url",URL);
+    $("#gbuzz_share").attr("st_url",URL);
+    $("#email_share").attr("st_url",URL);
+    $("#sharethis_share").attr("st_url",URL);
+    $("#reddit_share").attr("st_url",URL);
+    $("#slashdot_share").attr("st_url",URL);
+    
 }
 
 /*
