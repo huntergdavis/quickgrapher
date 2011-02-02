@@ -20,7 +20,9 @@ var variableVisHash = new Array();
 function loadTitleBarHash() {
     
     /* find the locations of */
-	var addressBar = window.location.href;
+    addressBar = decodeURIComponent(window.location.href);
+    addressBar = addressBar.replace(/†/g,"+");
+    
     var equationStart = addressBar.indexOf("?")+1;
     var equationEnd = addressBar.indexOf("=");
 	var varsStart = equationEnd + 1;
@@ -45,7 +47,7 @@ function loadTitleBarHash() {
     equationString = addressBar.substring(equationStart,equationEnd);
     
     // replace plus signs in equation they are not usually supported
-    equationString = equationString.replace(/%2B/g,"+");
+    //equationString = equationString.replace(/%2B/g,"+");
     
     equationValid = 1;
     
@@ -88,7 +90,7 @@ function loadTitleBarHash() {
         
         /* grab the name*/
         var tempName = variableString.substring(nameStart,nameStop);
-        tempName = tempName.replace(/%20/g," ");
+        //tempName = tempName.replace(/%20/g," ");
        
 
         
@@ -558,14 +560,17 @@ function generateHashURL(vars)
     
     // replace spaces with %20 for web addresses
     var graphName =  $("#equationName").val();
-    var cleanedGraphName = graphName.replace(/\s/g,"%20");
+    //var cleanedGraphName = graphName.replace(/\s/g,"%20");
     
-    
-    // replace plus signs in equation they are not usually supported
-    URL = URL.replace(/\+/g,"%2B");
+    // clean up the plusses in URL for email clients
+    URL = URL.replace(/\+/g,"†");
     
     // add the fully constituted strings to URL
-    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + cleanedGraphName + "]";
+    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + graphName + "]";
+
+    // encode the URL
+    URL = encodeURIComponent(URL);
+    
 
     // put the URL as our new url
     //console.log(URL);
