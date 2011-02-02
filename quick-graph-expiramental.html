@@ -1,0 +1,144 @@
+<!--
+Sliders.html, a simple javascript equation parser that creats dynamic sliders based on the equation
+based on original work by Hunter Davis, 2010
+Copyright Discursive Labs, LLC
+We still need to decided on a license for our internal tools we share with the community
+So if you'd like this to be gpl, send us an email
+hunter or mark at discursivelabs.com
+-->
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8"/>
+    <title>QuickGrapher</title>
+  
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link rel="stylesheet" media="all" href="/css/less-style.css"/>
+    <meta name="viewport" content="width=device-width; initial-scale=1"/>
+    <!-- Add "maximum-scale=1" to fix the Mobile Safari auto-zoom bug on orientation changes, 
+      but keep in mind that it will disable user-zooming completely. Bad for accessibility. -->
+    <script type="text/javascript" src="http://www.hunterdavis.com/quickgrapher/js/jquery.min.js"></script>
+    <!--script src="/js/obfs.js" type="text/javascript" charset="utf-8"></script-->
+    <script src="./js/plain/autocolor.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/plain/realHover.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/plain/graph.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/plain/solver.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/plain/solver_definitions.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/plain/examples.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/plain/quick_graph.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="inner">
+        <span style="width: 100%;">
+          <a href="http://www.quickgrapher.com">
+            <img class="logo" src="http://www.hunterdavis.com/quickgrapher/images/logo_1.png"></img>
+          </a>
+        </span>
+ <div id="graph_container" class="graph_container" style="position: relative; float: left;">
+        </div>   
+        <div class="examples" style="display: none;">» <span class="link" onclick="toggle('examples')">examples</span></div>
+        <!--div class="bar" style="width: 617px; margin-left: 22px;">
+          <h2 style="display: inline;">Try It!</h2>
+        </div-->
+        <div class="menu">
+          <div class="examples">» <span class="link" onclick="toggle('examples')">examples</span></div>
+          <div class="functions_list">» <span class="link" onclick="toggle('functions')">functions</span></div>
+        </div>
+        <div id="examples" class="example_box menu_item">
+          <span style="width: 100%;">
+            <ul id="examplelist" class="example_list">
+                <li>No examples!</li>
+            </ul>
+          </span>
+          <div id="prevExamples" class="link" style="float: left; display: none; margin-top: -15px;" onclick="prevExamples()">previous <font style="color: rgb(0,0,0); text-decoration: none;">«</font></div>
+          <div id="nextExamples" class="link" style="float: right; display: none; margin-top: -15px;" onclick="nextExamples()"><font style="color: rgb(0,0,0); text-decoration: none;">»</font> more</div>
+        </div>
+        <div id="functions" class="function_box menu_item">
+          <span style="width: 100%;">
+            <ul id="functionlist" class="function_list">
+                <li>No implemented functions!</li>
+            </ul>
+          </span>
+        </div>
+        <span class="equation">
+          <input type="text" id="equationName" class="input" value="Function"/><font style="font-weight: bold; font-size: 12pt; margin: 0px 20px 0px 20px;">=</font><input type="text" id="mainEquation" class="input"/>  
+          <input id="graphBtn" type="button" value="Graph!" onclick="clearAndParse()"/>
+          <span id="legendTitle" style="color: rgb(164, 157, 143); width: 60px; margin-left: 24px; margin-top: 13px; font-weight: bold;display: none;">Legend</span><br/>
+        </span>
+        
+        <div id="legend" style="display: none;">
+        </div>
+        <div style="clear: both;"></div>
+        <div id="result" style="display: none;">
+          <div class="solution_column">
+              <div class="bar" style="margin-left: 0px; width: 100%;">
+                  <h2 style="display: inline;">Solution</h2>
+              </div>
+              <span id="function_name" style="font-weight: bold;">Fxn</span> ( <span id="variable_list">0</span> )<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <font style="font-weight: bold;">=</font> <span id="formula">0</span><br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <font style="font-weight: bold;">=</font> <span id="solution">0</span>
+          </div>
+          <div class="variables_column">
+            <div class="bar" style="margin-left: 0px; width: 100%;">
+              <h2 style="display: inline;">Variables</h2>
+              <input id="resolve_btn" type="button" value="Re-Solve" onclick="solve()" style="margin: 0px 0px 0px 50px;"/>
+              <div id="dynamic_label">
+                  <input id="dynamic_update" type="checkbox" onclick="solve()"/>
+                  Realtime Updating<span style="font-size: 7pt; margin: 3px; font-weight: normal;">[may cause browser to lag!]</span>
+              </div>
+            </div>
+            <table id="variables" class="variable_table">
+              <tr class="variable_label">
+                <td class="show">Show?</td>
+                <td class="value"></td>
+                <td class="minimum">Minimum</td>
+                <td class="step">Step</td>
+                <td class="maximum">Maximum</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    <div id="share_box">Share with <span class="st_twitter_large" id="twitter_share" displayText="Tweet"></span><span class="st_facebook_large" id="facebook_share" displayText="Facebook"></span><span class="st_linkedin_large" id="linkedin_share" displayText="Linkedin"></span><span class="st_gbuzz_large" id="gbuzz_share" displayText="Google Buzz"></span><span class="st_slashdot_large" id="slashdot_share" displayText="Slashdot"></span><span class="st_reddit_large" id="reddit_share" displayText="Reddit"></span><span class="st_email_large" id="email_share" displayText="Email"></span><span id="sharethis_share" class="st_sharethis_large" displayText="ShareThis"></span> or copy <a href="" id="instruct">this link</a> to continue editing this equation later.</div>    
+    </div>
+    <center>
+           <h2>Instructions</h2>
+        <div class="instructions">
+            Enter an equation into the box above and click "Graph!"   For each variable, a line will be graphed of the full range of that variable in the equation, with the other variables using the values selected below. 
+        </div>       
+      Email: <font style="font-weight: bold">beta @ quickgrapher.com</font><br/>
+      Copyright 2011 Discursive Labs, LLC
+    </center>
+    <div id="beta_box" style="position:absolute; top: 0px; right: 0px; padding: 4px; font-weight: bold; font-size: 13pt; color: rgb(195,220,235); background-color: rgb(164,157,143); width: 120px; text-align: right; border: 1px solid rgb(144,136,125);">
+        <div style="text-align: center;">We love feedback & suggestions!</div><br/><br/>
+        <font style="font-size: 10pt;">Let us know your thoughts in an email to</font>
+        <div style="text-align: left; color: rgb(53, 52, 49); margin-bottom: -5px; padding-bottom: 10px; border-bottom: 1px solid black"><br/>beta <font style="color: rgb(255,255,255);">@</font><br/><font style="font-size: 10pt;">quickgrapher.com</font></div>
+    </div>
+  
+    <script type="text/javascript"> 
+        
+        
+        
+        // Google analytics
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-19995643-2']);
+        _gaq.push(['_trackPageview']);
+        
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'ce0c6c51-4a36-458a-9236-acf1be442ed0'});</script>    
+  </body>
+  
+</html>
+
