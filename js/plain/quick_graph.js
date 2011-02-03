@@ -459,8 +459,17 @@ function updateMinimum(inputID)
     }
     // Update slider values
     slider[0].setAttribute("min", min);
+    
     // Resolve with new parameters
     solve();
+    
+    // if we changed the value we need to change the display
+    if(curr < min)
+    {
+        // update visually
+        showValue(min, inputID);
+    }
+    
 }
 
 function updateMaximum(inputID)
@@ -489,6 +498,14 @@ function updateMaximum(inputID)
     slider[0].setAttribute("max", max);
     // Resolve with new parameters
     solve();
+
+    // if we changed the value we need to change the display
+    if(curr > max)
+    {
+        // update visually
+        showValue(max, inputID);
+    }    
+    
 }
 
 function updateStep(inputID)
