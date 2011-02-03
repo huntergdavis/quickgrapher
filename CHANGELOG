@@ -1,17 +1,10 @@
 QuickGrapher ChangeLog
 
-Release: 2/3/2011
-Implemented:
---Social Media Features
---Min and Max Functions
---Temperature Conversion Equations C-f f-C
---Help Page
---Tutorials Page (Video)
---Annotated Walkthrough (Images and text)
-Fixed:
---Sliders Correctly Reposition If Min/Max bounds issues
 -- Changed On 2/3/2011 --
 No ticket: Social Media Features
 Ticket #30: Min and Max Functions
 Ticket #20: Temperature Conversion Equations C-f f-C
 Ticket #21: Sliders Correctly Reposition If Min/Max bounds issues
+--Help Page
+--Tutorials Page (Video)
+--Annotated Walkthrough (Images and text)
