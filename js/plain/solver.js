@@ -1141,29 +1141,32 @@ var QGSolver = function() {
         0 : unsupported
      */
     var alphaNumericType = function(singlet) {
-        var returnVal;
+        var returnVal = -1;
 
-        /* The most inclusive test must be done first, to subsecede subsequent tests */
-        if (/[^a-zA-Z0-9. _]/.test(singlet)) {
-            returnVal = 0;
-        }
-        if (/[\[\(\{]/.test(singlet)) {
-            returnVal = 6;
-        }
-        if (/[\]\)\}]/.test(singlet)) {
-            returnVal = 5;
-        }
-        if (/[\é\ê\ò\ñ\ð\ï\î\í\ì\ë\÷\ö\õ\ô\ó\û\ÿ\ù\ø\ü\ú\þ\ÿ\,\&\@\#\~\_\:\;\+\-\/\*\^\%\\\!]/.test(singlet)) {
-            returnVal = 4;
-        }
-        if (/[,]/.test(singlet)) {
-            returnVal = 3;
-        }
-        if (/[0-9\\.]/.test(singlet)) {
-            returnVal = 2;
-        }
-        if (/[a-zA-Z]/.test(singlet)) {
-            returnVal = 1;
+        if(typeof singlet != "undefined")
+        {
+            /* The most inclusive test must be done first, to subsecede subsequent tests */
+            if (/[^a-zA-Z0-9. _]/.test(singlet)) {
+                returnVal = 0;
+            }
+            if (/[\[\(\{]/.test(singlet)) {
+                returnVal = 6;
+            }
+            if (/[\]\)\}]/.test(singlet)) {
+                returnVal = 5;
+            }
+            if (/[\é\ê\ò\ñ\ð\ï\î\í\ì\ë\÷\ö\õ\ô\ó\û\ÿ\ù\ø\ü\ú\þ\ÿ\,\&\@\#\~\_\:\;\+\-\/\*\^\%\\\!]/.test(singlet)) {
+                returnVal = 4;
+            }
+            if (/[,]/.test(singlet)) {
+                returnVal = 3;
+            }
+            if (/[0-9\\.]/.test(singlet)) {
+                returnVal = 2;
+            }
+            if (/[a-zA-Z]/.test(singlet)) {
+                returnVal = 1;
+            }
         }
         return returnVal;
     }
@@ -1281,7 +1284,8 @@ var QGSolver = function() {
                     }
                     // Check for negation
                     var prevType = alphaNumericType(b);
-                    if(c == "-" && (prevType == 3 || prevType == 4 || prevType == 6))
+                    // -1 case handles equations that start with a negated value
+                    if(c == "-" && (prevType == 3 || prevType == 4 || prevType == 6 || prevType == -1))
                     {
                         // Minus
                         builtNumber += c;
