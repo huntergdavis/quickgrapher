@@ -3,5 +3,6 @@ QuickGrapher ChangeLog
 Release: 2/3/2011
 Implemented:
 --Social Media Features
+--Min and Max Functions
 Fixed:
 --Sliders Correctly Reposition If Min/Max bounds issues

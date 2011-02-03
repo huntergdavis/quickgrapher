@@ -197,6 +197,44 @@ Functions["product"] = new ComplexFunction(1,true,
 
             return results;
         },true);
+Functions["min"] = new ComplexFunction(1,true,
+        function() {
+            var results = 0,
+                len = arguments.length;
+            if(len > 1 || (typeof arguments[0] != "undefined"))
+            {
+              results = arguments[0];
+              for(var i = 1; i < len; i++)
+              {
+                  if(arguments[i] < results)
+                  {
+                    results = arguments[i];
+                  }
+              }
+            }
+
+            return results;
+        },true);  
+Functions["max"] = new ComplexFunction(1,true,
+        function() {
+            var results = 0,
+                len = arguments.length;
+            if(len > 1 || (typeof arguments[0] != "undefined"))
+            {
+              results = arguments[0];
+              for(var i = 1; i < len; i++)
+              {
+                  if(arguments[i] > results)
+                  {
+                    results = arguments[i];
+                  }
+              }
+            }
+
+            return results;
+        },true);              
+        
+        
 
 /* Defined constants */
 /*
