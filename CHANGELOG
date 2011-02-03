@@ -4,5 +4,6 @@ Release: 2/3/2011
 Implemented:
 --Social Media Features
 --Min and Max Functions
+--Temperature Conversion Equations C-f f-C
 Fixed:
 --Sliders Correctly Reposition If Min/Max bounds issues
