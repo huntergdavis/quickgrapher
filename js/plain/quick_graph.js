@@ -1353,8 +1353,10 @@ function toggleFullscreen()
             style["width"] = resultsW;
             $("#result").addClass("result_fullscreen");
             $("#result").css(style);
+            $("#solution_column").removeClass("solution_column");
             $("#solution_column").addClass("solution_column_fullscreen");
             $("#solution_column").css(style);
+            $("#variables_column").removeClass("variables_column");
             $("#variables_column").addClass("variables_column_fullscreen");
             $("#variables_column").css(style);
             // Show fullscreen block
