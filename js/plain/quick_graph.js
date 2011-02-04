@@ -1352,7 +1352,7 @@ function toggleFullscreen()
             style = {};
             style["margin"] = "0px";
             style["width"] = resultsW;
-            style["display"] = "inline";
+            //style["display"] = "inline";
             style["color"] = "rgb(255,255,255)";
             $("#result").css(style);
             $("#solution_column").css(style);
