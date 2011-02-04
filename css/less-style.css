@@ -259,10 +259,11 @@ h2 {
   font-weight: bold;
   padding: 10px;
 }
+
 .variable_value {
   color: rgb(164, 157, 143);
   font-family: Times, "Times New Roman", serif;
-  font-size: 12pt;
+  font-size: 20pt;
   font-weight: bold;
   margin-left: 5px;
   /*width: 150px;*/
