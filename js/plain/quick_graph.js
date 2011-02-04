@@ -1320,9 +1320,9 @@ function resizeFullscreen()
     var vertical = false;
     // Start adjusting graph compression
     // Minimum width the variable bar can manage is 230px
-    if(resultsW < 230)
+    if(resultsW < 235)
     {
-        resultsW = 230;
+        resultsW = 235;
         graphW = w - resultsW - 5;
     }
     if(h > 1.25*w)
@@ -1377,28 +1377,30 @@ function toggleFullscreen()
             // Solution and variables get other 25%
                 resultsW = w - graphW - 5;
             // Fix styles
-            var style = {};
-            style["margin"] = "2px 0px 0px 30px";
-            style["width"] = graphW - 30;
-            $("#equation").css(style);
-            style = {};
-            style["margin"] = "5px 5px 5px 5px";
-            style["width"] = graphW - 10;
-            style["height"] = h - 40;
-            style["display"] = "inline";
-            $("#graph_container").css(style);
-            // Fire resize handler
-            $("#subgraph").trigger("resize");
-            style = {};
-            style["width"] = resultsW;
+            // var style = {};
+            // style["margin"] = "2px 0px 0px 30px";
+            // style["width"] = graphW - 30;
+            // $("#equation").css(style);
+            // style = {};
+            // style["margin"] = "5px 5px 5px 5px";
+            // style["width"] = graphW - 10;
+            // style["height"] = h - 40;
+            // style["display"] = "inline";
+            // $("#graph_container").css(style);
+            
+            //style = {};
+            //style["width"] = resultsW;
             $("#result").addClass("result_fullscreen");
-            $("#result").css(style);
+            //$("#result").css(style);
             $("#solution_column").removeClass("solution_column");
             $("#solution_column").addClass("solution_column_fullscreen");
-            $("#solution_column").css(style);
+            //$("#solution_column").css(style);
             $("#variables_column").removeClass("variables_column");
             $("#variables_column").addClass("variables_column_fullscreen");
-            $("#variables_column").css(style);
+            //$("#variables_column").css(style);
+            resizeFullScreen();
+            // Fire resize handler
+            $("#subgraph").trigger("resize");
             // Show fullscreen block
             $("#fullscreen_container").show();
         }
