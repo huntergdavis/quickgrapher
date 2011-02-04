@@ -286,7 +286,7 @@ h2 {
 #result {
   margin: 0px;
   margin-bottom: 60px;
-  padding: 0px;
+  /*padding: 0px;*/
 }
 .label {
   margin: 0px 0px 2px 22px;
@@ -437,6 +437,7 @@ h2 > .examples {
   margin: 0px;
   /*color: rgb(255, 255, 255);*/
   display: inline;
+  padding-top: 20px;
 }
 
 .solution_column_fullscreen {
@@ -470,6 +471,10 @@ h2 > .examples {
 
 #resolve_btn {
   margin-left: 195px;
+}
+
+.solution_column_fullscreen > .bar {
+    margin-top: 30px;
 }
 
 
