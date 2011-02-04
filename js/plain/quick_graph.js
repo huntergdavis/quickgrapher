@@ -1276,6 +1276,33 @@ function loadExample(exampleID)
     return false;
 }
 
+function getViewportDimensions()
+{
+    var dims = {};
+    // Compliant browsers use innerWidth
+    if (typeof window.innerWidth != 'undefined')
+    {
+        dims.width = window.innerWidth,
+        dims.height = window.innerHeight
+    }
+    // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+    else if (typeof document.documentElement != 'undefined'
+        && typeof document.documentElement.clientWidth !=
+        'undefined' && document.documentElement.clientWidth != 0)
+    {
+        dims.width = document.documentElement.clientWidth,
+        dims.height = document.documentElement.clientHeight
+    }
+    // For older versions of IE
+    else
+    {
+        dims.width = document.getElementsByTagName('body')[0].clientWidth,
+        dims.height = document.getElementsByTagName('body')[0].clientHeight
+    }
+    
+    return dims;
+}
+
 var fullscreen_active = false,
     // To prevent re-entrance issues if the person clicks link rapidly
     toggling = false;
@@ -1303,7 +1330,23 @@ function toggleFullscreen()
             fsc.append($("#result"));
             // -- Variables
             //fsc.append($("#variables_column"));
+            // Calculate available width
+            var dims = getViewportDimensions(),
+                w = dims.width,
+                h = dims.height,
+            // Graph & equation get 75%
+                graphW = Math.floor(0.75 * w),
+            // Solution and variables get other 25%
+                resultsW = w - graphW;
             // Fix styles
+            var style = {};
+            style["margin"] = "2px 0px 0px 30px";
+            style["width"] = graphW - 30;
+            $("#equation").css(style);
+            style = {};
+            style["margin"] = "0px";
+            style["width"] = graphW;
+            $("#graph_container").css(style);
             // Show fullscreen block
             $("#fullscreen_container").show();
         }
@@ -1326,6 +1369,7 @@ function toggleFullscreen()
             // // -- Variables
             // results.append($("#variables_column"));
             // Fix styles
+            
             // Show normal elements
             $("#container").show();
             $("#footer").show();
