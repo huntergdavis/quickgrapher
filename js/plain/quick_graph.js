@@ -1337,7 +1337,7 @@ function toggleFullscreen()
             // Graph & equation get 75%
                 graphW = Math.floor(0.75 * w),
             // Solution and variables get other 25%
-                resultsW = w - graphW;
+                resultsW = w - graphW - 5;
             // Fix styles
             var style = {};
             style["margin"] = "2px 0px 0px 30px";

@@ -237,7 +237,6 @@ h2 {
 }
 .variable_table {
   margin: 8px 0px 0px;
-  display: block;
 }
 
 .variable_label {
@@ -247,10 +246,10 @@ h2 {
   font-weight: bold;
 }
 .show {
-  width: 60px;
+  width: 12%;
 }
 .value {
-  width: 170px;
+  width: 37%;
 }
 
 .variable {
@@ -277,11 +276,11 @@ h2 {
   margin-left: 2px;
 }
 .range {
-  width: 270px;
+  /*width: 270px;*/
 }
 .range > input {
   margin-left: 10px;
-  width: 140px;
+  width: 100%; /*140px;*/
 }
 #result {
   margin: 0px;
@@ -452,13 +451,13 @@ h2 > .examples {
 }
 
 .variable_label > .minimum {
-  width: 55px;
+  width: 20%;
 }
 .variable_label > .step {
-  width: 30px;
+  width: 15%;
 }
 .variable_label > .maximum {
-  width: 50px;
+  width: 16%;
 }
 
 #dynamic_label {
