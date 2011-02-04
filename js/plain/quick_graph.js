@@ -1286,7 +1286,9 @@ function toggleFullscreen()
         toggling = true;
         if(!fullscreen_active)
         {
+            // Update toggle
             fullscreen_active = true;
+            $("#fullscreen_toggle").text("X");
             // Hide normal elements
             $("#container").hide();
             $("#footer").hide();
@@ -1298,7 +1300,9 @@ function toggleFullscreen()
         }
         else
         {
+            // Update toggle
             fullscreen_active = false;
+            $("#fullscreen_toggle").text("Fullscreen");
             // Hide fullscreen block
             $("#fullscreen_container").hide();
             // Move elements to normal location
