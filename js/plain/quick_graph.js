@@ -719,7 +719,8 @@ function createSliders2(vars)
         var cs = {
           width:"100%",
           // Need to load this from graph
-          color:"rgb" + "(0,0,0)"
+          color:"rgb" + "(0,0,0)",
+          display: "inline"
         };
         //cs["float"] = "left";
         cs["font-size"] = "13pt";
