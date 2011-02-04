@@ -108,6 +108,11 @@ img::-moz-selection {background: transparent;}
   padding-left: 22px;
 }
 
+.walkthroughs {
+  height: 300px;
+  width: 400px;
+}
+
 .instructions {
   border: 1px solid rgb(164, 157, 143);
   background: rgb(255,255,255);
