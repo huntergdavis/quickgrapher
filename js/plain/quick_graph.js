@@ -1349,6 +1349,8 @@ function toggleFullscreen()
             style["height"] = h - 40;
             style["display"] = "inline";
             $("#graph_container").css(style);
+            // Fire resize handler
+            $("#graph_container").trigger("resize");
             style = {};
             style["width"] = resultsW;
             $("#result").addClass("result_fullscreen");
@@ -1391,6 +1393,8 @@ function toggleFullscreen()
             style["height"] = "";
             style["display"] = "";
             $("#graph_container").css(style);
+            // Fire resize handler
+            $("#graph_container").trigger("resize");
             style = {};
             style["width"] = "";
             $("#result").removeClass("result_fullscreen");
