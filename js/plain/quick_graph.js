@@ -1276,6 +1276,41 @@ function loadExample(exampleID)
     return false;
 }
 
+var fullscreen_active = false,
+    // To prevent re-entrance issues if the person clicks link rapidly
+    toggling = false;
+function toggle_fullscreen()
+{
+    if(!toggling)
+    {
+        toggling = true;
+        if(!fullscreen_active)
+        {
+            // Hide normal elements
+            $("#container").hide();
+            $("#footer").hide();
+            $("#beta_box").hide();
+            // Move necessary elements to fullscreen block
+            // Fix styles
+            // Show fullscreen block
+            $("#fullscreen_container").show();
+        }
+        else
+        {
+            // Hide fullscreen block
+            $("#fullscreen_container").hide();
+            // Move elements to normal location
+            // Fix styles
+            // Show normal elements
+            $("#container").show();
+            $("#footer").show();
+            $("#beta_box").show();
+        }
+        toggling = false;
+    }
+}
+
+
 /* From page */
 function clearAndParse()
 {
