@@ -1350,12 +1350,12 @@ function toggleFullscreen()
             style["display"] = "inline";
             $("#graph_container").css(style);
             style = {};
-            style["margin"] = "0px";
             style["width"] = resultsW;
-            //style["display"] = "inline";
-            style["color"] = "rgb(255,255,255)";
+            $("#result").addClass("result_fullscreen");
             $("#result").css(style);
+            $("#solution_column").addClass("solution_column_fullscreen");
             $("#solution_column").css(style);
+            $("#variables_column").addClass("variables_column_fullscreen");
             $("#variables_column").css(style);
             // Show fullscreen block
             $("#fullscreen_container").show();
