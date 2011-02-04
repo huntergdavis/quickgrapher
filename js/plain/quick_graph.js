@@ -1319,10 +1319,10 @@ function resizeFullscreen()
     // Adjust for vertical screens
     var vertical = false;
     // Start adjusting graph compression
-    // Minimum width the variable bar can manage is 230px
-    if(resultsW < 235)
+    // Minimum width the variable bar can manage is 240px
+    if(resultsW < 250)
     {
-        resultsW = 235;
+        resultsW = 250;
         graphW = w - resultsW - 5;
     }
     if(h > 1.25*w)
