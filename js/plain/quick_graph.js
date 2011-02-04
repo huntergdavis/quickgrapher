@@ -1381,7 +1381,26 @@ function toggleFullscreen()
             // // -- Variables
             // results.append($("#variables_column"));
             // Fix styles
-            
+            var style = {};
+            style["margin"] = "";
+            style["width"] = "";
+            $("#equation").css(style);
+            style = {};
+            style["margin"] = "";
+            style["width"] = "";
+            style["height"] = "";
+            style["display"] = "";
+            $("#graph_container").css(style);
+            style = {};
+            style["width"] = "";
+            $("#result").removeClass("result_fullscreen");
+            $("#result").css(style);
+            $("#solution_column").addClass("solution_column");
+            $("#solution_column").removeClass("solution_column_fullscreen");
+            $("#solution_column").css(style);
+            $("#variables_column").addClass("variables_column");
+            $("#variables_column").removeClass("variables_column_fullscreen");
+            $("#variables_column").css(style);
             // Show normal elements
             $("#container").show();
             $("#footer").show();
