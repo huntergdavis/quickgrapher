@@ -727,10 +727,10 @@ function createSliders2(vars)
         inp.id = v + "_slider_value";
         el.append(inp);
         inp = $(inp);
-        cs = {};
-        cs["float"] = "left";
-        cs["margin-left"]="20px";
-        inp.css(cs);
+        // cs = {};
+        // cs["float"] = "left";
+        // cs["margin-left"]="20px";
+        // inp.css(cs);
         first.append(el);
         
         el = document.createElement("td");
