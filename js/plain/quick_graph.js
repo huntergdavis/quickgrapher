@@ -1294,6 +1294,15 @@ function toggleFullscreen()
             $("#footer").hide();
             $("#beta_box").hide();
             // Move necessary elements to fullscreen block
+            var fsc = $("#fullscreen_container");
+            // -- Equation
+            fsc.append($("#equation"));
+            // -- Graph
+            fsc.append($("#graph_container"));
+            // -- Solution
+            fsc.append($("#solution_column"));
+            // -- Variables
+            fsc.append($("#variables_column"));
             // Fix styles
             // Show fullscreen block
             $("#fullscreen_container").show();
@@ -1306,6 +1315,15 @@ function toggleFullscreen()
             // Hide fullscreen block
             $("#fullscreen_container").hide();
             // Move elements to normal location
+            // -- Equation
+            $("#equation").insertAfter("#functions");
+            // -- Graph
+            $("#graph_container").insertAfter("#equation");
+            // -- Solution
+            var results = $("#result");
+            results.append($("#solution_column"));
+            // -- Variables
+            results.append($("#variables_column"));
             // Fix styles
             // Show normal elements
             $("#container").show();
