@@ -268,13 +268,14 @@ h2 {
   margin-left: 20px;
   /*width: 150px;*/
   overflow: hidden;
+  display: inline;
   /*float: left;*/
 }
 .variable > td {
   vertical-align: top;
 }
 .show_select {
-  margin: 6px 10px 0px 2px;
+  margin: 15px 10px 0px 2px;
 }
 .range {
   /*width: 270px;*/
