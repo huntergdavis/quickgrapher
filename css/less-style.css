@@ -263,7 +263,7 @@ h2 {
 .variable_value {
   color: rgb(164, 157, 143);
   font-family: Times, "Times New Roman", serif;
-  font-size: 20pt;
+  font-size: 13pt;
   font-weight: bold;
   margin-left: 5px;
   /*width: 150px;*/
@@ -561,6 +561,10 @@ h2 > .examples {
   #resolve_btn {
     margin-left: 75px;
   }
+  
+  .variable_value {
+      font-size: 20pt;
+  }
 }
 
 /*  11-column layout
@@ -631,6 +635,10 @@ h2 > .examples {
   }
   .variable_label > .maximum {
     width: 70px;
+  }
+  
+  .variable_value {
+      font-size: 18pt;
   }
   
   #dynamic_label {
