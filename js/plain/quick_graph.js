@@ -1344,9 +1344,19 @@ function toggleFullscreen()
             style["width"] = graphW - 30;
             $("#equation").css(style);
             style = {};
-            style["margin"] = "0px";
+            style["margin"] = "3px 0px 0px 0px";
             style["width"] = graphW;
+            style["height"] = h - 40;
+            style["display"] = "inline";
             $("#graph_container").css(style);
+            style = {};
+            style["margin"] = "0px";
+            style["width"] = resultsW;
+            style["display"] = "inline";
+            style["color"] = "rgb(255,255,255)";
+            $("#result").css(style);
+            $("#solution_column").css(style);
+            $("#variables_column").css(style);
             // Show fullscreen block
             $("#fullscreen_container").show();
         }
