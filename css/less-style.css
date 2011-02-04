@@ -244,6 +244,7 @@ h2 {
   font-family: Times, "Times New Roman", serif;
   font-size: 10pt;
   font-weight: bold;
+  display: inline;
 }
 .show {
   width: 12%;
@@ -268,7 +269,6 @@ h2 {
   margin-left: 20px;
   /*width: 150px;*/
   overflow: hidden;
-  display: inline;
   /*float: left;*/
 }
 .variable > td {
