@@ -1279,7 +1279,7 @@ function loadExample(exampleID)
 var fullscreen_active = false,
     // To prevent re-entrance issues if the person clicks link rapidly
     toggling = false;
-function toggle_fullscreen()
+function toggleFullscreen()
 {
     if(!toggling)
     {
