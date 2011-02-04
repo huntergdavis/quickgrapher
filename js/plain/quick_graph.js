@@ -1299,10 +1299,10 @@ function toggleFullscreen()
             fsc.append($("#equation"));
             // -- Graph
             fsc.append($("#graph_container"));
-            // -- Solution
-            fsc.append($("#solution_column"));
+            // -- Solutions & Variables
+            fsc.append($("#result"));
             // -- Variables
-            fsc.append($("#variables_column"));
+            //fsc.append($("#variables_column"));
             // Fix styles
             // Show fullscreen block
             $("#fullscreen_container").show();
@@ -1319,11 +1319,12 @@ function toggleFullscreen()
             $("#equation").insertAfter("#functions");
             // -- Graph
             $("#graph_container").insertAfter("#equation");
-            // -- Solution
-            var results = $("#result");
-            results.append($("#solution_column"));
-            // -- Variables
-            results.append($("#variables_column"));
+            // -- Solution & variables
+            $("#result").insertAfter("#graph_break");
+            // var results = $("#result");
+            // results.append($("#solution_column"));
+            // // -- Variables
+            // results.append($("#variables_column"));
             // Fix styles
             // Show normal elements
             $("#container").show();
