@@ -1369,8 +1369,8 @@ function toggleFullscreen()
             style["width"] = graphW - 30;
             $("#equation").css(style);
             style = {};
-            style["margin"] = "3px 0px 0px 0px";
-            style["width"] = graphW;
+            style["margin"] = "5px 5px 5px 5px";
+            style["width"] = graphW - 10;
             style["height"] = h - 40;
             style["display"] = "inline";
             $("#graph_container").css(style);

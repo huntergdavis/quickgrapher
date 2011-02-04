@@ -439,7 +439,7 @@ h2 > .examples {
 }
 
 .solution_column_fullscreen {
-  margin: 0px;
+  margin: 40px 0px 0px 0px;
   color: rgb(255, 255, 255);
   display: inline;
 }
@@ -709,6 +709,10 @@ h2 > .examples {
     margin-left: 2px;
     width: 252px;
   }
+  
+  .variable_value {
+      font-size: 9pt;
+  }
 }
 
 
@@ -774,6 +778,10 @@ h2 > .examples {
   #graphBtn {
       margin-left: 9px;
       margin-bottom: -5px;
+  }
+  
+  .variable_value {
+      font-size: 7pt;
   }
 }
 
