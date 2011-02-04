@@ -1315,6 +1315,21 @@ function resizeFullscreen()
         graphW = Math.floor(0.75 * w),
     // Solution and variables get other 25%
         resultsW = w - graphW - 5;
+    
+    // Adjust for vertical screens
+    var vertical = false;
+    // Start adjusting graph compression
+    // Minimum width the variable bar can manage is 230px
+    if(resultsW < 230)
+    {
+        resultsW = 230;
+        graphW = w - resultsW - 5;
+    }
+    if(h > 1.25*w)
+    {
+        vertical = true;
+    } 
+    
     // Fix styles
     var style = {width : graphW - 30};
     $("#equation").css(style);

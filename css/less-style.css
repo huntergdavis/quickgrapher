@@ -435,19 +435,19 @@ h2 > .examples {
 
 .result_fullscreen {
   margin: 0px;
-  color: rgb(255, 255, 255);
+  /*color: rgb(255, 255, 255);*/
   display: inline;
 }
 
 .solution_column_fullscreen {
   margin: 40px 0px 0px 0px;
-  color: rgb(255, 255, 255);
+  /*color: rgb(255, 255, 255);*/
   display: inline;
 }
 
 .variables_column_fullscreen {
   margin: 0px;
-  color: rgb(255, 255, 255);
+  /*color: rgb(255, 255, 255);*/
   display: inline;
 }
 
