@@ -712,7 +712,7 @@ function createSliders2(vars)
         el.append(inp);
         
         inp = document.createElement("div");
-        inp.innerHTML = v + "<font style='font-size: 7pt; margin-left: 3px;'> = </font>";
+        inp.innerHTML = v + "<font style='font-size: 7pt; margin-left:2px;'> = </font>";
         inp.id = v + "_variable_name";
         el.append(inp);
         inp = $(inp);
