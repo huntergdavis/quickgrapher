@@ -1398,7 +1398,7 @@ function toggleFullscreen()
             $("#variables_column").removeClass("variables_column");
             $("#variables_column").addClass("variables_column_fullscreen");
             //$("#variables_column").css(style);
-            resizeFullScreen();
+            resizeFullscreen();
             // Fire resize handler
             $("#subgraph").trigger("resize");
             // Show fullscreen block
