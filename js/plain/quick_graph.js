@@ -688,9 +688,9 @@ function createSliders2(vars)
         sliderParent.append(first);
         first = $(first);
         // Create show checkbox
-        el = document.createElement("td");
-        el.setAttribute("rowspan","2");
-        el = $(el);
+        // el = document.createElement("td");
+        // el.setAttribute("rowspan","2");
+        // el = $(el);
         
         inp = document.createElement("input");
         inp.setAttribute("class","show_select");
@@ -701,13 +701,16 @@ function createSliders2(vars)
         {
             inp.setAttribute("checked", "checked");
         }
-        el.append(inp);
-        first.append(el);
+        // el.append(inp);
+        // first.append(el);
         
-        // Variable name and value
+        // Variable name and value  (added checkbox here)
         el = document.createElement("td");
         el.setAttribute("rowspan","2");
         el = $(el);
+        
+        el.append(inp);
+        
         inp = document.createElement("div");
         inp.innerHTML = v + "<font style='font-size: 7pt; margin-left: 3px;'> = </font>";
         inp.id = v + "_variable_name";
