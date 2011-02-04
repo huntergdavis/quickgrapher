@@ -1306,6 +1306,31 @@ function getViewportDimensions()
 var fullscreen_active = false,
     // To prevent re-entrance issues if the person clicks link rapidly
     toggling = false;
+    
+function resizeFullscreen()
+{
+    // Calculate available width
+    var dims = getViewportDimensions(),
+        w = dims.width,
+        h = dims.height,
+    // Graph & equation get 75%
+        graphW = Math.floor(0.75 * w),
+    // Solution and variables get other 25%
+        resultsW = w - graphW - 5;
+    // Fix styles
+    var style = {width : graphW - 30};
+    $("#equation").css(style);
+    style = {
+        width : graphW,
+        height : h - 40
+    };
+    $("#graph_container").css(style);
+    style = {width : resultsW};
+    $("#result").css(style);
+    $("#solution_column").css(style);
+    $("#variables_column").css(style);
+}
+    
 function toggleFullscreen()
 {
     if(!toggling)
@@ -1413,6 +1438,15 @@ function toggleFullscreen()
         toggling = false;
     }
 }
+
+$(window).resize(function() {
+    if(fullscreen_active && !toggling)
+    {
+        toggling = true;
+        resizeFullscreen();
+        toggling = false;
+    }
+});
 
 
 /* From page */
