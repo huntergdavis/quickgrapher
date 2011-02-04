@@ -721,7 +721,7 @@ function createSliders2(vars)
           // Need to load this from graph
           color:"rgb" + "(0,0,0)"
         };
-        cs["float"] = "left";
+        //cs["float"] = "left";
         cs["font-size"] = "13pt";
         inp.css(cs);
         inp = document.createElement("div");

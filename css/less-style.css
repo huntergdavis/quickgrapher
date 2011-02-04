@@ -265,18 +265,16 @@ h2 {
   font-family: Times, "Times New Roman", serif;
   font-size: 14pt;
   font-weight: bold;
-  margin: 0px auto;
-  /*margin-left: 20px;*/
+  margin-left: 20px;
   /*width: 150px;*/
   overflow: hidden;
-  float: left;
+  /*float: left;*/
 }
 .variable > td {
   vertical-align: top;
 }
 .show_select {
-  margin-top: 6px;
-  margin-left: 2px;
+  margin: 6px 10px 0px 2px;
 }
 .range {
   /*width: 270px;*/
