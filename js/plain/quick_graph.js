@@ -1377,16 +1377,16 @@ function toggleFullscreen()
             // Solution and variables get other 25%
                 resultsW = w - graphW - 5;
             // Fix styles
-            // var style = {};
-            // style["margin"] = "2px 0px 0px 30px";
-            // style["width"] = graphW - 30;
-            // $("#equation").css(style);
-            // style = {};
-            // style["margin"] = "5px 5px 5px 5px";
-            // style["width"] = graphW - 10;
-            // style["height"] = h - 40;
-            // style["display"] = "inline";
-            // $("#graph_container").css(style);
+            var style = {};
+            style["margin"] = "2px 0px 0px 30px";
+            //style["width"] = graphW - 30;
+            $("#equation").css(style);
+            style = {};
+            style["margin"] = "5px 5px 5px 5px";
+            //style["width"] = graphW - 10;
+            //style["height"] = h - 40;
+            style["display"] = "inline";
+            $("#graph_container").css(style);
             
             //style = {};
             //style["width"] = resultsW;

@@ -263,7 +263,7 @@ h2 {
 .variable_value {
   color: rgb(164, 157, 143);
   font-family: Times, "Times New Roman", serif;
-  font-size: 13pt;
+  font-size: 15pt;
   font-weight: bold;
   margin-left: 5px;
   /*width: 150px;*/
@@ -720,7 +720,7 @@ h2 > .examples {
   }
   
   .variable_value {
-      font-size: 9pt;
+      font-size: 10pt;
   }
 }
 
@@ -790,7 +790,7 @@ h2 > .examples {
   }
   
   .variable_value {
-      font-size: 7pt;
+      font-size: 9pt;
   }
 }
 
