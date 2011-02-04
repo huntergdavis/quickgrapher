@@ -280,7 +280,7 @@ h2 {
 }
 .range > input {
   margin-left: 10px;
-  width: 100%; /*140px;*/
+  /*width: 140px;*/
 }
 #result {
   margin: 0px;
@@ -548,7 +548,7 @@ h2 > .examples {
   
   .range > input {
     margin-left: 22px;
-    width: 195px;
+    /*width: 195px;*/
   }
   
   #dynamic_label {
