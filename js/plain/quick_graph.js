@@ -1348,6 +1348,10 @@ function resizeFullscreen()
             height : Math.floor(0.65 * h)
         };
         $("#graph_container").css(style);
+        
+        // Remove background logo
+        style["background-image"] = "";
+        $("#fullscreen_container").css(style);
     }
     else
     {
@@ -1367,6 +1371,10 @@ function resizeFullscreen()
         $("#result").css(style);
         $("#solution_column").css(style);
         $("#variables_column").css(style);
+        
+        // Add background logo
+        style["background-image"] = "url('images/logo_1.png')";
+        $("#fullscreen_container").css(style);
     }
 }
     
@@ -1411,7 +1419,7 @@ function toggleFullscreen()
                 
             // Fix styles
             var style = {};
-            
+            // Background style
             if(vertical)
             {
                 // Remove background logo
@@ -1424,10 +1432,13 @@ function toggleFullscreen()
                 style["background-image"] = "url('images/logo_1.png')";
                 $("#fullscreen_container").css(style);
             }
-            
+            // Input style
+            style = {};
             style["margin"] = "2px 0px 0px 30px";
             //style["width"] = graphW - 30;
             $("#equation").css(style);
+            
+            // Graph style
             style = {};
             style["margin"] = "5px 5px 5px 5px";
             //style["width"] = graphW - 10;
@@ -1435,6 +1446,7 @@ function toggleFullscreen()
             style["display"] = "inline";
             $("#graph_container").css(style);
             
+            // Results and variables display
             //style = {};
             //style["width"] = resultsW;
             if(!vertical)
