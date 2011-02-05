@@ -1329,7 +1329,7 @@ function resizeFullscreen()
         resultsW = 250;
         graphW = w - resultsW - 5;
     }
-    if(h > 1.15*w)
+    if(h > 1.05*w)
     {
         vertical = true;
     } 
@@ -1348,7 +1348,7 @@ function resizeFullscreen()
             height : Math.floor(0.65 * h)
         };
         $("#graph_container").css(style);
-        style = {width : w - 240};
+        style = {width : w - 260};
         $("#mainEquation").css(style);
         
         // Remove background logo
@@ -1418,7 +1418,7 @@ function toggleFullscreen()
             // Solution and variables get other 25%
                 resultsW = w - graphW - 5;
                 
-            if(h > 1.15*w)
+            if(h > 1.05*w)
             {
                 vertical = true;
             }
