@@ -1349,7 +1349,7 @@ function resizeFullscreen()
         };
         $("#graph_container").css(style);
         style = {width : w - 240};
-        $("#equation").css(style);
+        $("#mainEquation").css(style);
         
         // Remove background logo
         style = {};
