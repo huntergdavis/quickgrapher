@@ -1350,6 +1350,7 @@ function resizeFullscreen()
         $("#graph_container").css(style);
         
         // Remove background logo
+        style = {};
         style["background-image"] = "";
         $("#fullscreen_container").css(style);
     }
@@ -1373,6 +1374,7 @@ function resizeFullscreen()
         $("#variables_column").css(style);
         
         // Add background logo
+        style = {};
         style["background-image"] = "url('images/logo_1.png')";
         $("#fullscreen_container").css(style);
     }
