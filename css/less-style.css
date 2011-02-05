@@ -431,6 +431,7 @@ h2 > .examples {
   float: left;
   margin-left: 22px;
   width: 225px;
+  overflow-x: hidden;
 }
 
 .variables_column {
@@ -449,6 +450,7 @@ h2 > .examples {
   margin: 40px 0px 0px 0px;
   /*color: rgb(255, 255, 255);*/
   display: inline;
+  overflow-x: hidden;
 }
 
 .variables_column_fullscreen {
