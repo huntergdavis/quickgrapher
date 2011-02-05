@@ -1345,7 +1345,7 @@ function resizeFullscreen()
         $("#variables_column").removeClass("variables_column");
         $("#variables_column").removeClass("variables_column_fullscreen");
         style = {
-            width : Math.floor(w - 320)
+            width : Math.floor(w - 300)
         };
         $("#variables_column").css(style);
         style = {
