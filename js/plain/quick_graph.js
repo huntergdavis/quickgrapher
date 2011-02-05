@@ -1407,10 +1407,24 @@ function toggleFullscreen()
             if(h > 1.15*w)
             {
                 vertical = true;
-            } 
+            }
                 
             // Fix styles
             var style = {};
+            
+            if(vertical)
+            {
+                // Remove background logo
+                style["background-image"] = "";
+                $("#fullscreen_container").css(style);
+            }
+            else
+            {
+                // Add background logo
+                style["background-image"] = "url('images/logo_1.png')";
+                $("#fullscreen_container").css(style);
+            }
+            
             style["margin"] = "2px 0px 0px 30px";
             //style["width"] = graphW - 30;
             $("#equation").css(style);
