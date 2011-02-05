@@ -1363,6 +1363,8 @@ function resizeFullscreen()
         $("#solution_column").addClass("solution_column_fullscreen");
         $("#variables_column").removeClass("variables_column");
         $("#variables_column").addClass("variables_column_fullscreen");
+        style = {width : ""};
+        $("#mainEquation").css(style);
         style = {width : graphW - 30};
         $("#equation").css(style);
         style = {
