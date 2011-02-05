@@ -1341,8 +1341,13 @@ function resizeFullscreen()
         $("#result").removeClass("result_fullscreen");
         $("#solution_column").addClass("solution_column");
         $("#solution_column").removeClass("solution_column_fullscreen");
-        $("#variables_column").addClass("variables_column");
+        $("#variables_column").addClass("variables_column_fullscreen_vert");
+        $("#variables_column").removeClass("variables_column");
         $("#variables_column").removeClass("variables_column_fullscreen");
+        style = {
+            width : Math.floor(w - 320)
+        };
+        $("#variables_column").css(style);
         style = {
             width : Math.floor(w - 10),
             height : Math.floor(0.65 * h)
@@ -1362,6 +1367,7 @@ function resizeFullscreen()
         $("#solution_column").removeClass("solution_column");
         $("#solution_column").addClass("solution_column_fullscreen");
         $("#variables_column").removeClass("variables_column");
+        $("#variables_column").removeClass("variables_column_fullscreen_vert");
         $("#variables_column").addClass("variables_column_fullscreen");
         style = {width : ""};
         $("#mainEquation").css(style);
@@ -1521,6 +1527,7 @@ function toggleFullscreen()
             $("#solution_column").css(style);
             $("#variables_column").addClass("variables_column");
             $("#variables_column").removeClass("variables_column_fullscreen");
+            $("#variables_column").removeClass("variables_column_fullscreen_vert");
             $("#variables_column").css(style);
             // Show normal elements
             $("#container").show();
