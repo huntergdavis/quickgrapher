@@ -1338,10 +1338,24 @@ function resizeFullscreen()
     var style;
     if(vertical)
     {
-        
+        $("#result").removeClass("result_fullscreen");
+        $("#solution_column").addClass("solution_column");
+        $("#solution_column").removeClass("solution_column_fullscreen");
+        $("#variables_column").addClass("variables_column");
+        $("#variables_column").removeClass("variables_column_fullscreen");
+        style = {
+            width : Math.floor(w - 10),
+            height : Math.floor(0.65 * h);
+        };
+        $("#graph_container").css(style);
     }
     else
     {
+        $("#result").addClass("result_fullscreen");
+        $("#solution_column").removeClass("solution_column");
+        $("#solution_column").addClass("solution_column_fullscreen");
+        $("#variables_column").removeClass("variables_column");
+        $("#variables_column").addClass("variables_column_fullscreen");
         style = {width : graphW - 30};
         $("#equation").css(style);
         style = {
