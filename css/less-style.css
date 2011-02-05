@@ -459,6 +459,10 @@ h2 > .examples {
   display: inline;
 }
 
+.variables_column_fullscreen_vert {
+  margin-left: 290px;
+}
+
 .variable_label > .minimum {
   width: 20%;
 }

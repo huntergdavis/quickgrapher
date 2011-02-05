@@ -1329,7 +1329,7 @@ function resizeFullscreen()
         resultsW = 250;
         graphW = w - resultsW - 5;
     }
-    if(h > 1.15*w)
+    if(h > 1.05*w)
     {
         vertical = true;
     } 
@@ -1341,13 +1341,20 @@ function resizeFullscreen()
         $("#result").removeClass("result_fullscreen");
         $("#solution_column").addClass("solution_column");
         $("#solution_column").removeClass("solution_column_fullscreen");
-        $("#variables_column").addClass("variables_column");
+        $("#variables_column").addClass("variables_column_fullscreen_vert");
+        $("#variables_column").removeClass("variables_column");
         $("#variables_column").removeClass("variables_column_fullscreen");
+        style = {
+            width : Math.floor(w - 300)
+        };
+        $("#variables_column").css(style);
         style = {
             width : Math.floor(w - 10),
             height : Math.floor(0.65 * h)
         };
         $("#graph_container").css(style);
+        style = {width : w - 260};
+        $("#mainEquation").css(style);
         
         // Remove background logo
         style = {};
@@ -1360,7 +1367,10 @@ function resizeFullscreen()
         $("#solution_column").removeClass("solution_column");
         $("#solution_column").addClass("solution_column_fullscreen");
         $("#variables_column").removeClass("variables_column");
+        $("#variables_column").removeClass("variables_column_fullscreen_vert");
         $("#variables_column").addClass("variables_column_fullscreen");
+        style = {width : ""};
+        $("#mainEquation").css(style);
         style = {width : graphW - 30};
         $("#equation").css(style);
         style = {
@@ -1414,7 +1424,7 @@ function toggleFullscreen()
             // Solution and variables get other 25%
                 resultsW = w - graphW - 5;
                 
-            if(h > 1.15*w)
+            if(h > 1.05*w)
             {
                 vertical = true;
             }
@@ -1517,6 +1527,7 @@ function toggleFullscreen()
             $("#solution_column").css(style);
             $("#variables_column").addClass("variables_column");
             $("#variables_column").removeClass("variables_column_fullscreen");
+            $("#variables_column").removeClass("variables_column_fullscreen_vert");
             $("#variables_column").css(style);
             // Show normal elements
             $("#container").show();
