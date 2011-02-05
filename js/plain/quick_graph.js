@@ -1335,17 +1335,25 @@ function resizeFullscreen()
     } 
     
     // Fix styles
-    var style = {width : graphW - 30};
-    $("#equation").css(style);
-    style = {
-        width : graphW,
-        height : h - 40
-    };
-    $("#graph_container").css(style);
-    style = {width : resultsW};
-    $("#result").css(style);
-    $("#solution_column").css(style);
-    $("#variables_column").css(style);
+    var style;
+    if(vertical)
+    {
+        
+    }
+    else
+    {
+        style = {width : graphW - 30};
+        $("#equation").css(style);
+        style = {
+            width : graphW,
+            height : h - 40
+        };
+        $("#graph_container").css(style);
+        style = {width : resultsW};
+        $("#result").css(style);
+        $("#solution_column").css(style);
+        $("#variables_column").css(style);
+    }
 }
     
 function toggleFullscreen()
@@ -1376,10 +1384,17 @@ function toggleFullscreen()
             var dims = getViewportDimensions(),
                 w = dims.width,
                 h = dims.height,
+                vertical = false,
             // Graph & equation get 75%
                 graphW = Math.floor(0.75 * w),
             // Solution and variables get other 25%
                 resultsW = w - graphW - 5;
+                
+            if(h > 1.25*w)
+            {
+                vertical = true;
+            } 
+                
             // Fix styles
             var style = {};
             style["margin"] = "2px 0px 0px 30px";
@@ -1394,16 +1409,23 @@ function toggleFullscreen()
             
             //style = {};
             //style["width"] = resultsW;
-            $("#result").addClass("result_fullscreen");
+            if(!vertical)
+            {
+                $("#result").addClass("result_fullscreen");
+            }
+            
             $("#mainEquation").removeClass("equation_input");
             $("#mainEquation").addClass("equation_input_fullscreen");
             
             //$("#result").css(style);
-            $("#solution_column").removeClass("solution_column");
-            $("#solution_column").addClass("solution_column_fullscreen");
-            //$("#solution_column").css(style);
-            $("#variables_column").removeClass("variables_column");
-            $("#variables_column").addClass("variables_column_fullscreen");
+            if(!vertical)
+            {
+                $("#solution_column").removeClass("solution_column");
+                $("#solution_column").addClass("solution_column_fullscreen");
+                //$("#solution_column").css(style);
+                $("#variables_column").removeClass("variables_column");
+                $("#variables_column").addClass("variables_column_fullscreen");
+            }
             //$("#variables_column").css(style);
             resizeFullscreen();
             // Fire resize handler
