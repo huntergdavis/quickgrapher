@@ -1348,6 +1348,8 @@ function resizeFullscreen()
             height : Math.floor(0.65 * h)
         };
         $("#graph_container").css(style);
+        style = {width : w - 240};
+        $("#equation").css(style);
         
         // Remove background logo
         style = {};
