@@ -1329,7 +1329,7 @@ function resizeFullscreen()
         resultsW = 250;
         graphW = w - resultsW - 5;
     }
-    if(h > 1.25*w)
+    if(h > 1.15*w)
     {
         vertical = true;
     } 
@@ -1404,7 +1404,7 @@ function toggleFullscreen()
             // Solution and variables get other 25%
                 resultsW = w - graphW - 5;
                 
-            if(h > 1.25*w)
+            if(h > 1.15*w)
             {
                 vertical = true;
             } 
