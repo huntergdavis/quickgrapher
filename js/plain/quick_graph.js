@@ -1345,7 +1345,7 @@ function resizeFullscreen()
         $("#variables_column").removeClass("variables_column_fullscreen");
         style = {
             width : Math.floor(w - 10),
-            height : Math.floor(0.65 * h);
+            height : Math.floor(0.65 * h)
         };
         $("#graph_container").css(style);
     }
