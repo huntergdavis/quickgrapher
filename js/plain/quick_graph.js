@@ -1395,6 +1395,9 @@ function toggleFullscreen()
             //style = {};
             //style["width"] = resultsW;
             $("#result").addClass("result_fullscreen");
+            $("#mainEquation").removeClass("equation_input");
+            $("#mainEquation").addClass("equation_input_fullscreen");
+            
             //$("#result").css(style);
             $("#solution_column").removeClass("solution_column");
             $("#solution_column").addClass("solution_column_fullscreen");
@@ -1442,6 +1445,8 @@ function toggleFullscreen()
             style = {};
             style["width"] = "";
             $("#result").removeClass("result_fullscreen");
+            $("#mainEquation").addClass("equation_input");
+            $("#mainEquation").removeClass("equation_input_fullscreen");
             $("#result").css(style);
             $("#solution_column").addClass("solution_column");
             $("#solution_column").removeClass("solution_column_fullscreen");

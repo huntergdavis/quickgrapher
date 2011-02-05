@@ -175,7 +175,11 @@ img::-moz-selection {background: transparent;}
   overflow: hidden;
 }
 
-#mainEquation {
+.equation_input {
+  width: 380px;
+}
+
+.equation_input_fullscreen {
   width: 380px;
 }
 
@@ -203,6 +207,7 @@ img::-moz-selection {background: transparent;}
   background: rgb(255,255,255);
   border: 1px solid rgb(195,220,235);
 }
+
 .range_input {
   background: rgb(255,255,255);
   border: 1px solid rgb(195,220,235); /*164,157,143);*/
@@ -265,7 +270,7 @@ h2 {
   font-family: Times, "Times New Roman", serif;
   font-size: 14pt;
   font-weight: bold;
-  margin: 0px 5px 10px 0px;
+  margin: 0px 15px 10px 0px;
   /*width: 150px;*/
   overflow: hidden;
   float: right;
@@ -504,8 +509,12 @@ h2 > .examples {
     height: 575px;
   }
   
-  #mainEquation {
+  .equation_input {
     width: 660px;
+  }
+  
+  .equation_input_fullscreen {
+    width: 530px;
   }
   
   #equationName {
@@ -597,8 +606,12 @@ h2 > .examples {
     height: 575px;
   }
   
-  #mainEquation {
+  .equation_input {
     width: 512px;
+  }
+  
+  .equation_input_fullscreen {
+    width: 395px;
   }
   
   #equationName {
@@ -703,7 +716,7 @@ h2 > .examples {
       width: 101px;
   }
   
-  #mainEquation {
+  .equation_input {
       width: 196px;
       margin: 3px 0px 0px 7px; 
   }
@@ -774,7 +787,7 @@ h2 > .examples {
       margin-left: 0px;
   }
   
-  #mainEquation {
+  .equation_input {
     margin-left: 7px;
     width: 196px;
   }
