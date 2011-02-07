@@ -506,6 +506,26 @@ h2 > .examples {
     margin-top: 30px;
 }
 
+#fullscreen_toggle {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    border: 2px solid rgb(200,200,200);
+    background-color: rgb(0,0,0);
+    color: rgb(255,255,255);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 10pt;
+    padding: 1px 6px;
+    cursor: pointer;
+    overflow: hidden;
+    margin: 2px;
+}
+
+#fullscreen_toggle:hover {
+   color: rgb(255,0,0);
+}
+
 
 /*  13-column layout
   60 px columns, 24 px gutters, 72 px margins, 1212 px total (extra space for scrollbars)

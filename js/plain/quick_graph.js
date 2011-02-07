@@ -1400,6 +1400,10 @@ function toggleFullscreen()
             // Update toggle
             fullscreen_active = true;
             $("#fullscreen_toggle").text("X");
+            var style = {};
+            style["background-color"] = "rgb(255,0,0)";
+            style["color"] = "rgb(255,255,255)";
+            $("#fullscreen_toggle").css(style);
             // Hide normal elements
             $("#container").hide();
             $("#footer").hide();
@@ -1430,7 +1434,7 @@ function toggleFullscreen()
             }
                 
             // Fix styles
-            var style = {};
+            style = {};
             // Background style
             if(vertical)
             {
@@ -1490,6 +1494,10 @@ function toggleFullscreen()
             // Update toggle
             fullscreen_active = false;
             $("#fullscreen_toggle").text("Fullscreen");
+            var style = {};
+            style["background-color"] = "";
+            style["color"] = "";
+            $("#fullscreen_toggle").css(style);
             // Hide fullscreen block
             $("#fullscreen_container").hide();
             // Move elements to normal location
@@ -1504,7 +1512,7 @@ function toggleFullscreen()
             // // -- Variables
             // results.append($("#variables_column"));
             // Fix styles
-            var style = {};
+            style = {};
             style["margin"] = "";
             style["width"] = "";
             $("#equation").css(style);
