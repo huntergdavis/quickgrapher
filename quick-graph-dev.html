@@ -42,9 +42,13 @@ hunter or mark at discursivelabs.com
         </span>
         <h2>Instructions</h2>
         <div class="instructions">
-            Enter an equation into the box below and click "Graph!".<br/><br/>
-
-For each variable you select, a line graphing the full range of that variable will appear in the graph above, along with the other variables you have selected below. To adjust the variables, do xxxx. Click "Graph!" again to display the newly calculated graph. Confused? Check out our help resources.
+            <ol>
+                <li>Enter an equation into the box below</li>
+                <li>Click the "Graph!" button</li>
+                <li>Admire your equation!</li>
+            </ol>
+            <br/>
+For each variable in your equation, a line will be added to the graph.  The full range of that variable will appear in the graph above, along with the other variables you have selected below. To adjust the variables, do xxxx. Click "Graph!" again to display the newly calculated graph. Confused? Check out our help resources.
             <ul>
             <li><a href="quickgrapher-help.html">Frequently Asked Questions</a></li>
             <li><a href="quickgrapher-tutorials.html">Video Tutorials</a></li>
@@ -99,7 +103,7 @@ For each variable you select, a line graphing the full range of that variable wi
               <h2 style="display: inline;">Variables</h2>
               <input id="resolve_btn" type="button" value="Re-Solve" onclick="solve()" style="margin: 0px 0px 0px 50px;"/>
               <div id="dynamic_label">
-                  <input id="dynamic_update" type="checkbox" onclick="solve()"/>
+                  <input id="dynamic_update" type="checkbox" onclick="solve()" checked/>
                   Realtime Updating<span style="font-size: 7pt; margin: 3px; font-weight: normal;">[may cause browser to lag!]</span>
               </div>
             </div>
