@@ -62,7 +62,17 @@ figure img {width: 100%;}
 .small {
   font-size: 13px;
   line-height: 18px;
-} 
+}
+
+a {
+    color: rgb(0,0,0);
+    text-decoration: underline;
+}
+
+a:hover {
+    color: rgb(255,0,0);
+    text-decoration: none;
+}
 
 
 /*  Default 8-column layout
