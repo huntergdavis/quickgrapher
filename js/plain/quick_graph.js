@@ -1403,6 +1403,7 @@ function toggleFullscreen()
             var style = {};
             style["background-color"] = "rgb(255,0,0)";
             style["color"] = "rgb(255,255,255)";
+            style["border"] = "0px";
             $("#fullscreen_toggle").css(style);
             // Hide normal elements
             $("#container").hide();
@@ -1497,6 +1498,7 @@ function toggleFullscreen()
             var style = {};
             style["background-color"] = "";
             style["color"] = "";
+            style["border"] = "";
             $("#fullscreen_toggle").css(style);
             // Hide fullscreen block
             $("#fullscreen_container").hide();
