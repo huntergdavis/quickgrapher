@@ -131,8 +131,9 @@ img::-moz-selection {background: transparent;}
   width: 340px;
   color: rgb(164,157,143);
   font-family: Times, "Times New Roman", serif;
-  font-size: 10pt;
+  font-size: 12pt;
   font-weight: bold;
+  text-align: justify;
 }
 
 .instructions > div {
@@ -156,6 +157,13 @@ img::-moz-selection {background: transparent;}
 }
 .instructions >  a:visited {
   color: rgb(0,0,0);
+}
+
+.instructions > ol {
+    margin-left: 35px;
+    margin-top: 10px;
+    font-size: 15pt;
+    line-height: 30px;
 }
 
 .example_box {
