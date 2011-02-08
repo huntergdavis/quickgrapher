@@ -2,6 +2,8 @@ QuickGrapher ChangeLog
 
 -- Changed on 2/8/2011 --
 Ticket #41: Re-wrote sharethis integration to be dynamic based on dynamic API
+No ticket: randomized startup function (is it confusing?)
+
 
 -- Changed on 2/7/2011 --
 Ticket #35: Updated CSS for fullscreen toggle button.
