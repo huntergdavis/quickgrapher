@@ -43,9 +43,18 @@ function loadTitleBarHash() {
         {
             exRand++;
         }
-        var URL = "http://www.quickgrapher.com/index.html?";
-        randomURL = URL + examples[exRand].url;
-        //window.location = randomURL;
+
+        // Assume we have the address we need currently
+        var URL = window.location.href,//"http://www.quickgrapher.com/index.html?";
+        // Pull off any existing URI params
+            end = URL.indexOf("?");
+        if(end != -1)
+        {
+            URL = URL.substring(0,end);
+        }
+        randomURL = URL + "?" + examples[exRand].url;
+        window.location = randomURL;
+
         return;
     }
     
@@ -369,6 +378,8 @@ function updateSolution(equation, context, solution)
     }
     document.getElementById("variable_list").innerHTML = varList;
     $("#result").show();
+    // Clear display property to fix stupid jQuery bug
+    $("#result").css({display: ""});
 }
 
 function createContext(vars) {
@@ -1599,6 +1610,8 @@ function toggleInclude(toggleID)
     toggleDraw(toggleID);
 }
 $(document).ready(function() {
+    // Turn on debug
+    QGSolver.DEBUG = true;
     // Load examples
     loadExamples();
     // Load functions
