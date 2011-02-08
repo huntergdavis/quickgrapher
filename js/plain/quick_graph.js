@@ -19,20 +19,33 @@ var variableVisHash = new Array();
 /* LoadTitleBarHash loads in passed-in title bar equation */
 function loadTitleBarHash() {
     
-    /* find the locations of */
-    addressBar = decodeURIComponent(window.location.href);
-    addressBar = addressBar.replace(/†/g,"+");
-    
-    var equationStart = addressBar.indexOf("?")+1;
+    /* find the locations of */    
+    var encodedBar = window.location.href;
+
+    var equationStart = encodedBar.indexOf("?")+1;
+    var encodedString = encodedBar.substring(equationStart,encodedBar.length);
+    //var addressBar = decodeURIComponent(encodedString);
+    var addressBar = encodedString;
+    addressBar = addressBar.replace(/'%/g,"+"); 
+
     var equationEnd = addressBar.indexOf("=");
 	var varsStart = equationEnd + 1;
 	var varsStop = addressBar.indexOf("]");
     var equationString = "";                   
 	var equationValid = 0;     
-    
     /* ensure we've got an equation to parse*/
     if(equationStart < 1)
     {
+        // let's load a random example instead
+        var exLen = examples.length;
+        var exRand = Math.floor(Math.random() * exLen);
+        if (exRand == 0)
+        {
+            exRand++;
+        }
+        var URL = "http://www.quickgrapher.com/index.html?";
+        randomURL = URL + examples[exRand].url;
+        window.location = randomURL;
         return;
     }
     
@@ -44,8 +57,8 @@ function loadTitleBarHash() {
     }
     
     /* Pull out our equation and set to be valid*/
-    equationString = addressBar.substring(equationStart,equationEnd);
-    
+    equationString = addressBar.substring(0,equationEnd);
+
     // replace plus signs in equation they are not usually supported
     //equationString = equationString.replace(/%2B/g,"+");
     
@@ -90,11 +103,12 @@ function loadTitleBarHash() {
         
         /* grab the name*/
         var tempName = variableString.substring(nameStart,nameStop);
-        //tempName = tempName.replace(/%20/g," ");
+        tempName = tempName.replace(/%20/g," ");
        
 
         
 	} 	
+
 	if(equationValid > 0)
 	{
 	    $("#mainEquation").val(equationString);
@@ -526,7 +540,8 @@ function updateStep(inputID)
 function generateHashURL(vars)
 {
     //var URL = "www.quickgrapher.com/index.html?";
-    var URL = "http://www.quickgrapher.com/index.html?";
+    var BASEURL = "http://www.quickgrapher.com/index.html?";
+    var URL = "";
     
     // add equation to url
     var localEquation = $("#mainEquation").val();
@@ -579,16 +594,18 @@ function generateHashURL(vars)
     
     // replace spaces with %20 for web addresses
     var graphName =  $("#equationName").val();
-    //var cleanedGraphName = graphName.replace(/\s/g,"%20");
+    graphName = graphName.replace(/\s/g,"%20");
     
     // clean up the plusses in URL for email clients
-    URL = URL.replace(/\+/g,"†");
+    URL = URL.replace(/\+/g,"'%");
     
     // add the fully constituted strings to URL
     URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + graphName + "]";
 
     // encode the URL
-    URL = encodeURIComponent(URL);
+    //URL = encodeURIComponent(URL);
+    
+    URL = BASEURL + URL;
     
 
     // put the URL as our new url

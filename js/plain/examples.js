@@ -48,13 +48,13 @@ Examples.push({
 Examples.push({
     name: "Celsius to Fahrenheit",
     fxn : "(Fahrenheit - 32) * 5/9",
-    url : "(Fahrenheit-32)*5%2F9%3D0%3A%7B100%3A%7D1%3A%5B50%3A%3B1%3A%3DCelsius%5D"
+    url : "(Fahrenheit-32)*5/9=0:{100:}1:[32:;1:=Celsius]"
 });
 
 Examples.push({
     name: "Fahrenheit to Celsius",
     fxn : "Celsius * 9/5 + 32",
-    url : "Celsius*9%2F5%E2%80%A032%3D0%3A%7B100%3A%7D1%3A%5B0%3A%3B1%3A%3DFahrenheit%5D"
+    url : "Celsius*9/5'%32=0:{100:}1:[1:;1:=Fahrenheit]"
 });
 
 Examples.push({
