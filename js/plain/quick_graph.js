@@ -44,7 +44,7 @@ function loadTitleBarHash() {
             exRand++;
         }
         // Assume we have the address we need currently
-        var URL = window.location;//"http://www.quickgrapher.com/index.html?";
+        var URL = window.location.href;//"http://www.quickgrapher.com/index.html?";
         // Pull off any existing URI params
             end = URL.indexOf("?");
         if(end != -1)
