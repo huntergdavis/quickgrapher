@@ -43,7 +43,14 @@ function loadTitleBarHash() {
         {
             exRand++;
         }
-        var URL = "http://www.quickgrapher.com/index.html?";
+        // Assume we have the address we need currently
+        var URL = window.location;//"http://www.quickgrapher.com/index.html?";
+        // Pull off any existing URI params
+            end = URL.indexOf("?");
+        if(end != -1)
+        {
+            URL = URL.substring(0,end+1);
+        }
         randomURL = URL + examples[exRand].url;
         window.location = randomURL;
         return;
