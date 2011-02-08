@@ -1190,6 +1190,19 @@ var QGSolver = function() {
             switch(alphaNumericType(c)) {
                 // Letter
                 case 1:
+                    // If we have a number string already, assume implicit multiplication
+                    if(builtNumber.length > 0)
+                    {
+                        // Add constant
+                        if(QGSolver.DEBUG)
+                        {
+                            console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                        }
+                        eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                        builtNumber = "";
+                        // Add mult
+                        eq.append(new QGFunction("*"));
+                    }
                     builtString += c;
                     break;
                 // Number or decimal place
