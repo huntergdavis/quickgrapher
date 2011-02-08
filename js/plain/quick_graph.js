@@ -355,6 +355,8 @@ function updateSolution(equation, context, solution)
     }
     document.getElementById("variable_list").innerHTML = varList;
     $("#result").show();
+    // Clear display property to fix stupid jQuery bug
+    $("#result").css({display: ""});
 }
 
 function createContext(vars) {
