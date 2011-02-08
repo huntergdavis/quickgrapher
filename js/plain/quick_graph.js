@@ -49,9 +49,9 @@ function loadTitleBarHash() {
             end = URL.indexOf("?");
         if(end != -1)
         {
-            URL = URL.substring(0,end+1);
+            URL = URL.substring(0,end);
         }
-        randomURL = URL + examples[exRand].url;
+        randomURL = URL + "?" + examples[exRand].url;
         window.location = randomURL;
         return;
     }
