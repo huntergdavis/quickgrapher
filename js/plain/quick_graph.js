@@ -36,6 +36,16 @@ function loadTitleBarHash() {
     /* ensure we've got an equation to parse*/
     if(equationStart < 1)
     {
+        // let's load a random example instead
+        var exLen = examples.length;
+        var exRand = Math.floor(Math.random() * exLen);
+        if (exRand == 0)
+        {
+            exRand++;
+        }
+        var URL = "http://www.quickgrapher.com/index.html?";
+        randomURL = URL + examples[exRand].url;
+        window.location = randomURL;
         return;
     }
     
