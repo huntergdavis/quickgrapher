@@ -45,7 +45,7 @@ function loadTitleBarHash() {
         }
         var URL = "http://www.quickgrapher.com/index.html?";
         randomURL = URL + examples[exRand].url;
-        window.location = randomURL;
+        //window.location = randomURL;
         return;
     }
     
@@ -592,13 +592,13 @@ function generateHashURL(vars)
     
     // replace spaces with %20 for web addresses
     var graphName =  $("#equationName").val();
-    graphName = graphName.replace(/\s/g,"%20");
+    cleanGraphName = graphName.replace(/\s/g,"%20");
     
     // clean up the plusses in URL for email clients
     URL = URL.replace(/\+/g,"'%");
     
     // add the fully constituted strings to URL
-    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + graphName + "]";
+    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + cleanGraphName + "]";
 
     // encode the URL
     //URL = encodeURIComponent(URL);
@@ -611,6 +611,7 @@ function generateHashURL(vars)
     
     // sneak the url into the instructions block    
     $("#instruct").attr("href", URL);
+    updateShare(URL,graphName);
     
     // sneak the url into social sharing services
     $("#twitter_share").attr("st_url",URL);
@@ -624,6 +625,15 @@ function generateHashURL(vars)
     
 }
 
+// update our share icon dynamically
+function updateShare(url, title) {
+    var object = SHARETHIS.addEntry({
+    title: title,
+    url: url
+    });
+    object.attachButton(document.getElementById('blank_share'));
+    //object.popup();
+} 
 /*
  * 
  * <tr class="variable">
