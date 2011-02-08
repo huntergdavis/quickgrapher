@@ -430,7 +430,7 @@ var QGSolver = function() {
                         {
                             // Verify binding of functions
                             if((typeof prev != "undefined") && prev.type == "QGFunction"
-                                && !curr.prefix() && !curr.closed()
+                                && !curr.prefix() && !curr.closed() && !prev.prefix()
                                 && curr.priority() > prev.priority())
                             {
                                 var prevFront = prev.pop(),
