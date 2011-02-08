@@ -1598,6 +1598,8 @@ function toggleInclude(toggleID)
     toggleDraw(toggleID);
 }
 $(document).ready(function() {
+    // Turn on debug
+    QGSolver.DEBUG = true;
     // Load examples
     loadExamples();
     // Load functions
