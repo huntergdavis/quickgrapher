@@ -107,7 +107,7 @@ function testExampleEquations() {
         
         var actual_result = "Not Yet Implemented";
         var description = "Function = " + Examples[i].fxn + " <br>";
-        description += "Parsed Function = " + parsedEquation.toString(context);
+        description += "Parsed Function = " + parsedEquation.toString(context) + " <br>";
         description += "Expected Result = " + Examples[i].fxnSol + " <br>";
         description += "Actual Result = " + solution + "<br>";
         
