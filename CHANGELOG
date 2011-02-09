@@ -3,7 +3,8 @@ QuickGrapher ChangeLog
 -- Changed on 2/8/2011 --
 Ticket #41: Re-wrote sharethis integration to be dynamic based on dynamic API
 No ticket: randomized startup function (is it confusing?)
-
+Ticket #45: SHareThis api links only work once and are static, this was resolved
+Ticket #44: Setup test suite: now there is test-suite html and javascript file
 
 -- Changed on 2/7/2011 --
 Ticket #35: Updated CSS for fullscreen toggle button.
