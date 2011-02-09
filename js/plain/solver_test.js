@@ -23,11 +23,11 @@ function createContext(vars) {
 function printOutStats() {
     
     var insertionText = "<div class=\"instructions\" id=\"totals\">";
-    var insertionText = "<h2>Attempted: " + total + "</h2>";
-    var insertionText = "<h2>Passed: " + passed + "</h2>";
+    insertionText += "<h2>Attempted: " + total + "</h2>";
+    insertionText += "<h2>Passed: " + passed + "</h2>";
     var percentage = Math.floor(passed/total);
-    var insertionText = "<h2>Why, That's " + total + "% successful</h2>";
-    var insertionText += "</div>";
+    insertionText += "<h2>Why, That's " + total + "% successful</h2>";
+    insertionText += "</div>";
     
     // insert into the body
     $(insertionText).insertAfter("#tests");
