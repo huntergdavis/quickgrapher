@@ -554,14 +554,21 @@ function updateStep(inputID)
 function generateHashURL(vars)
 {
     //var URL = "www.quickgrapher.com/index.html?";
-    var BASEURL = "http://www.quickgrapher.com/index.html?";
-    var URL = "";
+    //var BASEURL = "http://www.quickgrapher.com/index.html?";
+    //var URL = "";
+    var URL = window.location.href,
+    // Pull off any existing URI params
+        end = URL.indexOf("?");
+    if(end != -1)
+    {
+        URL = URL.substring(0,end);
+    }
     
     // add equation to url
     var localEquation = $("#mainEquation").val();
     if(typeof localEquation != "undefined")
     {
-        URL = URL + compressName(localEquation) + "=";
+        URL += compressName(localEquation) + "=";
     }
     
     // variables to store hash values
@@ -614,12 +621,12 @@ function generateHashURL(vars)
     URL = URL.replace(/\+/g,"'%");
     
     // add the fully constituted strings to URL
-    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + cleanGraphName + "]";
+    URL += minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + cleanGraphName + "]";
 
     // encode the URL
     //URL = encodeURIComponent(URL);
     
-    URL = BASEURL + URL;
+    //URL = BASEURL + URL;
     
 
     // put the URL as our new url
@@ -643,11 +650,14 @@ function generateHashURL(vars)
 
 // update our share icon dynamically
 function updateShare(url, title) {
-    var object = SHARETHIS.addEntry({
-    title: title,
-    url: url
-    });
-    object.attachButton(document.getElementById('blank_share'));
+    if(typeof SHARETHIS != "undefined")
+    {
+        var object = SHARETHIS.addEntry({
+        title: title,
+        url: url
+        });
+        object.attachButton(document.getElementById('blank_share'));
+    }
     //object.popup();
 } 
 /*
@@ -832,9 +842,9 @@ function createSliders2(vars)
         inp = document.createElement("input");
         inp.id = v + "_slider";
         inp.setAttribute("type", "range");
-        inp.setAttribute("min", variableMinHash[i]);
-        inp.setAttribute("max", variableMaxHash[i]);
-        inp.setAttribute("step", variableStepHash[i]);
+        inp.setAttribute("min", minValue); //variableMinHash[i]);
+        inp.setAttribute("max", maxValue); //variableMaxHash[i]);
+        inp.setAttribute("step", stepValue); //variableStepHash[i]);
         inp.setAttribute("value", lastValue);
         el.append(inp);
         first.append(el);
