@@ -848,8 +848,7 @@ function createSliders2(vars)
                 change: function(e, ui) {  
                     $(this).val(ui.value);
                     $input.val(ui.value) ;
-                    }  
-                });  
+                }  
             });
         }
     // }
