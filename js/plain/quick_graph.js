@@ -1664,7 +1664,7 @@ $(document).ready(function() {
     $("#equationName").keyup(function(event){
         if(event.keyCode == 13){
             var eq = $("#mainEquation");
-            if(eq.text().length == 0)
+            if(eq.val().length == 0)
             {
                 eq.focus();
             }
@@ -1677,7 +1677,7 @@ $(document).ready(function() {
     $("#mainEquation").keyup(function(event){
         if(event.keyCode == 13){
             var name = $("#equationName");
-            if(name.text().length == 0)
+            if(name.val().length == 0)
             {
                 name.focus();
             }
