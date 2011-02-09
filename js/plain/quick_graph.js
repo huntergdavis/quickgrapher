@@ -897,9 +897,9 @@ function updateAllGraphs(equation, context)
             var graphName = $("#equationName").val();
             graph = $(graph);
             var opts = {name: graphName};
-            opts['hue-increment'] = 35;
-            opts['hue-base'] = 0;
-            opts['value-base'] = 75;
+            opts['hue-increment'] = 45;
+            opts['hue-base'] = 22;
+            opts['value-base'] = 95;
             graph.graphify(opts)/*.attach_legend({
               'legend-mode': false,
               'legend-container': $("#legend"),
@@ -1639,7 +1639,8 @@ function toggleInclude(toggleID)
 }
 $(document).ready(function() {
     // Turn on debug
-    QGSolver.DEBUG = true;
+    //QGSolver.DEBUG = true;
+    QGSolver.DEBUG = false;
     // enable random load
     
     // Load examples
