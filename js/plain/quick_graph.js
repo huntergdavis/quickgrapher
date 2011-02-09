@@ -847,8 +847,8 @@ function createSliders2(vars)
                     step: $input.attr('step'),
                     value: $input.attr('value'),
                     change: function(e, ui) { 
-                        $(this).val(ui.value);
-                        //$input.val(ui.value) ;
+                        //$(this).val(ui.value);
+                        $input.val(ui.value) ;
                     }  
                 });
             });
