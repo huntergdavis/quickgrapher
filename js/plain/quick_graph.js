@@ -833,24 +833,25 @@ function createSliders2(vars)
     // {
         // If range isnt supported
         //if(!Modernizr.inputtypes.range)
-        {
+        //{
             $('input[type=range]').each(function() {  
-            var $input = $(this);  
-            var $slider = $('<div id="' + $input.attr('id') + '" class="' + $input.attr('class') + '"></div>');  
-            var step = $input.attr('step');  
-            
-            $input.after($slider).hide();  
-            
-            $slider.slider({  
-                min: $input.attr('min'),  
-                max: $input.attr('max'),  
-                step: $input.attr('step'),  
-                change: function(e, ui) {  
-                    $(this).val(ui.value);
-                    $input.val(ui.value) ;
-                }  
+                var $input = $(this);  
+                var $slider = $('<div id="' + $input.attr('id') + '" class="' + $input.attr('class') + '"></div>');  
+                var step = $input.attr('step');  
+                
+                $input.after($slider).hide();  
+                
+                $slider.slider({  
+                    min: $input.attr('min'),  
+                    max: $input.attr('max'),  
+                    step: $input.attr('step'),  
+                    change: function(e, ui) {  
+                        $(this).val(ui.value);
+                        $input.val(ui.value) ;
+                    }  
+                });
             });
-        }
+        //}
     // }
     
     // Show legend title
