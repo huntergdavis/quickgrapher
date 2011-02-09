@@ -839,15 +839,16 @@ function createSliders2(vars)
             var $slider = $('<div id="' + $input.attr('id') + '" class="' + $input.attr('class') + '"></div>');  
             var step = $input.attr('step');  
             
-            $input.after($slider).hide();  
+            //$input.after($slider).hide();  
+            $input.remove();
             
             $slider.slider({  
-                min: $input.attr('min')+"",  
-                max: $input.attr('max')+"",  
-                step: $input.attr('step')+"",  
+                min: $input.attr('min'),  
+                max: $input.attr('max'),  
+                step: $input.attr('step'),  
                 change: function(e, ui) {  
                     $(this).val(ui.value);
-                    $input.val(ui.value) ;
+                    //$input.val(ui.value) ;
                     }  
                 });  
             });
