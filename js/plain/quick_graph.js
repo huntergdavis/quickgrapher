@@ -836,7 +836,7 @@ function createSliders2(vars)
         {
             $('input[type=range]').each(function() {  
             var $input = $(this);  
-            var $slider = $('<div id="' + $input.attr('id') + '_repl" class="' + $input.attr('class') + '"></div>');  
+            var $slider = $('<div id="' + $input.attr('id') + '" class="' + $input.attr('class') + '"></div>');  
             var step = $input.attr('step');  
             
             $input.after($slider).hide();  
