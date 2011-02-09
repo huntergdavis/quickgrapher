@@ -840,7 +840,7 @@ function createSliders2(vars)
             var step = $input.attr('step');  
             
             //$input.after($slider).hide();  
-            $input.remove();
+            $input.after($slider).remove();
             
             $slider.slider({  
                 min: $input.attr('min'),  
