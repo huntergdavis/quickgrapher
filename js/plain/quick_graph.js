@@ -842,10 +842,10 @@ function createSliders2(vars)
                 $input.after($slider).hide();  
                 
                 $slider.slider({  
-                    min: $input.attr('min'),
-                    max: $input.attr('max'),
-                    step: $input.attr('step'),
-                    value: $input.attr('value'),
+                    min: parseFloat($input.attr('min')),
+                    max: parseFloat($input.attr('max')),
+                    step: parseFloat($input.attr('step')),
+                    value: parseFloat($input.attr('value')),
                     change: function(e, ui) { 
                         //$(this).val(ui.value);
                         //$input.val(ui.value) ;
