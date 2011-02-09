@@ -22,8 +22,8 @@ hunter or mark at discursivelabs.com
     <!-- Add "maximum-scale=1" to fix the Mobile Safari auto-zoom bug on orientation changes, 
       but keep in mind that it will disable user-zooming completely. Bad for accessibility. -->
     <script type="text/javascript" src="http://www.hunterdavis.com/quickgrapher/js/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="http://w.sharethis.com/button/sharethis.js#publisher=['ce0c6c51-4a36-458a-9236-acf1be442ed0']&amp;"></script>
     <script src="./js/obfs.js" type="text/javascript" charset="utf-8"></script>
-
   </head>
 
   <body>
@@ -46,9 +46,9 @@ hunter or mark at discursivelabs.com
             <br/><br/>
             For more help, try one of the examples or check out:
             <ul style="list-style-type: none;">
-            <li><a href="http://www.quickgrapher.com/quickgrapher-faq.html">Frequently Asked Questions</a></li>
-            <li><a href="http://www.quickgrapher.com/quickgrapher-tutorials.html">Video Tutorials</a></li>
-            <li><a href="http://www.quickgrapher.com/quickgrapher-walkthrough.html">Annotated Walkthrough</a></li>
+            <li><a href="quickgrapher-help.html">Frequently Asked Questions</a></li>
+            <li><a href="quickgrapher-tutorials.html">Video Tutorials</a></li>
+            <li><a href="quickgrapher-walkthrough.html">Annotated Walkthrough</a></li>
             </ul>
             </div>
         <h2>Try It! <div class="examples" style="display: none;">» <span class="link" onclick="toggle('examples')">examples</span></div></h2>
@@ -116,7 +116,8 @@ hunter or mark at discursivelabs.com
         </div>
         <br/>
         <br/>
-        <span class="st_twitter_large" id="twitter_share" displayText="Tweet"></span><span class="st_facebook_large" id="facebook_share" displayText="Facebook"></span><span class="st_linkedin_large" id="linkedin_share" displayText="Linkedin"></span><span class="st_gbuzz_large" id="gbuzz_share" displayText="Google Buzz"></span><span class="st_reddit_large" id="reddit_share" displayText="Reddit"></span><span class="st_email_large" id="email_share" displayText="Email"></span><span id="sharethis_share" class="st_sharethis_large" displayText="ShareThis"></span> Use <a id="instruct">this link</a> to access this graph later.                
+        
+        <span id="blank_share"><img src="./images/shareicons/share-icon-32x32.png" /></span> Share This or Use <a href="" id="instruct">this link</a> to access this graph later.                
       </div>      
     </div>
     <center id="footer">
@@ -143,8 +144,6 @@ hunter or mark at discursivelabs.com
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
     </script>
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript">stLight.options({publisher:'ce0c6c51-4a36-458a-9236-acf1be442ed0'});</script>    
   </body>
   
 </html>

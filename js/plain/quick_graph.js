@@ -33,26 +33,33 @@ function loadTitleBarHash() {
 	var varsStop = addressBar.indexOf("]");
     var equationString = "";                   
 	var equationValid = 0;     
+    
+    
+    var loadRandom = 0;
     /* ensure we've got an equation to parse*/
     if(equationStart < 1)
     {
-        // let's load a random example instead
-        var exLen = examples.length;
-        var exRand = Math.floor(Math.random() * exLen);
-        if (exRand == 0)
+        if(loadRandom == 1)
         {
-            exRand++;
+            // let's load a random example instead
+            var exLen = examples.length;
+            var exRand = Math.floor(Math.random() * exLen);
+            if (exRand == 0)
+            {
+                exRand++;
+            }
+
+            // Assume we have the address we need currently
+            var URL = window.location.href,//"http://www.quickgrapher.com/index.html?";
+            // Pull off any existing URI params
+                end = URL.indexOf("?");
+            if(end != -1)
+            {
+                URL = URL.substring(0,end);
+            }
+            randomURL = URL + "?" + examples[exRand].url;
+            window.location = randomURL;
         }
-        // Assume we have the address we need currently
-        var URL = window.location.href,//"http://www.quickgrapher.com/index.html?";
-        // Pull off any existing URI params
-            end = URL.indexOf("?");
-        if(end != -1)
-        {
-            URL = URL.substring(0,end);
-        }
-        randomURL = URL + "?" + examples[exRand].url;
-        window.location = randomURL;
         return;
     }
     
@@ -601,13 +608,13 @@ function generateHashURL(vars)
     
     // replace spaces with %20 for web addresses
     var graphName =  $("#equationName").val();
-    graphName = graphName.replace(/\s/g,"%20");
+    cleanGraphName = graphName.replace(/\s/g,"%20");
     
     // clean up the plusses in URL for email clients
     URL = URL.replace(/\+/g,"'%");
     
     // add the fully constituted strings to URL
-    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + graphName + "]";
+    URL = URL + minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + cleanGraphName + "]";
 
     // encode the URL
     //URL = encodeURIComponent(URL);
@@ -620,6 +627,7 @@ function generateHashURL(vars)
     
     // sneak the url into the instructions block    
     $("#instruct").attr("href", URL);
+    updateShare(URL,graphName);
     
     // sneak the url into social sharing services
     $("#twitter_share").attr("st_url",URL);
@@ -633,6 +641,15 @@ function generateHashURL(vars)
     
 }
 
+// update our share icon dynamically
+function updateShare(url, title) {
+    var object = SHARETHIS.addEntry({
+    title: title,
+    url: url
+    });
+    object.attachButton(document.getElementById('blank_share'));
+    //object.popup();
+} 
 /*
  * 
  * <tr class="variable">
@@ -1623,6 +1640,8 @@ function toggleInclude(toggleID)
 $(document).ready(function() {
     // Turn on debug
     QGSolver.DEBUG = true;
+    // enable random load
+    
     // Load examples
     loadExamples();
     // Load functions
