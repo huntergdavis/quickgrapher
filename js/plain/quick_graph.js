@@ -1676,7 +1676,7 @@ $(document).ready(function() {
     });
     $("#mainEquation").keyup(function(event){
         if(event.keyCode == 13){
-            var name = $("#eeuationName");
+            var name = $("#equationName");
             if(name.text().length == 0)
             {
                 name.focus();
