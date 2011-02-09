@@ -46,6 +46,7 @@ function createNewTestDiv(title,desc,passed_flag) {
     
     // set the div id to be the title
     insertionText += title;
+    
     insertionText += "\">";
     
     // have the title be large and in charge
@@ -55,12 +56,12 @@ function createNewTestDiv(title,desc,passed_flag) {
     // did the test pass?
     if(passed_flag == 1)
     {
-        insertionText += "- <div align=right>PASSED</div>";
+        insertionText += "- <div align=right style=\"color:blue;\">PASSED</div>";
         passed++;
     }
     else
     {
-        insertionText += "- <div align=right>FAILED</div>";        
+        insertionText += "- <div align=right style=\"color:red;\">FAILED</div>";
     }
     
     // limit the largeness
