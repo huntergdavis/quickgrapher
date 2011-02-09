@@ -65,6 +65,7 @@ function testExampleEquations() {
 
         var vars = parsedEquation.variables();
         var context = createContext(vars);
+        var passedTest = 0;
         //console.log("Context: " + context.toString());
         
         // Solve
@@ -75,7 +76,9 @@ function testExampleEquations() {
         }
         catch(exception)
         {
-            alert("Solve failed: " + exception);
+            //alert("Solve failed: " + exception);
+            passedTest = 0;
+            solution = "Solve failed:" + exception;
         }
         
         
@@ -84,7 +87,6 @@ function testExampleEquations() {
         description += "Parsed Function = " + parsedEquation.toString(context);
         description += "Expected Result = " + Examples[i].fxnSol + " <br>";
         description += "Actual Result = " + solution + "<br>";
-        var passedTest = 0;
         
         if(solution == Examples[i].fxnSol)
         {

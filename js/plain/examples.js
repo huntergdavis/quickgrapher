@@ -20,7 +20,7 @@ Examples.push({
     name: "Monthly Loan Payments Calculator",
     fxn : "principal*((rate/1200)*(1 + rate/1200)^months)/((1 + rate/1200)^months - 1)",
     url : "principal*((rate/1200)*(1+rate/1200)^months)/((1+rate/1200)^months-1)=0:0:0:{200:100:100:}10:1:1:[110:9:23:;1:1:1:=Loan%20Calculator]",
-    fxnSol : ""
+    fxnSol : "1.0008333333334436"
 });
 
 
@@ -28,42 +28,42 @@ Examples.push({
     name: "Force of Gravity",
     fxn : "GravConstant * massOne * massTwo / distance^2",
     url : "GravConstant*massOne*massTwo/distance^2=0:0:0:0:{20:100:100:100:}0.01:1:1:1:[8.73:29:19:3:;1:1:1:1:=Gravity]",
-    fxnSol : ""
+    fxnSol : "1"
 });
 
 Examples.push({
     name: "E = mc^2",
     fxn : "mass*299792458^2",
     url : "mass*299792458^2=0:{100:}1:[20:;1:=E]",
-    fxnSol : ""
+    fxnSol : "89875517873681760"
 });
 
 Examples.push({
     name: "Area of Circle",
     fxn : "pi * radius^2",
     url : "pi*radius^2=0:{100:}1:[13:;1:=Circle%20Area]",
-    fxnSol : ""
+    fxnSol : "1"
 });
 
 Examples.push({
     name: "Circumference of a Circle",
     fxn : "2*pi*radius",
     url : "2*pi*radius=0:{100:}1:[13:;1:=Circle%20Circumference]",
-    fxnSol : ""
+    fxnSol : "2"
 });
 
 Examples.push({
     name: "Celsius to Fahrenheit",
     fxn : "(Fahrenheit - 32) * 5/9",
     url : "(Fahrenheit-32)*5/9=0:{100:}1:[32:;1:=Celsius]",
-    fxnSol : ""
+    fxnSol : "-17.22222222222222"
 });
 
 Examples.push({
     name: "Fahrenheit to Celsius",
     fxn : "Celsius * 9/5 + 32",
     url : "Celsius*9/5'%32=0:{100:}1:[1:;1:=Fahrenheit]",
-    fxnSol : ""
+    fxnSol : "33.8"
 });
 
 Examples.push({
