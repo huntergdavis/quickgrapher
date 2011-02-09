@@ -1,14 +1,23 @@
 #!/bin/bash
 # pushToWebsite.sh - a script to update our live site
 
-SITENAME = "www.hunterdavis.com"
-USERNAME = "goemonh"
-OPTIONS = "-B -q -i ./id_rsa.pub"
+echo "Run this script from the base directory to update site"
+echo "type ok or something to continue, or ctrl-c to break"
+read something
+SITENAME="www.hunterdavis.com"
+USERNAME="goemonh"
+OPTIONS=" -q -i ./scripts/id_rsa"
 
-scp ../js/obfs.js $USERNAME@$SITENAME:~/quickgrapher/js/
-scp ../css/quick-graph-less.css $USERNAME@$SITENAME:~/quickgrapher/css/
-scp ../quick-graph.html  $USERNAME@$SITENAME:~/quickgrapher/index.html
-scp ../quickgrapher-faq.html  $USERNAME@$SITENAME:~/quickgrapher/
-scp ../quickgrapher-tutorials.html  $USERNAME@$SITENAME:~/quickgrapher/
-scp ../quickgrapher-walkthrough.html  $USERNAME@$SITENAME:~/quickgrapher/
-
+echo executing scp $OPTIONS  ./js/obfs.js $USERNAME@$SITENAME:~/html/quickgrapher/js/ 
+scp $OPTIONS  ./js/obfs.js $USERNAME@$SITENAME:~/html/quickgrapher/js/
+echo executing scp $OPTIONS ./css/quick-graph-less.css $USERNAME@$SITENAME:~/html/quickgrapher/css/
+scp $OPTIONS ./css/quick-graph-less.css $USERNAME@$SITENAME:~/html/quickgrapher/css/
+echo executing scp $OPTIONS ./index.html  $USERNAME@$SITENAME:~/html/quickgrapher/index.html
+scp $OPTIONS ./index.html  $USERNAME@$SITENAME:~/html/quickgrapher/index.html
+echo executing scp $OPTIONS ./quickgrapher-faq.html  $USERNAME@$SITENAME:~/html/quickgrapher/
+scp $OPTIONS ./quickgrapher-faq.html  $USERNAME@$SITENAME:~/html/quickgrapher/
+echo executing scp $OPTIONS ./quickgrapher-tutorials.html  $USERNAME@$SITENAME:~/html/quickgrapher/
+scp $OPTIONS ./quickgrapher-tutorials.html  $USERNAME@$SITENAME:~/html/quickgrapher/
+echo executing scp $OPTIONS ./quickgrapher-walkthrough.html  $USERNAME@$SITENAME:~/html/quickgrapher/
+scp $OPTIONS ./quickgrapher-walkthrough.html  $USERNAME@$SITENAME:~/html/quickgrapher/
+echo All Done!
