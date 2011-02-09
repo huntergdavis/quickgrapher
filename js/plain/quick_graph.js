@@ -829,33 +829,28 @@ function createSliders2(vars)
     }
     
     // Verify slider compatibility with browser
-    // if(typeof Modernizer != "undefined")
-    // {
-        //If range isnt supported
-        // if(!Modernizr.inputtypes.range)
-        {
-            $('input[type=range]').each(function() {  
-                var $input = $(this);  
-                var $slider = $('<div id="' + $input.attr('id') + '" class="' + $input.attr('class') + '"></div>');  
-                var step = $input.attr('step');  
-                
-                $input.after($slider).hide();  
-                
-                $slider.slider({  
-                    min: parseFloat($input.attr('min')),
-                    max: parseFloat($input.attr('max')),
-                    step: parseFloat($input.attr('step')),
-                    value: parseFloat($input.attr('value')),
-                    change: function(e, ui) { 
-                        //$(this).val(ui.value);
-                        //$input.val(ui.value) ;
-                        showValue(ui.value, this.id);
-                    }  
-                });
+    //If range isnt supported
+    if(!Modernizr.inputtypes.range)
+    {
+        $('input[type=range]').each(function() {  
+            var $input = $(this);  
+            var $slider = $('<div id="' + $input.attr('id') + '" class="' + $input.attr('class') + '"></div>');  
+            var step = $input.attr('step');  
+            
+            $input.after($slider).hide();  
+            
+            $slider.slider({  
+                min: parseFloat($input.attr('min')),
+                max: parseFloat($input.attr('max')),
+                step: parseFloat($input.attr('step')),
+                value: parseFloat($input.attr('value')),
+                change: function(e, ui) { 
+                    showValue(ui.value, this.id);
+                }  
             });
-        }
-    // }
-    
+        });
+    }
+
     // Show legend title
     //$("#legendTitle").show();
 }
