@@ -829,11 +829,11 @@ function createSliders2(vars)
     }
     
     // Verify slider compatibility with browser
-    // if(typeof Modernizer != "undefined")
-    // {
-        // If range isnt supported
-        //if(!Modernizr.inputtypes.range)
-        //{
+    if(typeof Modernizer != "undefined")
+    {
+        If range isnt supported
+        if(!Modernizr.inputtypes.range)
+        {
             $('input[type=range]').each(function() {  
                 var $input = $(this);  
                 var $slider = $('<div id="' + $input.attr('id') + '" class="' + $input.attr('class') + '"></div>');  
@@ -852,8 +852,8 @@ function createSliders2(vars)
                     }  
                 });
             });
-        //}
-    // }
+        }
+    }
     
     // Show legend title
     //$("#legendTitle").show();
