@@ -831,7 +831,7 @@ function createSliders2(vars)
     // Verify slider compatibility with browser
     if(typeof Modernizer != "undefined")
     {
-        If range isnt supported
+        //If range isnt supported
         if(!Modernizr.inputtypes.range)
         {
             $('input[type=range]').each(function() {  
