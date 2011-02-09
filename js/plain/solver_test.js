@@ -40,11 +40,31 @@ function createNewTestDiv(title,desc,passed_flag) {
     
 }
 
+// loop over examples and see if they solve correctly
+function testExampleEquations() {
 
+    var exLen = Examples.length;
+    for(var i = 0; i < exLen; i++)
+    {
+        var actual_result = "Not Yet Implemented";
+        var description = "Function = " + Examples[i].fxn + " <br>";
+        description += "Expected Result = " + Examples[i].fxnSol + " <br>";
+        description += "Actual Result = " + actual_result;
+        
+        createNewTestDiv(Examples[i].name,description,0);
+    }
+
+}
+
+
+// execute the test suite in its entirety
 function executeTestSuite() {
-    createNewTestDiv("Test A","Just a first test",1);
+    //createNewTestDiv("Test A","Just a first test",1);
     
-    createNewTestDiv("Test B","Just a second test",0);
+    //createNewTestDiv("Test B","Just a second test",0);
+    
+    // test the example equations
+    testExampleEquations();
     
 }
 
