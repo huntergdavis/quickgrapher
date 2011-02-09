@@ -832,7 +832,7 @@ function createSliders2(vars)
     // if(typeof Modernizer != "undefined")
     // {
         // If range isnt supported
-        if(!Modernizr.inputtypes.range)
+        //if(!Modernizr.inputtypes.range)
         {
             $('input[type=range]').each(function() {  
             var $input = $(this);  
