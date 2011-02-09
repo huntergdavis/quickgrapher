@@ -25,8 +25,8 @@ function printOutStats() {
     var insertionText = "<div class=\"instructions\" id=\"totals\">";
     insertionText += "<h2>Attempted: " + total + "</h2>";
     insertionText += "<h2>Passed: " + passed + "</h2>";
-    var percentage = Math.floor(passed/total);
-    insertionText += "<h2>Why, That's " + total + "% successful</h2>";
+    var percentage = Math.floor((passed/total) *100);
+    insertionText += "<h2>Why, That's " + percentage + "% successful</h2>";
     insertionText += "</div>";
     
     // insert into the body
