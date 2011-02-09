@@ -1,5 +1,10 @@
 // solver test suite
+// keep track of passed and total
+var passed = 0;
+var total = 0;
 
+
+// set all context variables to 1
 function createContext(vars) {
     var context = new Context(vars),
         varLen = vars.length,
@@ -14,11 +19,28 @@ function createContext(vars) {
     return context;
 }
 
+// print out basic statistics 
+function printOutStats() {
+    
+    var insertionText = "<div class=\"instructions\" id=\"totals\">";
+    var insertionText = "<h2>Attempted: " + total + "</h2>";
+    var insertionText = "<h2>Passed: " + passed + "</h2>";
+    var percentage = Math.floor(passed/total);
+    var insertionText = "<h2>Why, That's " + total + "% successful</h2>";
+    var insertionText += "</div>";
+    
+    // insert into the body
+    $(insertionText).insertAfter("#tests");
+    
+}
+
 
 // create a new div element within the page 
 // containg a Test Title, Description txt, boolean passed flag
 function createNewTestDiv(title,desc,passed_flag) {
     
+    // keep track globally
+    total++;
     
     var insertionText = "<div class=\"instructions\" id=\"";
     
@@ -34,6 +56,7 @@ function createNewTestDiv(title,desc,passed_flag) {
     if(passed_flag == 1)
     {
         insertionText += "- <div align=right>PASSED</div>";
+        passed++;
     }
     else
     {
@@ -107,6 +130,9 @@ function executeTestSuite() {
     
     // test the example equations
     testExampleEquations();
+    
+    // print out stats
+    printOutStats();
     
 }
 
