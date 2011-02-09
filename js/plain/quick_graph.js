@@ -33,28 +33,33 @@ function loadTitleBarHash() {
 	var varsStop = addressBar.indexOf("]");
     var equationString = "";                   
 	var equationValid = 0;     
+    
+    
+    var loadRandom = 0;
     /* ensure we've got an equation to parse*/
     if(equationStart < 1)
     {
-        // let's load a random example instead
-        var exLen = examples.length;
-        var exRand = Math.floor(Math.random() * exLen);
-        if (exRand == 0)
+        if(loadRandom == 1)
         {
-            exRand++;
-        }
+            // let's load a random example instead
+            var exLen = examples.length;
+            var exRand = Math.floor(Math.random() * exLen);
+            if (exRand == 0)
+            {
+                exRand++;
+            }
 
-        // Assume we have the address we need currently
-        var URL = window.location.href,//"http://www.quickgrapher.com/index.html?";
-        // Pull off any existing URI params
-            end = URL.indexOf("?");
-        if(end != -1)
-        {
-            URL = URL.substring(0,end);
+            // Assume we have the address we need currently
+            var URL = window.location.href,//"http://www.quickgrapher.com/index.html?";
+            // Pull off any existing URI params
+                end = URL.indexOf("?");
+            if(end != -1)
+            {
+                URL = URL.substring(0,end);
+            }
+            randomURL = URL + "?" + examples[exRand].url;
+            window.location = randomURL;
         }
-        randomURL = URL + "?" + examples[exRand].url;
-        window.location = randomURL;
-
         return;
     }
     
@@ -1612,6 +1617,8 @@ function toggleInclude(toggleID)
 $(document).ready(function() {
     // Turn on debug
     QGSolver.DEBUG = true;
+    // enable random load
+    
     // Load examples
     loadExamples();
     // Load functions
