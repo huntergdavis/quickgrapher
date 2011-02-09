@@ -842,11 +842,12 @@ function createSliders2(vars)
             $input.after($slider).hide();  
             
             $slider.slider({  
-                min: $input.attr('min'),  
-                max: $input.attr('max'),  
-                step: $input.attr('step'),  
+                min: $input.attr('min')+"",  
+                max: $input.attr('max')+"",  
+                step: $input.attr('step')+"",  
                 change: function(e, ui) {  
-                    $(this).val(ui.value);  
+                    $(this).val(ui.value);
+                    $input.val(ui.value) ;
                     }  
                 });  
             });
