@@ -105,14 +105,15 @@ function testExampleEquations() {
             solution = "Solve failed:" + exception;
         }
         
-        
         var actual_result = "Not Yet Implemented";
         var description = "Function = " + Examples[i].fxn + " <br>";
         description += "Parsed Function = " + parsedEquation.toString(context) + " <br>";
         description += "Expected Result = " + Examples[i].fxnSol + " <br>";
         description += "Actual Result = " + solution + "<br>";
         
-        if(solution == Examples[i].fxnSol)
+        
+       
+        if(solution.toString() == Examples[i].fxnSol)
         {
             passedTest = 1;
         }

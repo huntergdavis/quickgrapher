@@ -42,14 +42,14 @@ Examples.push({
     name: "Area of Circle",
     fxn : "pi * radius^2",
     url : "pi*radius^2=0:{100:}1:[13:;1:=Circle%20Area]",
-    fxnSol : "1"
+    fxnSol : "3.141592653589793"
 });
 
 Examples.push({
     name: "Circumference of a Circle",
     fxn : "2*pi*radius",
     url : "2*pi*radius=0:{100:}1:[13:;1:=Circle%20Circumference]",
-    fxnSol : "2"
+    fxnSol : "6.283185307179586"
 });
 
 Examples.push({
@@ -154,14 +154,14 @@ Examples.push({
     name: "Surface Area of Cylinder",
     fxn : "2*pi*radius*length + 2*pi*radius^2",
     url : "2*pi*radius*length+2*pi*radius^2=0:0:{100:100:}1:1:[31:17:;1:1:=Surface%20Area]",
-    fxnSol : ""
+    fxnSol : "12.566370614359172"
 });
 
 Examples.push({
     name: "First Order Derivitive of x^n",
     fxn : "n*x^(n-1)",
     url : "n*x^(n-1)=0:0:{100:100:}1:1:[7:1:;1:1:=Derivative%20of%20x^N]",
-    fxnSol : "12.566370614359172"
+    fxnSol : "1"
 });
 
 Examples.push({
