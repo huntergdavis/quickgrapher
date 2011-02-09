@@ -355,7 +355,8 @@ function parseInput(input, step)
 
 function updateSolution(equation, context, solution)
 {
-    document.getElementById("formula").innerText = equation.toString(context);
+    //document.getElementById("formula").innerText = equation.toString(context);
+    $("#formula").text = equation.toString(context);
     document.getElementById("solution").innerText = solution;
     document.getElementById("function_name").innerText = $("#equationName").val();
     var v, vars = equation.variables(),
