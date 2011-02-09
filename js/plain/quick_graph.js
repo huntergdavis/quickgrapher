@@ -1659,4 +1659,32 @@ $(document).ready(function() {
     loadFunctions();
     // Load From TitleBar
     loadTitleBarHash();
+    
+    // Add key listeners
+    $("#equationName").keyup(function(event){
+        if(event.keyCode == 13){
+            var eq = $("#mainEquation");
+            if(eq.text().length == 0)
+            {
+                eq.focus();
+            }
+            else
+            {
+                $("#graphBtn").click();
+            }
+        }
+    });
+    $("#mainEquation").keyup(function(event){
+        if(event.keyCode == 13){
+            var name = $("#eeuationName");
+            if(name.text().length == 0)
+            {
+                name.focus();
+            }
+            else
+            {
+                $("#graphBtn").click();
+            }
+        }
+    });
 });
