@@ -833,6 +833,11 @@ function updateAllGraphs(equation, context)
                 $("#" + v + "_slider_value").css({color: color});
             }
         }
+        else
+        {
+            // Update graph title
+            graph.graph_options("title",$("#equationName").val() + " ( " + vars.join(", ") +" )");
+        }
     }
  
     /// Loop over variable
