@@ -1,45 +1,39 @@
-/* OUR ONLY GLOBALS ARE DECLARED
- HERE- array of variable names to legend info, array of variable names to values graphial graph*/
-// var arrayLegendHash = new Array();
-// var arrayValueHash = new Array();
-// var colorArray = [];
-// var variableFound = 0;
 var parsedEquation = undefined;
 
 // I put the passed in values into separate arrays
 // we should move them to objects
 // if we need them after the initial parse 
-var variableMinHash = new Array();
-var variableMaxHash = new Array();
-var variableStepHash = new Array();
-var variableLastHash = new Array();
-var variableVisHash = new Array();
-//var graphName = "Unnamed Graph";
+var variableMinHash = [];
+var variableMaxHash = [];
+var variableStepHash = [];
+var variableLastHash = [];
+var variableVisHash = [];
 
 /* LoadTitleBarHash loads in passed-in title bar equation */
-function loadTitleBarHash() {
+function loadTitleBarHash()
+{
     
-    /* find the locations of */    
-    var encodedBar = window.location.href;
-
-    var equationStart = encodedBar.indexOf("?")+1;
-    var encodedString = encodedBar.substring(equationStart,encodedBar.length);
-    //var addressBar = decodeURIComponent(encodedString);
-    var addressBar = encodedString;
+    // Get location and search string.  I think there is a faster way to do this. 
+    var encodedBar = window.location.href,
+        equationStart = encodedBar.indexOf("?")+1,
+        encodedString = encodedBar.substring(equationStart,encodedBar.length),
+        addressBar = encodedString;
+        
+    // Demunge
     addressBar = addressBar.replace(/'%/g,"+"); 
 
-    var equationEnd = addressBar.indexOf("=");
-	var varsStart = equationEnd + 1;
-	var varsStop = addressBar.indexOf("]");
-    var equationString = "";                   
-	var equationValid = 0;     
+    var equationEnd = addressBar.indexOf("="),
+        varsStart = equationEnd + 1,
+        varsStop = addressBar.indexOf("]"),
+        equationString = "",
+        equationValid = 0;     
     
     
-    var loadRandom = 0;
+    var loadRandom = false;
     /* ensure we've got an equation to parse*/
     if(equationStart < 1)
     {
-        if(loadRandom == 1)
+        if(loadRandom)
         {
             // let's load a random example instead
             var exLen = examples.length;
@@ -50,7 +44,7 @@ function loadTitleBarHash() {
             }
 
             // Assume we have the address we need currently
-            var URL = window.location.href,//"http://www.quickgrapher.com/index.html?";
+            var URL = window.location.href,
             // Pull off any existing URI params
                 end = URL.indexOf("?");
             if(end != -1)
@@ -79,30 +73,30 @@ function loadTitleBarHash() {
     equationValid = 1;
     
     /* if we have variable hashes passed in, deal with them */
-	if(varsStart > 1)
-	{
-        var variableString = addressBar.substring(varsStart,varsStop);
-		var minStart = 0;
-		var minStop  = variableString.indexOf("{");
-		var maxStart = minStop + 1;
-		var maxStop  = variableString.indexOf("}");
-		var stepStart = maxStop + 1;
-		var stepStop = variableString.indexOf("[");
-        var lastStart = stepStop + 1;
-        var lastStop = variableString.indexOf(";");
-        var visStart = lastStop + 1;
-        var visStop = variableString.indexOf("=");
-        var nameStart = visStop + 1;
-        var nameStop = variableString.length;
+  	if(varsStart > 1)
+  	{
+        var variableString = addressBar.substring(varsStart,varsStop),
+            minStart = 0,
+            minStop  = variableString.indexOf("{"),
+            maxStart = minStop + 1,
+            maxStop  = variableString.indexOf("}"),
+            stepStart = maxStop + 1,
+            stepStop = variableString.indexOf("["),
+            lastStart = stepStop + 1,
+            lastStop = variableString.indexOf(";"),
+            visStart = lastStop + 1,
+            visStop = variableString.indexOf("="),
+            nameStart = visStop + 1,
+            nameStop = variableString.length;
         
-		/* grab the minimum address*/
-		var parseBlock = variableString.substring(minStart,minStop);
+  		  /* grab the minimum address*/
+  		  var parseBlock = variableString.substring(minStart,minStop);
         parseAndAddToHash(parseBlock,":",variableMinHash);
-
+  
         /* grab the maximum address*/
         parseBlock = variableString.substring(maxStart,maxStop);
         parseAndAddToHash(parseBlock,":",variableMaxHash);
-
+  
         /* grab the step address*/
         parseBlock = variableString.substring(stepStart,stepStop);
         parseAndAddToHash(parseBlock,":",variableStepHash);
@@ -110,7 +104,7 @@ function loadTitleBarHash() {
          /* grab the last address*/
         parseBlock = variableString.substring(lastStart,lastStop);
         parseAndAddToHash(parseBlock,":",variableLastHash);
-
+  
          /* grab the visibility*/
         parseBlock = variableString.substring(visStart,visStop);
         parseAndAddToHash(parseBlock,":",variableVisHash);
@@ -118,42 +112,42 @@ function loadTitleBarHash() {
         /* grab the name*/
         var tempName = variableString.substring(nameStart,nameStop);
         tempName = tempName.replace(/%20/g," ");
-       
+    } 	
 
-        
-	} 	
-
-	if(equationValid > 0)
-	{
-	    $("#mainEquation").val(equationString);
+  	if(equationValid > 0)
+  	{
+  	    $("#mainEquation").val(equationString);
         $("#equationName").val(tempName);
         $("#graphBtn").click();
-	}
+  	}
 }
 
 /* function parseAndAddToHash parses a string at delimeter and adds to a hash*/
-function parseAndAddToHash(stringToParse,delimiter,hashToGrow) {
+function parseAndAddToHash(stringToParse,delimiter,hashToGrow)
+{
     
-        /* should we continue parsing? */
-        var stillParsing = 1;
+    /* should we continue parsing? */
+    var stillParsing = true;
         
-        /* local variable for splitting */
-        var parseBlock = stringToParse
+    /* local variable for splitting */
+    var parseBlock = stringToParse
         
-        /* loop through a string and split at indicies */
-    	while(stillParsing == 1) {
-            
-            /* break down the string and go to next delimiter*/
+    /* loop through a string and split at indicies */
+  	while(stillParsing)
+  	{
+        /* break down the string and go to next delimiter*/
 		    var nextDelimiter = parseBlock.indexOf(delimiter);
-		    if(nextDelimiter > -1) {
+		    if(nextDelimiter > -1)
+		    {
 		        var hashValue = parseBlock.substring(0,nextDelimiter);
 		        parseBlock = parseBlock.substring(nextDelimiter+1,parseBlock.length);
 		        hashToGrow.push(hashValue);
-	            } 
-                    else {
-		        stillParsing = 0;
-        	    }
-    		}    
+	      }
+	      else
+	      {
+		        stillParsing = false;
+        }
+    }
 }
 
 
@@ -167,6 +161,7 @@ function showValue(sliderValue, sliderId)
         sliderLabel = $("#" + v + "_slider_value"),
         step = parseFloat($("#" + v + "_step").val()),
         dynamicUpdate = $("#dynamic_update");
+        
     sliderLabel.empty();
     sliderLabel.append(parseInput(sliderValue,step));
     
@@ -175,99 +170,6 @@ function showValue(sliderValue, sliderId)
     {
         solveEquation();
     }
-    
-    // var sliderSubLabel = document.getElementById("sub" + sliderId);
-    // sliderSubLabel.innerHTML=sliderValue;
-    // 
-    // /* Here we set the value hash with the value */
-    // arrayValueHash[sliderId[sliderId.length-1]] = sliderValue;
-    // 
-    // solveEquation(document.getElementById('mainEquation').value);
-    // 
-    // /* Also update the graph */
-    // if(document.checkboxform.updategraphcheckbox.checked==false) {
-    //     return;
-    // } else {
-    //     updateAllGraphs();
-    // }
-
-    //document.getElementById(sliderId).nextSibling.innerHTML=sliderValue;
-}
-
-function renameSlider(sliderName) {
-    var sliderNewName = prompt("Enter a new variable name","nonameslider");
-    var sliderSubLabel = document.getElementById("slider" + sliderName);
-    delete arrayLegendHash[sliderName];
-
-    /* Set our hash key value for this variable, or add a new one if not exist */
-    var sliderVar = sliderName[sliderName.length-1];
-    arrayLegendHash[sliderVar] = sliderNewName;
-
-    var newLabel = "(" + sliderName[sliderName.length-1] + ") " + sliderNewName;
-
-    sliderSubLabel.innerHTML=newLabel;
-
-    solveEquation(document.getElementById('mainEquation').value);
-
-    /* Also update the graph */
-    if(document.checkboxform.updategraphcheckbox.checked==false) {
-        updateGraph(sliderName);
-    } else {
-        updateAllGraphs();
-    }
-
-}
-
-
-/* moreSliders copies the invisible div slider element "slidertemplate" into a sibling div named sliderOutputX where
- X=numSliders */
-function moreSliders(varName, varTitle) {
-
-    /* Here we set the value hash with the value */
-    if(!arrayValueHash[varName]) {
-        arrayValueHash[varName] = 0;
-    }
-
-    /* clone the slider template but not its style*/
-    var newSliders = document.getElementById('slidertemplate').cloneNode(true);
-    newSliders.id = '';
-    newSliders.style.display = 'block';
-
-    /* loop over all child nodes of slider and name them uniquely sliderID(alpha) */
-    var sliderSubLabel = null;
-    var newSlider = newSliders.childNodes;
-    for (var i=0;i<newSlider.length;i++) {
-        var sliderOutputName = newSlider[i].id;
-        /* if the slider id is a range type, name the container div as the same */
-        if (sliderOutputName) {
-            if(newSlider[i].type == "range") {
-                newSliders.id = "sliderID" + varName;
-                newSlider[i].name = "clonedSlider";
-                newSlider[i].value = arrayValueHash[varName];
-                sliderSubLabelName = "sub" + sliderOutputName + varName;
-            }
-            newSlider[i].id = sliderOutputName + varName;
-        }
-    }
-
-    /* find the slider template and insert the correct slider behind it  */
-    var insertHere = document.getElementById('slidertemplate');
-    insertHere.parentNode.insertBefore(newSliders,insertHere);
-
-    /* Also adds a nice label to the text field */
-    var sliderTitle = document.getElementById("sliderTitle" + varName)
-    /* If we've got a hashed title for this value, display it */
-    var hashLabelValue = arrayLegendHash[varName];
-    if(hashLabelValue) {
-        sliderTitle.innerHTML= "(" + varName + ") " + hashLabelValue;
-    } else {
-        sliderTitle.innerHTML= "(" + varName + ") " + varTitle;
-    }
-
-    // and also set our slider innerHTML value
-    sliderSubLabel = document.getElementById(sliderSubLabelName);
-    sliderSubLabel.innerHTML=arrayValueHash[varName];
-
 }
 
 /* clearScreen clears out all named elements */
@@ -312,7 +214,6 @@ function parseInput(input, step)
         
         if(decimal != -1)
         {
-            //rounded = parseInt(str.substring(0,decimal));
             result = parseInt(str.substring(0,decimal)) * step;
         }
         else
@@ -348,31 +249,19 @@ function parseInput(input, step)
     return result;
 }
 
-// function colorText(text, color)
-// {
-//     var result = text;
-//     if(typeof color != undefined)
-//     {
-//         result = "<font style='color: "++"'>";
-//         result += color;
-//         result += "</font>";
-//     }
-//     return result;
-// }
 
 function updateSolution(equation, context, solution)
 {
     document.getElementById("formula").innerText = equation.toString(context);
     document.getElementById("solution").innerText = solution;
     document.getElementById("function_name").innerText = $("#equationName").val();
+    
     var v, vars = equation.variables(),
         varLen = vars.length,
         varList = "";
     for(var i = 0; i < varLen; i++)
     {
         v = vars[i];
-        //varList += v;
-        //varList += "=";
         varList += "<font id='" + v + "_param'>";
         varList += context[v];
         varList += "</font>";
@@ -387,7 +276,9 @@ function updateSolution(equation, context, solution)
     $("#result").css({display: ""});
 }
 
-function createContext(vars) {
+
+function createContext(vars)
+{
     var context = new Context(vars),
         varLen = vars.length,
         v, slider, val, step;
@@ -403,6 +294,7 @@ function createContext(vars) {
     
     return context;
 }
+
 
 function solveEquation()
 {
@@ -449,7 +341,7 @@ function clearAndParseEquation(equation)
         // parse the equation
         parsedEquation = QGSolver.parse(equation);
         // Create sliders
-        createSliders2(parsedEquation.variables());
+        createSliders(parsedEquation.variables());
         // Solve equation
         solveEquation();
     }
@@ -461,7 +353,6 @@ function clearAndParseEquation(equation)
 
 function toggleDraw(toggleID)
 {
-    // var toggled = $("#" + toggleID).is(":checked");
     solveEquation();
 }
 
@@ -553,9 +444,6 @@ function updateStep(inputID)
 /* function generateHashURL generates a save hash url for the current equation, receives variables as argument*/
 function generateHashURL(vars)
 {
-    //var URL = "www.quickgrapher.com/index.html?";
-    //var BASEURL = "http://www.quickgrapher.com/index.html?";
-    //var URL = "";
     var URL = window.location.href,
     // Pull off any existing URI params
         end = URL.indexOf("?");
@@ -572,18 +460,19 @@ function generateHashURL(vars)
     }
     
     // variables to store hash values
-    var delimiter = ":";
-    var minString = "";
-    var maxString = "";
-    var stepString = "";
-    var lastString = "";
-    var visString = "";
+    var delimiter = ":",
+        minString = "",
+        maxString = "",
+        stepString = "",
+        lastString = "",
+        visString = "";
     
     
     // Loop over variables
     var name = "",
         v, varLen = vars.length,
-        step, minVal, maxVal, last;    
+        step, minVal, maxVal, last;
+        
     for(var i = 0; i < varLen; i++)
     {
         // Current variable
@@ -622,15 +511,6 @@ function generateHashURL(vars)
     
     // add the fully constituted strings to URL
     URL += minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + cleanGraphName + "]";
-
-    // encode the URL
-    //URL = encodeURIComponent(URL);
-    
-    //URL = BASEURL + URL;
-    
-
-    // put the URL as our new url
-    //console.log(URL);
     
     // sneak the url into the instructions block    
     $("#instruct").attr("href", URL);
@@ -649,7 +529,8 @@ function generateHashURL(vars)
 }
 
 // update our share icon dynamically
-function updateShare(url, title) {
+function updateShare(url, title)
+{
     if(typeof SHARETHIS != "undefined")
     {
         var object = SHARETHIS.addEntry({
@@ -658,27 +539,10 @@ function updateShare(url, title) {
         });
         object.attachButton(document.getElementById('blank_share'));
     }
-    //object.popup();
 } 
-/*
- * 
- * <tr class="variable">
-      <td rowspan="2"><input type="checkbox" class="show_select" onclick="solve()"/></td>
-      <td rowspan="2"><div style="vertical-align: top;">x = 6</div></td>
-      <td class="minimum"><input type="text" class="range_input" size="10" value="0"/></td>
-      <td class="step"><input type="text" class="range_input" size="10" value="1"/></td>
-      <td class="maximum"><input type="text" class="range_input" size="10" value="100"/></td>
-    </tr>
-    <tr class="variable">
-      <td colspan="3" class="range">
-        <input type="range" id="rangesliderID" min="0" max="100" value="0" step="1" onchange="showValue(this.value, this.id)" style="margin-left: 22px;width: 184px;"/>
-      </td>
-    </tr>
- * 
- * 
-*/
 
-function createSliders2(vars)
+
+function createSliders(vars)
 {
     var v, varsLen = vars.length,
         sliderParent = $("#variables"),
@@ -741,10 +605,6 @@ function createSliders2(vars)
         sliderParent.append(first);
         first = $(first);
         // Create show checkbox
-        // el = document.createElement("td");
-        // el.setAttribute("rowspan","2");
-        // el = $(el);
-        
         inp = document.createElement("input");
         inp.setAttribute("class","show_select");
         inp.id = v + "_graph_checkbox";
@@ -754,8 +614,6 @@ function createSliders2(vars)
         {
             inp.setAttribute("checked", "checked");
         }
-        // el.append(inp);
-        // first.append(el);
         
         // Variable name and value  (added checkbox here)
         el = document.createElement("td");
@@ -770,12 +628,12 @@ function createSliders2(vars)
         el.append(inp);
         inp = $(inp);
         var cs = {
-          width:"100%",
-          // Need to load this from graph
-          color:"rgb" + "(0,0,0)",
-          display: "inline"
+            width:"100%",
+            // Need to load this from graph
+            color:"rgb" + "(0,0,0)",
+            display: "inline"
         };
-        //cs["float"] = "left";
+
         cs["font-size"] = "13pt";
         inp.css(cs);
         inp = document.createElement("div");
@@ -784,16 +642,11 @@ function createSliders2(vars)
         inp.id = v + "_slider_value";
         el.append(inp);
         inp = $(inp);
-        // cs = {};
-        // cs["float"] = "left";
-        // cs["margin-left"]="20px";
-        // inp.css(cs);
         first.append(el);
         
         el = document.createElement("td");
         el.setAttribute("class","minimum");
         el = $(el);
-        // <input type="text" class="range_input" size="10" value="0"/>
         inp = document.createElement("input");
         inp.setAttribute("id", v + "_min");
         inp.setAttribute("type", "text");
@@ -877,9 +730,6 @@ function createSliders2(vars)
             });
         });
     }
-
-    // Show legend title
-    //$("#legendTitle").show();
 }
 
 // updates graphs for all variables
@@ -899,8 +749,8 @@ function updateAllGraphs(equation, context)
             graph = document.createElement("div");
             graph.id = graphID;
             graph.style.position = "relative";
-            graph.style.width = "100%";//parentElement.width() + "px";
-            graph.style.height = "100%";//parentElement.height() + "px";
+            graph.style.width = "100%";
+            graph.style.height = "100%";
             // Add to canvas
             parentElement.append(graph);
             // Register with Graph
@@ -931,7 +781,6 @@ function updateAllGraphs(equation, context)
                     color = "rgb(0,0,0)";
                 }
                 
-                //$("#" + v + "_variable_name").css({"color": color});
                 $("#" + v + "_slider_value").css({color: color});
             }
         }
@@ -942,6 +791,7 @@ function updateAllGraphs(equation, context)
         v, vars = equation.variables(), varLen = vars.length,
         localContext = context.toObj(),
         step, min, max;
+        
     for(var i = 0; i < varLen; i++)
     {
         // Current variable
@@ -950,7 +800,6 @@ function updateAllGraphs(equation, context)
         if($("#" + v + "_graph_checkbox").is(":checked")
             || (typeof graph.color(v) == "undefined"))
         {
-            //name = "Title" + varName;
             // Adjust context
             var fixedPt = localContext[v],
                 min = parseFloat($("#" + v + "_min").val()),
@@ -967,7 +816,6 @@ function updateAllGraphs(equation, context)
         if(!$("#" + v + "_graph_checkbox").is(":checked"))
         {
             // Make sure we have cleared the data for this variable
-            //graph.remove_data(v);
             graph.hide_data(v);
         }
     }
@@ -1005,31 +853,11 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         context[graphVariable].step();
     }
     
-    var lbl = "",//"Fxn ( ",
+    var lbl = "",
         v, vars = equation.variables(),
         varLen = vars.length;
-    // for(var i = 0; i < varLen; i++)
-    // {
-    //     v = vars[i];
-    //     if(v == graphVariable)
-    //     {
-    //         lbl += v;
-    //     }
-    //     else
-    //     {
-    //         lbl += context[v];
-    //     }
-    //     if(i != varLen - 1)
-    //     {
-    //         lbl += ",";
-    //     }
-    // }
+
     lbl += graphVariable;
-    // if( varLen > 1)
-    // {
-    //     lbl += ", ..."
-    // }
-    // lbl += " )";
     
     // Add plot for this variable (will overwrite existing ones)
     var cs = {label : lbl};
@@ -1041,22 +869,17 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     );
     
     // Set variable colors from plot
-    var color;
-    // for(var i = 0; i < varLen; i++)
-    // {
-        //v = vars[i];
-        color = $("#subgraph").color(lbl);
-        if(typeof color == "undefined")
-        {
-            color = "rgb(0,0,0)";
-        }
-        
-        //$("#" + lbl + "_variable_name").css({"color": color});
-        $("#" + lbl + "_slider_value").css({color: color});
-        cs = {color: color};
-        cs["font-weight"] = "bold";
-        $("#" + lbl + "_param").css(cs);
-    // }
+    var color = $("#subgraph").color(lbl);
+    if(typeof color == "undefined")
+    {
+        color = "rgb(0,0,0)";
+    }
+    
+    //$("#" + lbl + "_variable_name").css({"color": color});
+    $("#" + lbl + "_slider_value").css({color: color});
+    cs = {color: color};
+    cs["font-weight"] = "bold";
+    $("#" + lbl + "_param").css(cs);
 }
 
 function toggle(exampleID)
@@ -1212,7 +1035,6 @@ function loadFunctions()
             list.empty();
             emptied = true;
         }
-        //fxn = functions[fxnName];
         margins = "margin-top: ";
         col = Math.floor(row/colSize);
         var top = 0;
@@ -1236,8 +1058,6 @@ function loadFunctions()
 
 function insertFunction(linkID)
 {
-    // 
-  
     var fxnName = linkID.substring(linkID.indexOf("_")+1,linkID.length),
         fxn = functions[fxnName];
     
@@ -1282,7 +1102,6 @@ function createFunctionLink(fxnStr, style, parent)
     var ex = document.createElement("li");
     
     ex.setAttribute("id","fxn_" + fxnStr);
-    //ex.setAttribute("class","column" + col);
     ex.setAttribute("onclick","insertFunction(this.id)");
     ex.setAttribute("style",style);
     
@@ -1302,7 +1121,6 @@ function createExampleLink(example, parent)
     inner += "</a>";
     ex.innerHTML = inner;
     ex.setAttribute("id","example_" + compressName(example.name));
-    //example.setAttribute("onclick","loadExample(this.id)");
     parent.append(ex);
 }
 
@@ -1494,7 +1312,6 @@ function toggleFullscreen()
             // -- Solutions & Variables
             fsc.append($("#result"));
             // -- Variables
-            //fsc.append($("#variables_column"));
             // Calculate available width
             var dims = getViewportDimensions(),
                 w = dims.width,
@@ -1528,20 +1345,15 @@ function toggleFullscreen()
             // Input style
             style = {};
             style["margin"] = "2px 0px 0px 30px";
-            //style["width"] = graphW - 30;
             $("#equation").css(style);
             
             // Graph style
             style = {};
             style["margin"] = "5px 5px 5px 5px";
-            //style["width"] = graphW - 10;
-            //style["height"] = h - 40;
             style["display"] = "inline";
             $("#graph_container").css(style);
             
             // Results and variables display
-            //style = {};
-            //style["width"] = resultsW;
             if(!vertical)
             {
                 $("#result").addClass("result_fullscreen");
@@ -1550,16 +1362,13 @@ function toggleFullscreen()
             $("#mainEquation").removeClass("equation_input");
             $("#mainEquation").addClass("equation_input_fullscreen");
             
-            //$("#result").css(style);
             if(!vertical)
             {
                 $("#solution_column").removeClass("solution_column");
                 $("#solution_column").addClass("solution_column_fullscreen");
-                //$("#solution_column").css(style);
                 $("#variables_column").removeClass("variables_column");
                 $("#variables_column").addClass("variables_column_fullscreen");
             }
-            //$("#variables_column").css(style);
             resizeFullscreen();
             // Fire resize handler
             $("#subgraph").trigger("resize");
@@ -1585,10 +1394,7 @@ function toggleFullscreen()
             $("#graph_container").insertAfter("#equation");
             // -- Solution & variables
             $("#result").insertAfter("#graph_break");
-            // var results = $("#result");
-            // results.append($("#solution_column"));
             // // -- Variables
-            // results.append($("#variables_column"));
             // Fix styles
             style = {};
             style["margin"] = "";
