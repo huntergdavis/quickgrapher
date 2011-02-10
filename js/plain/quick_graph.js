@@ -835,7 +835,7 @@ function updateAllGraphs(equation, context)
         else
         {
             // Update graph title
-            graph.graph_options("title",$("#equationName").val() + " ( " + vars.join(", ") +" )");
+            graph.graph_option("title",$("#equationName").val() + " ( " + vars.join(", ") +" )");
         }
     }
  
