@@ -1,6 +1,7 @@
 QuickGrapher ChangeLog
 
 -- Changed on 2/9/2011 --
+Ticket #56: Updated Test Suite to use context
 Ticket #43: Added save as png button
 Ticket #48: Clears old min/max/step values
 Ticket #47: Add a clear equation button

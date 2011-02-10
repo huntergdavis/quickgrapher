@@ -2,7 +2,8 @@
 // keep track of passed and total
 var passed = 0;
 var total = 0;
-
+var passedParse = 0;
+var totalParsed = 0;
 
 // set all context variables to 1
 function createContext(vars) {
@@ -19,6 +20,21 @@ function createContext(vars) {
     return context;
 }
 
+// set all context variables to correct variables
+function createTestContext(vars,varContext) {
+    var context = new Context(vars),
+        varLen = vars.length,
+        v, slider, val, step;
+        
+    for(var i = 0; i < varLen; i++)
+    {
+        v = vars[i];
+        context.set(v, varContext[i]);
+    }
+    
+    return context;
+}
+
 // print out basic statistics 
 function printOutStats() {
     
@@ -26,7 +42,16 @@ function printOutStats() {
     insertionText += "<h2>Attempted: " + total + "</h2>";
     insertionText += "<h2>Passed: " + passed + "</h2>";
     var percentage = Math.floor((passed/total) *100);
-    insertionText += "<h2>Why, That's " + percentage + "% successful</h2>";
+    
+    insertionText += "<h2>Attempted Parsed: " + totalParsed + "</h2>";
+    insertionText += "<h2>Correctly Parsed: " + passedParse + "</h2>";   
+    var parsedPercentage =  Math.floor((passedParse/totalParsed) *100);
+    
+    var totalPercentage = Math.floor(((passed + passedParse) / (total + totalParsed)) * 100);
+    
+    insertionText += "<h2>Why, That's " + percentage + "% successful numerically</h2>";
+    insertionText += "<h2>" + parsedPercentage + "% successful parses</h2>";
+    insertionText += "<h2>And " + totalPercentage + "% successful overall</h2>";
     insertionText += "</div>";
     
     // insert into the body
@@ -37,7 +62,7 @@ function printOutStats() {
 
 // create a new div element within the page 
 // containg a Test Title, Description txt, boolean passed flag
-function createNewTestDiv(title,desc,passed_flag) {
+function createNewTestDiv(title,desc,passed_flag, passedParse_flag) {
     
     // keep track globally
     total++;
@@ -56,14 +81,26 @@ function createNewTestDiv(title,desc,passed_flag) {
     // did the test pass?
     if(passed_flag == 1)
     {
-        insertionText += "- <div align=right style=\"color:blue;\">PASSED</div>";
+        insertionText += "<div align=right style=\"color:blue;\">PASSED Numerically</div>";
         passed++;
     }
     else
     {
-        insertionText += "- <div align=right style=\"color:red;\">FAILED</div>";
+        insertionText += "<div align=right style=\"color:red;\">FAILED Numerically</div>";
     }
-    
+
+    // did the test pass parse?
+    if(passedParse_flag == 1)
+    {
+        insertionText += "<div align=right style=\"color:blue;\">PASSED Parse</div>";
+        passedParse++;
+        totalParsed++;
+    }
+    else if(passedParse_flag == 0)
+    {
+        insertionText += "<div align=right style=\"color:red;\">FAILED Parse</div>";
+        totalParsed++;
+    }    
     // limit the largeness
     insertionText += "</h2>";
     
@@ -118,7 +155,59 @@ function testExampleEquations() {
             passedTest = 1;
         }
         
-        createNewTestDiv(Examples[i].name,description,passedTest);
+        createNewTestDiv(Examples[i].name,description,passedTest,2);
+    }
+
+}
+
+
+// loop over examples and see if they solve correctly
+function testSolverTestExamples() {
+
+    var exLen = TestExamples.length;
+    for(var i = 0; i < exLen; i++)
+    {
+        var parsedEquation = QGSolver.parse(TestExamples[i].fxn);
+
+        var vars = parsedEquation.variables();
+        var context = createTestContext(vars,TestExamples[i].curVarContext);
+        var passedTest = 0;
+        //console.log("Context: " + context.toString());
+        
+        // Solve
+        var solution = undefined;
+        try
+        {
+            solution = QGSolver.solve(context.toObj());
+        }
+        catch(exception)
+        {
+            //alert("Solve failed: " + exception);
+            passedTest = 0;
+            solution = "Solve failed:" + exception;
+        }
+        
+
+        var description = "Function = " + TestExamples[i].fxn + " <br>";
+        description += "Parsed Function = " + parsedEquation.toString(context.toObj()) + " <br>";
+        description += "Expected Parsed Function = " + TestExamples[i].parseSol + " <br>";
+        description += "Expected Result = " + TestExamples[i].numSol + " <br>";
+        description += "Actual Result = " + solution + "<br>";
+        
+        var localPassedParse = 0;
+        
+        if(parsedEquation.toString(context.toObj()) == TestExamples[i].parseSol)
+        {
+            localPassedParse = 1;
+        }
+       
+        if(solution.toString() == TestExamples[i].numSol)
+        {
+            passedTest = 1;
+        }
+
+        
+        createNewTestDiv(TestExamples[i].name,description,passedTest,localPassedParse);
     }
 
 }
@@ -133,6 +222,9 @@ function executeTestSuite() {
     // test the example equations
     testExampleEquations();
     
+    // test the solver test equations
+    testSolverTestExamples();
+    
     // print out stats
     printOutStats();
     
@@ -141,7 +233,8 @@ function executeTestSuite() {
 
 $(document).ready(function() {
     // Turn on debug
-    QGSolver.DEBUG = true;
-    // Load examples
+    QGSolver.DEBUG = false;
+            
+    // execute the test suite
     executeTestSuite();
 });
