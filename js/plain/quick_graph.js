@@ -798,6 +798,11 @@ function updateAllGraphs(equation, context)
             graph.style.height = "100%";
             // Add to canvas
             parentElement.append(graph);
+            
+            // Retrieve variables
+            var v, vars = equation.variables(),
+                varLen = vars.length;
+            
             // Register with Graph
             var graphName = $("#equationName").val();
             graph = $(graph);
@@ -805,6 +810,7 @@ function updateAllGraphs(equation, context)
             opts['hue-increment'] = 45;
             opts['hue-base'] = 22;
             opts['value-base'] = 95;
+            opts['title'] = $("#equationName").val() + "(" + vars.join(", ") +")";
             graph.graphify(opts)/*.attach_legend({
               'legend-mode': false,
               'legend-container': $("#legend"),
@@ -814,9 +820,7 @@ function updateAllGraphs(equation, context)
             });
             
             // Set variable colors from plot
-            var color,
-                v, vars = equation.variables(),
-                varLen = vars.length;
+            var color;
             for(var i = 0; i < varLen; i++)
             {
                 v = vars[i];
