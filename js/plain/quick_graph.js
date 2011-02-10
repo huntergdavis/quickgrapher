@@ -781,7 +781,10 @@ function createSliders(vars)
 function updateAllGraphs(equation, context)
 {
     var unifiedGraph = true,
-        graph;
+        graph,
+    // Retrieve variables
+        v, vars = equation.variables(),
+        varLen = vars.length;
     if(unifiedGraph)
     {
         var graphID = "subgraph";
@@ -798,6 +801,7 @@ function updateAllGraphs(equation, context)
             graph.style.height = "100%";
             // Add to canvas
             parentElement.append(graph);
+            
             // Register with Graph
             var graphName = $("#equationName").val();
             graph = $(graph);
@@ -805,6 +809,7 @@ function updateAllGraphs(equation, context)
             opts['hue-increment'] = 45;
             opts['hue-base'] = 22;
             opts['value-base'] = 95;
+            opts['title'] = $("#equationName").val() + " ( " + vars.join(", ") +" )";
             graph.graphify(opts)/*.attach_legend({
               'legend-mode': false,
               'legend-container': $("#legend"),
@@ -814,9 +819,7 @@ function updateAllGraphs(equation, context)
             });
             
             // Set variable colors from plot
-            var color,
-                v, vars = equation.variables(),
-                varLen = vars.length;
+            var color;
             for(var i = 0; i < varLen; i++)
             {
                 v = vars[i];
@@ -829,11 +832,15 @@ function updateAllGraphs(equation, context)
                 $("#" + v + "_slider_value").css({color: color});
             }
         }
+        else
+        {
+            // Update graph title
+            graph.graph_option("title",$("#equationName").val() + " ( " + vars.join(", ") +" )");
+        }
     }
  
     /// Loop over variable
     var name = "",
-        v, vars = equation.variables(), varLen = vars.length,
         localContext = context.toObj(),
         step, min, max;
         
@@ -1415,10 +1422,10 @@ function toggleFullscreen()
                 $("#variables_column").addClass("variables_column_fullscreen");
             }
             resizeFullscreen();
-            // Fire resize handler
-            $("#subgraph").trigger("resize");
             // Show fullscreen block
             $("#fullscreen_container").show();
+            // Fire resize handler
+            $("#subgraph").trigger("resize");
         }
         else
         {
