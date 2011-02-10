@@ -1425,6 +1425,8 @@ function toggleFullscreen()
             $("#container").show();
             $("#footer").show();
             $("#beta_box").show();
+            // Fire resize handler
+            $("#subgraph").trigger("resize");
         }
         toggling = false;
     }
