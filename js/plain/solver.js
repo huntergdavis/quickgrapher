@@ -1406,34 +1406,44 @@ var QGSolver = function() {
         }
         // Clear any final matches
         if(builtString.length > 0) {
+            var negative = builtString.charAt(0) == "-",
             // check if it is a constant
-            var constant = Constants[builtString]
+                constant;
+            if(negative)
+            {
+                builtString = builtString.substring(1,builtString.length);
+            }
+            constant = Constants[builtString];
+            
             if(typeof constant != "undefined")
             {
-                eq.append(new QGConstant(constant));
+                eq.append(new QGConstant(constant, negative));
             }
             else
             {
                 // Otherwise it is a variable
-                eq.append(new QGVariable(builtString));
+                eq.append(new QGVariable(builtString, negative));
             }
             builtString = "";
         }
         else if(builtNumber.length > 0)
         {
+            var negative = builtNumber.charAt(0) == "-";
             if(QGSolver.DEBUG)
             {
                 console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
             }
-            eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+            if(negative)
+            {
+                builtNumber = builtNumber.substring(1,builtNumber.length);
+            }
+            eq.append(new QGConstant(new Constant(parseFloat(builtNumber), negative)));
             builtNumber = "";
         }
         // Finalize parsing
         eq.finalize();
         // Save object
         this.equation = eq;
-        // Show parsed equation
-        //alert(eq.toString() + " = " + eq.solve({x: 10}));
         // Return parsed object
         return eq;
     };
