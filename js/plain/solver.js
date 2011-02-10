@@ -736,10 +736,11 @@ var QGSolver = function() {
         };
     };
     
-    var QGFunction = function(functionString) {
+    var QGFunction = function(functionString, negative) {
         var func = toFunction(functionString),
             funcName = functionString,
-            args = [];
+            args = [],
+            neg = negative ? negative : false;
             
         if(QGSolver.DEBUG)
         {    
@@ -821,7 +822,8 @@ var QGSolver = function() {
                 solvedArgs.push(this.args[i].solve(context));
             }
             // Pass into functions
-            return this.func.evaluate(solvedArgs);
+            var negate = this.negative ? -1 : 1;
+            return negate * this.func.evaluate(solvedArgs);
         };
         
         var stringify = function(context) {
@@ -924,6 +926,7 @@ var QGSolver = function() {
             funcName: funcName,
             length: len,
             prefix: pre,
+            negative: neg,
             type: "QGFunction"
         };
     };
@@ -1028,8 +1031,9 @@ var QGSolver = function() {
         };
     };
     
-    var QGVariable = function(variableName) {
-        var v = variableName;
+    var QGVariable = function(variableName, negative) {
+        var v = variableName,
+            neg = negative ? negative : false;
         
         if(QGSolver.DEBUG)
         {
@@ -1040,14 +1044,15 @@ var QGSolver = function() {
             var val = context[this.varName];
             if(typeof val != "undefined")
             {
+                var negate = this.negative ? -1 : 1;
                 // If context value is a function (VariableIterator)
                 if((typeof val == "object") && (typeof val.value != "undefined"))
                 {
-                    return val.value;
+                    return negate * val.value;
                 }
                 else
                 {
-                    return val;
+                    return negate * val;
                 }
             }
             else
@@ -1086,13 +1091,14 @@ var QGSolver = function() {
             toString: stringify,
             name: toLabel,
             varName: v,
+            negative: neg,
             type: "QGVariable"
         };
     };
     
     var QGConstant = function(value, negative) {
         var v = value,
-            neg = negative;
+            neg = negative ? negative : false;
         
         if(QGSolver.DEBUG)
         {
@@ -1190,18 +1196,27 @@ var QGSolver = function() {
             switch(alphaNumericType(c)) {
                 // Letter
                 case 1:
-                    // If we have a number string already, assume implicit multiplication
-                    if(builtNumber.length > 0)
+                    if(builtNumber != "-")
                     {
-                        // Add constant
-                        if(QGSolver.DEBUG)
+                        // If we have a number string already, assume implicit multiplication
+                        if(builtNumber.length > 0)
                         {
-                            console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                            // Add constant
+                            if(QGSolver.DEBUG)
+                            {
+                                console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                            }
+                            eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                            builtNumber = "";
+                            // Add mult
+                            eq.append(new QGFunction("*"));
                         }
-                        eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                    }
+                    else
+                    {
+                        // Negating a variable, constant or function
+                        builtString = builtNumber;
                         builtNumber = "";
-                        // Add mult
-                        eq.append(new QGFunction("*"));
                     }
                     builtString += c;
                     break;
@@ -1219,15 +1234,25 @@ var QGSolver = function() {
                     // If we are working on a string
                     if(builtString.length > 0) {
                         // check if it is a constant
-                        var constant = Constants[builtString]
+                        var negative = builtString.charAt(0) == "-",
+                            constant;
+                        if(!negative)
+                        {
+                            constant = Constants[builtString];
+                        }
+                        else
+                        {
+                            constant = Constants[builtString.substring(1,builtString.length)];
+                        }
+                        
                         if(typeof constant != "undefined")
                         {
-                            eq.append(new QGConstant(constant));
+                            eq.append(new QGConstant(constant, negative));
                         }
                         else
                         {
                             // Otherwise it is a variable
-                            eq.append(new QGVariable(builtString));
+                            eq.append(new QGVariable(builtString, negative));
                         }
                         builtString = "";
                     }
@@ -1274,10 +1299,9 @@ var QGSolver = function() {
                         else
                         {
                             // Strip any negative symbols
-                            var negative = false;
-                            if(builtString.charAt(0) == "-")
+                            var negative = builtString.charAt(0) == "-";
+                            if(negative)
                             {
-                                negative = true;
                                 // Take remainder of string
                                 builtString = builtString.substring(1);
                             }
@@ -1290,7 +1314,7 @@ var QGSolver = function() {
                             else
                             {
                                 // Otherwise it is a variable
-                                eq.append(new QGVariable(builtString));
+                                eq.append(new QGVariable(builtString, negative));
                             }
                         }
                         builtString = "";
@@ -1338,10 +1362,9 @@ var QGSolver = function() {
                     }
                     if(builtString.length > 0) {
                         // Strip any negative symbols
-                        var negative = false;
-                        if(builtString.charAt(0) == "-")
+                        var negative = builtString.charAt(0) == "-";
+                        if(negative)
                         {
-                            negative = true;
                             // Take remainder of string
                             builtString = builtString.substring(1);
                         }
@@ -1354,7 +1377,7 @@ var QGSolver = function() {
                         else
                         {
                             // Otherwise it is a variable
-                            eq.append(new QGVariable(builtString));
+                            eq.append(new QGVariable(builtString, negative));
                         }
                         builtString = "";
                     }
@@ -1363,8 +1386,14 @@ var QGSolver = function() {
                 // Opening char
                 case 6:
                     // If we are working on a string, assume its a function
-                    if(builtString.length > 0) {
-                        eq.append(new QGFunction(builtString));
+                    if(builtString.length > 0)
+                    {
+                        var negative = builtString.charAt(0) == "-";
+                        if(negative)
+                        {
+                            builtString = builtString.substring(1,builtString.length);
+                        }
+                        eq.append(new QGFunction(builtString, negative));
                         builtString = "";
                     }
                     // Always new block
