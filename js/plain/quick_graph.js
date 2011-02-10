@@ -810,7 +810,7 @@ function updateAllGraphs(equation, context)
             opts['hue-increment'] = 45;
             opts['hue-base'] = 22;
             opts['value-base'] = 95;
-            opts['title'] = $("#equationName").val() + "(" + vars.join(", ") +")";
+            opts['title'] = $("#equationName").val() + " ( " + vars.join(", ") +" )";
             graph.graphify(opts)/*.attach_legend({
               'legend-mode': false,
               'legend-container': $("#legend"),
