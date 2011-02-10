@@ -370,9 +370,50 @@ function solveEquation()
           updateSolution(parsedEquation, context.toObj(), solution);
           // update all graphs
           updateAllGraphs(parsedEquation, context);
+          
+        
+          // automatically generate a test case for any graph created  
+          if(QGSolver.TESTGENERATION)
+          {
+              // add the name to the test case
+              var testCase = "\nTestExamples.push({name:\"";
+              testCase += $("#equationName").val() + "\",";
+              
+              // add the function to the test case
+              testCase += "fxn : \"";
+              testCase += parsedEquation.toString() + "\",";
+              
+              // add the curValContext to the test case
+              testCase += "curVarContext : [";
+              for(var j = 0;j<vars.length;j++)
+              {
+                  testCase += $("#" + vars[j] + "_slider_value").text();
+                  if(j < vars.length-1)
+                  {
+                    testCase += ",";
+                  }
+              }
+                            
+              testCase += "],";
+              
+              // add the parse Solution to the test case
+              testCase += "parseSol : \""
+              testCase += parsedEquation.toString(context.toObj()) + "\",";
+              
+              // add the numerical Solution to the test case
+              testCase += "numSol : \"";
+              testCase += solution + "\"";
+              
+              // close out the brackets
+              testCase += "});\n";
+              
+              
+              console.log(testCase);
+          }          
       }
         // generate a hash
         generateHashURL(parsedEquation.variables());
+    
     }
 }
 
@@ -1509,9 +1550,12 @@ function toggleInclude(toggleID)
 }
 $(document).ready(function() {
     // Turn on debug
-    //QGSolver.DEBUG = true;
-    QGSolver.DEBUG = false;
+    QGSolver.DEBUG = true;
+    //QGSolver.DEBUG = false;
     // enable random load
+    
+    // Turn on Test Generation
+    QGSolver.TESTGENERATION = true;
     
     // Load examples
     loadExamples();

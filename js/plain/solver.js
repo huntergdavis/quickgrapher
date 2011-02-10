@@ -147,6 +147,7 @@ var Examples = [];
 var QGSolver = function() {
     // Global flags,
     var debug = false;
+    var testGen = false;
     /* Inner classes */
     var QGEquation = function() {
         // Member variables
@@ -1468,6 +1469,7 @@ var QGSolver = function() {
     
     return {
         DEBUG: debug,
+        TESTGENERATION: testGen,
         parse: parseEquation,
         solve: solve,
         equation: parsedEquation

@@ -18,3 +18,8 @@ TestExamples.push({
     parseSol : "3*5+(15*6)",
     numSol : "105"
 });
+
+TestExamples.push({
+        name:"Sine Tree Test", 
+           fxn : "32*tree+15*sin(green)",
+               curVarContext : [36,55],parseSol : "32*36+15*sin(55)",numSol : "1137.0036723996207"});
