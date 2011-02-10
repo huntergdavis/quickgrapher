@@ -781,7 +781,10 @@ function createSliders(vars)
 function updateAllGraphs(equation, context)
 {
     var unifiedGraph = true,
-        graph;
+        graph,
+    // Retrieve variables
+        v, vars = equation.variables(),
+        varLen = vars.length;
     if(unifiedGraph)
     {
         var graphID = "subgraph";
@@ -798,10 +801,6 @@ function updateAllGraphs(equation, context)
             graph.style.height = "100%";
             // Add to canvas
             parentElement.append(graph);
-            
-            // Retrieve variables
-            var v, vars = equation.variables(),
-                varLen = vars.length;
             
             // Register with Graph
             var graphName = $("#equationName").val();
@@ -842,7 +841,6 @@ function updateAllGraphs(equation, context)
  
     /// Loop over variable
     var name = "",
-        v, vars = equation.variables(), varLen = vars.length,
         localContext = context.toObj(),
         step, min, max;
         
