@@ -119,8 +119,8 @@ img::-moz-selection {background: transparent;}
 }
 
 .walkthroughs {
-  height: 300px;
-  width: 400px;
+  margin: 0px auto;
+  border: 2px solid rgb(164, 157, 143);
 }
 
 .instructions {
