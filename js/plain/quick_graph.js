@@ -1415,10 +1415,10 @@ function toggleFullscreen()
                 $("#variables_column").addClass("variables_column_fullscreen");
             }
             resizeFullscreen();
-            // Fire resize handler
-            $("#subgraph").trigger("resize");
             // Show fullscreen block
             $("#fullscreen_container").show();
+            // Fire resize handler
+            $("#subgraph").trigger("resize");
         }
         else
         {
