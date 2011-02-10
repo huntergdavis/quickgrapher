@@ -249,6 +249,18 @@ function parseInput(input, step)
     return result;
 }
 
+function convertToPNG()
+{
+    var parentElement = $("#subgraph_graph")[0];
+    if(typeof parentElement != "undefined")
+    {
+        window.open(parentElement.toDataURL());
+    }
+    else
+    {
+        alert("Please Graph Something First, Thanks!");
+    }
+}
 
 function updateSolution(equation, context, solution)
 {
