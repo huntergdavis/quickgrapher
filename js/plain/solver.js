@@ -832,7 +832,7 @@ var QGSolver = function() {
             {
                 str += this.funcName;
                 var len = this.args.length;
-                if(len == 0 || this.args[0].type != "QGBlock" || true)
+                if(len == 0 || this.args[0].type != "QGBlock")
                 {
                     str += "(";
                 }
@@ -844,7 +844,7 @@ var QGSolver = function() {
                       str += ",";
                     }
                 }
-                if(len == 0 || this.args[0].type != "QGBlock" || true)
+                if(len == 0 || this.args[0].type != "QGBlock")
                 {
                     str += ")";
                 }
@@ -872,7 +872,7 @@ var QGSolver = function() {
                     }
                 }
             }
-            return str;
+            return (this.negative?"-":"") + str;
         };
         
         var len = function() {
@@ -1069,16 +1069,16 @@ var QGSolver = function() {
                 // it has a constant replacement. 
                 if(typeof v != "undefined" && typeof v != "function")
                 {
-                    return v;
+                    return (this.negative?"-":"") + v;
                 }
                 else
                 {
-                    return this.varName;
+                    return (this.negative?"-":"") + this.varName;
                 }
             }
             else
             {
-                return this.varName;
+                return (this.negative?"-":"") + this.varName;
             }
         };
         
