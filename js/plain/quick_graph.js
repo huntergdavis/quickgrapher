@@ -12,7 +12,6 @@ var variableVisHash = [];
 /* LoadTitleBarHash loads in passed-in title bar equation */
 function loadTitleBarHash()
 {
-    
     // Get location and search string.  I think there is a faster way to do this. 
     var encodedBar = window.location.href,
         equationStart = encodedBar.indexOf("?")+1,
@@ -118,7 +117,17 @@ function loadTitleBarHash()
   	{
   	    $("#mainEquation").val(equationString);
         $("#equationName").val(tempName);
-        $("#graphBtn").click();
+        
+        if(typeof equationString != "undefined")
+        {
+            // parse the equation
+            parsedEquation = QGSolver.parse(equationString);
+            // Create sliders
+            createSliders(parsedEquation.variables());
+            // Solve equation
+            solveEquation();
+        }        
+        //$("#graphBtn").click();
   	}
 }
 
@@ -172,6 +181,18 @@ function showValue(sliderValue, sliderId)
     }
 }
 
+/* clearEqAndScreen clears out equation and all named elements */
+function clearEqAndScreen()
+{
+    // clear out equation and equation fxn name
+    $("#mainEquation").val("");
+    $("#equationName").val("Function");
+    
+    // clear out all named elements
+    clearScreen();
+}
+
+
 /* clearScreen clears out all named elements */
 function clearScreen()
 {
@@ -194,6 +215,14 @@ function clearScreen()
     
     // Clear variables
     $("#variable_list").empty();
+
+    // clear all global saved hashes
+    variableMinHash = [];
+    variableMaxHash = [];
+    variableStepHash = [];
+    variableLastHash = [];
+    variableVisHash = [];
+
     
 }
 
@@ -254,7 +283,11 @@ function convertToPNG()
     var parentElement = $("#subgraph_graph")[0];
     if(typeof parentElement != "undefined")
     {
-        window.open(parentElement.toDataURL());
+        var pngDataURL = parentElement.toDataURL("image/png");
+        window.open(pngDataURL);
+        // the below works in firefox, but you can't name it...
+        //var pngDataFile = pngDataURL.replace("image/png","image/octet-stream");
+        //document.location.href = pngDataFile;
     }
     else
     {
