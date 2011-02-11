@@ -6,6 +6,8 @@ Ticket #43: Added save as png button
 Ticket #48: Clears old min/max/step values
 Ticket #47: Add a clear equation button
 No Ticket: Automatic Test Generation from Any Equation
+Ticket #55: Added test cases to autotest
+
 
 -- Changed on 2/8/2011 --
 Ticket #41: Re-wrote sharethis integration to be dynamic based on dynamic API
