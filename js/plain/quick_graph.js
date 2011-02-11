@@ -1133,7 +1133,7 @@ function loadFunctions()
         var top = 0;
         if(row > 0 && row % colSize == 0)
         {
-            top = -15 * colSize;
+            top = -14 * colSize;
         }
         
         margins += top + "px;";
@@ -1142,7 +1142,7 @@ function loadFunctions()
         var next = row + 1;
         if(next == fxnCount && next % colSize != 0)
         {
-            margins += " margin-bottom: " +  (15 * (colSize - (next%colSize))) + "px;";
+            margins += " margin-bottom: " +  (14 * (colSize - (next%colSize))) + "px;";
         }
         createFunctionLink(fxnName, margins, list);
         row++;
