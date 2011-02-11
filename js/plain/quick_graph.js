@@ -1137,7 +1137,7 @@ function loadFunctions()
         }
         
         margins += top + "px;";
-        margins += " margin-left: " + (col * colWidth) + "px;";
+        margins += " margin-left: " + (col * colWidth + 5) + "px;";
         // If last row
         var next = row + 1;
         if(next == fxnCount && next % colSize != 0)
