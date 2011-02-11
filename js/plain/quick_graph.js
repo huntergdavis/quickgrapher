@@ -366,13 +366,7 @@ function solveEquation()
       // If we solved the equation, update page
       if(typeof solution != "undefined")
       {
-          // Update solution display
-          updateSolution(parsedEquation, context.toObj(), solution);
-          // update all graphs
-          updateAllGraphs(parsedEquation, context);
-          
-        
-          // automatically generate a test case for any graph created  
+         // automatically generate a test case for any graph created  
           if(QGSolver.TESTGENERATION)
           {
               // add the name to the test case
@@ -410,6 +404,12 @@ function solveEquation()
               
               console.log(testCase);
           }          
+                    
+          // Update solution display
+          updateSolution(parsedEquation, context.toObj(), solution);
+          // update all graphs
+          updateAllGraphs(parsedEquation, context);
+          
       }
         // generate a hash
         generateHashURL(parsedEquation.variables());
@@ -1550,8 +1550,8 @@ function toggleInclude(toggleID)
 }
 $(document).ready(function() {
     // Turn on debug
-    QGSolver.DEBUG = true;
-    //QGSolver.DEBUG = false;
+    //QGSolver.DEBUG = true;
+    QGSolver.DEBUG = false;
     // enable random load
     
     // Turn on Test Generation
