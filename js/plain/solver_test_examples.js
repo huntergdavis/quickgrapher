@@ -6,9 +6,9 @@ var TestExamples = [];
 TestExamples.push({
     name: "Basic math test",
     fxn : "y*x",
-    curVarContext : [[3,2,5],[4,2,5]],
+    curVarContext : [[3,2,5,3,1,2,3,4,5,6],[4,2,5,3,2,2,3,4,5,6]],
     parseSol : "3*4",
-    numSol : [12,4,25]
+    numSol : [12,4,25,9,2,4,9,16,25,36]
 });
 
 
