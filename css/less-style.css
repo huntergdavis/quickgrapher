@@ -551,7 +551,7 @@ h2 > .examples {
     padding: 0px 10px;
     cursor: pointer;
 }
-.screenshot_icon {
+.screenshot_icon:hover {
     background-image: url("/images/screenshot_hover.png");
 }
 
