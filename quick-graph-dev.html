@@ -87,13 +87,13 @@ hunter or mark at discursivelabs.com
         </div>
         <span id="equation" class="equation">
           <input type="text" id="equationName" class="input" value="Function"/><font style="font-weight: bold; font-size: 12pt; margin: 0px 20px 0px 20px;">=</font><input type="text" id="mainEquation" class="equation_input input"/>  
-          <input id="graphBtn" type="button" value="Graph!" onclick="clearAndParse()"/><input id="graphKillBtn" type="button" value="X" onclick="clearEqAndScreen()"/>
+          <input id="graphBtn" type="button" value="Graph!" onclick="clearAndParse()"/><!--input id="graphKillBtn" type="button" value="X" onclick="clearEqAndScreen()"/--><div class="cancel_icon" onclick="clearEqAndScreen()"></div><input id="png_btn" type="button" value="Convert To Image" onclick="convertToPNG()" style="margin: 0px 0px 0px 10px;"/>
+       <!-- div id="graph_save_button_container" class="graph_save_button_container" style="position: relative; float: left;">
+            
+        </div-->
           <span id="legendTitle" style="color: rgb(164, 157, 143); width: 60px; margin-left: 24px; margin-top: 13px; font-weight: bold;display: none;">Legend</span><br/>
         </span>
         <div id="graph_container" class="graph_container" style="position: relative; float: left;">
-        </div>
-        <div id="graph_save_button_container" class="graph_save_button_container" style="position: relative; float: left;">
-        <input id="png_btn" type="button" value="Convert To Image" onclick="convertToPNG()" style="margin: 0px 0px 0px 10px;"/>
         </div>
         <div id="legend" style="display: none;">
         </div>

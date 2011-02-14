@@ -527,6 +527,13 @@ h2 > .examples {
    color: rgb(255,0,0);
 }
 
+.cancel_icon {
+    background-image: url("/images/clear.png");
+    width: 32px;
+    height: 32px;
+    margin: 2px;
+}
+
 
 /*  13-column layout
   60 px columns, 24 px gutters, 72 px margins, 1212 px total (extra space for scrollbars)
