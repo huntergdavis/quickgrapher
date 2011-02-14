@@ -533,6 +533,7 @@ h2 > .examples {
     height: 16px;
     margin: 2px;
     display: inline;
+    background-repeat: no-repeat;
 }
 
 
