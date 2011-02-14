@@ -9,7 +9,7 @@ var ComplexFunction = function(pri, prefix, func, infinite) {
             return f.apply(this,args);
         } else {
             // Error
-            alert("Error:  Incorrect number of args ("+args.length+") given to " + f + " which expects " + this.length + " arguments");
+            logErrorMessage("Error:  Incorrect number of args ("+args.length+") given to " + f + " which expects " + this.length + " arguments");
         }
     };
     
@@ -155,10 +155,7 @@ var QGSolver = function() {
             active = [],
             objs = {};
             
-       if(QGSolver.DEBUG)
-       {    
-            console.log("new QGEquation().");
-        }
+        logDebugMessage("new QGEquation().");
         var logObject = function(obj) {
             if(typeof obj != "undefined" && typeof obj.type == "string")
             {
@@ -188,7 +185,7 @@ var QGSolver = function() {
             }
             else
             {
-                alert("Error: Trying to log invalid object: " + obj);
+                logErrorMessage("Error: Trying to log invalid object: " + obj);
             }
         };
 
@@ -262,7 +259,7 @@ var QGSolver = function() {
                         else
                         {
                             // Error
-                            alert("Error: Trying to append to closed function.");
+                            logErrorMessage("Error: Trying to append to closed function.");
                         }
                     }
                 }
@@ -285,7 +282,7 @@ var QGSolver = function() {
                     else 
                     {
                         // Error
-                        alert("Error: Curr is " + curr.toString() + ", item is " + item.toString());
+                        logErrorMessage("Error: Curr is " + curr.toString() + ", item is " + item.toString());
                     }
                 }
                 else if(curr.type == "QGBlock")
@@ -295,7 +292,7 @@ var QGSolver = function() {
                         if(!curr.closed())
                         {
                             // Error
-                            alert("Error: Leading divider in parameter list");
+                            logErrorMessage("Error: Leading divider in parameter list");
                         }
                         else
                         {
@@ -323,7 +320,7 @@ var QGSolver = function() {
                             else
                             {
                                 // Error
-                                alert("Error: Trying to add to closed block");
+                                logErrorMessage("Error: Trying to add to closed block");
                             }
                         }
                     }
@@ -333,7 +330,7 @@ var QGSolver = function() {
                     if(item.type == "QGParamDivider")
                     {
                         // Error
-                        alert("Error: Consecutive parameter dividers in parameter list");
+                        logErrorMessage("Error: Consecutive parameter dividers in parameter list");
                     }
                     else
                     {
@@ -342,10 +339,8 @@ var QGSolver = function() {
                     }
                 }
             }
-        if(QGSolver.DEBUG)
-         {  
-            console.log("Current stack: " + this.active.toString());
-         }
+        logDebugMessage("Current stack: " + this.active.toString());
+         
         };
         
         // Called when parenthesis are closed
@@ -358,10 +353,8 @@ var QGSolver = function() {
             if(this.active.length > 0)
             {
                 var curr = this.active.pop();
-                if(QGSolver.DEBUG)
-                {  
-                    console.log("Call to close " + curr.toString() + " with prev: " + prev + ", parenClosed: " + parenClosed + ". Stack: " + this.active.toString());
-                }
+                logDebugMessage("Call to close " + curr.toString() + " with prev: " + prev + ", parenClosed: " + parenClosed + ". Stack: " + this.active.toString());
+                
                 if(curr.type == "QGFunction")
                 {
                     // Prefixed functions can be closed
@@ -370,10 +363,8 @@ var QGSolver = function() {
                         // Append current arg and replace
                         curr.append(prev);
                         this.active.push(curr);
-                        if(QGSolver.DEBUG)
-                        {  
-                            console.log("Current stack: " + this.active.toString());
-                        }
+                        logDebugMessage("Current stack: " + this.active.toString());
+                        
                         // if((typeof prev == "undefined") || prev.type != "QGBlock")
                         // {
                         //     this.close(curr);
@@ -424,7 +415,7 @@ var QGSolver = function() {
                             {
                                 // Error.  Can't add incomplete functions to the parameter list
                                 // A function must be completed by a block
-                                alert("Error:  Can't add incomplete functions to the parameter list.");
+                                logErrorMessage("Error:  Can't add incomplete functions to the parameter list.");
                             }
                         }
                         else
@@ -456,20 +447,16 @@ var QGSolver = function() {
                                 // curr.append(prev.pop());
                                 // // And then use curr for first from prev
                                 // prev.push(curr);
-                                if(QGSolver.DEBUG)
-                                {
-                                    console.log("Current stack: " + this.active.toString());
-                                }
+                                logDebugMessage("Current stack: " + this.active.toString());
+                                
                                 // Haven't found parens yet, close
                                 this.close(curr, false);
                             }
                             else
                             {
                                 curr.append(prev);
-                                if(QGSolver.DEBUG)
-                                {
-                                    console.log("Current stack: " + this.active.toString());
-                                }
+                                logDebugMessage("Current stack: " + this.active.toString());
+                                
                                 // Haven't found parens yet, close
                                 this.close(curr, false);
                             }
@@ -477,10 +464,8 @@ var QGSolver = function() {
                     }
                     else
                     {
-                        if(QGSolver.DEBUG)
-                        {
-                            console.log("Warning: Trying to close function " + curr.toString() + " but status: [closed: "+curr.closed()+",prefixed:"+curr.prefix()+",parenFound:"+parenClosed+",prevType:"+(prev?prev.type:prev)+"].  Breaking...");
-                        }
+                        logDebugMessage("Warning: Trying to close function " + curr.toString() + " but status: [closed: "+curr.closed()+",prefixed:"+curr.prefix()+",parenFound:"+parenClosed+",prevType:"+(prev?prev.type:prev)+"].  Breaking...");
+                        
                         if(parenClosed)
                         {
                             // Replace items on stack since we didn't use them
@@ -489,10 +474,8 @@ var QGSolver = function() {
                             {
                                 this.active.push(prev);
                             }
-                            if(QGSolver.DEBUG)
-                            {
-                                console.log("Current stack: " + this.active.toString());
-                            }
+                            logDebugMessage("Current stack: " + this.active.toString());
+                            
                         }
                     }
                 }
@@ -504,10 +487,8 @@ var QGSolver = function() {
                       curr.append(prev);
                       // Mark block as closed
                       curr.close();
-                      if(QGSolver.DEBUG)
-                        {
-                            console.log("Current stack: " + this.active.toString());
-                        }
+                      logDebugMessage("Current stack: " + this.active.toString());
+                        
                       // Look ahead to see if this is a function block or normal block
                       if(this.active.length > 0)
                       {
@@ -518,19 +499,15 @@ var QGSolver = function() {
                           else
                           {
                               this.active.push(curr);
-                              if(QGSolver.DEBUG)
-                              {
-                                  console.log("Current stack: " + this.active.toString());
-                              }
+                              logDebugMessage("Current stack: " + this.active.toString());
+                              
                           }
                       }
                       else
                       {
                           this.active.push(curr);
-                          if(QGSolver.DEBUG)
-                          {
-                            console.log("Current stack: " + this.active.toString());
-                          }
+                          logDebugMessage("Current stack: " + this.active.toString());
+                          
                       }
                     }
                     else
@@ -555,7 +532,7 @@ var QGSolver = function() {
                         if(prev.type == "QGFunction" && !prev.closed())
                         {
                             // Error
-                            alert("Error:  Can't add incomplete functions to the parameter list.");
+                            logErrorMessage("Error:  Can't add incomplete functions to the parameter list.");
                         }
                         else
                         {
@@ -570,14 +547,14 @@ var QGSolver = function() {
                     {
                         if(prev.params.length > 0)
                         {
-                            // alert("Error: Function parameter divider with no trailing parameter or two consecutive dividers");
+                            // logErrorMessage("Error: Function parameter divider with no trailing parameter or two consecutive dividers");
                             // Replace curr with prev (just ignore duplicate divider)
                             this.close(prev,false);
                         }
                         else
                         {
                             // Double divider
-                            alert("Error: Function parameter divider with no trailing parameter or two consecutive dividers");
+                            logErrorMessage("Error: Function parameter divider with no trailing parameter or two consecutive dividers");
                         } 
                     }
                 }
@@ -598,7 +575,7 @@ var QGSolver = function() {
             else
             {
                 // Error, no item to close
-                alert("Error: No item to close.  " + this.active);
+                logErrorMessage("Error: No item to close.  " + this.active);
             }
         };
         
@@ -607,10 +584,8 @@ var QGSolver = function() {
             var curr, prev = undefined;
             if(this.active.length > 0)
             {
-                if(QGSolver.DEBUG)
-                {
-                    console.log("Reducing "+this.active.length+" items");
-                }
+                logDebugMessage("Reducing "+this.active.length+" items");
+                
                 while(this.active.length > 0)
                 {
                     curr = this.active.pop();
@@ -630,20 +605,16 @@ var QGSolver = function() {
                                 prevStack = [prev];
                             if(typeof prevFront != "undefined")
                             {
-                                if(QGSolver.DEBUG)
-                                {
-                                    console.log("Took " + prevFront.toString() + " from " + prev.toString());
-                                }
+                                logDebugMessage("Took " + prevFront.toString() + " from " + prev.toString());
+                                
                             }
                             while((typeof prevFront == "object") && prevFront.type == "QGFunction"
                                 && !prevFront.prefix() && (curr.priority() >= prevFront.priority()))
                             {
                                 prev = prevFront;
                                 prevFront = prev.pop();
-                                if(QGSolver.DEBUG)
-                                {
-                                    console.log("Took " + prevFront.toString() + " from " + prev.toString());
-                                }
+                                logDebugMessage("Took " + prevFront.toString() + " from " + prev.toString());
+                                
                                 prevStack.push(prev);
                             }
                             // Use first from prev as second for curr
@@ -668,7 +639,7 @@ var QGSolver = function() {
                     else
                     {
                         // Error.  Unclosed items
-                        alert("Error: Unclosed item in reduce: " + curr.toString());
+                        logErrorMessage("Error: Unclosed item in reduce: " + curr.toString());
                         this.content = undefined;
                     }
                     prev = curr;
@@ -676,7 +647,7 @@ var QGSolver = function() {
             }
             else
             {
-                alert("Error: No items to reduce...");
+                logErrorMessage("Error: No items to reduce...");
             }
         };
         
@@ -688,7 +659,7 @@ var QGSolver = function() {
             else
             {
                 // Error
-                alert("Error: Cannot solve 'undefined' function");
+                logErrorMessage("Error: Cannot solve 'undefined' function");
             }
         };
         
@@ -743,10 +714,8 @@ var QGSolver = function() {
             args = [],
             neg = negative ? negative : false;
             
-        if(QGSolver.DEBUG)
-        {    
-            console.log("new QGFunction("+functionString+")");
-        }
+        logDebugMessage("new QGFunction("+functionString+")");
+        
 
         var append = function(item) {
             if(item.type == "QGBlock" && (typeof item.content != "undefined")
@@ -764,10 +733,8 @@ var QGSolver = function() {
             {
                 this.args.push(item);
             }
-            if(QGSolver.DEBUG)
-            {
-                console.log("Args for "+ this.funcName +": " + this.args.toString());
-            }
+            logDebugMessage("Args for "+ this.funcName +": " + this.args.toString());
+            
         };
         
         var pri = function() {
@@ -810,7 +777,7 @@ var QGSolver = function() {
             }
             else
             {
-                alert("Error: Call to extract but no available parameters");
+                logErrorMessage("Error: Call to extract but no available parameters");
             }
         };
         
@@ -885,13 +852,11 @@ var QGSolver = function() {
             {
                 var temp = this.args[0];
                 this.args[0] = undefined;
-                if(QGSolver.DEBUG)
-                {
-                    console.log("Args for "+ this.funcName +": " + this.args.toString());
-                }
+                logDebugMessage("Args for "+ this.funcName +": " + this.args.toString());
+                
                 return temp;
             } else {
-                alert("Error: Trying to pop from 0 args");
+                logErrorMessage("Error: Trying to pop from 0 args");
             }
         };
         
@@ -902,10 +867,8 @@ var QGSolver = function() {
             } else {
                 this.args[0] = item;
             }
-            if(QGSolver.DEBUG)
-            {
-                console.log("Args for "+ this.funcName +": " + this.args.toString());
-            }
+            logDebugMessage("Args for "+ this.funcName +": " + this.args.toString());
+            
         };
         
         var toLabel = function() {
@@ -935,10 +898,8 @@ var QGSolver = function() {
     var QGBlock = function() {
         var inner = undefined,
             c = false;
-        if(QGSolver.DEBUG)
-        {    
-            console.log("new QGBlock()");
-        }
+        logDebugMessage("new QGBlock()");
+        
 
         var close = function() {
             this.c = true;
@@ -985,10 +946,8 @@ var QGSolver = function() {
     var QGParamDivider = function() {
         var params = [];
         
-        if(QGSolver.DEBUG)
-        {
-            console.log("new QGParamDivider()");
-        }
+        logDebugMessage("new QGParamDivider()");
+        
         var append = function(param) {
             this.params.unshift(param);
         };
@@ -1036,10 +995,8 @@ var QGSolver = function() {
         var v = variableName,
             neg = negative ? negative : false;
         
-        if(QGSolver.DEBUG)
-        {
-            console.log("new QGVariable("+variableName+")");
-        }
+        logDebugMessage("new QGVariable("+variableName+")");
+        
       
         var solve = function(context) {
             var val = context[this.varName];
@@ -1058,7 +1015,7 @@ var QGSolver = function() {
             }
             else
             {
-                alert("Error: Unable to find variable '"+val+"' in context");
+                logErrorMessage("Error: Unable to find variable '"+val+"' in context");
             }
         };
         
@@ -1101,10 +1058,8 @@ var QGSolver = function() {
         var v = value,
             neg = negative ? negative : false;
         
-        if(QGSolver.DEBUG)
-        {
-            console.log("new QGConstant("+(this.negative?"-":"")+value+")");
-        }
+        logDebugMessage("new QGConstant("+(this.negative?"-":"")+value+")");
+        
         
         var solve = function(context) {
             return (this.negative?-1:1) * this.value;
@@ -1184,10 +1139,8 @@ var QGSolver = function() {
             innerType;
         // Remove whitespace
         rawEquation = rawEquation.replace(/\s/g,"");
-        if(QGSolver.DEBUG)
-        {
-            console.log("Parsing: " + rawEquation);
-        }
+        logDebugMessage("Parsing: " + rawEquation);
+        
         
         for(var i = 0; i < rawEquation.length; i++) {
             // Previous character
@@ -1203,10 +1156,8 @@ var QGSolver = function() {
                         if(builtNumber.length > 0)
                         {
                             // Add constant
-                            if(QGSolver.DEBUG)
-                            {
-                                console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                            }
+                            logDebugMessage("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                            
                             eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
                             builtNumber = "";
                             // Add mult
@@ -1260,10 +1211,8 @@ var QGSolver = function() {
                     // If we are working on a number, assume its a constant
                     else if(builtNumber.length > 0)
                     {
-                        if(QGSolver.DEBUG)
-                        {
-                            console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                        }
+                        logDebugMessage("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                        
                         eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
                         builtNumber = "";
                     }
@@ -1278,10 +1227,8 @@ var QGSolver = function() {
                         // Check that we dont have a negated constant
                         if(builtNumber.charAt(0) != "-" || builtNumber.length > 1)
                         {
-                            if(QGSolver.DEBUG)
-                            {
-                                console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                            }
+                            logDebugMessage("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                            
                             eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
                         }
                         else
@@ -1295,7 +1242,7 @@ var QGSolver = function() {
                     if(builtString.length > 0) {
                         if(builtString == "-")
                         {
-                            alert("Error:  Standalone '-' is not a number.  Put some numerals after it.");
+                            logErrorMessage("Error:  Standalone '-' is not a number.  Put some numerals after it.");
                         }
                         else
                         {
@@ -1330,10 +1277,8 @@ var QGSolver = function() {
                     }
                     else
                     {
-                        if(QGSolver.DEBUG)
-                        {
-                            console.log("Determined '" + c + "' is a function since prevType(" + b + ") is " + prevType);
-                        }
+                        logDebugMessage("Determined '" + c + "' is a function since prevType(" + b + ") is " + prevType);
+                        
                         // Append function
                         eq.append(new QGFunction(c));
                     }
@@ -1347,10 +1292,8 @@ var QGSolver = function() {
                         // Check that we dont have a negated constant
                         if(builtNumber.charAt(0) != "-" || builtNumber.length > 1)
                         {
-                            if(QGSolver.DEBUG)
-                            {
-                                console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                            }
+                            logDebugMessage("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+                            
                             eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
                             builtNumber = "";
                         }
@@ -1430,10 +1373,8 @@ var QGSolver = function() {
         else if(builtNumber.length > 0)
         {
             var negative = builtNumber.charAt(0) == "-";
-            if(QGSolver.DEBUG)
-            {
-                console.log("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-            }
+            logDebugMessage("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
+            
             if(negative)
             {
                 builtNumber = builtNumber.substring(1,builtNumber.length);
@@ -1458,19 +1399,35 @@ var QGSolver = function() {
             }
             else
             {
-                alert("Error: No context provided to solver");
+                logErrorMessage("Error: No context provided to solver");
             }
         }
         else
         {
-            alert("Error: Unable to solve because no equation available");
+            logErrorMessage("Error: Unable to solve because no equation available");
         }
     };
+    
+    var logDebugMessage = function(message) {
+      if(DEBUG)
+      {
+          console.log(message);
+      }
+    };
+    
+    var logErrorMessage = function(message) {
+        if(DEBUG)
+        {
+          console.log(message);
+        }
+        throw message;
+    }
     
     return {
         DEBUG: debug,
         TESTGENERATION: testGen,
         parse: parseEquation,
+        logDebugMessage : logDebugMessage,
         solve: solve,
         equation: parsedEquation
     };

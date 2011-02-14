@@ -348,10 +348,9 @@ function solveEquation()
       // Create context
       var vars = parsedEquation.variables();
       var context = createContext(vars);
-      if(QGSolver.DEBUG)
-      {
-        console.log("Context: " + context.toString());
-      }
+      
+      QGSolver.logDebugMessage("Context: " + context.toString());
+      
       // Solve
       var solution = undefined;
       try
@@ -931,10 +930,8 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         } catch(error)
         {
             solution = undefined;
-            if(QGSolver.DEBUG)
-            {
-                console.log("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
-            }
+            QGSolver.logDebugMessage("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
+            
         }
         // Only add the point if it is a valid solution
         if((typeof solution != "undefined") && isFinite(solution))
