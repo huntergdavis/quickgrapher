@@ -21,7 +21,7 @@ function createContext(vars) {
 }
 
 // set all context variables to correct variables
-function createTestContext(vars,varContext) {
+function createTestContext(vars,varContext,solNumber) {
     var context = new Context(vars),
         varLen = vars.length,
         v, slider, val, step;
@@ -29,7 +29,7 @@ function createTestContext(vars,varContext) {
     for(var i = 0; i < varLen; i++)
     {
         v = vars[i];
-        context.set(v, varContext[i]);
+        context.set(v, varContext[i][solNumber]);
     }
     
     return context;
@@ -170,44 +170,58 @@ function testSolverTestExamples() {
         var parsedEquation = QGSolver.parse(TestExamples[i].fxn);
 
         var vars = parsedEquation.variables();
-        var context = createTestContext(vars,TestExamples[i].curVarContext);
-        var passedTest = 0;
-        //console.log("Context: " + context.toString());
-        
-        // Solve
-        var solution = undefined;
-        try
+        // loop over each of the numerical solutions
+        for(var j = 0;j < TestExamples[i].numSol.length;j++)
         {
-            solution = QGSolver.solve(context.toObj());
-        }
-        catch(exception)
-        {
-            //alert("Solve failed: " + exception);
-            passedTest = 0;
-            solution = "Solve failed:" + exception;
-        }
-        
+            var context = createTestContext(vars,TestExamples[i].curVarContext,j);
+            var passedTest = 0;
+            //console.log("Context: " + context.toString());
+            
+            // Solve
+            var solution = undefined;
+            try
+            {
+                solution = QGSolver.solve(context.toObj());
+            }
+            catch(exception)
+            {
+                //alert("Solve failed: " + exception);
+                passedTest = 0;
+                solution = "Solve failed:" + exception;
+            }
+            
 
-        var description = "Function = " + TestExamples[i].fxn + " <br>";
-        description += "Parsed Function = " + parsedEquation.toString(context.toObj()) + " <br>";
-        description += "Expected Parsed Function = " + TestExamples[i].parseSol + " <br>";
-        description += "Expected Result = " + TestExamples[i].numSol + " <br>";
-        description += "Actual Result = " + solution + "<br>";
-        
-        var localPassedParse = 0;
-        
-        if(parsedEquation.toString(context.toObj()) == TestExamples[i].parseSol)
-        {
-            localPassedParse = 1;
-        }
-       
-        if(solution.toString() == TestExamples[i].numSol)
-        {
-            passedTest = 1;
-        }
+            var description = "Function = " + TestExamples[i].fxn + " <br>";
+            if(j == 0)
+            {
+                description += "Parsed Function = " + parsedEquation.toString(context.toObj()) + " <br>";
+                description += "Expected Parsed Function = " + TestExamples[i].parseSol + " <br>";
+            }
+            description += "Expected Result = " + TestExamples[i].numSol[j] + " <br>";
+            description += "Actual Result = " + solution + "<br>";
+            
+            var localPassedParse = 2;
+            
+            if(j == 0)
+            {
+                if(parsedEquation.toString(context.toObj()) == TestExamples[i].parseSol)
+                {
+                    localPassedParse = 1;
+                }
+                else
+                {
+                    localPassedParse = 0;
+                }
+            }
+           
+            if(solution.toString() == TestExamples[i].numSol[j])
+            {
+                passedTest = 1;
+            }
 
-        
-        createNewTestDiv(TestExamples[i].name,description,passedTest,localPassedParse);
+            
+            createNewTestDiv(TestExamples[i].name,description,passedTest,localPassedParse);
+        }
     }
 
 }

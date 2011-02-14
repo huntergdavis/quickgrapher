@@ -1409,7 +1409,7 @@ var QGSolver = function() {
     };
     
     var logDebugMessage = function(message) {
-      if(DEBUG)
+      if(debug)
       {
           console.log(message);
       }
