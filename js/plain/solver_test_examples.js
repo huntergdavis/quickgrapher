@@ -6,7 +6,7 @@ var TestExamples = [];
 TestExamples.push({
     name: "Bill Calculator 3 and 4",
     fxn : "3*x+(15*y)",
-    curVarContext : [3,4],
+    curVarContext : [[3],[4]],
     parseSol : "3*3+(15*4)",
     numSol : "69"
 });

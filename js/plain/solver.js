@@ -1416,7 +1416,7 @@ var QGSolver = function() {
     };
     
     var logErrorMessage = function(message) {
-        if(DEBUG)
+        if(debug)
         {
           console.log(message);
         }
