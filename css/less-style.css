@@ -95,7 +95,7 @@ img::-moz-selection {background: transparent;}
 
 #container {
   background: rgb(241,241,241);
-  background-image: url('http://www.hunterdavis.com/quickgrapher/images/grid_1.gif');
+  background-image: url('http://www.quickgrapher.com/images/grid_1.gif');
   background-repeat: no-repeat;
   background-position: right top;
   border: 1px solid rgb(0,0,0);
@@ -105,7 +105,7 @@ img::-moz-selection {background: transparent;}
 #inner {
   border-bottom: 1px solid rgb(0,0,0);
   border-right: 1px solid rgb(0,0,0);
-  background-image: url('http://www.hunterdavis.com/quickgrapher/images/grid_2.gif');
+  background-image: url('http://www.quickgrapher.com/images/grid_2.gif');
   background-repeat: no-repeat;
   background-position: left bottom;
   margin: 0px;
@@ -528,7 +528,7 @@ h2 > .examples {
 }
 
 .cancel_icon {
-    background-image: url("/images/clear.png");
+    background-image: url("http://www.quickgrapher.com/images/clear.png");
     width: 16px;
     height: 16px;
     margin: 2px 0px 0px 8px;
@@ -538,11 +538,11 @@ h2 > .examples {
     cursor: pointer;
 }
 .cancel_icon:hover {
-    background-image: url("/images/clear_hover.png");
+    background-image: url("http://www.quickgrapher.com/images/clear_hover.png");
 }
 
 .screenshot_icon {
-    background-image: url("/images/screenshot.png");
+    background-image: url("http://www.quickgrapher.com/images/screenshot.png");
     width: 16px;
     height: 16px;
     margin: 2px 0px 0px 5px;
@@ -552,7 +552,7 @@ h2 > .examples {
     cursor: pointer;
 }
 .screenshot_icon:hover {
-    background-image: url("/images/screenshot_hover.png");
+    background-image: url("http://www.quickgrapher.com/images/screenshot_hover.png");
 }
 
 
