@@ -535,6 +535,7 @@ h2 > .examples {
     display: inline;
     background-repeat: no-repeat;
     padding: 0px 10px;
+    cursor: pointer;
 }
 .cancel_icon:hover {
     background-image: url("/images/clear_hover.png");
@@ -548,6 +549,7 @@ h2 > .examples {
     display: inline;
     background-repeat: no-repeat;
     padding: 0px 10px;
+    cursor: pointer;
 }
 .screenshot_icon {
     background-image: url("/images/screenshot_hover.png");
