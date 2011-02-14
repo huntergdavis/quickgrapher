@@ -1560,7 +1560,7 @@ $(document).ready(function() {
     // enable random load
     
     // Turn on Test Generation
-    QGSolver.TESTGENERATION = true;
+    QGSolver.TESTGENERATION = false;
     
     // Load examples
     loadExamples();
