@@ -531,10 +531,13 @@ h2 > .examples {
     background-image: url("/images/clear.png");
     width: 16px;
     height: 16px;
-    margin: 2px 0px 0px 5px;
+    margin: 2px 0px 0px 8px;
     display: inline;
     background-repeat: no-repeat;
-    padding: 0px 16px;
+    padding: 0px 10px;
+}
+.cancel_icon:hover {
+    background-image: url("/images/clear_hover.png");
 }
 
 .screenshot_icon {
@@ -544,7 +547,10 @@ h2 > .examples {
     margin: 2px 0px 0px 5px;
     display: inline;
     background-repeat: no-repeat;
-    padding: 0px 16px;
+    padding: 0px 10px;
+}
+.screenshot_icon {
+    background-image: url("/images/screenshot_hover.png");
 }
 
 
