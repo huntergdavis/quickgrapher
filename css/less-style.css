@@ -195,11 +195,11 @@ img::-moz-selection {background: transparent;}
 }
 
 .equation_input {
-  width: 380px;
+  width: 350px;
 }
 
 .equation_input_fullscreen {
-  width: 380px;
+  width: 340px;
 }
 
 #equationName {
@@ -531,10 +531,20 @@ h2 > .examples {
     background-image: url("/images/clear.png");
     width: 16px;
     height: 16px;
-    margin: 2px;
+    margin: 2px 0px 0px 5px;
     display: inline;
     background-repeat: no-repeat;
-    padding: 0px 8px 0px 8px;
+    padding: 0px 16px;
+}
+
+.screenshot_icon {
+    background-image: url("/images/screenshot.png");
+    width: 16px;
+    height: 16px;
+    margin: 2px 0px 0px 5px;
+    display: inline;
+    background-repeat: no-repeat;
+    padding: 0px 16px;
 }
 
 
@@ -565,11 +575,11 @@ h2 > .examples {
   }
   
   .equation_input {
-    width: 660px;
+    width: 610px;
   }
   
   .equation_input_fullscreen {
-    width: 530px;
+    width: 500px;
   }
   
   #equationName {
@@ -662,11 +672,11 @@ h2 > .examples {
   }
   
   .equation_input {
-    width: 512px;
+    width: 482px;
   }
   
   .equation_input_fullscreen {
-    width: 395px;
+    width: 375px;
   }
   
   #equationName {
@@ -772,7 +782,7 @@ h2 > .examples {
   }
   
   .equation_input {
-      width: 196px;
+      width: 166px;
       margin: 3px 0px 0px 7px; 
   }
   
@@ -844,7 +854,7 @@ h2 > .examples {
   
   .equation_input {
     margin-left: 7px;
-    width: 196px;
+    width: 166px;
   }
   
   #equationName {
