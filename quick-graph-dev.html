@@ -66,8 +66,8 @@ hunter or mark at discursivelabs.com
           <h2 style="display: inline;">Try It!</h2>
         </div-->
         <div class="menu">
-          <div class="examples">» <span class="link" onclick="toggle('examples')">examples</span></div>
-          <div class="functions_list">» <span class="link" onclick="toggle('functions')">functions</span></div>
+          <div class="examples">» <span class="link" alt="Select from a list of example equations..." onclick="toggle('examples')">examples</span></div>
+          <div class="functions_list">» <span class="link" alt="See the list of supported functions..." onclick="toggle('functions')">functions</span></div>
         </div>
         <div id="examples" class="example_box menu_item">
           <span style="width: 100%;">
@@ -87,7 +87,7 @@ hunter or mark at discursivelabs.com
         </div>
         <span id="equation" class="equation">
           <input type="text" id="equationName" class="input" value="Function"/><font style="font-weight: bold; font-size: 12pt; margin: 0px 20px 0px 20px;">=</font><input type="text" id="mainEquation" class="equation_input input"/>  
-          <input id="graphBtn" type="button" value="Graph!" onclick="clearAndParse()"/><span class="cancel_icon" onclick="clearEqAndScreen()"></span><span class="screenshot_icon" onclick="convertToPNG()"></span>
+          <input id="graphBtn" type="button" value="Graph!"  alt="Graph the function" onclick="clearAndParse()"/><span class="cancel_icon" alt="Clear" onclick="clearEqAndScreen()"></span><span class="screenshot_icon" alt="Save As Image" onclick="convertToPNG()"></span>
           <span id="legendTitle" style="color: rgb(164, 157, 143); width: 60px; margin-left: 24px; margin-top: 13px; font-weight: bold;display: none;">Legend</span><br/>
         </span>
         <div id="graph_container" class="graph_container" style="position: relative; float: left;">
@@ -107,9 +107,9 @@ hunter or mark at discursivelabs.com
           <div id="variables_column" class="variables_column">
             <div class="bar" style="margin-left: 0px; width: 100%;">
               <h2 style="display: inline;">Variables</h2>
-              <input id="resolve_btn" type="button" value="Re-Solve" onclick="solve()" style="margin: 0px 0px 0px 50px;"/>
+              <input id="resolve_btn" type="button" value="Re-Solve" alt="Graph with new variables!" onclick="solve()" style="margin: 0px 0px 0px 50px;"/>
               <div id="dynamic_label">
-                  <input id="dynamic_update" type="checkbox" onclick="solve()" checked/>
+                  <input id="dynamic_update" type="checkbox" alt="Update graph as you adjust the variables" onclick="solve()" checked/>
                   Realtime Updating<span style="font-size: 7pt; margin: 3px; font-weight: normal;">[may cause browser to lag!]</span>
               </div>
             </div>
