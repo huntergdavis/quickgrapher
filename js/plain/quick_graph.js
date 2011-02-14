@@ -697,6 +697,7 @@ function createSliders(vars)
         inp.setAttribute("type", "checkbox");
         inp.setAttribute("onclick", "toggleInclude(this.id)");
         inp.setAttribute("alt", "Draw " + v);
+        inp.setAttribute("title", "Draw " + v);
         if(visValue == 1)
         {
             inp.setAttribute("checked", "checked");
@@ -742,6 +743,7 @@ function createSliders(vars)
         inp.setAttribute("value", minValue);
         inp.setAttribute("onchange", "updateMinimum(this.id)");
         inp.setAttribute("alt", "Set minimum value for " + v);
+        inp.setAttribute("title", "Set minimum value for " + v);
         el.append(inp);
         first.append(el);
         
@@ -756,6 +758,7 @@ function createSliders(vars)
         inp.setAttribute("value", stepValue);
         inp.setAttribute("onchange", "updateStep(this.id)");
         inp.setAttribute("alt", "Set step value for " + v);
+        inp.setAttribute("title", "Set step value for " + v);
         el.append(inp);
         first.append(el);
         
@@ -770,6 +773,7 @@ function createSliders(vars)
         inp.setAttribute("value", maxValue);
         inp.setAttribute("onchange", "updateMaximum(this.id)");
         inp.setAttribute("alt", "Set maximum value for " + v);
+        inp.setAttribute("title", "Set maximum value for " + v);
         el.append(inp);
         first.append(el);
         
@@ -790,6 +794,7 @@ function createSliders(vars)
         inp.setAttribute("step", stepValue); //variableStepHash[i]);
         inp.setAttribute("value", lastValue);
         inp.setAttribute("alt", "Adjust " + v);
+        inp.setAttribute("title", "Adjust " + v);
         el.append(inp);
         first.append(el);
         inp = $(inp);
