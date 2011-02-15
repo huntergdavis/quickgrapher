@@ -20,6 +20,9 @@ function loadTitleBarHash()
         
     // Demunge
     addressBar = addressBar.replace(/'%/g,"+"); 
+    
+    // do we have multiple equations?
+    var multipleEquations = 0;
 
     var equationEnd = addressBar.indexOf("="),
         varsStart = equationEnd + 1,
@@ -64,7 +67,37 @@ function loadTitleBarHash()
     }
     
     /* Pull out our equation and set to be valid*/
-    equationString = addressBar.substring(0,equationEnd);
+    var equationArrayString = addressBar.substring(0,equationEnd);
+    
+    // parse out all the equations with a separator
+    var equationStringArray = returnArrayOfEquations(equationArrayString);
+    var esaLength = equationStringArray.length;
+    
+    equationString = equationStringArray[0];
+
+    if (esaLength > 1)
+    {
+        multipleEquations = 1;
+        
+        // the base equation div name
+        var eqNameBase = "#mainEquation";        
+        for(var i = 0;i<esaLength;i++)
+        {
+            var eqName;
+            if(i == 0)
+            {
+                eqName = eqNameBase;
+            }
+            else
+            {
+                eqName = eqNameBase + (i+1).toString();
+            }
+            
+            // set each eq val to be correct
+            $(eqName).val(equationStringArray[i]);
+            
+        }
+    }
 
     // replace plus signs in equation they are not usually supported
     //equationString = equationString.replace(/%2B/g,"+");
@@ -88,8 +121,8 @@ function loadTitleBarHash()
             nameStart = visStop + 1,
             nameStop = variableString.length;
         
-  		  /* grab the minimum address*/
-  		  var parseBlock = variableString.substring(minStart,minStop);
+        /* grab the minimum address*/
+        var parseBlock = variableString.substring(minStart,minStop);
         parseAndAddToHash(parseBlock,":",variableMinHash);
   
         /* grab the maximum address*/
@@ -120,15 +153,39 @@ function loadTitleBarHash()
         
         if(typeof equationString != "undefined")
         {
-            // parse the equation
-            parsedEquation = QGSolver.parse(equationString);
-            // Create sliders
-            createSliders(parsedEquation.variables());
-            // Solve equation
-            solveEquation();
+            if(multipleEquations)
+            {
+                // parse the equation
+                parsedEquation = QGSolver.parse(equationString);
+                // Create sliders
+                createSliders(parsedEquation.variables());
+                // Solve equation
+                solveEquation();
+            }
+            else
+            {
+                parseMultipleEquations();
+            }
         }        
         //$("#graphBtn").click();
   	}
+}
+
+function returnArrayOfEquations(equationArrayString)
+{
+    // local array storage
+    var localArray = new Array();
+        
+    // look for a split delimiter
+    if(equationArrayString.indexOf(";") > 0)
+    {
+        localArray = equationArrayString.split(";");
+    }
+    else
+    {
+        localArray.push(equationArrayString);
+    }
+    return localArray;
 }
 
 /* function parseAndAddToHash parses a string at delimeter and adds to a hash*/
@@ -472,11 +529,15 @@ function clearAndParseEquation(equation)
     }
 }
 
-/* clear the screen then parse later */
 function clearAndParseMultipleEquations()
 {
-    // clear the screen first
     clearScreen();
+    parseMultipleEquations();
+}
+
+/* clear the screen then parse later */
+function parseMultipleEquations()
+{
     
     // put all variables into single array
     var allVariables = [];
@@ -488,7 +549,7 @@ function clearAndParseMultipleEquations()
     for(var i = 1;i<6;i++)
     {
         
-        var eqName
+        var eqName;
         if(i == 1)
         {
             eqName = eqNameBase;
