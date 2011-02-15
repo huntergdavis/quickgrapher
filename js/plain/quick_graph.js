@@ -416,6 +416,42 @@ function solveEquation()
     }
 }
 
+function solveEqInMult()
+{
+    if(typeof parsedEquation != "undefined")
+    {
+      // Create context
+      var vars = parsedEquation.variables();
+      var context = createContext(vars);
+      
+      QGSolver.logDebugMessage("Context: " + context.toString());
+      
+      // Solve
+      var solution = undefined;
+      try
+      {
+          solution = QGSolver.solve(context.toObj());
+      }
+      catch(exception)
+      {
+          alert("Solve failed: " + exception);
+      }
+      
+      // If we solved the equation, update page
+      if(typeof solution != "undefined")
+      {
+          // Update solution display
+          updateSolution(parsedEquation, context.toObj(), solution);
+          // update all graphs
+          updateAllGraphs(parsedEquation, context);
+          
+      }
+        // generate a hash
+        //generateHashURL(parsedEquation.variables());
+    
+    }
+}
+
 /* clear the screen and parse the equation */
 function clearAndParseEquation(equation)
 {
@@ -434,6 +470,107 @@ function clearAndParseEquation(equation)
     {
         alert("Please enter a formula");
     }
+}
+
+/* clear the screen then parse later */
+function clearAndParseMultipleEquations()
+{
+    // clear the screen first
+    clearScreen();
+    
+    // put all variables into single array
+    var allVariables = [];
+    
+    // the base equation div name
+    var eqNameBase = "mainEquation";
+    
+    // loop once over equations and grab all variables
+    for(var i = 1;i<6;i++)
+    {
+        
+        var eqName
+        if(i == 1)
+        {
+            eqName = eqNameBase;
+        }
+        else
+        {
+             eqName = eqNameBase + i.toString();
+         }
+        var singleEq = document.getElementById(eqName).value;
+            
+        if(typeof singleEq != "undefined")
+        {
+            // parse the equation
+            parsedEquation = QGSolver.parse(singleEq);
+            
+            // concat the variables
+            allVariables += parsedEquation.variables();
+        }
+        else
+        {
+            alert("Please enter a formula for " + eqName);
+            return;
+        }
+
+    }
+    
+    // now that we've concatenated all variables...
+    // remove duplicates
+    var cleanVarArray = removeDuplicateVariables(allVariables);
+
+    // Create slidersFunction
+    createSliders(cleanVarArray);
+    
+    // loop second time over equations and solve top down
+    for(var i = 1;i<6;i++)
+    {
+        var eqName;
+        if(i > 1)
+        {
+            eqName = eqNameBase + i.toString();
+        }
+        else
+        {
+            eqName = eqNameBase;
+        }
+        var singleEq = document.getElementById(eqName).value;
+            
+        if(typeof singleEq != "undefined")
+        {
+            // parse the equation
+            parsedEquation = QGSolver.parse(singleEq);
+            // Solve equation
+            solveEqInMult();
+        }
+    }
+    
+    
+}
+
+function removeDuplicateVariables(dupArray)
+{
+    var a = [];
+    var l = dupArray.length;
+    for(var i=0; i<l; i++) {
+        var found = 0;
+        for(var j=i+1; j<l; j++) {
+            // If this[i] is found later in the array
+            if (dupArray[i] == dupArray[j])
+            {
+                found = 1;
+            }
+            if(dupArray[i] == ",")
+            {
+                found = 1;
+            }
+        }
+        if(found == 0)
+        {
+            a.push(dupArray[i]);
+        }
+    }
+    return a;
 }
 
 function toggleDraw(toggleID)
@@ -1547,9 +1684,17 @@ function clearAndParse()
 {
     clearAndParseEquation(document.getElementById('mainEquation').value);
 }
+function clearAndParseMultiple()
+{
+    clearAndParseMultipleEquations();
+}
 function solve()
 {
     solveEquation();
+}
+function solveMult()
+{
+    solveEqInMult();
 }
 function toggleInclude(toggleID)
 {
