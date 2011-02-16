@@ -468,7 +468,7 @@ function solveEquation()
           
       }
         // generate a hash
-        generateHashURL(parsedEquation.variables());
+        generateHashURL(parsedEquation.variables(),0);
     
     }
 }
@@ -504,7 +504,7 @@ function solveEqInMult()
           
       }
         // generate a hash
-        //generateHashURL(parsedEquation.variables());
+        generateHashURL(parsedEquation.variables(),1);
     
     }
 }
@@ -725,21 +725,56 @@ function updateStep(inputID)
 }
 
 /* function generateHashURL generates a save hash url for the current equation, receives variables as argument*/
-function generateHashURL(vars)
+function generateHashURL(vars,multi)
 {
     var URL = window.location.href,
     // Pull off any existing URI params
-        end = URL.indexOf("?");
+    end = URL.indexOf("?");
     if(end != -1)
     {
-        URL = URL.substring(0,end);
+        URL = URL.substring(0,end+1);
+    }
+    else
+    {
+        URL = URL + "?";
     }
     
-    // add equation to url
-    var localEquation = $("#mainEquation").val();
-    if(typeof localEquation != "undefined")
+    // add equation(s) to url
+    if(multi == 1)
     {
-        URL += compressName(localEquation) + "=";
+        // the base equation div name
+        var eqNameBase = "#mainEquation";
+    
+        // loop once over equations and grab all variables
+        for(var i = 1;i<6;i++)
+        {
+            var eqName;
+            if(i == 1)
+            {
+                eqName = eqNameBase;
+            }
+            else
+            {
+                eqName = eqNameBase + i.toString();
+            }        
+            
+            var localEquation = $(eqName).val();
+            if(typeof localEquation != "undefined")
+            {
+                URL += compressName(localEquation);
+            }
+            URL += ";"
+        
+        }
+        URL += "=";
+    }
+    else
+    {
+        var localEquation = $("#mainEquation").val();
+        if(typeof localEquation != "undefined")
+        {
+            URL += compressName(localEquation) + "=";
+        }       
     }
     
     // variables to store hash values
