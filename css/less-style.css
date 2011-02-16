@@ -247,7 +247,7 @@ h2 {
   /*background: rgb(255,255,255);*/
   background-image: url("/images/logo_concise_1.png");
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  /*background-attachment: fixed;*/
   background-position: center center;
   width: 600px;
   height: 475px;
