@@ -555,6 +555,12 @@ h2 > .examples {
     background-image: url("http://www.hunterdavis.com/quickgrapher/images/screenshot_hover.png");
 }
 
+.graph_container {
+    background-image: url("http://www.hunterdavis.com/quickgrapher/images/logo_concise_1.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
 
 /*  13-column layout
   60 px columns, 24 px gutters, 72 px margins, 1212 px total (extra space for scrollbars)
