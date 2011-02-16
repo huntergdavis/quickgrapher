@@ -556,7 +556,7 @@ h2 > .examples {
 }
 
 .graph_container {
-    background-image: url("http://www.hunterdavis.com/quickgrapher/images/logo_concise_1.png");
+    background-image: url("/images/logo_concise_1.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;
