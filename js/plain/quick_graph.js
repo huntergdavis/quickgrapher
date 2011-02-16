@@ -727,7 +727,10 @@ function updateStep(inputID)
 /* function generateHashURL generates a save hash url for the current equation, receives variables as argument*/
 function generateHashURL(vars,multi)
 {
-    var URL = window.location.href,
+    // do NOT use window.location.href
+    // it FAILS to on redirection sites
+    //var URL = window.location.href,
+    var URL = "www.quickgrapher.com/index.html?";
     // Pull off any existing URI params
     end = URL.indexOf("?");
     if(end != -1)
