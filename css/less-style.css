@@ -244,7 +244,7 @@ h2 {
 }
 .graph_container {
   border: 1px solid rgb(0,0,0);
-  /*background: rgb(255,255,255);*/
+  background: rgb(255,255,255);
   background-image: url("/images/logo_concise_1.png");
   background-repeat: no-repeat;
   /*background-attachment: fixed;*/
