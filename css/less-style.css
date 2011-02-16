@@ -244,9 +244,11 @@ h2 {
 }
 .graph_container {
   border: 1px solid rgb(0,0,0);
-  background: rgb(255,255,255);
-  /*width: 450px;
-  height: 425px;*/
+  /*background: rgb(255,255,255);*/
+  background-image: url("/images/logo_concise_1.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
   width: 600px;
   height: 475px;
   margin: 10px 0px 5px 22px;
@@ -553,13 +555,6 @@ h2 > .examples {
 }
 .screenshot_icon:hover {
     background-image: url("http://www.hunterdavis.com/quickgrapher/images/screenshot_hover.png");
-}
-
-.graph_container {
-    background-image: url("/images/logo_concise_1.png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center center;
 }
 
 
