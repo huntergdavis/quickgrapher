@@ -210,12 +210,21 @@ function updateGraph(equation, varValues, embeddedGraph)
     
 }
 
+function applyCssToGraphTag(embeddedGraph)
+{
+    embeddedGraph.css({"display": "block"});
+}
+
 function graphSingleElement(embeddedGraph)
 {
     var attributeBaseName = "equation";
     var valueBaseName = "values";
     var continueGraphingSingleElement = 1;
     var attributeCount = 0;
+    
+    // before anything, we should apply our css styling
+    applyCssToGraphTag(embeddedGraph);
+    
     
     while(continueGraphingSingleElement == 1)
     {
