@@ -245,8 +245,9 @@ h2 {
 .graph_container {
   border: 1px solid rgb(0,0,0);
   background: rgb(255,255,255);
-  /*width: 450px;
-  height: 425px;*/
+  background-image: url("/images/logo_concise_1.png");
+  background-repeat: no-repeat;
+  background-position: center center;
   width: 600px;
   height: 475px;
   margin: 10px 0px 5px 22px;
