@@ -230,12 +230,12 @@ function graphSingleElement(embeddedGraph)
         }
         
         // grab the equation attribute
-        var localEq = embeddedGraph.getAttribute(fullAttributeName);
+        var localEq = embeddedGraph.attr(fullAttributeName);
 
         if(typeof localEq == "string")
         {
             // grab the values attribute
-            var localValues = embeddedGraph.getAttribute(fullValueName);
+            var localValues = embeddedGraph.attr(fullValueName);
             
             // update the graph
             updateGraph(localEq, localValues, embeddedGraph);
