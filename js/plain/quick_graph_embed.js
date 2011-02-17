@@ -712,65 +712,62 @@ function createSliders(vars)
 }
 
 // updates graphs for all variables
-function updateAllGraphs(equation, context)
+function updateAllGraphs(equation, context, embeddedGraph, graphNumber,graphTitle)
 {
-    var unifiedGraph = true,
-        graph,
+    var graph,
     // Retrieve variables
         v, vars = equation.variables(),
         varLen = vars.length;
-    if(unifiedGraph)
+        
+    var graphID = "subgraph" + graphNumber.toString();
+    // Check if we already have a graph element
+    graph = $("#" + graphID);
+    if(graph.length == 0)
     {
-        var graphID = "subgraph";
-        // Check if we already have a graph element
-        graph = $("#" + graphID);
-        if(graph.length == 0)
-        {
-            // Create graph element
-            var parentElement = $("#graph_container");
-            graph = document.createElement("div");
-            graph.id = graphID;
-            graph.style.position = "relative";
-            graph.style.width = "100%";
-            graph.style.height = "100%";
-            // Add to canvas
-            parentElement.append(graph);
+        // Create graph element
+        var parentElement = embeddedGraph;
+        graph = document.createElement("div");
+        graph.id = graphID;
+        graph.style.position = "relative";
+        graph.style.width = "100%";
+        graph.style.height = "100%";
+        // Add to canvas
+        parentElement.append(graph);
+        
+        // Register with Graph
+        var graphName = graphTitle;
+        graph = $(graph);
+        var opts = {name: graphName};
+        opts['hue-increment'] = 45;
+        opts['hue-base'] = 22;
+        opts['value-base'] = 95;
+        opts['title'] = graphTitle + " ( " + vars.join(", ") +" )";
+        graph.graphify(opts)/*.attach_legend({
+          'legend-mode': false,
+          'legend-container': $("#legend"),
+        })*/.realHover({
+            hover: Graph.highlightNearest,
+            out: Graph.removeHighlight
+        });
+        
+        // Set variable colors from plot
+        //var color;
+        //for(var i = 0; i < varLen; i++)
+        //{
+        //    v = vars[i];
+        //    color = $("#subgraph").color(v);
+        //    if(typeof color == "undefined")
+        //    {
+        //        color = "rgb(0,0,0)";
+         //   }
             
-            // Register with Graph
-            var graphName = $("#equationName").val();
-            graph = $(graph);
-            var opts = {name: graphName};
-            opts['hue-increment'] = 45;
-            opts['hue-base'] = 22;
-            opts['value-base'] = 95;
-            opts['title'] = $("#equationName").val() + " ( " + vars.join(", ") +" )";
-            graph.graphify(opts)/*.attach_legend({
-              'legend-mode': false,
-              'legend-container': $("#legend"),
-            })*/.realHover({
-                hover: Graph.highlightNearest,
-                out: Graph.removeHighlight
-            });
-            
-            // Set variable colors from plot
-            var color;
-            for(var i = 0; i < varLen; i++)
-            {
-                v = vars[i];
-                color = $("#subgraph").color(v);
-                if(typeof color == "undefined")
-                {
-                    color = "rgb(0,0,0)";
-                }
-                
-                $("#" + v + "_slider_value").css({color: color});
-            }
-        }
-        else
-        {
-            // Update graph title
-            graph.graph_option("title",$("#equationName").val() + " ( " + vars.join(", ") +" )");
-        }
+        //    $("#" + v + "_slider_value").css({color: color});
+        //}
+    }
+    else
+    {
+        // Update graph title
+        graph.graph_option("title",graphTitle + " ( " + vars.join(", ") +" )");
     }
  
     /// Loop over variable
@@ -782,28 +779,25 @@ function updateAllGraphs(equation, context)
     {
         // Current variable
         v = vars[i];
-        // If we are supposed to draw this variable
-        if($("#" + v + "_graph_checkbox").is(":checked")
-            || (typeof graph.color(v) == "undefined"))
-        {
-            // Adjust context
-            var fixedPt = localContext[v],
-                min = parseFloat($("#" + v + "_min").val()),
-                step = parseFloat($("#" + v + "_step").val()),
-                max = parseFloat($("#" + v + "_max").val()),
-                steps = ((max - min)/step) + 1;
-            // Substitute iterator
-            localContext[v] = new VariableIterator(min,step);
-            // Create graph
-            updateGraph(graphID, v, equation, localContext, steps);
-            // Replace values into local context for next loop step
-            localContext[v] = fixedPt;
-        }
-        if(!$("#" + v + "_graph_checkbox").is(":checked"))
-        {
-            // Make sure we have cleared the data for this variable
-            graph.hide_data(v);
-        }
+
+        // Adjust context
+        var fixedPt = localContext[v],
+            min = 1,
+            step = 1,
+            max = 100,
+            steps = ((max - min)/step) + 1;
+        // Substitute iterator
+        localContext[v] = new VariableIterator(min,step);
+        // Create graph
+        updateGraph(graphID, v, equation, localContext, steps);
+        // Replace values into local context for next loop step
+        localContext[v] = fixedPt;
+
+        //if(!$("#" + v + "_graph_checkbox").is(":checked"))
+        //{
+         //   // Make sure we have cleared the data for this variable
+        //    graph.hide_data(v);
+       // }
     }
 }
 
@@ -875,24 +869,111 @@ function compressName(name)
 }
 
 
-function graphSingleElement(embeddedGraph)
-{
-       var ourAttr = embeddedGraph.getAttribute("equation1");
-        if(typeof ourAttr != "undefined")
+// set all context variables to correct variables
+function createTestContext(vars,varContext) {
+    var context = new Context(vars),
+        varLen = vars.length,
+        v, slider, val, step;
+        
+    // split the varContext by commas
+    var ourValues = varContext.split(",");    
+        
+    for(var i = 0; i < varLen; i++)
+    {
+        v = vars[i];
+        if(typeof ourValues[i] != "undefined")
         {
-            alert(ourAttr);
+            context.set(v, ourValues[i]);
         }
+        else
+        {
+            context.set(v, 1);
+        }
+        
+    }
+    
+    return context;
+}
+
+
+// updateGraph appends an html5 canvas element at the embeddedGraph
+// element position for the equation and varValues passed in
+function updateGraph(equation, varValues, embeddedGraph, graphNumber)
+{
+    // we should technically allow to graph graphs without 
+    // any values being passed in
+    if(typeof varValues == "undefined")
+    {
+        varValues = "";
+    }
+    
+    // parse our equation with a QGSolver
+    var parsedEquation = QGSolver.parse(equation);
+    
+    // find all variables for parsed equation
+    var vars = parsedEquation.variables();
+    
+    // create a context from the passed in values
+    var context = createTestContext(vars,varValues);
+    
+    updateAllGraphs(equation, context, embeddedGraph, graphNumber,"Untitled Graph");
+    
+}
+
+function graphSingleElement(embeddedGraph, graphNumber)
+{
+    var attributeBaseName = "equation";
+    var valueBaseName = "values";
+    var continueGraphingSingleElement = 1;
+    var attributeCount = 0;
+    
+    while(continueGraphingSingleElement == 1)
+    {
+        var fullAttributeName = attributeBaseName;
+        var fullValueName = valueBaseName;
+        
+        // we allow equation or equation1, so loop
+        // zero tests for equation, 1 for eq1 and so on
+        if(attributeCount > 0)
+        {
+            fullAttributeName +=  attributeCount.toString();
+            fullValueName += attributeCount.toString();
+        }
+        
+        // grab the equation attribute
+        var localEq = embeddedGraph.getAttribute(fullAttributeName);
+
+        if(typeof localEq == "string")
+        {
+            // grab the values attribute
+            var localValues = embeddedGraph.getAttribute(fullValueName);
+            
+            // update the graph
+            updateGraph(localEq, localValues, embeddedGraph, graphNumber);
+        }
+        else
+        {
+            // if we've gone past eq or eq1 and are on eq2
+            // and it's blank, don't look for an eq3
+            if(attributeCount > 1)
+            {
+                continueGraphingSingleElement = 0;
+            }
+        }
+        
+        // increment our attribute count
+        attributeCount++;
+    }
 }
 
 function replaceGraphTagsWithGraphs()
 {
     var allGraphs = $("graph");
     var allGraphsLen = allGraphs.length;
-    var continueGraphingSingleElement
     
     for(var i = 0;i<allGraphsLen;i++)
     {
-        graphSingleElement($("graph")[i]);
+        graphSingleElement($("graph")[i],i);
     }
     
 }
