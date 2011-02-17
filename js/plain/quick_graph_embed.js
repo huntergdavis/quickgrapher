@@ -1,20 +1,22 @@
 // updates graphs for all variables
-function updateAllGraphs(equation, context, embeddedGraph, graphNumber,graphTitle)
+function updateAllGraphs(equation, context, embeddedGraph, graphTitle)
 {
     var graph,
     // Retrieve variables
         v, vars = equation.variables(),
         varLen = vars.length;
         
-    var graphID = "subgraph" + graphNumber.toString();
+    //var graphID = "subgraph" + graphNumber.toString();
     // Check if we already have a graph element
-    graph = $("#" + graphID);
-    if(graph.length == 0)
+    //graph = $("#" + graphID);
+    // Check for children of the graph container
+    graph = embeddedGraph.children("div");
+    if(typeof graph == "undefined")
     {
         // Create graph element
         var parentElement = embeddedGraph;
         graph = document.createElement("div");
-        graph.id = graphID;
+        //graph.id = graphID;
         graph.style.position = "relative";
         graph.style.width = "100%";
         graph.style.height = "100%";
@@ -76,7 +78,7 @@ function updateAllGraphs(equation, context, embeddedGraph, graphNumber,graphTitl
         // Substitute iterator
         localContext[v] = new VariableIterator(min,step);
         // Create graph
-        updateSingleGraph(graphID, v, equation, localContext, steps);
+        updateSingleGraph(graph, v, equation, localContext, steps);
         // Replace values into local context for next loop step
         localContext[v] = fixedPt;
 
@@ -90,11 +92,10 @@ function updateAllGraphs(equation, context, embeddedGraph, graphNumber,graphTitl
 
 
 // updates a single graph
-function updateSingleGraph(graphID, graphVariable, equation, context, steps)
+function updateSingleGraph(graph, graphVariable, equation, context, steps)
 {
     // Retrieve reference to graph object
-    var graph = $("#" + graphID),
-        currVarValue, solution, data = [];
+    var currVarValue, solution, data = [];
         
     // Solve for the specified points
     for(var i = 0; i < steps; i++)
@@ -186,7 +187,7 @@ function createTestContext(vars,varContext) {
 
 // updateGraph appends an html5 canvas element at the embeddedGraph
 // element position for the equation and varValues passed in
-function updateGraph(equation, varValues, embeddedGraph, graphNumber)
+function updateGraph(equation, varValues, embeddedGraph)
 {
     // we should technically allow to graph graphs without 
     // any values being passed in
@@ -204,11 +205,11 @@ function updateGraph(equation, varValues, embeddedGraph, graphNumber)
     // create a context from the passed in values
     var context = createTestContext(vars,varValues);
     
-    updateAllGraphs(parsedEquation, context, embeddedGraph, graphNumber,"Untitled Graph");
+    updateAllGraphs(parsedEquation, context, embeddedGraph, "Untitled Graph");
     
 }
 
-function graphSingleElement(embeddedGraph, graphNumber)
+function graphSingleElement(embeddedGraph)
 {
     var attributeBaseName = "equation";
     var valueBaseName = "values";
@@ -237,7 +238,7 @@ function graphSingleElement(embeddedGraph, graphNumber)
             var localValues = embeddedGraph.getAttribute(fullValueName);
             
             // update the graph
-            updateGraph(localEq, localValues, embeddedGraph, graphNumber);
+            updateGraph(localEq, localValues, embeddedGraph);
         }
         else
         {
@@ -265,7 +266,26 @@ function replaceGraphTagsWithGraphs()
     }
     
 }
- 
+
+/* jQuery extension */
+(function($)
+{
+    // Config parameter is in case you want to have configurable options
+    $.fn.to_graph = function(config)
+    {
+      return this.each(function()
+          {
+              var $this = $(this);
+              
+              // Probably want to encapsulate this in
+              // and object eventually.
+              graphSingleElement($this);
+              
+              // Return 'this' to adhere to jQuery best practices.
+              return $this;
+          });
+    };
+})(jQuery);
 
 $(document).ready(function() {
     // Turn on debug
@@ -277,40 +297,7 @@ $(document).ready(function() {
     QGSolver.TESTGENERATION = false;
     
     // replace all graph tags
-    replaceGraphTagsWithGraphs();
-    
-    // Load examples
-    //loadExamples();
-    // Load functions
-    //loadFunctions();
-    // Load From TitleBar
-    //loadTitleBarHash();
-    
-    // Add key listeners
-    //$("#equationName").keyup(function(event){
-      //  if(event.keyCode == 13){
-        //    var eq = $("#mainEquation");
-          //  if(eq.val().length == 0)
-            //{
-   //             eq.focus();
-     //       }
-       //     else
-         //   {
-           //     $("#graphBtn").click();
- //           }
-   //     }
-    //});
-//    $("#mainEquation").keyup(function(event){
-  //      if(event.keyCode == 13){
-     //       var name = $("#equationName");
-       //     if(name.val().length == 0)
-         //   {
-           //     name.focus();
-            //}
-   //         else
-     //       {
-       //         $("#graphBtn").click();
-         //   }
-      //  }
-    //});
+    // This is a reference to the jQuery extension name above
+    // Config param is optional
+    $("graph").to_graph();
 });
