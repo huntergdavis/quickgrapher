@@ -6,7 +6,7 @@ function updateAllGraphs(equation, context, embeddedGraph, graphTitle)
         v, vars = equation.variables(),
         varLen = vars.length;
         
-    //var graphID = "subgraph" + graphNumber.toString();
+    var graphID = "subgraph";// + graphNumber.toString();
     // Check if we already have a graph element
     //graph = $("#" + graphID);
     // Check for children of the graph container
@@ -16,10 +16,31 @@ function updateAllGraphs(equation, context, embeddedGraph, graphTitle)
         // Create graph element
         var parentElement = embeddedGraph;
         graph = document.createElement("div");
-        //graph.id = graphID;
+        graph.id = graphID;
         graph.style.position = "relative";
-        graph.style.width = "100%";
-        graph.style.height = "100%";
+
+        // set the height and width
+        ourWidth = embeddedGraph.attr("width");
+        ourHeigth = embeddedGraph.attr("height");
+        
+        // test for unset default values
+        if(typeof ourWidth != "string")
+        {
+            ourWidth = "200";
+        }
+        if(typeof ourHeight != "string")
+        {
+            ourHeight = "200";
+        }
+        
+        // set the height and width elements
+        graph.style.width = ourWidth.toString();
+        graph.style.height = ourHeight.toString();        
+        graph.setAttribute("width",ourWidth);
+        graph.setAttribute("height",ourHeight);
+        
+        
+        
         // Add to canvas
         parentElement.append(graph);
         
@@ -253,18 +274,6 @@ function graphSingleElement(embeddedGraph)
         // increment our attribute count
         attributeCount++;
     }
-}
-
-function replaceGraphTagsWithGraphs()
-{
-    var allGraphs = $("graph");
-    var allGraphsLen = allGraphs.length;
-    
-    for(var i = 0;i<allGraphsLen;i++)
-    {
-        graphSingleElement($("graph")[i],i);
-    }
-    
 }
 
 /* jQuery extension */
