@@ -1,12 +1,12 @@
 // updates graphs for all variables
-function updateAllGraphs(equation, context, embeddedGraph, graphTitle)
+function updateAllGraphs(equation, context, embeddedGraph, graphTitle,refNum)
 {
     var graph,
     // Retrieve variables
         v, vars = equation.variables(),
         varLen = vars.length;
         
-    var graphID = "subgraph";// + graphNumber.toString();
+    var graphID = "subgraph" + refNum.toString();
     // Check if we already have a graph element
     //graph = $("#" + graphID);
     // Check for children of the graph container
@@ -26,7 +26,8 @@ function updateAllGraphs(equation, context, embeddedGraph, graphTitle)
         
         // Register with Graph
         var graphName = graphTitle;
-        graph = $(graph);
+        //graph = $(graph);
+        graph = embeddedGraph.children("div");
         var opts = {name: graphName};
         opts['hue-increment'] = 45;
         opts['hue-base'] = 22;
@@ -39,7 +40,7 @@ function updateAllGraphs(equation, context, embeddedGraph, graphTitle)
             hover: Graph.highlightNearest,
             out: Graph.removeHighlight
         });
-        
+                
         // Set variable colors from plot
         //var color;
         //for(var i = 0; i < varLen; i++)
@@ -57,7 +58,7 @@ function updateAllGraphs(equation, context, embeddedGraph, graphTitle)
     else
     {
         // Update graph title
-        graph.graph_option("title",graphTitle + " ( " + vars.join(", ") +" )");
+        //graph.graph_option("title",graphTitle + " ( " + vars.join(", ") +" )");
     }
  
     /// Loop over variable
@@ -188,7 +189,7 @@ function createTestContext(vars,varContext) {
 
 // updateGraph appends an html5 canvas element at the embeddedGraph
 // element position for the equation and varValues passed in
-function updateGraph(equation, varValues, embeddedGraph)
+function updateGraph(equation, varValues, embeddedGraph,refNum)
 {
     // we should technically allow to graph graphs without 
     // any values being passed in
@@ -206,16 +207,28 @@ function updateGraph(equation, varValues, embeddedGraph)
     // create a context from the passed in values
     var context = createTestContext(vars,varValues);
     
-    updateAllGraphs(parsedEquation, context, embeddedGraph, "Untitled Graph");
+    // if there is no title, use the equation?
+    var graphTitle = embeddedGraph.attr("title");
+    
+    if(graphTitle == "")
+    {
+         graphTitle = equation;
+    }
+
+    updateAllGraphs(parsedEquation, context, embeddedGraph, graphTitle,refNum);
     
 }
 
+
+// applies css tags to our graph tags
+// currently sets display to block so
+// canvas can render in a blocked area
 function applyCssToGraphTag(embeddedGraph)
 {
     embeddedGraph.css({"display": "block"});
 }
 
-function graphSingleElement(embeddedGraph)
+function graphSingleElement(embeddedGraph,refNum)
 {
     var attributeBaseName = "equation";
     var valueBaseName = "values";
@@ -248,7 +261,7 @@ function graphSingleElement(embeddedGraph)
             var localValues = embeddedGraph.attr(fullValueName);
             
             // update the graph
-            updateGraph(localEq, localValues, embeddedGraph);
+            updateGraph(localEq, localValues, embeddedGraph,refNum);
         }
         else
         {
@@ -271,13 +284,13 @@ function graphSingleElement(embeddedGraph)
     // Config parameter is in case you want to have configurable options
     $.fn.to_graph = function(config)
     {
-      return this.each(function()
+      return this.each(function(index)
           {
               var $this = $(this);
               
               // Probably want to encapsulate this in
               // and object eventually.
-              graphSingleElement($this);
+              graphSingleElement($this, index);
               
               // Return 'this' to adhere to jQuery best practices.
               return $this;
