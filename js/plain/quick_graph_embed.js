@@ -789,7 +789,7 @@ function updateAllGraphs(equation, context, embeddedGraph, graphNumber,graphTitl
         // Substitute iterator
         localContext[v] = new VariableIterator(min,step);
         // Create graph
-        updateGraph(graphID, v, equation, localContext, steps);
+        updateSingleGraph(graphID, v, equation, localContext, steps);
         // Replace values into local context for next loop step
         localContext[v] = fixedPt;
 
@@ -798,11 +798,12 @@ function updateAllGraphs(equation, context, embeddedGraph, graphNumber,graphTitl
          //   // Make sure we have cleared the data for this variable
         //    graph.hide_data(v);
        // }
-    }
+   }
 }
 
+
 // updates a single graph
-function updateGraph(graphID, graphVariable, equation, context, steps)
+function updateSingleGraph(graphID, graphVariable, equation, context, steps)
 {
     // Retrieve reference to graph object
     var graph = $("#" + graphID),
@@ -847,17 +848,17 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     );
     
     // Set variable colors from plot
-    var color = $("#subgraph").color(lbl);
-    if(typeof color == "undefined")
-    {
-        color = "rgb(0,0,0)";
-    }
+    //var color = $("#subgraph").color(lbl);
+    //if(typeof color == "undefined")
+    //{
+    //    color = "rgb(0,0,0)";
+    //}
     
     //$("#" + lbl + "_variable_name").css({"color": color});
-    $("#" + lbl + "_slider_value").css({color: color});
-    cs = {color: color};
-    cs["font-weight"] = "bold";
-    $("#" + lbl + "_param").css(cs);
+   // $("#" + lbl + "_slider_value").css({color: color});
+    //cs = {color: color};
+    //cs["font-weight"] = "bold";
+    //$("#" + lbl + "_param").css(cs);
 }
 
 
@@ -916,7 +917,7 @@ function updateGraph(equation, varValues, embeddedGraph, graphNumber)
     // create a context from the passed in values
     var context = createTestContext(vars,varValues);
     
-    updateAllGraphs(equation, context, embeddedGraph, graphNumber,"Untitled Graph");
+    updateAllGraphs(parsedEquation, context, embeddedGraph, graphNumber,"Untitled Graph");
     
 }
 
