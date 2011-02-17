@@ -11,7 +11,7 @@ function updateAllGraphs(equation, context, embeddedGraph, graphTitle)
     //graph = $("#" + graphID);
     // Check for children of the graph container
     graph = embeddedGraph.children("div");
-    if(typeof graph == "undefined")
+    if(typeof graph == "undefined" || graph.length == 0)
     {
         // Create graph element
         var parentElement = embeddedGraph;
