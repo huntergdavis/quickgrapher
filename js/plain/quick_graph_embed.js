@@ -224,8 +224,22 @@ function updateGraph(equation, varValues, embeddedGraph,refNum)
 // currently sets display to block so
 // canvas can render in a blocked area
 function applyCssToGraphTag(embeddedGraph)
-{
+{ 
+    // set the display to block
     embeddedGraph.css({"display": "block"});
+    
+    // ensure we have a valid height and width
+    var w = embeddedGraph.width();
+    var h = embeddedGraph.height(); 
+
+    if(w < 30)
+    {
+        embeddedGraph.css({"width":"250"});
+    }
+    if(h < 30)
+    {
+        embeddedGraph.css({"height":"250"});
+    }
 }
 
 function graphSingleElement(embeddedGraph,refNum)
