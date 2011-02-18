@@ -226,6 +226,7 @@ img::-moz-selection {background: transparent;}
   background: rgb(255,255,255);
   padding-left: 2px;
   padding-bottom: 4px;
+  display: block;
 }
 .input {
   background: rgb(255,255,255);
