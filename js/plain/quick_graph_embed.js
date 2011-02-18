@@ -1,5 +1,5 @@
 // updates graphs for all variables
-function updateAllGraphs(equation, context, embeddedGraph, graphTitle,refNum)
+function graphAllVariablesForEquation(equation, context, embeddedGraph, graphTitle,refNum)
 {
     var graph,
     // Retrieve variables
@@ -41,24 +41,6 @@ function updateAllGraphs(equation, context, embeddedGraph, graphTitle,refNum)
             out: Graph.removeHighlight
         });
                 
-        // Set variable colors from plot
-        //var color;
-        //for(var i = 0; i < varLen; i++)
-        //{
-        //    v = vars[i];
-        //    color = $("#subgraph").color(v);
-        //    if(typeof color == "undefined")
-        //    {
-        //        color = "rgb(0,0,0)";
-         //   }
-            
-        //    $("#" + v + "_slider_value").css({color: color});
-        //}
-    }
-    else
-    {
-        // Update graph title
-        //graph.graph_option("title",graphTitle + " ( " + vars.join(", ") +" )");
     }
  
     /// Loop over variable
@@ -80,21 +62,15 @@ function updateAllGraphs(equation, context, embeddedGraph, graphTitle,refNum)
         // Substitute iterator
         localContext[v] = new VariableIterator(min,step);
         // Create graph
-        updateSingleGraph(graph, v, equation, localContext, steps);
+        displaySingleLineGraphForEquation(graph, v, equation, localContext, steps);
         // Replace values into local context for next loop step
         localContext[v] = fixedPt;
-
-        //if(!$("#" + v + "_graph_checkbox").is(":checked"))
-        //{
-         //   // Make sure we have cleared the data for this variable
-        //    graph.hide_data(v);
-       // }
    }
 }
 
 
 // updates a single graph
-function updateSingleGraph(graph, graphVariable, equation, context, steps)
+function displaySingleLineGraphForEquation(graph, graphVariable, equation, context, steps)
 {
     // Retrieve reference to graph object
     var currVarValue, solution, data = [];
@@ -136,19 +112,6 @@ function updateSingleGraph(graph, graphVariable, equation, context, steps)
         data,
         cs
     );
-    
-    // Set variable colors from plot
-    //var color = $("#subgraph").color(lbl);
-    //if(typeof color == "undefined")
-    //{
-    //    color = "rgb(0,0,0)";
-    //}
-    
-    //$("#" + lbl + "_variable_name").css({"color": color});
-   // $("#" + lbl + "_slider_value").css({color: color});
-    //cs = {color: color};
-    //cs["font-weight"] = "bold";
-    //$("#" + lbl + "_param").css(cs);
 }
 
 
@@ -189,7 +152,7 @@ function createTestContext(vars,varContext) {
 
 // updateGraph appends an html5 canvas element at the embeddedGraph
 // element position for the equation and varValues passed in
-function updateGraph(equation, varValues, embeddedGraph,refNum)
+function updateGraphWithEquation(equation, varValues, embeddedGraph,refNum)
 {
     // we should technically allow to graph graphs without 
     // any values being passed in
@@ -215,9 +178,74 @@ function updateGraph(equation, varValues, embeddedGraph,refNum)
          graphTitle = equation;
     }
 
-    updateAllGraphs(parsedEquation, context, embeddedGraph, graphTitle,refNum);
+    graphAllVariablesForEquation(parsedEquation, context, embeddedGraph, graphTitle,refNum);
     
 }
+
+updateGraphWithPlot(localValues,localPlotType, embeddedGraph, refNum, plotLabel)
+{
+    // if there is no title, use the plot type?
+    var graphTitle = embeddedGraph.attr("title");
+    
+    if(graphTitle == "")
+    {
+         graphTitle = localPlotType + " graph";
+    }
+
+    var graph;
+    var graphID = "subgraph" + refNum.toString();
+    // Check if we already have a graph element
+    // Check for children of the graph container
+    graph = embeddedGraph.children("div");
+    if(typeof graph == "undefined" || graph.length == 0)
+    {
+        // Create graph element
+        var parentElement = embeddedGraph;
+        graph = document.createElement("div");
+        graph.id = graphID;
+        graph.style.position = "relative";
+        graph.style.width = "100%";
+        graph.style.height = "100%";
+        
+        // Add to canvas
+        parentElement.append(graph);
+        
+        // Register with Graph
+        var graphName = graphTitle;
+        graph = embeddedGraph.children("div");
+        
+        // set Graph options
+        var opts = {name: graphName};
+        opts['hue-increment'] = 45;
+        opts['hue-base'] = 22;
+        opts['value-base'] = 95;
+        opts['title'] = graphTitle;
+        graph.graphify(opts).realHover({
+            hover: Graph.highlightNearest,
+            out: Graph.removeHighlight
+        });                
+    }
+ 
+    // data container for graph
+    var data = [];
+    
+    // this is how we push data in    
+    data.push([currVarValue, solution]);
+
+    
+    
+    
+    // Add plot for this variable (will overwrite existing ones)
+    var cs = {label : lbl};
+    cs['plot-type'] = 'line';
+    graph.plot(
+        graphVariable,
+        data,
+        cs
+    );
+}
+
+
 
 
 // applies css tags to our graph tags
@@ -242,54 +270,104 @@ function applyCssToGraphTag(embeddedGraph)
     }
 }
 
-function graphSingleElement(embeddedGraph,refNum)
+// goes through a graph tag and calls various graphing agents
+// for each type of tag found
+function processSingleGraphTag(embeddedGraph,refNum)
 {
-    var attributeBaseName = "equation";
-    var valueBaseName = "values";
-    var continueGraphingSingleElement = 1;
+    var equationBaseName = "equation";
+    var variableBaseName = "vars";
+    var graphTypeBaseName = "type";
+    var graphValuesBaseName = "values";
+    var graphLabelBaseName = "label";
+    
+    var continueProcessingSingleElement = 1;
     var attributeCount = 0;
     
     // before anything, we should apply our css styling
     applyCssToGraphTag(embeddedGraph);
     
     
-    while(continueGraphingSingleElement == 1)
+    while(continueProcessingSingleElement == 1)
     {
-        var fullAttributeName = attributeBaseName;
-        var fullValueName = valueBaseName;
+        var fullEquationName = equationBaseName;
+        var fullVariableName = variableBaseName;
+        var fullTypeName = graphTypeBaseName;
+        var fullValuesName = graphValuesBaseName;
+        var fullLabelname = graphLabelBaseName;
         
         // we allow equation or equation1, so loop
         // zero tests for equation, 1 for eq1 and so on
         if(attributeCount > 0)
         {
-            fullAttributeName +=  attributeCount.toString();
-            fullValueName += attributeCount.toString();
+            fullEquationName +=  attributeCount.toString();
+            fullVariableName += attributeCount.toString();
+            fullTypeName += attributeCount.toString();
+            fullValuesName += attributeCount.toString();            
         }
         
         // grab the equation attribute
-        var localEq = embeddedGraph.attr(fullAttributeName);
+        var localEq = embeddedGraph.attr(fullEquationName);
 
+        // if we have an equation
         if(typeof localEq == "string")
         {
             // grab the values attribute
-            var localValues = embeddedGraph.attr(fullValueName);
+            var localValues = embeddedGraph.attr(fullVariableName);
             
             // update the graph
-            updateGraph(localEq, localValues, embeddedGraph,refNum);
+            updateGraphWithEquation(localEq, localValues, embeddedGraph,refNum);
         }
         else
         {
+            // if this isn't an equation graph, look for values
+            var localValues = embeddedGraph.attr(fullValuesName);
+            
+            // if we have values to plot
+            if(typeof localValues == "string")
+            {
+                // see if we have a plot type
+                var localPlotType = embeddedGraph.attr(fullTypeName);
+                
+                // if we don't have a plot type, default to 
+                // our default type - point graph
+                if((typeof localPlotType != "string")
+                {
+                    localPlotType = "point";
+                }
+                
+                // validate plot type
+                localPlotType = validatePlotType(localPlotType);
+                
+                // set plot label
+                var plotLabel = embeddedGraph.attr(fullLabelName);
+                
+                // update graph with values to plot
+                updateGraphWithPlot(localValues,localPlotType, embeddedGraph, refNum,plotLabel);
+                
+            }
+            
             // if we've gone past eq or eq1 and are on eq2
             // and it's blank, don't look for an eq3
             if(attributeCount > 1)
             {
-                continueGraphingSingleElement = 0;
+                continueProcessingSingleElement = 0;
             }
         }
         
         // increment our attribute count
         attributeCount++;
     }
+}
+
+function validatePlotType(localPlotType)
+{
+    // we only support point and plot right now
+    // so only graph those
+    if((localPlotType != "point") && (localPlotType != "line"))
+    {
+        return "point";
+    }    
+    return localPlotType;
 }
 
 /* jQuery extension */
@@ -304,7 +382,7 @@ function graphSingleElement(embeddedGraph,refNum)
               
               // Probably want to encapsulate this in
               // and object eventually.
-              graphSingleElement($this, index);
+              processSingleGraphTag($this, index);
               
               // Return 'this' to adhere to jQuery best practices.
               return $this;
