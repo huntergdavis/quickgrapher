@@ -220,7 +220,11 @@ img::-moz-selection {background: transparent;}
 }
 
 .equation {
-  margin: 2px 0px 0px 20px;
+  margin: 2px 0px 0px 22px;
+  width: 900px;
+  border: solid 1px rgb(0,0,0);
+  background: rgb(255,255,255);
+  padding: 2px;
 }
 .input {
   background: rgb(255,255,255);
