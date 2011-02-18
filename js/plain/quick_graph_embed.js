@@ -1,5 +1,5 @@
 // updates graphs for all variables
-function graphAllVariablesForEquation(equation, context, embeddedGraph, graphTitle,refNum)
+function graphAllVariablesForEquation(equation, context, embeddedGraph, graphTitle,refNum,attributeCount)
 {
     var graph,
     // Retrieve variables
@@ -55,9 +55,9 @@ function graphAllVariablesForEquation(equation, context, embeddedGraph, graphTit
 
         // Adjust context
         var fixedPt = localContext[v],
-            min = 1,
-            step = 1,
-            max = 100,
+            min = returnVariableMinStepMax(embeddedGraph,i,0,refNum,attributeCount),
+            step = returnVariableMinStepMax(embeddedGraph,i,1,refNum,attributeCount),
+            max = returnVariableMinStepMax(embeddedGraph,i,2,refNum,attributeCount),
             steps = ((max - min)/step) + 1;
         // Substitute iterator
         localContext[v] = new VariableIterator(min,step);
@@ -66,6 +66,37 @@ function graphAllVariablesForEquation(equation, context, embeddedGraph, graphTit
         // Replace values into local context for next loop step
         localContext[v] = fixedPt;
    }
+}
+
+
+// returns the variable minimum/step/max or default if doesn't exist
+function returnVariableMinStepMax(embeddedGraph,variableNumber,MSM,refNum,attributeCount)
+{
+    // if this isn't an equation graph, look for values
+    var minstepmaxString = embeddedGraph.attr("minstepmax" + attributeCount);
+
+    // if we have values to plot
+    if(typeof minstepmaxString == "string")
+    {    
+        var triplets = minstepmaxString.split(";");
+        var singlets = triplets[variableNumber].split(",");
+        return parseInt(singlets[MSM]);
+    }
+    else
+    {
+        switch(MSM)
+        {
+            case 0:
+                return 1;
+            case 1:
+                return 5;
+            case 2:
+                return 100;
+            default:
+                return 5;
+        }
+        
+    }
 }
 
 
@@ -152,7 +183,7 @@ function createTestContext(vars,varContext) {
 
 // updateGraph appends an html5 canvas element at the embeddedGraph
 // element position for the equation and varValues passed in
-function updateGraphWithEquation(equation, varValues, embeddedGraph,refNum)
+function updateGraphWithEquation(equation, varValues, embeddedGraph,refNum,attributeCount)
 {
     // we should technically allow to graph graphs without 
     // any values being passed in
@@ -178,7 +209,7 @@ function updateGraphWithEquation(equation, varValues, embeddedGraph,refNum)
          graphTitle = equation;
     }
 
-    graphAllVariablesForEquation(parsedEquation, context, embeddedGraph, graphTitle,refNum);
+    graphAllVariablesForEquation(parsedEquation, context, embeddedGraph, graphTitle,refNum,attributeCount);
     
 }
 
@@ -290,6 +321,7 @@ function processSingleGraphTag(embeddedGraph,refNum)
     var graphTypeBaseName = "type";
     var graphValuesBaseName = "values";
     var graphLabelBaseName = "label";
+    var graphMSMBaseName = "minstepmax";
     
     var continueProcessingSingleElement = 1;
     var attributeCount = 0;
@@ -314,7 +346,7 @@ function processSingleGraphTag(embeddedGraph,refNum)
             fullVariableName += attributeCount.toString();
             fullTypeName += attributeCount.toString();
             fullValuesName += attributeCount.toString();
-            fullLabelName += attributeCount.toString();            
+            fullLabelName += attributeCount.toString();         
         }
         
         // grab the equation attribute
@@ -327,7 +359,7 @@ function processSingleGraphTag(embeddedGraph,refNum)
             var localValues = embeddedGraph.attr(fullVariableName);
             
             // update the graph
-            updateGraphWithEquation(localEq, localValues, embeddedGraph,refNum);
+            updateGraphWithEquation(localEq, localValues, embeddedGraph,refNum,attributeCount);
         }
         else
         {
