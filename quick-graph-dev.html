@@ -85,16 +85,14 @@ hunter or mark at discursivelabs.com
             </ul>
           </span>
         </div>
-        <span id="equation" class="equation">
-          <input type="text" id="equationName" class="input" value="Function"/><font style="font-weight: bold; font-size: 12pt; margin: 0px 20px 0px 20px;">=</font><input type="text" id="mainEquation" class="equation_input input"/>  
-          <input id="graphBtn" type="button" value="Graph!"  alt="Graph the function" title="Graph the function" onclick="clearAndParse()"/><span class="cancel_icon" alt="Clear" title="Clear" onclick="clearEqAndScreen()"></span><span class="screenshot_icon" alt="Save As Image" title="Save As Image" onclick="convertToPNG()"></span>
-          <span id="legendTitle" style="color: rgb(164, 157, 143); width: 60px; margin-left: 24px; margin-top: 13px; font-weight: bold;display: none;">Legend</span><br/>
-        </span>
         <div id="graph_container" class="graph_container" style="position: relative; float: left;">
         </div>
-        <div id="legend" style="display: none;">
-        </div>
         <div id="graph_break" style="clear: both;"></div>
+        <span id="equation" class="equation">
+          <h2 style="display: inline;">Add : </h2>
+          <input type="text" id="equationName" class="input" value="Function"/><font style="font-weight: bold; font-size: 12pt; margin: 0px 20px 0px 20px;">=</font><input type="text" id="mainEquation" class="equation_input input"/>  
+          <input id="graphBtn" type="button" value="Graph!"  alt="Graph the function" title="Graph the function" onclick="clearAndParse()"/><span class="cancel_icon" alt="Clear" title="Clear" onclick="clearEqAndScreen()"></span><span class="screenshot_icon" alt="Save As Image" title="Save As Image" onclick="convertToPNG()"></span>
+        </span>
         <div id="result" style="display: none;">
           <div id="solution_column" class="solution_column">
               <div class="bar" style="margin-left: 0px; width: 100%;">
