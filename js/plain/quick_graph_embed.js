@@ -182,7 +182,7 @@ function updateGraphWithEquation(equation, varValues, embeddedGraph,refNum)
     
 }
 
-updateGraphWithPlot(localValues,localPlotType, embeddedGraph, refNum, plotLabel)
+function updateGraphWithPlot(localValues,localPlotType, embeddedGraph, refNum, plotLabel)
 {
     // if there is no title, use the plot type?
     var graphTitle = embeddedGraph.attr("title");
@@ -227,24 +227,35 @@ updateGraphWithPlot(localValues,localPlotType, embeddedGraph, refNum, plotLabel)
     }
  
     // data container for graph
-    var data = [];
-    
-    // this is how we push data in    
-    data.push([currVarValue, solution]);
+    var data = retrieveValuesFromString(localValues);
 
     
-    
-    
     // Add plot for this variable (will overwrite existing ones)
-    var cs = {label : lbl};
-    cs['plot-type'] = 'line';
+    var cs = {label : plotLabel};
+    cs['plot-type'] = localPlotType;
     graph.plot(
-        graphVariable,
+        plotLabel,
         data,
         cs
     );
+    
 }
 
+// splits the string and retrieves x,y values for the graph
+function retrieveValuesFromString(localValues)
+{
+    var data = new Array();
+    var pairs = localValues.split(";");
+    var numPairs = pairs.length;
+    
+    // loop over all pairs and push into data
+    for(var i = 0;i<numPairs;i++)
+    {
+        var splitPair = pairs[i].split(",");
+        data.push(splitPair);
+    }
+    return data;
+}
 
 
 
@@ -293,7 +304,7 @@ function processSingleGraphTag(embeddedGraph,refNum)
         var fullVariableName = variableBaseName;
         var fullTypeName = graphTypeBaseName;
         var fullValuesName = graphValuesBaseName;
-        var fullLabelname = graphLabelBaseName;
+        var fullLabelName = graphLabelBaseName;
         
         // we allow equation or equation1, so loop
         // zero tests for equation, 1 for eq1 and so on
@@ -302,7 +313,8 @@ function processSingleGraphTag(embeddedGraph,refNum)
             fullEquationName +=  attributeCount.toString();
             fullVariableName += attributeCount.toString();
             fullTypeName += attributeCount.toString();
-            fullValuesName += attributeCount.toString();            
+            fullValuesName += attributeCount.toString();
+            fullLabelName += attributeCount.toString();            
         }
         
         // grab the equation attribute
@@ -330,7 +342,7 @@ function processSingleGraphTag(embeddedGraph,refNum)
                 
                 // if we don't have a plot type, default to 
                 // our default type - point graph
-                if((typeof localPlotType != "string")
+                if(typeof localPlotType != "string")
                 {
                     localPlotType = "point";
                 }
