@@ -885,12 +885,12 @@ function createFunctionRow(name, fxn, parsed)
         // Row table
         el = document.createElement("table");
         elParent.append(el);
-        el = elParent;
+        elParent = el;
         
         // Table row
         el = document.createElement("tr");
         elParent.append(el);
-        el = elParent;
+        elParent = el;
         
         // Icon column
         el = document.createElement("td");
