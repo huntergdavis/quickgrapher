@@ -879,9 +879,6 @@ function createFunctionRow(name, fxn, parsed)
             eq: parsed
         };
         el = $(el);
-        // style = {
-        // };
-        // el.css(style);
         elParent.append(el);
         elParent = el;
         
@@ -890,10 +887,6 @@ function createFunctionRow(name, fxn, parsed)
         el.id = "icons_" + name;
         el.className = "fxn_icons";
         el = $(el);
-        style = {
-            width: "53px"
-        };
-        el.css(style);
         elParent.append(el);
         
         // Function column
@@ -901,7 +894,7 @@ function createFunctionRow(name, fxn, parsed)
         el.id = "fxn_" + name;
         el.className = "fxn_highlight";
         // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
-        el.innerHTML = parsed.toHTML(name+"_","p");
+        el.innerHTML = parsed.toHTML(name,"p");
         el = $(el);
         // modified later by graph
         style = {

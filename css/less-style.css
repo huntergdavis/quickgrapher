@@ -566,11 +566,13 @@ h2 > .examples {
 
 
 .fxn_row {
-    
+    width: 898px;
+    border: 1px solid rgb(0,0,0);
+    padding: 2px 0px 2px 0px;
 }
 
 .fxn_icons {
-    width: 53px;
+    display: inline;
 }
 
 .fxn_icons > img {
@@ -582,6 +584,8 @@ h2 > .examples {
     border: 1px solid rgb(0,0,0);
     padding: 4px;
     width: 350px;
+    display: inline;
+    margin-left: 53px;
 }
 
 .fxn_highlight > p {
@@ -597,11 +601,11 @@ h2 > .examples {
 }
 
 .fxn_remove {
-    width: 42px;
     color: rgb(255,0,0);
     font-size: 20pt;
     font-weight: bold;
-    padding: 0px auto;
+    margin: 0px auto;
+    display: inline;
 }
 
 
