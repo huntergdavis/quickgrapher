@@ -869,6 +869,7 @@ function createFunctionRow(name, fxn, parsed)
     var v, vars = parsed.variables(),
         varsLen = vars.length, ctx,
         el, elParent = $("#function_list"),
+        row,
         style;
         
         // Create context
@@ -890,6 +891,7 @@ function createFunctionRow(name, fxn, parsed)
             eq: parsed,
             context: ctx
         };
+        row = el;
         el = $(el);
         elParent.append(el);
         elParent = el;
@@ -934,6 +936,8 @@ function createFunctionRow(name, fxn, parsed)
         elParent.append(el);
         
         el.innerHTML = "-";
+        
+        return row;
 }
 
 
@@ -1880,9 +1884,9 @@ function addFunction() {
     // parse the equation
     var parsed = QGSolver.parse(fxn);
     // Create sliders
-    createFunctionRow(name, fxn, parsed);
+    var row = createFunctionRow(name, fxn, parsed);
     // Solve equation
-    solveEquation(this, parsed);
+    solveEquation(row, parsed);
 }
 
 
