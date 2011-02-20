@@ -905,7 +905,7 @@ function createFunctionRow(name, fxn, parsed)
         el = $(el);
         // modified later by graph
         style = {
-            background: "rgb(255,255,255)";
+            background: "rgb(255,255,255)"
         };
         el.css(style);
         elParent.append(el);
