@@ -916,7 +916,7 @@ function createFunctionRow(name, fxn, parsed)
         el.className = "fxn_remove";
         elParent.append(el);
         
-        el.text = "-";
+        el.innerHTML = "-";
 }
 
 

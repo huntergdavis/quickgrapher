@@ -673,7 +673,10 @@ var QGSolver = function() {
         };
         
         var htmlify = function(prefix, element, context) {
-            return this.content.toHTML(prefix, element, context);
+            var html = prefix + "( ";
+                html += "x" +" )" + " = ";
+                html += this.content.toHTML(prefix, element, context);
+            return html;
         };
         
         var getVariables = function() {
@@ -1109,7 +1112,7 @@ var QGSolver = function() {
                 if(typeof v != "undefined" && typeof v != "function")
                 {
                     var html = "<" + element + " id='";
-                    html += prefix + this.varName + "_value'>"
+                    html += prefix + "_" + this.varName + "_value'>"
                     
                     html += (this.negative?"-":"") + v;
                     
@@ -1120,7 +1123,7 @@ var QGSolver = function() {
                 else
                 {
                     var html = "<" + element + " id='";
-                    html += prefix + this.varName + "_var'>"
+                    html += prefix + "_" + this.varName + "_var'>"
                     
                     html += (this.negative?"-":"") + this.varName;
                     
@@ -1132,7 +1135,7 @@ var QGSolver = function() {
             else
             {
                 var html = "<" + element + " id='";
-                    html += prefix + this.varName + "_var'>"
+                    html += prefix + "_" + this.varName + "_var'>"
                     
                     html += (this.negative?"-":"") + this.varName;
                     

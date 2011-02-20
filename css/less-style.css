@@ -578,7 +578,7 @@ h2 > .examples {
 }
 
 .fxn_highlight {
-    color: rgb(255,255,255);
+    color: rgb(0,0,0);
     border: 1px solid rgb(0,0,0);
     padding: 4px;
     width: 350px;
@@ -587,6 +587,7 @@ h2 > .examples {
 .fxn_highlight > p {
     border-bottom: 1px solid rgb(0,0,0);
     padding: 1px;
+    display: inline;
 }
 
 .fxn_highlight > p.selected {
