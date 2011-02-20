@@ -30,13 +30,18 @@ var ComplexFunction = function(pri, prefix, func, infinite) {
 var Constant = function(value) {
     var v = value;
     
-    var stringify = function() {
+    var stringify = function(context) {
+        return this.value;
+    };
+    
+    var htmlify = function(prefix, element, context) {
         return this.value;
     };
     
     return {
         value : v,
-        toString: stringify
+        toString: stringify,
+        toHTML: htmlify
     };
 };
 
@@ -667,6 +672,10 @@ var QGSolver = function() {
             return this.content.toString(context);
         };
         
+        var htmlify = function(prefix, element, context) {
+            return this.content.toHTML(prefix, element, context);
+        };
+        
         var getVariables = function() {
             return this.getObjectClass("QGVariable");
         };
@@ -704,6 +713,7 @@ var QGSolver = function() {
             getObjectClass: getObjectClass,
             logObject: logObject,
             variables: getVariables,
+            toHTML: htmlify,
             type: "QGEquation"
         };
     };
@@ -843,6 +853,55 @@ var QGSolver = function() {
             return (this.negative?"-":"") + str;
         };
         
+        var htmlify = function(prefix, element, context) {
+            var str = "";
+            if(this.prefix())
+            {
+                str += this.funcName;
+                var len = this.args.length;
+                if(len == 0 || this.args[0].type != "QGBlock")
+                {
+                    str += "( ";
+                }
+                for(var i = 0; i < len; i++)
+                {
+                    str += this.args[i].toHTML(prefix, element, context);
+                    if(i != len - 1)
+                    {
+                      str += ", ";
+                    }
+                }
+                if(len == 0 || this.args[0].type != "QGBlock")
+                {
+                    str += " )";
+                }
+            }
+            else
+            {
+                if(this.length() == 1)
+                {
+                    str += this.funcName;
+                    if(typeof this.args[0] != "undefined")
+                    {
+                        str += this.args[0].toHTML(prefix, element, context);
+                    }
+                }
+                if(this.length() == 2)
+                {
+                    if(typeof this.args[0] != "undefined")
+                    {
+                        str += this.args[0].toHTML(prefix, element, context);
+                    }
+                    str += this.funcName;
+                    if(typeof this.args[1] != "undefined")
+                    {
+                        str += this.args[1].toHTML(prefix, element, context);
+                    }
+                }
+            }
+            return (this.negative?"-":"") + str;
+        };
+        
         var len = function() {
             return this.func.length;
         };
@@ -882,6 +941,7 @@ var QGSolver = function() {
             extract: extract,
             solve: solve,
             toString: stringify,
+            toHTML: htmlify,
             pop: popLeft,
             push: pushLeft,
             name: toLabel,
@@ -1040,6 +1100,48 @@ var QGSolver = function() {
             }
         };
         
+        var htmlify = function(prefix, element, context) {
+            if(typeof context != "undefined")
+            {
+                var v = context[this.varName];
+                // If we have an entry for this variable and
+                // it has a constant replacement. 
+                if(typeof v != "undefined" && typeof v != "function")
+                {
+                    var html = "<" + element + " id='";
+                    html += prefix + this.varName + "_value'>"
+                    
+                    html += (this.negative?"-":"") + v;
+                    
+                    html += "</" + element + ">";
+                  
+                    return html;
+                }
+                else
+                {
+                    var html = "<" + element + " id='";
+                    html += prefix + this.varName + "_var'>"
+                    
+                    html += (this.negative?"-":"") + this.varName;
+                    
+                    html += "</" + element + ">";
+                  
+                    return html;
+                }
+            }
+            else
+            {
+                var html = "<" + element + " id='";
+                    html += prefix + this.varName + "_var'>"
+                    
+                    html += (this.negative?"-":"") + this.varName;
+                    
+                    html += "</" + element + ">";
+                    
+                return html;
+            }
+        };
+        
         var toLabel = function() {
             return this.varName;
         };
@@ -1047,6 +1149,7 @@ var QGSolver = function() {
         return {
             solve: solve,
             toString: stringify,
+            toHTML: htmlify,
             name: toLabel,
             varName: v,
             negative: neg,
@@ -1069,6 +1172,10 @@ var QGSolver = function() {
             return (this.negative?"-":"") + this.value;
         };
         
+        var stringify = function(prefix, element, context) {
+            return (this.negative?"-":"") + this.value;
+        };
+        
         var toLabel = function() {
             return this.value + "";
         };
@@ -1076,6 +1183,7 @@ var QGSolver = function() {
         return {
             solve: solve,
             toString: stringify,
+            toHTML: htmlify,
             name: toLabel,
             value: v.value,
             negative: neg,

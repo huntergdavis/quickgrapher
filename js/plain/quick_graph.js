@@ -1,4 +1,4 @@
-var parsedEquation = undefined;
+//var parsedEquation = undefined;
 
 // I put the passed in values into separate arrays
 // we should move them to objects
@@ -398,7 +398,7 @@ function createContext(vars)
 }
 
 
-function solveEquation()
+function solveEquation(parsedEquation)
 {
     if(typeof parsedEquation != "undefined")
     {
@@ -861,6 +861,63 @@ function updateShare(url, title)
         object.attachButton(document.getElementById('blank_share'));
     }
 } 
+
+function createFunctionRow(name, fxn, parsed)
+{
+    var v, vars = parsed.variables(),
+        varsLen = vars.length,
+        el, elParent = $("#functions"),
+        style;
+        
+        // Row container
+        el = document.createElement("div");
+        el.id = "row_" + name;
+        el.className = "fxn_row";
+        el.fxnData = {
+            name: name,
+            fxn: fxn,
+            eq: parsed
+        };
+        el = $(el);
+        // style = {
+        // };
+        // el.css(style);
+        elParent.append(el);
+        elParent = el;
+        
+        // Icon column
+        el = document.createElement("div");
+        el.id = "icons_" + name;
+        el.className = "fxn_icons";
+        el = $(el);
+        style = {
+            width: "53px"
+        };
+        el.css(style);
+        elParent.append(el);
+        
+        // Function column
+        el = document.createElement("div");
+        el.id = "fxn_" + name;
+        el.className = "fxn_highlight";
+        // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
+        el.innerHTML = parsed.toHTML(name+"_","p");
+        el = $(el);
+        // modified later by graph
+        style = {
+            background-color: "rgb(255,255,255)";
+        };
+        el.css(style);
+        elParent.append(el);
+        
+        // Remove column
+        el = document.createElement("div");
+        el.id = "remove_" + name;
+        el.className = "fxn_remove";
+        elParent.append(el);
+        
+        el.text = "-";
+}
 
 
 function createSliders(vars)
@@ -1799,6 +1856,19 @@ function toggleInclude(toggleID)
 {
     toggleDraw(toggleID);
 }
+function addFunction() {
+    var name = $('#mainEquation').value(),
+        fxn = $('#equationName').value();
+        
+    // parse the equation
+    var parsed = QGSolver.parse(fxn);
+    // Create sliders
+    createFunctionRow(name, fxn, parsed);
+    // Solve equation
+    solveEquation(parsed);
+}
+
+
 $(document).ready(function() {
     // Turn on debug
     //QGSolver.DEBUG = true;

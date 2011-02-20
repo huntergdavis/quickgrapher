@@ -565,6 +565,46 @@ h2 > .examples {
 }
 
 
+.fxn_row {
+    
+}
+
+.fxn_icons {
+    width: 53px;
+}
+
+.fxn_icons > img {
+    
+}
+
+.fxn_highlight {
+    color: rgb(255,255,255);
+    border: 1px solid rgb(0,0,0);
+    padding: 4px;
+    width: 350px;
+}
+
+.fxn_highlight > p {
+    border-bottom: 1px solid rgb(0,0,0);
+    padding: 1px;
+}
+
+.fxn_highlight > p.selected {
+    border: 1px solid rgb(0,0,0);
+    background: rgb(255,255,255);
+    padding: 1px;
+}
+
+.fxn_remove {
+    width: 42px;
+    color: rgb(255,0,0);
+    font-size: 20pt;
+    font-weight: bold;
+    padding: 0px auto;
+}
+
+
+
 /*  13-column layout
   60 px columns, 24 px gutters, 72 px margins, 1212 px total (extra space for scrollbars)
   ---------------------------------------------------------------------------------------
@@ -659,6 +699,10 @@ h2 > .examples {
   .variable_value {
       font-size: 20pt;
   }
+  
+  .fxn_highlight {
+      width: 650px;
+  }
 }
 
 /*  11-column layout
@@ -748,6 +792,10 @@ h2 > .examples {
   #resolve_btn {
     margin-left: 15px;
   }
+  
+  .fxn_highlight {
+      width: 500px;
+  }
 }
 
 
@@ -820,6 +868,10 @@ h2 > .examples {
   .variable_value {
       font-size: 10pt;
   }
+  
+  .fxn_highlight {
+      width: 200px;
+  }
 }
 
 
@@ -889,6 +941,10 @@ h2 > .examples {
   
   .variable_value {
       font-size: 9pt;
+  }
+  
+  .fxn_highlight {
+      width: 175px;
   }
 }
 
