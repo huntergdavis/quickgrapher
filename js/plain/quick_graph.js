@@ -352,30 +352,36 @@ function convertToPNG()
     }
 }
 
-function updateSolution(equation, context, solution)
+function updateSolution(name, equation, context, solution)
 {
-    document.getElementById("formula").innerText = equation.toString(context);
-    document.getElementById("solution").innerText = solution;
-    document.getElementById("function_name").innerText = $("#equationName").val();
+    // document.getElementById("formula").innerText = equation.toString(context);
+    // document.getElementById("solution").innerText = solution;
+    // document.getElementById("function_name").innerText = $("#equationName").val();
+    var fxn =  $("#fxn_" + name)[0],
+        inner = equation.toHTML(name,"p")
+        inner += " = <p id='" + name + "_solution' style='display: inline; padding: 1px;'>" + solution + "</p>";
+            
+    fxn.innerHTML = inner;
+    //$("#" + name + "_solution").text(solution);
     
-    var v, vars = equation.variables(),
-        varLen = vars.length,
-        varList = "";
-    for(var i = 0; i < varLen; i++)
-    {
-        v = vars[i];
-        varList += "<font id='" + v + "_param'>";
-        varList += context[v];
-        varList += "</font>";
-        if(i != varLen - 1)
-        {
-            varList += ", ";
-        }
-    }
-    document.getElementById("variable_list").innerHTML = varList;
-    $("#result").show();
+    // var v, vars = equation.variables(),
+    //     varLen = vars.length,
+    //     varList = "";
+    // for(var i = 0; i < varLen; i++)
+    // {
+    //     v = vars[i];
+    //     varList += "<font id='" + v + "_param'>";
+    //     varList += context[v];
+    //     varList += "</font>";
+    //     if(i != varLen - 1)
+    //     {
+    //         varList += ", ";
+    //     }
+    // }
+    //document.getElementById("variable_list").innerHTML = varList;
+    //$("#result").show();
     // Clear display property to fix stupid jQuery bug
-    $("#result").css({display: ""});
+    //$("#result").css({display: ""});
 }
 
 
@@ -464,7 +470,8 @@ function solveEquation(equationElement, parsedEquation)
           }          
                     
           // Update solution display
-          updateSolution(parsedEquation, context.toObj(), solution);
+          var name = equationElement.fxnData.name;
+          updateSolution(name, parsedEquation, context.toObj(), solution);
           // update all graphs
           updateAllGraphs(parsedEquation, context);
           
