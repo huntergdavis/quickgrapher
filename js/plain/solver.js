@@ -983,6 +983,17 @@ var QGSolver = function() {
             }
         };
         
+        var htmlify = function(prefix, element, context) {
+            if(typeof this.content == "undefined")
+            {
+                return "( )";
+            }
+            else
+            {
+                return "( " + this.content.toHTML(prefix, element, context) + " )";
+            }
+        };
+        
         var solve = function(context) {
             if(typeof this.content != "undefined")
             {
@@ -999,6 +1010,7 @@ var QGSolver = function() {
             close: close,
             solve: solve,
             toString: stringify,
+            toHTML: htmlify,
             closed: closed,
             c: c,
             content: inner,
