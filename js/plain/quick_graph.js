@@ -359,7 +359,7 @@ function updateSolution(name, equation, context, solution)
     // document.getElementById("function_name").innerText = $("#equationName").val();
     var fxn =  $("#fxn_" + name)[0],
         inner = equation.toHTML(name,"p", context)
-        inner += " = <p id='" + name + "_solution' style='display: inline; padding: 1px;'>" + solution + "</p>";
+        inner += " = " + solution;
             
     fxn.innerHTML = inner;
     //$("#" + name + "_solution").text(solution);
@@ -926,7 +926,7 @@ function createFunctionRow(name, fxn, parsed)
         el.className = "fxn_highlight";
         // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
         var inner = parsed.toHTML(name,"p")
-            inner += " = <p id='" + name + "_solution' style='display: inline; padding: 1px;'></p>";
+            inner += " = ";
         el.innerHTML = inner;
         el = $(el);
         // modified later by graph
