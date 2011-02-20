@@ -358,7 +358,7 @@ function updateSolution(name, equation, context, solution)
     // document.getElementById("solution").innerText = solution;
     // document.getElementById("function_name").innerText = $("#equationName").val();
     var fxn =  $("#fxn_" + name)[0],
-        inner = equation.toHTML(name,"p")
+        inner = equation.toHTML(name,"p", context)
         inner += " = <p id='" + name + "_solution' style='display: inline; padding: 1px;'>" + solution + "</p>";
             
     fxn.innerHTML = inner;
