@@ -882,15 +882,25 @@ function createFunctionRow(name, fxn, parsed)
         elParent.append(el);
         elParent = el;
         
+        // Row table
+        el = document.createElement("table");
+        elParent.append(el);
+        el = elParent;
+        
+        // Table row
+        el = document.createElement("tr");
+        elParent.append(el);
+        el = elParent;
+        
         // Icon column
-        el = document.createElement("div");
+        el = document.createElement("td");
         el.id = "icons_" + name;
         el.className = "fxn_icons";
         el = $(el);
         elParent.append(el);
         
         // Function column
-        el = document.createElement("div");
+        el = document.createElement("td");
         el.id = "fxn_" + name;
         el.className = "fxn_highlight";
         // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
@@ -904,7 +914,7 @@ function createFunctionRow(name, fxn, parsed)
         elParent.append(el);
         
         // Remove column
-        el = document.createElement("div");
+        el = document.createElement("td");
         el.id = "remove_" + name;
         el.className = "fxn_remove";
         elParent.append(el);
