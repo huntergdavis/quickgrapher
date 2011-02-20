@@ -1200,7 +1200,7 @@ var QGSolver = function() {
     
     /* OUR ONLY GLOBALS ARE DECLARED
      HERE- array of variable names to legend info, array of variable names to values graphial graph*/
-     var parsedEquation = undefined;
+     //var parsedEquation = undefined;
 
 
     /* alphaNumericType returns the alphaNumericType of the single char passed */
@@ -1496,17 +1496,17 @@ var QGSolver = function() {
         // Finalize parsing
         eq.finalize();
         // Save object
-        this.equation = eq;
+        //this.equation = eq;
         // Return parsed object
         return eq;
     };
     
-    var solve = function(context) {
-        if(typeof this.equation != "undefined")
+    var solve = function(equation, context) {
+        if(typeof equation != "undefined")
         {
             if(typeof context != "undefined")
             {
-                return this.equation.solve(context);
+                return equation.solve(context);
             }
             else
             {
@@ -1539,7 +1539,7 @@ var QGSolver = function() {
         TESTGENERATION: testGen,
         parse: parseEquation,
         logDebugMessage : logDebugMessage,
-        solve: solve,
-        equation: parsedEquation
+        solve: solve
+        //equation: parsedEquation
     };
 }();
