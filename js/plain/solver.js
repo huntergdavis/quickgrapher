@@ -895,7 +895,7 @@ var QGSolver = function() {
                     {
                         str += this.args[0].toHTML(prefix, element, context);
                     }
-                    str += this.funcName;
+                    str += " " + this.funcName + " ";
                     if(typeof this.args[1] != "undefined")
                     {
                         str += this.args[1].toHTML(prefix, element, context);
