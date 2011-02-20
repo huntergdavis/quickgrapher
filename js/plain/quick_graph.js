@@ -379,18 +379,20 @@ function updateSolution(equation, context, solution)
 }
 
 
-function createContext(vars)
+function createContext(eq, vars)
 {
     var context = new Context(vars),
         varLen = vars.length,
-        v, slider, val, step;
+        v, slider, val, step,
+        data = eq.fxnData.context;
         
     for(var i = 0; i < varLen; i++)
     {
         v = vars[i];
-        step = parseFloat($("#" + v + "_step").val());
-        slider = $("#" + v + "_slider_value");//$("#" + v + "_slider");
-        val = parseInput(slider.text(),step);
+        //step = parseFloat($("#" + v + "_step").val());
+        //slider = $("#" + v + "_slider_value");//$("#" + v + "_slider");
+        //val = parseInput(slider.text(),step);
+        val = data[v];
         context.set(v, val);
     }
     
@@ -398,13 +400,13 @@ function createContext(vars)
 }
 
 
-function solveEquation(parsedEquation)
+function solveEquation(equationElement, parsedEquation)
 {
     if(typeof parsedEquation != "undefined")
     {
       // Create context
       var vars = parsedEquation.variables();
-      var context = createContext(vars);
+      var context = createContext(equationElement, vars);
       
       QGSolver.logDebugMessage("Context: " + context.toString());
       
@@ -412,7 +414,7 @@ function solveEquation(parsedEquation)
       var solution = undefined;
       try
       {
-          solution = QGSolver.solve(context.toObj());
+          solution = QGSolver.solve(parsedEquation, context.toObj());
       }
       catch(exception)
       {
@@ -510,7 +512,7 @@ function solveEqInMult()
 }
 
 /* clear the screen and parse the equation */
-function clearAndParseEquation(equation)
+function clearAndParseEquation(equationElement, equation)
 {
     if(typeof equation != "undefined")
     {
@@ -521,7 +523,7 @@ function clearAndParseEquation(equation)
         // Create sliders
         createSliders(parsedEquation.variables());
         // Solve equation
-        solveEquation();
+        solveEquation(equationElement, parsedEquation);
     }
     else
     {
@@ -636,7 +638,7 @@ function removeDuplicateVariables(dupArray)
 
 function toggleDraw(toggleID)
 {
-    solveEquation();
+    solveEquation(this);
 }
 
 function updateMinimum(inputID)
@@ -865,9 +867,18 @@ function updateShare(url, title)
 function createFunctionRow(name, fxn, parsed)
 {
     var v, vars = parsed.variables(),
-        varsLen = vars.length,
+        varsLen = vars.length, ctx,
         el, elParent = $("#function_list"),
         style;
+        
+        // Create context
+        ctx = {};
+        for(var i = 0; i < varsLen; i++)
+        {
+            v = vars[i];
+            // Default value is 1
+            ctx[v] = 1;
+        }
         
         // Row container
         el = document.createElement("div");
@@ -876,7 +887,8 @@ function createFunctionRow(name, fxn, parsed)
         el.fxnData = {
             name: name,
             fxn: fxn,
-            eq: parsed
+            eq: parsed,
+            context: ctx
         };
         el = $(el);
         elParent.append(el);
@@ -1843,7 +1855,7 @@ $(window).resize(function() {
 /* From page */
 function clearAndParse()
 {
-    clearAndParseEquation(document.getElementById('mainEquation').value);
+    clearAndParseEquation(this, document.getElementById('mainEquation').value);
 }
 function clearAndParseMultiple()
 {
@@ -1851,7 +1863,7 @@ function clearAndParseMultiple()
 }
 function solve()
 {
-    solveEquation();
+    solveEquation(this);
 }
 function solveMult()
 {
@@ -1870,7 +1882,7 @@ function addFunction() {
     // Create sliders
     createFunctionRow(name, fxn, parsed);
     // Solve equation
-    solveEquation(parsed);
+    solveEquation(this, parsed);
 }
 
 
