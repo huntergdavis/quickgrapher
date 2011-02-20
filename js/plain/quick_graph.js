@@ -904,7 +904,9 @@ function createFunctionRow(name, fxn, parsed)
         el.id = "fxn_" + name;
         el.className = "fxn_highlight";
         // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
-        el.innerHTML = parsed.toHTML(name,"p");
+        var inner = parsed.toHTML(name,"p")
+            inner += " = <p id='" + name + "_solution' style='display: inline; padding: 1px;'></p>";
+        el.innerHTML = inner;
         el = $(el);
         // modified later by graph
         style = {

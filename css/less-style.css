@@ -572,7 +572,7 @@ h2 > .examples {
 }
 
 .fxn_icons {
-    display: inline;
+    width: 63px;
 }
 
 .fxn_icons > img {
@@ -584,8 +584,6 @@ h2 > .examples {
     border: 1px solid rgb(0,0,0);
     padding: 4px;
     width: 350px;
-    display: inline;
-    margin-left: 53px;
 }
 
 .fxn_highlight > p {
@@ -604,8 +602,7 @@ h2 > .examples {
     color: rgb(255,0,0);
     font-size: 20pt;
     font-weight: bold;
-    margin: 0px auto;
-    display: inline;
+    cursor: pointer;
 }
 
 
@@ -706,7 +703,7 @@ h2 > .examples {
   }
   
   .fxn_highlight {
-      width: 650px;
+      width: 744px;
   }
 }
 
