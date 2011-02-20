@@ -1857,8 +1857,8 @@ function toggleInclude(toggleID)
     toggleDraw(toggleID);
 }
 function addFunction() {
-    var name = $('#mainEquation').val(),
-        fxn = $('#equationName').val();
+    var fxn = $('#mainEquation').val(),
+        name = $('#equationName').val();
         
     // parse the equation
     var parsed = QGSolver.parse(fxn);
