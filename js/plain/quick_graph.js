@@ -866,7 +866,7 @@ function createFunctionRow(name, fxn, parsed)
 {
     var v, vars = parsed.variables(),
         varsLen = vars.length,
-        el, elParent = $("#functions"),
+        el, elParent = $("#function_list"),
         style;
         
         // Row container
