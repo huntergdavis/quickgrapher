@@ -472,8 +472,11 @@ function solveEquation(equationElement, parsedEquation)
           // Update solution display
           var name = equationElement.fxnData.name;
           updateSolution(name, parsedEquation, context.toObj(), solution);
+          // Update graph
+          addFunctionToGraph(name, parsedEquation, context);
+          
           // update all graphs
-          updateAllGraphs(parsedEquation, context);
+          //updateAllGraphs(parsedEquation, context);
           
       }
         // generate a hash
@@ -1146,6 +1149,59 @@ function createSliders(vars)
             });
         });
     }
+}
+
+function verifyGraph()
+{
+    var graphID = "subgraph";
+    // Check if we already have a graph element
+    graph = $("#" + graphID);
+    if(graph.length == 0)
+    {
+        // Create graph element
+        var parentElement = $("#graph_container");
+        graph = document.createElement("div");
+        graph.id = graphID;
+        graph.style.position = "relative";
+        graph.style.width = "100%";
+        graph.style.height = "100%";
+        // Add to canvas
+        parentElement.append(graph);
+        
+        // Register with Graph
+        var graphName = $("#equationName").val();
+        graph = $(graph);
+        var opts = {name: graphName};
+        opts['hue-increment'] = 45;
+        opts['hue-base'] = 22;
+        opts['value-base'] = 95;
+        opts['title'] = $("#equationName").val() + " ( " + vars.join(", ") +" )";
+        graph.graphify(opts).realHover({
+            hover: Graph.highlightNearest,
+            out: Graph.removeHighlight
+        });
+        
+        // Set variable colors from plot
+        var color;
+        for(var i = 0; i < varLen; i++)
+        {
+            v = vars[i];
+            color = $("#subgraph").color(v);
+            if(typeof color == "undefined")
+            {
+                color = "rgb(0,0,0)";
+            }
+            
+            $("#" + v + "_slider_value").css({color: color});
+        }
+    }
+}
+
+function addFunctionToGraph(name, equation, context)
+{
+    verifyGraph();
+    
+    
 }
 
 // updates graphs for all variables
