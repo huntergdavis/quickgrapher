@@ -80,7 +80,7 @@ function returnVariableMinStepMax(embeddedGraph,variableNumber,MSM,refNum,attrib
     {    
         var triplets = minstepmaxString.split(";");
         var singlets = triplets[variableNumber].split(",");
-        return parseInt(singlets[MSM]);
+        return parseFloat(singlets[MSM]);
     }
     else
     {

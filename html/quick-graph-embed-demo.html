@@ -44,15 +44,35 @@ hunter or mark at discursivelabs.com
             <img class="logo" src="http://www.hunterdavis.com/quickgrapher/images/logo_1.png"></img>
           </a>
         </span>
-      <br><br>  
-Ideas are wonderful things. They can inspire us to work harder, dream harder, live harder. The ideas we have, these are free. Servers cost money. Health insurance costs money. Employees, computers, conference rooms, software licenses, these things cost money. <graph equation="less(sin(x),cos(x))" ></graph>Big time. So when you're looking to nurture an idea into a business, these costs can seem daunting. For those not interested in (or who have no opportunity for) traditional funding methods such as angel investing and bank loans, how do you actually accumulate the funds necessary to really free your idea? This is the question I asked myself in late 2008. Flash forward to 2010. I'm the CEO of a (becoming successful) startup, completely bootstrapped. How did I go from cubicle worker (and part time hacker) to CEO (and full time hacker)?<br><br>
+      <br><br> 
+      <p>
+      <strong>A New Kind of Graphing Tool</strong><br>
+      If you've been to www.quickgrapher.com you may have found yourself wondering how it works, what libraries we use, and if the tech is available for public consumption.  QuickGrapher is based on two of our pure Javascript libraries, our solver library and our graphing library.  Due to the increased interest in these libraries, we've bundled them both together into a single javascript library you can include on your site, which allows you unprecedented graphing power in a fully client-side javascript environment.  You can display unlimited graphs with millions of points and complex equations faster than you ever thought possible, and without requiring your users to download a bandwidth-intensive image or flash applet.  Our graph+solve library allows you to embed a graph of arbitrary algorithmic and point complexity using a single "graph" tag, just like any other html tag.  Our library is compatiblie with Chrome, Safari, Opera, IE, and even embedded browsers for your iPhone, Blackberry, and Android devices.  
+      </p><br>
+      <p>
+      <strong>Seriously Easy</strong><br>
+      Ok, so you're writing a post in your blog and you want to display your data on a graph.  Maybe you're a huge corporation with thousands of employees, maybe you're an election enthusiast who wants to show some key demographic, or maybe you're just writing in your personal Wordpress blog.  You don't pay for application hosting, and even if you did you don't know or don't have the time to install a server process to generate graphs.  Why should it be so complicated?  Why can't you just do it with a single html tag?
+      Now you can.  Graph+Solve allows you to instantly and easily insert graphs anywhere into your site.  Fully stylable via CSS and HTML5 compliant, Graph+Solve allows any level of user from novice to web designer the power to visually display your data.
+      </p><br>
+      <p>
+      <strong>Example 1</strong><br>
+      Say you're writing a blog post about trigonometry.  Maybe you're an engineer, maybe you're a student, maybe you just like math.  You're explaining sin and cos waves, and you'd like to show their periodicity.  You could use traditional methods (screenshots of math utilities, excel sheets, etc), or you could have it done in 5 second with Graph+Solve library.  Graph+Solve allows you to graph sine, cosine, and many more functions in a single tag.  The following tag is all that is required to generate a graph of cosine and sine.<br>
+      &lt;graph equation1="sin(x)" equation2="cos(y)"  /&gt;<br>
+      <graph equation1="sin(x)" minstepmax1="0,.01,30" equation2="cos(y)" minstepmax2="0,.01,30"/>
+      </p><br>
+      <p>
+      <strong>Serious Bandwidth Reduction</strong><br>
+      Our pure clientside Javascript graph+solve library in its entirety weighs in at 40 kilobytes.  That's roughly equivalent to a very small, highly compressed jpeg from a camera phone circa 2005.  With this one 40 kilobyte library (less than what adsense loads), you can replace every single graph or equation plot on your website.  If you're running a graph heavy website this can be a reduction of many thousands of times.  What's more, our graph+solve library is used by many websites, and may be cached by the users browser.  If a user is coming in from another graph+solve enabled site, they download nothing.  This is a serious reduction in page load times for all browsers, but especially for those on 3g networks or hampered by a slow connection. 
+      </p><br>
+      <p>
+      <strong>Serious Efficiency</strong><br>
+      Just because graph+solve is executed by a client's browser, don't expect it to be slow.  Graph+solve requires no external plugin of any kind, Flash or otherwise.  It speedily graphs hundreds of thousands of points in a few moments on a Pentium 3 class computer, quite ancient now in 2011.  Graphs of complex equations with millions of points and complex algebraic functions load faster than a single equivalent image on mobile devices.  
+      </p><br>
+
+<br><br>
 <graph equation1="3x+2y" vars1="5,9" style="height:200px; width:200px; float:left;" title="A-LeftSide"></graph><graph equation1="2x+3y" vars1="9,5" style="align:right; height:200px; width:200px; float:left; " title="B-RightSide"></graph>
 
 
-Read on for the exciting preamble and the free E-book download of "Live for Free - The Chronicles of a Nerd Saving for a Startup"<br.<br>
-
-
-So it's late 2008. Having worked as the 'hardcore' CS guy at a score of jobs over the past decade, I had concerns over the (overly bland) course my career was taking. Though responsibilities and titles were ever plentiful, I had little to say in the overall direction of the companies I worked for. No matter the company, the projects began to feel less exciting. The desire to start my own company had been silently brewing for some time already, and began to occupy a greater portion of my thoughts. Like most late twenty somethings coming out of grad school could tell you, I had debt. And as a fresh graduate living in West LA, I had expenses. Specifically, as a young computer scientist I had gadget-lust related expenses. Video games, cell phones, the newest technology fascinates and drives our culture. How did I resolve these desires, raise enough capital to fund a startup, and do it without going into debt?
 <br>
 <graph equation1="34+tree-fart" vars1="4,3" minstepmax1="1,3,33;1,5,90" style="height:250px; width:250px;"/>
 <graph values="1,1;2,2;3,3;1,3;2,3" label="awesome Points" type="point" title="Point and Line Both One Graph" values2="4,4;5,5;4,6;6,6" label2="awesome Line" type2="line" style="height:400px; width:600px;"></graph>
@@ -63,9 +83,6 @@ So it's late 2008. Having worked as the 'hardcore' CS guy at a score of jobs ove
 
 <graph equation1="sin(x)"  values="1,1;2,2;3,3;1,3;2,3" label="awesome Points" type="point" title="Point and Line And Equation All 4 1 " values2="4,4;5,5;4,6;6,6" label2="awesome Line" type2="line" style="height:400px; width:600px;"></graph>
 
-Grab the E-Book and find out here.<br><br>
-
-I think this should be of interest not only to those wishing to save for a startup, but to anyone who is interested in saving money, buying or selling online, or the product cycles of geek tech in general.       <br> 
 <graph equation1="3+x" vars1="3" minstepmax1="1,5,50" equation2="sin(f)" vars2="5" style="height:200px; width:600px;" title="Multiple Equation Graphs"></graph>        
     </div>
     <center id="footer">
