@@ -35,6 +35,7 @@ function loadTitleBarHash()
     /* ensure we've got an equation to parse*/
     if(equationStart < 1)
     {
+        var exNumber;
         if(loadRandom)
         {
             // let's load a random example instead
@@ -44,18 +45,25 @@ function loadTitleBarHash()
             {
                 exRand++;
             }
-
-            // Assume we have the address we need currently
-            var URL = window.location.href,
-            // Pull off any existing URI params
-                end = URL.indexOf("?");
-            if(end != -1)
-            {
-                URL = URL.substring(0,end);
-            }
-            randomURL = URL + "?" + examples[exRand].url;
-            window.location = randomURL;
+            exNumber = exRand;
         }
+        else
+        {
+            exNumber = 5;
+        }
+        
+        // Assume we have the address we need currently
+        var URL = window.location.href,
+        // Pull off any existing URI params
+            end = URL.indexOf("?");
+        if(end != -1)
+        {
+            URL = URL.substring(0,end);
+        }
+        newURL = URL + "?" + examples[exNumber].url;
+        window.location = newURL;
+        
+        
         return;
     }
     
