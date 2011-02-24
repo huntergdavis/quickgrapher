@@ -33,6 +33,12 @@ function graphAllVariablesForEquation(equation, context, embeddedGraph, graphTit
         opts['hue-base'] = 22;
         opts['value-base'] = 95;
         opts['title'] = graphTitle + " ( " + vars.join(", ") +" )";
+        var backgroundImage = embeddedGraph.attr("background");
+        if(typeof backgroundImage != "undefined")
+        {
+            opts['background-image'] = embeddedGraph.attr("background");
+        }        
+        
         graph.graphify(opts)/*.attach_legend({
           'legend-mode': false,
           'legend-container': $("#legend"),
@@ -220,7 +226,7 @@ function updateGraphWithPlot(localValues,localPlotType, embeddedGraph, refNum, p
     
     if(graphTitle == "")
     {
-         graphTitle = localPlotType + " graph";
+         graphTitle = localPlotType + " Graph";
     }
 
     var graph;
@@ -251,6 +257,12 @@ function updateGraphWithPlot(localValues,localPlotType, embeddedGraph, refNum, p
         opts['hue-base'] = 22;
         opts['value-base'] = 95;
         opts['title'] = graphTitle;
+        var backgroundImage = embeddedGraph.attr("bg");
+        if(typeof backgroundImage != "undefined")
+        {
+            opts['background-image'] = embeddedGraph.attr("bg");
+        }
+        
         graph.graphify(opts).realHover({
             hover: Graph.highlightNearest,
             out: Graph.removeHighlight
@@ -282,8 +294,12 @@ function retrieveValuesFromString(localValues)
     // loop over all pairs and push into data
     for(var i = 0;i<numPairs;i++)
     {
-        var splitPair = pairs[i].split(",");
-        data.push(splitPair);
+        var splitPair = pairs[i].split(","); 
+        //if(typeof splitPair != 
+        if(splitPair.length == 2)
+        {
+            data.push(splitPair);
+        }
     }
     return data;
 }

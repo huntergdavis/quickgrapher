@@ -49,6 +49,21 @@ hunter or mark at discursivelabs.com
       <strong>A New Kind of Graphing Tool</strong><br>
       If you've been to www.quickgrapher.com you may have found yourself wondering how it works, what libraries we use, and if the tech is available for public consumption.  QuickGrapher is based on two of our pure Javascript libraries, our solver library and our graphing library.  Due to the increased interest in these libraries, we've bundled them both together into a single javascript library you can include on your site, which allows you unprecedented graphing power in a fully client-side javascript environment.  You can display unlimited graphs with millions of points and complex equations faster than you ever thought possible, and without requiring your users to download a bandwidth-intensive image or flash applet.  Our graph+solve library allows you to embed a graph of arbitrary algorithmic and point complexity using a single "graph" tag, just like any other html tag.  Our library is compatiblie with Chrome, Safari, Opera, IE, and even embedded browsers for your iPhone, Blackberry, and Android devices.  
       </p><br>
+      <strong>Gallery</strong>
+      <table>
+      <tr>
+        <td><graph equation1="3x+2y" vars1="5,9" style="height:100px; width:150px; " title="2Vars"></graph> </td>
+        <td><graph equation1="2a-3b" vars1="9,5" style="align:right; height:100px; width:150px; " title="2More"></graph> </td>
+        <td><graph equation1="tree-leaf" vars1="4,3" minstepmax1="1,3,33;1,5,90" style="height:100px; width:150px; float:left;position: relative; left: 0px;"/> </td>
+        <td><graph values="1,1;2,2;3,3;1,3;2,3" label="awesome Points" type="point" title="Point+Line" values2="4,4;5,5;4,6;6,6" label2="awesome Line" type2="line" style="height:100px; width:150px; float:left;"></graph> </td>
+      </tr>
+      <tr>
+        <td><graph values="1,1;2,2;3,3;1,3;2,3;1.5,1.5;3,3.3;2.123,4.33;5,5" label="awesome Points" type="point" style="height:100px; width:150px;float:left;"></graph> </td>
+        <td><graph values1="1,1;2,2;3,3;1,3;2,3" label1="awesome spots on a line" type1="line" style="height:100px; width:150px;position: relative; left: 0px;"></graph> </td>
+        <td><graph equation1="sin(x)"  values="1,1;2,2;3,3;1,3;2,3" label="awesome Points" type="point" title="Point+Line+Eq" values2="4,4;5,5;4,6;6,6" label2="awesome Line" type2="line" style="height:100px; width:150px;"></graph> </td>
+        <td><graph equation1="3+x" vars1="3" minstepmax1="1,5,50" equation2="sin(f)" vars2="5" style="height:100px; width:150px;" title="Multi Eqs"></graph>  </td>       
+      </tr>
+</table><br>
       <p>
       <strong>Seriously Easy</strong><br>
       Ok, so you're writing a post in your blog and you want to display your data on a graph.  Maybe you're a huge corporation with thousands of employees, maybe you're an election enthusiast who wants to show some key demographic, or maybe you're just writing in your personal Wordpress blog.  You don't pay for application hosting, and even if you did you don't know or don't have the time to install a server process to generate graphs.  Why should it be so complicated?  Why can't you just do it with a single html tag?
@@ -57,33 +72,43 @@ hunter or mark at discursivelabs.com
       <p>
       <strong>Example 1</strong><br>
       Say you're writing a blog post about trigonometry.  Maybe you're an engineer, maybe you're a student, maybe you just like math.  You're explaining sin and cos waves, and you'd like to show their periodicity.  You could use traditional methods (screenshots of math utilities, excel sheets, etc), or you could have it done in 5 second with Graph+Solve library.  Graph+Solve allows you to graph sine, cosine, and many more functions in a single tag.  The following tag is all that is required to generate a graph of cosine and sine.<br>
-      &lt;graph equation1="sin(x)" equation2="cos(y)"  /&gt;<br>
-      <graph equation1="sin(x)" minstepmax1="0,.01,30" equation2="cos(y)" minstepmax2="0,.01,30"/>
+      <small>&lt;graph equation1="sin(x)" equation2="cos(y)"  /&gt;</small><br>
+      <graph equation1="sin(x)" minstepmax1="0,.01,30" equation2="cos(y)" minstepmax2="0,.01,30" title="Example Sine and Cosine Graph"/>
       </p><br>
       <p>
       <strong>Serious Bandwidth Reduction</strong><br>
       Our pure clientside Javascript graph+solve library in its entirety weighs in at 40 kilobytes.  That's roughly equivalent to a very small, highly compressed jpeg from a camera phone circa 2005.  With this one 40 kilobyte library (less than what adsense loads), you can replace every single graph or equation plot on your website.  If you're running a graph heavy website this can be a reduction of many thousands of times.  What's more, our graph+solve library is used by many websites, and may be cached by the users browser.  If a user is coming in from another graph+solve enabled site, they download nothing.  This is a serious reduction in page load times for all browsers, but especially for those on 3g networks or hampered by a slow connection. 
       </p><br>
+      
+      <p>
+      <strong>Example 2</strong>
+      Let's say you're writing an article on statistics, and you'd like to show a random distribution.  A really large random distribution would be best, as the more data the better visual.  You could generate a million points using a programming language, then feed it into an existing tool such as excel or matlab.  Then, using the same tool you could plot another guide line along the median to show where the mean distribution should be. That is, if you can figure out how to add a line to a plot graph.  Or, you could do it in ten seconds in a single line of html using the Graph+Solve library.  The following line of html generates a hundred random points and plots a line across the median of the graph.  Note how you are able to style the graph using standard CSS tags, and simultaneously display line graphs, point graphs, and equation graphs using the same tag.<br>
+     <small> &lt;graph equation1="rand(x)" minstepmax1="0,10,1000" title="Mean Random Distrubtion" values1="1,.5;100,.5" label2="Median Line" type2="line"/&gt;</small>
+      <br>
+      <graph equation1="rand(x)" minstepmax1="0,10,1000" title="Mean Random Distrubtion" values1="1,.5;100,.5" label2="Median Line" type2="line" style="height:200px; width:600px;"/>
+      </p>
+      <br>
       <p>
       <strong>Serious Efficiency</strong><br>
-      Just because graph+solve is executed by a client's browser, don't expect it to be slow.  Graph+solve requires no external plugin of any kind, Flash or otherwise.  It speedily graphs hundreds of thousands of points in a few moments on a Pentium 3 class computer, quite ancient now in 2011.  Graphs of complex equations with millions of points and complex algebraic functions load faster than a single equivalent image on mobile devices.  
+      Just because graph+solve is executed by a client's browser, don't expect it to be slow.  Graph+solve requires no external plugin of any kind, Flash or otherwise.  It speedily graphs thousands of points in a few moments on a Pentium 3 class computer, quite ancient now in 2011.  Graphs of complex equations with thousands of data points and complex algebraic functions load faster than a single equivalent image on mobile 3g devices.  
       </p><br>
+      <p>
+      <strong>Example 3</strong>
+      So you're looking to plot a large number of data points in a graph, and you want it to be easy?  Good luck!  Unless you're using our Graph+Solve library, you are in for a headache.  Find the data source, paste it into your graph generator, save it as an image, upload that image to your web host and align for your page.  Need to update a single data point?  You've got to do it over.  Want to change to a plot graph from a line graph?  You've got to do it over.  What to update the graph styling, size, etc?  You've got to do it over.  Want it to look good on all devices?  Well you'd better make a new image size for each device!  Starting to get frustrated?  Do it with a single line of QuickGrapher, update it whenver you like in moments, and never think of it again.  The following two lines of html generate line graphs using points taken from an graphing calculator games worksheet.  As you can see, switching between a point and a line graph is as simple as selecting "point" or "line"<br>
+      <small>
+       &lt;graph title="Our Mystery Point Graph" values="20,11;19,6;19,2;17,2;17,6;16,5;15,2;13,2;14,5;14,6;12,6;12,2;10,2;10,4;9,2;7,2;9,6;7,6;4,4;2,3;0,2;1,3;3,5;5,9;9,11;17,11;21,17;23,18;25,17;24,16;20,11;" label="Mystery Points" type="point" style="width:250px;float:left;" /&gt; <br>
+       &lt;graph title="Not A Mystery Anymore" values="20,11;19,6;19,2;17,2;17,6;16,5;15,2;13,2;14,5;14,6;12,6;12,2;10,2;10,4;9,2;7,2;9,6;7,6;4,4;2,3;0,2;1,3;3,5;5,9;9,11;17,11;21,17;23,18;25,17;24,16;20,11;" label="Point Connecting Lines" type="line" style="width:250px;float:left;align:right;"  /&gt; <br>
+          </small>        
+      <table>    
+          <tr>
+              <td><graph title="Our Mystery Point Graph" values="20,11;19,6;19,2;17,2;17,6;16,5;15,2;13,2;14,5;14,6;12,6;12,2;10,2;10,4;9,2;7,2;9,6;7,6;4,4;2,3;0,2;1,3;3,5;5,9;9,11;17,11;21,17;23,18;25,17;24,16;20,11;" label="Mystery Points" type="point" style="width:250px;float:left;" />  </td>
+              <td> <graph title="Not A Mystery Anymore" values="20,11;19,6;19,2;17,2;17,6;16,5;15,2;13,2;14,5;14,6;12,6;12,2;10,2;10,4;9,2;7,2;9,6;7,6;4,4;2,3;0,2;1,3;3,5;5,9;9,11;17,11;21,17;23,18;25,17;24,16;20,11;" label="Point Connecting Lines" type="line" style="width:250px;float:left;align:right;" /> </td>
+          </tr>
+      </table>
 
-<br><br>
-<graph equation1="3x+2y" vars1="5,9" style="height:200px; width:200px; float:left;" title="A-LeftSide"></graph><graph equation1="2x+3y" vars1="9,5" style="align:right; height:200px; width:200px; float:left; " title="B-RightSide"></graph>
-
-
-<br>
-<graph equation1="34+tree-fart" vars1="4,3" minstepmax1="1,3,33;1,5,90" style="height:250px; width:250px;"/>
-<graph values="1,1;2,2;3,3;1,3;2,3" label="awesome Points" type="point" title="Point and Line Both One Graph" values2="4,4;5,5;4,6;6,6" label2="awesome Line" type2="line" style="height:400px; width:600px;"></graph>
-
-<graph values="1,1;2,2;3,3;1,3;2,3;1.5,1.5;3,3.3;2.123,4.33;5,5" label="awesome Points" type="point" style="height:300px; width:300px;"></graph>
-
-<graph values1="1,1;2,2;3,3;1,3;2,3" label1="awesome spots on a line" type1="line" style="height:300px; width:300px;"></graph>
-
-<graph equation1="sin(x)"  values="1,1;2,2;3,3;1,3;2,3" label="awesome Points" type="point" title="Point and Line And Equation All 4 1 " values2="4,4;5,5;4,6;6,6" label2="awesome Line" type2="line" style="height:400px; width:600px;"></graph>
-
-<graph equation1="3+x" vars1="3" minstepmax1="1,5,50" equation2="sin(f)" vars2="5" style="height:200px; width:600px;" title="Multiple Equation Graphs"></graph>        
+      </p>
+      
+</div></div>
     </div>
     <center id="footer">
       Email: <font style="font-weight: bold">beta @ quickgrapher.com</font><br/>
