@@ -72,29 +72,51 @@ function loadTitleBarHash()
     // parse out all the equations with a separator
     var equationStringArray = returnArrayOfEquations(equationArrayString);
     var esaLength = equationStringArray.length;
+   
+    // allow each function to have its own name
+    var functionName = "Unnamed Function";
     
-    equationString = equationStringArray[0];
+    var equationStringSplit = equationStringArray[0].split("[");
+    var equationStringZero = equationStringSplit[0];
+    var equationString = equationStringZero;
+    if(equationStringSplit.length > 1)
+    {
+        functionName = equationStringSplit[1];
+    }
+    
 
     if (esaLength > 1)
     {
         multipleEquations = 1;
         
         // the base equation div name
-        var eqNameBase = "#mainEquation";        
+        var eqNameBase = "#mainEquation";
+        var nameNameBase = "#equationName";        
         for(var i = 0;i<esaLength;i++)
         {
             var eqName;
+            var nameName;
             if(i == 0)
             {
                 eqName = eqNameBase;
+                nameName = nameNameBase;
             }
             else
             {
                 eqName = eqNameBase + (i+1).toString();
+                nameName = nameNameBase + (i+1).toString();
             }
             
-            // set each eq val to be correct
-            $(eqName).val(equationStringArray[i]);
+            // set each eq val and name to be correct
+            equationStringSplit = equationStringArray[i].split("[");
+            equationString = equationStringSplit[0];
+            if(equationStringSplit.length > 1)
+            {
+                functionName = equationStringSplit[1];
+                functionName = functionName.replace(/%20/g," ");
+            }
+            $(eqName).val(equationString);
+            $(nameName).val(functionName);
             
         }
     }
@@ -148,15 +170,15 @@ function loadTitleBarHash()
 
   	if(equationValid > 0)
   	{
-  	    $("#mainEquation").val(equationString);
-        $("#equationName").val(tempName);
+  	    $("#mainEquation").val(equationStringZero);
+        $("#totalName").val(tempName);
         
         if(typeof equationString != "undefined")
         {
-            if(multipleEquations)
+            if(!multipleEquations)
             {
                 // parse the equation
-                parsedEquation = QGSolver.parse(equationString);
+                parsedEquation = QGSolver.parse(equationStringZero);
                 // Create sliders
                 createSliders(parsedEquation.variables());
                 // Solve equation
@@ -747,27 +769,38 @@ function generateHashURL(vars,multi)
     {
         // the base equation div name
         var eqNameBase = "#mainEquation";
+        // the base name div name
+        var nameNameBase = "#equationName";
     
         // loop once over equations and grab all variables
         for(var i = 1;i<6;i++)
         {
             var eqName;
+            var nameName;
             if(i == 1)
             {
                 eqName = eqNameBase;
+                nameName = nameNameBase;
             }
             else
             {
                 eqName = eqNameBase + i.toString();
+                nameName = nameNameBase + i.toString();
             }        
             
             var localEquation = $(eqName).val();
             if(typeof localEquation != "undefined")
             {
                 URL += compressName(localEquation);
-            }
+                var localName = $(nameName).val();
+                localName = localName.replace(/\s/g,"%20");
+                if(typeof localName != "undefined")
+                {
+                    URL += "[";
+                    URL += localName; 
+                }
             URL += ";"
-        
+            }
         }
         URL += "=";
     }
@@ -824,7 +857,7 @@ function generateHashURL(vars,multi)
     }    
     
     // replace spaces with %20 for web addresses
-    var graphName =  $("#equationName").val();
+    var graphName =  $("#totalName").val();
     cleanGraphName = graphName.replace(/\s/g,"%20");
     
     // clean up the plusses in URL for email clients
