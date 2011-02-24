@@ -257,10 +257,10 @@ function updateGraphWithPlot(localValues,localPlotType, embeddedGraph, refNum, p
         opts['hue-base'] = 22;
         opts['value-base'] = 95;
         opts['title'] = graphTitle;
-        var backgroundImage = embeddedGraph.attr("bg");
+        var backgroundImage = embeddedGraph.attr("background");
         if(typeof backgroundImage != "undefined")
         {
-            opts['background-image'] = embeddedGraph.attr("bg");
+            opts['background-image'] = embeddedGraph.attr("background");
         }
         
         graph.graphify(opts).realHover({
@@ -298,6 +298,8 @@ function retrieveValuesFromString(localValues)
         //if(typeof splitPair != 
         if(splitPair.length == 2)
         {
+            splitPair[0] = parseFloat(splitPair[0]);
+            splitPair[1] = parseFloat(splitPair[1]);
             data.push(splitPair);
         }
     }
