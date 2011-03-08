@@ -877,8 +877,9 @@ function generateHashURL(vars,multi)
     }    
     
     // replace spaces with %20 for web addresses
-    var graphName =  $("#totalName").val();
-    cleanGraphName = graphName.replace(/\s/g,"%20");
+    //var graphName =  $("#totalName").val(),
+    //cleanGraphName = graphName.replace(/\s/g,"%20");
+    var cleanGraphName = "";
     
     // clean up the plusses in URL for email clients
     URL = URL.replace(/\+/g,"'%");
