@@ -1245,18 +1245,20 @@ function addFunctionToGraph(name, equation, context)
     verifyGraph();
     
     // Solve function
-    // Adjust context
-    var min = 0,
+    var localContext = context.toObj(),
+        min = 0,
         step = 0.1,
         max = 100,
         steps = ((max - min)/step) + 1,
         graphVariable = equation.variable.varName,
         currVarValue, solution, data = [];
         
+    localContext[graphVariable] = new VariableIterator(min,step);
+        
     // Solve for the specified points
     for(var i = 0; i < steps; i++)
     {
-        currVarValue = context[graphVariable].value;
+        currVarValue = localContext[graphVariable].value;
         try
         {
             solution = equation.solve(context);
@@ -1273,7 +1275,7 @@ function addFunctionToGraph(name, equation, context)
         }
         
         // Step variable
-        context[graphVariable].step();
+        localContext[graphVariable].step();
     }
     
     var lbl = "",
