@@ -506,7 +506,7 @@ function solveEquation(equationElement, parsedEquation)
           addFunctionToGraph(name, parsedEquation, context);
           
           // Update row color
-          color = $("#subgraph").color(name);
+          var color = $("#subgraph").color(name);
           if(typeof color == "undefined")
           {
               color = "rgb(255,255,255)";
