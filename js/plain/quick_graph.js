@@ -889,7 +889,7 @@ function generateHashURL(vars,multi)
     
     // sneak the url into the instructions block    
     $("#instruct").attr("href", URL);
-    updateShare(URL,graphName);
+    //updateShare(URL,graphName);
     
     // sneak the url into social sharing services
     $("#twitter_share").attr("st_url",URL);
