@@ -158,7 +158,8 @@ var QGSolver = function() {
         // Member variables
         var inner = undefined,
             active = [],
-            objs = {};
+            objs = {},
+            variable;
             
         logDebugMessage("new QGEquation().");
         var logObject = function(obj) {
