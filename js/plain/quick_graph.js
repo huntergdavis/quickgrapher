@@ -511,8 +511,11 @@ function solveEquation(equationElement, parsedEquation)
           {
               color = "rgb(255,255,255)";
           }
-                
-          $("#fxn_" + name).css({color: color});
+          
+          var cs = {};
+          cs["background-color"] = color;
+          
+          $("#fxn_" + name).css(cs);
           
           // update all graphs
           //updateAllGraphs(parsedEquation, context);
