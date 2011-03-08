@@ -1459,6 +1459,38 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     $("#" + lbl + "_param").css(cs);
 }
 
+// returns a unique function name 
+function getUniqueFunctionName(name)
+{
+    var functionName = name;
+    var functionListParent = $("#function_list");	
+    var foundUniqueIterations = 1;
+    var continueLooping = 1;
+    
+    while(continueLooping > 0)
+    { 
+        if(foundUniqueIterations > 1)
+        {
+            functionName = name + "(" + foundUniqueIterations.toString() + ")";
+        }
+        var foundOne = 0;
+        // test for duplicate names;
+        functionListParent.find('tr').each(function(i, el) {
+            var localName = $(el).attr('innerName');
+            if(functionName == localName)
+            {
+                foundOne = 1;
+            }
+        })
+        if(foundOne == 0)
+        {
+            continueLooping = 0;
+            return functionName;
+        }
+        foundUniqueIterations++;
+    }
+}
+
 function toggle(exampleID)
 {
     var ex = $("#" + exampleID);
@@ -2044,6 +2076,7 @@ function addFunction() {
     var fxn = $('#mainEquation').val(),
         name = $('#equationName').val();
         name = name.replace(/\s/g,"_");
+        name = getUniqueFunctionName(name);
     // parse the equation
     var parsed = QGSolver.parse(fxn);
     // Create sliders
