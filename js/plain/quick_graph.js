@@ -1223,18 +1223,18 @@ function verifyGraph()
         });
         
         // Set variable colors from plot
-        var color;
-        for(var i = 0; i < varLen; i++)
-        {
-            v = vars[i];
-            color = $("#subgraph").color(v);
-            if(typeof color == "undefined")
-            {
-                color = "rgb(0,0,0)";
-            }
-            
-            $("#" + v + "_slider_value").css({color: color});
-        }
+        // var color;
+        // for(var i = 0; i < varLen; i++)
+        // {
+        //     v = vars[i];
+        //     color = $("#subgraph").color(v);
+        //     if(typeof color == "undefined")
+        //     {
+        //         color = "rgb(0,0,0)";
+        //     }
+        //     
+        //     $("#" + v + "_slider_value").css({color: color});
+        // }
     }
 }
 
