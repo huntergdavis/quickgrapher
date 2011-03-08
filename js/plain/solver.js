@@ -1187,7 +1187,7 @@ var QGSolver = function() {
             return (this.negative?"-":"") + this.value;
         };
         
-        var stringify = function(prefix, element, context) {
+        var htmlify = function(prefix, element, context) {
             return (this.negative?"-":"") + this.value;
         };
         
