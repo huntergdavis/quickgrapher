@@ -505,6 +505,15 @@ function solveEquation(equationElement, parsedEquation)
           // Update graph
           addFunctionToGraph(name, parsedEquation, context);
           
+          // Update row color
+          color = $("#subgraph").color(v);
+          if(typeof color == "undefined")
+          {
+              color = "rgb(255,255,255)";
+          }
+                
+          $("#fxn_" + name).css({color: color});
+          
           // update all graphs
           //updateAllGraphs(parsedEquation, context);
           
