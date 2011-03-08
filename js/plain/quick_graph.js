@@ -1216,7 +1216,7 @@ function verifyGraph()
         opts['hue-increment'] = 45;
         opts['hue-base'] = 22;
         opts['value-base'] = 95;
-        opts['title'] = $("#equationName").val() + " ( " + vars.join(", ") +" )";
+        opts['title'] = "What to put for title?"; //$("#equationName").val() + " ( " + vars.join(", ") +" )";
         graph.graphify(opts).realHover({
             hover: Graph.highlightNearest,
             out: Graph.removeHighlight
