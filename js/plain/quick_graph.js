@@ -151,8 +151,8 @@ function loadTitleBarHash()
             lastStop = variableString.indexOf(";"),
             visStart = lastStop + 1,
             visStop = variableString.indexOf("=");
-            //nameStart = visStop + 1,
-            //nameStop = variableString.length;
+            nameStart = visStop + 1,
+            nameStop = variableString.length;
         
         /* grab the minimum address*/
         var parseBlock = variableString.substring(minStart,minStop);
@@ -175,8 +175,8 @@ function loadTitleBarHash()
         parseAndAddToHash(parseBlock,":",variableVisHash);
         
         /* grab the name*/
-        //var tempName = variableString.substring(nameStart,nameStop);
-        //tempName = tempName.replace(/%20/g," ");
+        var tempName = variableString.substring(nameStart,nameStop);
+        tempName = tempName.replace(/%20/g," ");
     } 	
 
   	if(equationValid > 0)
@@ -188,17 +188,21 @@ function loadTitleBarHash()
         {
             if(!multipleEquations)
             {
+
+                $('#mainEquation').val(equationStringZero);
+                $('#equationName').val(tempName);
+                addFunction();
                 // parse the equation
-                parsedEquation = QGSolver.parse(equationStringZero);
+                //parsedEquation = QGSolver.parse(equationStringZero);
                 // Create sliders
-                createSliders(parsedEquation.variables());
+                //createSliders(parsedEquation.variables());
                 // Solve equation
-                solveEquation();
+                //solveEquation();
             }
-            else
-            {
-                parseMultipleEquations();
-            }
+//            else
+//            {
+//                parseMultipleEquations();
+//            }
         }        
         //$("#graphBtn").click();
   	}
@@ -390,8 +394,10 @@ function updateSolution(name, equation, context, solution)
     // document.getElementById("formula").innerText = equation.toString(context);
     // document.getElementById("solution").innerText = solution;
     // document.getElementById("function_name").innerText = $("#equationName").val();
-    var fxn =  $("#fxn_" + name)[0],
-        inner = equation.toHTML(name,"p", context)
+    var cleanName  = name.replace(/\s/g,"_");
+    var fxn =  $("#fxn_" + cleanName)[0];
+        var niceName = name.replace(/\_/g," ");
+        var inner = equation.toHTML(niceName,"p", context);
         inner += " = " + solution;
             
     fxn.innerHTML = inner;
@@ -964,7 +970,9 @@ function createFunctionRow(name, fxn, parsed)
         el.id = "fxn_" + name;
         el.className = "fxn_highlight";
         // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
-        var inner = parsed.toHTML(name,"p")
+        var niceName = name.replace(/\_/g," ");
+        var inner = parsed.toHTML(niceName,"p");
+
             inner += " = ";
         el.innerHTML = inner;
         el = $(el);
@@ -2035,7 +2043,7 @@ function toggleInclude(toggleID)
 function addFunction() {
     var fxn = $('#mainEquation').val(),
         name = $('#equationName').val();
-        
+        name = name.replace(/\s/g,"_");
     // parse the equation
     var parsed = QGSolver.parse(fxn);
     // Create sliders
