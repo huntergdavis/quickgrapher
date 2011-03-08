@@ -1261,7 +1261,7 @@ function addFunctionToGraph(name, equation, context)
         currVarValue = localContext[graphVariable].value;
         try
         {
-            solution = equation.solve(context);
+            solution = equation.solve(localContext);
         } catch(error)
         {
             solution = undefined;
