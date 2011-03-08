@@ -1278,17 +1278,11 @@ function addFunctionToGraph(name, equation, context)
         localContext[graphVariable].step();
     }
     
-    var lbl = "",
-        v, vars = equation.variables(),
-        varLen = vars.length;
-
-    lbl += graphVariable;
-    
     // Add plot for this variable (will overwrite existing ones)
-    var cs = {label : lbl};
+    var cs = {label : name};
     cs['plot-type'] = 'line';
     graph.plot(
-        graphVariable,
+        name,
         data,
         cs
     );
