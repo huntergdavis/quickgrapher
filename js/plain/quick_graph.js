@@ -82,7 +82,7 @@ function loadTitleBarHash()
     var esaLength = equationStringArray.length;
    
     // allow each function to have its own name
-    var functionName = "Unnamed Function";
+    var functionName = "Function";
     
     var equationStringSplit = equationStringArray[0].split("[");
     var equationStringZero = equationStringSplit[0];
@@ -123,8 +123,11 @@ function loadTitleBarHash()
                 functionName = equationStringSplit[1];
                 functionName = functionName.replace(/%20/g," ");
             }
-            $(eqName).val(equationString);
-            $(nameName).val(functionName);
+            
+            
+            $('#mainEquation').val(equationString);
+            $('#equationName').val(functionName);
+            addFunction();
             
         }
     }
@@ -147,9 +150,9 @@ function loadTitleBarHash()
             lastStart = stepStop + 1,
             lastStop = variableString.indexOf(";"),
             visStart = lastStop + 1,
-            visStop = variableString.indexOf("="),
-            nameStart = visStop + 1,
-            nameStop = variableString.length;
+            visStop = variableString.indexOf("=");
+            //nameStart = visStop + 1,
+            //nameStop = variableString.length;
         
         /* grab the minimum address*/
         var parseBlock = variableString.substring(minStart,minStop);
@@ -172,14 +175,14 @@ function loadTitleBarHash()
         parseAndAddToHash(parseBlock,":",variableVisHash);
         
         /* grab the name*/
-        var tempName = variableString.substring(nameStart,nameStop);
-        tempName = tempName.replace(/%20/g," ");
+        //var tempName = variableString.substring(nameStart,nameStop);
+        //tempName = tempName.replace(/%20/g," ");
     } 	
 
   	if(equationValid > 0)
   	{
   	    $("#mainEquation").val(equationStringZero);
-        $("#totalName").val(tempName);
+        //$("#totalName").val(tempName);
         
         if(typeof equationString != "undefined")
         {
@@ -510,7 +513,7 @@ function solveEquation(equationElement, parsedEquation)
           
       }
         // generate a hash
-        generateHashURL(parsedEquation.variables(),0);
+        generateHashURL(parsedEquation.variables(),1);
     
     }
 }
@@ -787,32 +790,18 @@ function generateHashURL(vars,multi)
     // add equation(s) to url
     if(multi == 1)
     {
+		functionListParent = $("#function_list");	
         // the base equation div name
-        var eqNameBase = "#mainEquation";
+        //var eqNameBase = "#mainEquation";
         // the base name div name
-        var nameNameBase = "#equationName";
+        //var nameNameBase = "#equationName";
     
-        // loop once over equations and grab all variables
-        for(var i = 1;i<6;i++)
-        {
-            var eqName;
-            var nameName;
-            if(i == 1)
-            {
-                eqName = eqNameBase;
-                nameName = nameNameBase;
-            }
-            else
-            {
-                eqName = eqNameBase + i.toString();
-                nameName = nameNameBase + i.toString();
-            }        
-            
-            var localEquation = $(eqName).val();
+		functionListParent.find('tr').each(function(i, el) {
+            var localEquation = $(el).attr('innerFunction');
             if(typeof localEquation != "undefined")
             {
                 URL += compressName(localEquation);
-                var localName = $(nameName).val();
+                var localName = $(el).attr('innerName');
                 localName = localName.replace(/\s/g,"%20");
                 if(typeof localName != "undefined")
                 {
@@ -821,7 +810,7 @@ function generateHashURL(vars,multi)
                 }
             URL += ";"
             }
-        }
+        })
         URL += "=";
     }
     else
@@ -956,6 +945,11 @@ function createFunctionRow(name, fxn, parsed)
         // Table row
         el = document.createElement("tr");
         elParent.append(el);
+        el = $(el);
+        // set an attr on each row for value tracking
+        el.attr("innerFunction",fxn);
+        el.attr("innerName",name);
+        
         elParent = $(el);
         
         // Icon column
@@ -976,7 +970,9 @@ function createFunctionRow(name, fxn, parsed)
         el = $(el);
         // modified later by graph
         style = {
-            background: "rgb(255,255,255)"
+            background: "rgb(255,255,255)",
+            innerFunction: parsed.toString(),
+            innerName: name,
         };
         el.css(style);
         elParent.append(el);
