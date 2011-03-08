@@ -196,6 +196,12 @@ var QGSolver = function() {
 
         var append = function(item) {
             this.logObject(item);
+            // Save variable
+            if(item.type == "QGVariable" && typeof this.variable == "undefined")
+            {
+                this.variable = item;
+            }
+            
             // If we have no item yet
             if(this.active.length == 0) {
                 this.active.push(item);
@@ -716,6 +722,7 @@ var QGSolver = function() {
             getObjectClass: getObjectClass,
             logObject: logObject,
             variables: getVariables,
+            variable: variable,
             toHTML: htmlify,
             type: "QGEquation"
         };

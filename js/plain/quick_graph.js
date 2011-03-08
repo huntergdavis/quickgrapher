@@ -504,19 +504,7 @@ function solveEquation(equationElement, parsedEquation)
           updateSolution(name, parsedEquation, context.toObj(), solution);
           // Update graph
           addFunctionToGraph(name, parsedEquation, context);
-          
-          // Update row color
-          var color = $("#subgraph").color(name);
-          if(typeof color == "undefined")
-          {
-              color = "rgb(255,255,255)";
-          }
-          
-          var cs = {};
-          cs["background-color"] = color;
-          
-          $("#fxn_" + name).css(cs);
-          
+
           // update all graphs
           //updateAllGraphs(parsedEquation, context);
           
@@ -1253,9 +1241,67 @@ function verifyGraph()
 
 function addFunctionToGraph(name, equation, context)
 {
+    // Verify graph exists
     verifyGraph();
     
+    // Solve function
+    // Adjust context
+    var min = 0,
+        step = 0.1,
+        max = 100,
+        steps = ((max - min)/step) + 1,
+        graphVariable = equation.variable.varName,
+        currVarValue, solution, data = [];
+        
+    // Solve for the specified points
+    for(var i = 0; i < steps; i++)
+    {
+        currVarValue = context[graphVariable].value;
+        try
+        {
+            solution = equation.solve(context);
+        } catch(error)
+        {
+            solution = undefined;
+            QGSolver.logDebugMessage("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
+            
+        }
+        // Only add the point if it is a valid solution
+        if((typeof solution != "undefined") && isFinite(solution))
+        {
+            data.push([currVarValue, solution]);
+        }
+        
+        // Step variable
+        context[graphVariable].step();
+    }
     
+    var lbl = "",
+        v, vars = equation.variables(),
+        varLen = vars.length;
+
+    lbl += graphVariable;
+    
+    // Add plot for this variable (will overwrite existing ones)
+    var cs = {label : lbl};
+    cs['plot-type'] = 'line';
+    graph.plot(
+        graphVariable,
+        data,
+        cs
+    );
+    
+    // Update color
+    var color = $("#subgraph").color(name);
+    if(typeof color == "undefined")
+    {
+        color = "rgb(255,255,255)";
+    }
+    
+    var cs = {};
+    cs["background-color"] = color;
+    
+    $("#fxn_" + name).css(cs);
 }
 
 // updates graphs for all variables
