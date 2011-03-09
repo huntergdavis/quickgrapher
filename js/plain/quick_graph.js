@@ -1005,9 +1005,9 @@ function createFunctionRow(name, fxn, parsed)
         return row;
 }
 
-var removeRow = function()
+function removeRow()
 {
-    var id = $(this).attr("id");
+    var id = $(this).attr("id").split("_")[1];
     // Remove from UI
     $("#row_" + id).remove();
     // Remove from graph
