@@ -681,8 +681,16 @@ var QGSolver = function() {
         
         var htmlify = function(prefix, element, context) {
             var html = prefix + "( ";
-                html += "x" +" )" + " = ";
-                html += this.content.toHTML(prefix, element, context);
+            // If we have at least 1 variable
+            if(typeof this.variable != "undefined")
+            {
+                html += "<" + element + " id=";
+                html += "'" + prefix + "_active_variable'>"
+                html += this.variable.varName;
+                html += "</" + element + ">";
+            }
+            html += " ) = ";
+            html += this.content.toHTML(prefix, element, context);
             return html;
         };
         

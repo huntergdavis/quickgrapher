@@ -580,10 +580,11 @@ h2 > .examples {
 }
 
 .fxn_highlight {
-    color: rgb(0,0,0);
+    color: rgb(255,255,255);
     border: 1px solid rgb(0,0,0);
     padding: 4px;
     width: 350px;
+    font-weight: bold;
 }
 
 .fxn_highlight > p {
@@ -596,6 +597,7 @@ h2 > .examples {
     border: 1px solid rgb(0,0,0);
     background: rgb(255,255,255);
     padding: 1px;
+    color: rgb(0,0,0);
 }
 
 .fxn_remove {
