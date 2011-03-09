@@ -685,7 +685,10 @@ var QGSolver = function() {
             if(typeof this.variable != "undefined")
             {
                 html += "<" + element + " id=";
-                html += "'" + prefix + "_active_variable'>"
+                html += "'" + prefix + "_active_variable'"
+                html += " class='";
+                html += "'fxn_active_variable'";
+                html += "'>";
                 html += this.variable.varName;
                 html += "</" + element + ">";
             }
