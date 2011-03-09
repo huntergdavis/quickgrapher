@@ -402,6 +402,7 @@ function updateSolution(name, equation, context, solution)
     var cleanName  = name.replace(/\s/g,"_");
     var fxn =  $("#fxn_" + cleanName)[0];
         var niceName = name.replace(/\_/g," ");
+        var alertstring = "nicename: " + niceName + " name:" + name;
         var inner = equation.toHTML(niceName, name, "p", context);
         inner += " = " + solution;
             
@@ -448,7 +449,7 @@ function createContext(eq, vars)
         //step = parseFloat($("#" + v + "_step").val());
         //slider = $("#" + v + "_slider_value");//$("#" + v + "_slider");
         //val = parseInput(slider.text(),step);
-        val = data[v];
+        val = data[v];alert(val);
         context.set(v, val);
     }
     
@@ -595,80 +596,6 @@ function clearAndParseMultipleEquations()
 {
     clearScreen();
     parseMultipleEquations();
-}
-
-/* clear the screen then parse later */
-function parseMultipleEquations()
-{
-    
-    // put all variables into single array
-    var allVariables = [];
-    
-    // the base equation div name
-    var eqNameBase = "mainEquation";
-    
-    // loop once over equations and grab all variables
-    for(var i = 1;i<6;i++)
-    {
-        
-        var eqName;
-        if(i == 1)
-        {
-            eqName = eqNameBase;
-        }
-        else
-        {
-             eqName = eqNameBase + i.toString();
-         }
-        var singleEq = document.getElementById(eqName).value;
-            
-        if(typeof singleEq != "undefined")
-        {
-            // parse the equation
-            parsedEquation = QGSolver.parse(singleEq);
-            
-            // concat the variables
-            allVariables += parsedEquation.variables();
-        }
-        else
-        {
-            alert("Please enter a formula for " + eqName);
-            return;
-        }
-
-    }
-    
-    // now that we've concatenated all variables...
-    // remove duplicates
-    var cleanVarArray = removeDuplicateVariables(allVariables);
-
-    // Create slidersFunction
-    createSliders(cleanVarArray);
-    
-    // loop second time over equations and solve top down
-    for(var i = 1;i<6;i++)
-    {
-        var eqName;
-        if(i > 1)
-        {
-            eqName = eqNameBase + i.toString();
-        }
-        else
-        {
-            eqName = eqNameBase;
-        }
-        var singleEq = document.getElementById(eqName).value;
-            
-        if(typeof singleEq != "undefined")
-        {
-            // parse the equation
-            parsedEquation = QGSolver.parse(singleEq);
-            // Solve equation
-            solveEqInMult();
-        }
-    }
-    
-    
 }
 
 function removeDuplicateVariables(dupArray)
@@ -1071,6 +998,12 @@ function createFunctionRow(name, fxn, parsed)
         else
         {
             row = row[0];
+                row.fxnData = {
+                name: name,
+                fxn: fxn,
+                eq: parsed,
+                context: ctx
+            };
             
             // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
             var inner = parsed.toHTML(name,"p")
@@ -2172,7 +2105,7 @@ function addFunction() {
     var fxn = $('#mainEquation').val(),
         name = $('#equationName').val();
         name = name.replace(/\s/g,"_");
-        name = getUniqueFunctionName(name);
+        
     // parse the equation
     var parsed = QGSolver.parse(fxn);
     // Create sliders
