@@ -566,9 +566,11 @@ h2 > .examples {
 
 
 .fxn_row {
-    width: 898px;
+    width: 900px;
     border: 1px solid rgb(0,0,0);
     padding: 2px 0px 2px 0px;
+    margin-top: 7px;
+    background-color: rgb(255,255,255);
 }
 
 .fxn_icons {
