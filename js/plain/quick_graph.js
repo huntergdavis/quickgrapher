@@ -399,9 +399,9 @@ function updateSolution(name, equation, context, solution)
     // document.getElementById("formula").innerText = equation.toString(context);
     // document.getElementById("solution").innerText = solution;
     // document.getElementById("function_name").innerText = $("#equationName").val();
-    var cleanName  = name.replace(/\s/g,"_");
+    var cleanName  = sanitizeFunctionName(name);
     var fxn =  $("#fxn_" + cleanName)[0];
-        var niceName = name.replace(/\_/g," ");
+        var niceName = desanitizeFunctionName(name);
         var alertstring = "nicename: " + niceName + " name:" + name;
         var inner = equation.toHTML(niceName, name, "p", context);
         inner += " = " + solution;
@@ -449,7 +449,7 @@ function createContext(eq, vars)
         //step = parseFloat($("#" + v + "_step").val());
         //slider = $("#" + v + "_slider_value");//$("#" + v + "_slider");
         //val = parseInput(slider.text(),step);
-        val = data[v];alert(val);
+        val = data[v];
         context.set(v, val);
     }
     
@@ -1735,6 +1735,22 @@ function compressName(name)
     return compressed;
 }
 
+// removes ' and space from function name
+function sanitizeFunctionName(name)
+{
+    name = name.replace(/\s/g,"_");
+    name = name.replace(/\'/g,"-_-");
+    return name;
+}
+
+// add's ' and space back in
+function desanitizeFunctionName(name)
+{
+    name = name.replace(/\-\_\-/g,"'");
+    name = name.replace(/_/g," ");
+    return name;
+}
+
 function createFunctionLink(fxnStr, style, parent)
 {
     var ex = document.createElement("li");
@@ -2104,7 +2120,7 @@ function toggleInclude(toggleID)
 function addFunction() {
     var fxn = $('#mainEquation').val(),
         name = $('#equationName').val();
-        name = name.replace(/\s/g,"_");
+        name = sanitizeFunctionName(name);
         
     // parse the equation
     var parsed = QGSolver.parse(fxn);
