@@ -1000,7 +1000,18 @@ function createFunctionRow(name, fxn, parsed)
         
         el.innerHTML = "-";
         
+        $(el).click(removeRow);
+        
         return row;
+}
+
+function removeRow()
+{
+    var id = $(this).attr("id");
+    // Remove from UI
+    $("#row_" + id).remove();
+    // Remove from graph
+    $("#subgraph").remove_data(id);
 }
 
 

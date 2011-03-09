@@ -591,6 +591,7 @@ h2 > .examples {
     border-bottom: 1px solid rgb(0,0,0);
     padding: 1px;
     display: inline;
+    cursor: pointer;
 }
 
 .fxn_highlight > p.selected {
