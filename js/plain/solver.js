@@ -679,20 +679,20 @@ var QGSolver = function() {
             return this.content.toString(context);
         };
         
-        var htmlify = function(prefix, element, context) {
+        var htmlify = function(prefix, id, element, context) {
             var html = prefix + "( ";
             // If we have at least 1 variable
             if(typeof this.variable != "undefined")
             {
                 html += "<" + element + " id=";
-                html += "'" + prefix + "_active_variable'"
+                html += "'" + id + "_active_variable'"
                 html += " class='fxn_active_variable'";
                 html += ">";
                 html += this.variable.varName;
                 html += "</" + element + ">";
             }
             html += " ) = ";
-            html += this.content.toHTML(prefix, element, context);
+            html += this.content.toHTML(id, element, context);
             return html;
         };
         
