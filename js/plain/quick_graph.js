@@ -402,13 +402,13 @@ function updateSolution(name, equation, context, solution)
     var cleanName  = name.replace(/\s/g,"_");
     var fxn =  $("#fxn_" + cleanName)[0];
         var niceName = name.replace(/\_/g," ");
-        var inner = equation.toHTML(niceName,"p", context);
+        var inner = equation.toHTML(name,"p", context);
         inner += " = " + solution;
             
     fxn.innerHTML = inner;
     
     // Add onclick listener
-    $("#" + niceName + "_active_variable").click(editVariable);
+    $("#" + name + "_active_variable").click(editVariable);
     
     
     
