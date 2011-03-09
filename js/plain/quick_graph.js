@@ -382,6 +382,11 @@ function convertToPNG()
     }
 }
 
+function editVariable()
+{
+    alert("Bitches!");
+}
+
 function updateSolution(name, equation, context, solution)
 {
     // document.getElementById("formula").innerText = equation.toString(context);
@@ -394,7 +399,7 @@ function updateSolution(name, equation, context, solution)
     fxn.innerHTML = inner;
     
     // Add onclick listener
-    $("#" + name + "_active_variable").attr("onclick","wutwutinthebutt()");
+    $("#" + name + "_active_variable").click(editVariable);
     
     
     
