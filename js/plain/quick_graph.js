@@ -82,7 +82,7 @@ function loadTitleBarHash()
     var esaLength = equationStringArray.length;
    
     // allow each function to have its own name
-    var functionName = "Unnamed Function";
+    var functionName = "Function";
     
     var equationStringSplit = equationStringArray[0].split("[");
     var equationStringZero = equationStringSplit[0];
@@ -123,8 +123,11 @@ function loadTitleBarHash()
                 functionName = equationStringSplit[1];
                 functionName = functionName.replace(/%20/g," ");
             }
-            $(eqName).val(equationString);
-            $(nameName).val(functionName);
+            
+            
+            $('#mainEquation').val(equationString);
+            $('#equationName').val(functionName);
+            addFunction();
             
         }
     }
@@ -147,7 +150,7 @@ function loadTitleBarHash()
             lastStart = stepStop + 1,
             lastStop = variableString.indexOf(";"),
             visStart = lastStop + 1,
-            visStop = variableString.indexOf("="),
+            visStop = variableString.indexOf("=");
             nameStart = visStop + 1,
             nameStop = variableString.length;
         
@@ -179,23 +182,27 @@ function loadTitleBarHash()
   	if(equationValid > 0)
   	{
   	    $("#mainEquation").val(equationStringZero);
-        $("#totalName").val(tempName);
+        //$("#totalName").val(tempName);
         
         if(typeof equationString != "undefined")
         {
             if(!multipleEquations)
             {
+
+                $('#mainEquation').val(equationStringZero);
+                $('#equationName').val(tempName);
+                addFunction();
                 // parse the equation
-                parsedEquation = QGSolver.parse(equationStringZero);
+                //parsedEquation = QGSolver.parse(equationStringZero);
                 // Create sliders
-                createSliders(parsedEquation.variables());
+                //createSliders(parsedEquation.variables());
                 // Solve equation
-                solveEquation();
+                //solveEquation();
             }
-            else
-            {
-                parseMultipleEquations();
-            }
+//            else
+//            {
+//                parseMultipleEquations();
+//            }
         }        
         //$("#graphBtn").click();
   	}
@@ -392,8 +399,10 @@ function updateSolution(name, equation, context, solution)
     // document.getElementById("formula").innerText = equation.toString(context);
     // document.getElementById("solution").innerText = solution;
     // document.getElementById("function_name").innerText = $("#equationName").val();
-    var fxn =  $("#fxn_" + name)[0],
-        inner = equation.toHTML(name,"p", context)
+    var cleanName  = name.replace(/\s/g,"_");
+    var fxn =  $("#fxn_" + cleanName)[0];
+        var niceName = name.replace(/\_/g," ");
+        var inner = equation.toHTML(niceName,"p", context);
         inner += " = " + solution;
             
     fxn.innerHTML = inner;
@@ -521,7 +530,7 @@ function solveEquation(equationElement, parsedEquation)
           
       }
         // generate a hash
-        generateHashURL(parsedEquation.variables(),0);
+        generateHashURL(parsedEquation.variables(),1);
     
     }
 }
@@ -798,32 +807,18 @@ function generateHashURL(vars,multi)
     // add equation(s) to url
     if(multi == 1)
     {
+		functionListParent = $("#function_list");	
         // the base equation div name
-        var eqNameBase = "#mainEquation";
+        //var eqNameBase = "#mainEquation";
         // the base name div name
-        var nameNameBase = "#equationName";
+        //var nameNameBase = "#equationName";
     
-        // loop once over equations and grab all variables
-        for(var i = 1;i<6;i++)
-        {
-            var eqName;
-            var nameName;
-            if(i == 1)
-            {
-                eqName = eqNameBase;
-                nameName = nameNameBase;
-            }
-            else
-            {
-                eqName = eqNameBase + i.toString();
-                nameName = nameNameBase + i.toString();
-            }        
-            
-            var localEquation = $(eqName).val();
+		functionListParent.find('tr').each(function(i, el) {
+            var localEquation = $(el).attr('innerFunction');
             if(typeof localEquation != "undefined")
             {
                 URL += compressName(localEquation);
-                var localName = $(nameName).val();
+                var localName = $(el).attr('innerName');
                 localName = localName.replace(/\s/g,"%20");
                 if(typeof localName != "undefined")
                 {
@@ -832,7 +827,7 @@ function generateHashURL(vars,multi)
                 }
             URL += ";"
             }
-        }
+        })
         URL += "=";
     }
     else
@@ -945,8 +940,73 @@ function createFunctionRow(name, fxn, parsed)
             ctx[v] = 1;
         }
         
+
         // Check is we already have this row
         row = $("#" + main_id);
+        // 
+        // // Row container
+        // el = document.createElement("div");
+        // el.id = "row_" + name;
+        // el.className = "fxn_row";
+        // el.fxnData = {
+        //     name: name,
+        //     fxn: fxn,
+        //     eq: parsed,
+        //     context: ctx
+        // };
+        // row = el;
+        // el = $(el);
+        // elParent.append(el);
+        // elParent = el;
+        // 
+        // // Row table
+        // el = document.createElement("table");
+        // elParent.append(el);
+        // elParent = $(el);
+        // 
+        // // Table row
+        // el = document.createElement("tr");
+        // elParent.append(el);
+        // el = $(el);
+        // // set an attr on each row for value tracking
+        // el.attr("innerFunction",fxn);
+        // el.attr("innerName",name);
+        // 
+        // elParent = $(el);
+        // 
+        // // Icon column
+        // el = document.createElement("td");
+        // el.id = "icons_" + name;
+        // el.className = "fxn_icons";
+        // el = $(el);
+        // elParent.append(el);
+        // 
+        // // Function column
+        // el = document.createElement("td");
+        // el.id = "fxn_" + name;
+        // el.className = "fxn_highlight";
+        // // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
+        // var niceName = name.replace(/\_/g," ");
+        // var inner = parsed.toHTML(niceName,"p");
+        // 
+        //     inner += " = ";
+        // el.innerHTML = inner;
+        // el = $(el);
+        // // modified later by graph
+        // style = {
+        //     background: "rgb(255,255,255)",
+        //     innerFunction: parsed.toString(),
+        //     innerName: name,
+        // };
+        // el.css(style);
+        // elParent.append(el);
+        // 
+        // // Remove column
+        // el = document.createElement("td");
+        // el.id = "remove_" + name;
+        // el.className = "fxn_remove";
+        // elParent.append(el);
+
         
         if(row.length == 0)
         {
@@ -1493,6 +1553,38 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     cs = {color: color};
     cs["font-weight"] = "bold";
     $("#" + lbl + "_param").css(cs);
+}
+
+// returns a unique function name 
+function getUniqueFunctionName(name)
+{
+    var functionName = name;
+    var functionListParent = $("#function_list");	
+    var foundUniqueIterations = 1;
+    var continueLooping = 1;
+    
+    while(continueLooping > 0)
+    { 
+        if(foundUniqueIterations > 1)
+        {
+            functionName = name + "(" + foundUniqueIterations.toString() + ")";
+        }
+        var foundOne = 0;
+        // test for duplicate names;
+        functionListParent.find('tr').each(function(i, el) {
+            var localName = $(el).attr('innerName');
+            if(functionName == localName)
+            {
+                foundOne = 1;
+            }
+        })
+        if(foundOne == 0)
+        {
+            continueLooping = 0;
+            return functionName;
+        }
+        foundUniqueIterations++;
+    }
 }
 
 function toggle(exampleID)
@@ -2079,7 +2171,8 @@ function toggleInclude(toggleID)
 function addFunction() {
     var fxn = $('#mainEquation').val(),
         name = $('#equationName').val();
-        
+        name = name.replace(/\s/g,"_");
+        name = getUniqueFunctionName(name);
     // parse the equation
     var parsed = QGSolver.parse(fxn);
     // Create sliders
