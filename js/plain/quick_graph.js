@@ -1016,7 +1016,7 @@ function createFunctionRow(name, fxn, parsed)
             var inner = parsed.toHTML(name,"p")
                 inner += " = ";
             // Update function
-            $("fxn_" + name)[0].innerHTML = inner;
+            $("#fxn_" + name)[0].innerHTML = inner;
             
         }
         
