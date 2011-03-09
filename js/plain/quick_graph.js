@@ -408,7 +408,7 @@ function updateSolution(name, equation, context, solution)
     fxn.innerHTML = inner;
     
     // Add onclick listener
-    $("#" + name + "_active_variable").click(editVariable);
+    $("#" + niceName + "_active_variable").click(editVariable);
     
     
     
