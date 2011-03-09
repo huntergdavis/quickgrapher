@@ -933,7 +933,8 @@ function createFunctionRow(name, fxn, parsed)
         varsLen = vars.length, ctx,
         el, elParent = $("#function_list"),
         row,
-        style;
+        style,
+        main_id = "row_" + name;
         
         // Create context
         ctx = {};
@@ -944,63 +945,80 @@ function createFunctionRow(name, fxn, parsed)
             ctx[v] = 1;
         }
         
-        // Row container
-        el = document.createElement("div");
-        el.id = "row_" + name;
-        el.className = "fxn_row";
-        el.fxnData = {
-            name: name,
-            fxn: fxn,
-            eq: parsed,
-            context: ctx
-        };
-        row = el;
-        el = $(el);
-        elParent.append(el);
-        elParent = el;
+        // Check is we already have this row
+        row = $("#" + main_id);
         
-        // Row table
-        el = document.createElement("table");
-        elParent.append(el);
-        elParent = $(el);
-        
-        // Table row
-        el = document.createElement("tr");
-        elParent.append(el);
-        elParent = $(el);
-        
-        // Icon column
-        el = document.createElement("td");
-        el.id = "icons_" + name;
-        el.className = "fxn_icons";
-        el = $(el);
-        elParent.append(el);
-        
-        // Function column
-        el = document.createElement("td");
-        el.id = "fxn_" + name;
-        el.className = "fxn_highlight";
-        // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
-        var inner = parsed.toHTML(name,"p")
-            inner += " = ";
-        el.innerHTML = inner;
-        el = $(el);
-        // modified later by graph
-        style = {
-            background: "rgb(255,255,255)"
-        };
-        el.css(style);
-        elParent.append(el);
-        
-        // Remove column
-        el = document.createElement("td");
-        el.id = "remove_" + name;
-        el.className = "fxn_remove";
-        elParent.append(el);
-        
-        el.innerHTML = "-";
-        
-        $(el).click(removeRow);
+        if(row.length == 0)
+        {
+            // Row container
+            el = document.createElement("div");
+            el.id = main_id;
+            el.className = "fxn_row";
+            el.fxnData = {
+                name: name,
+                fxn: fxn,
+                eq: parsed,
+                context: ctx
+            };
+            row = el;
+            el = $(el);
+            elParent.append(el);
+            elParent = el;
+            
+            // Row table
+            el = document.createElement("table");
+            elParent.append(el);
+            elParent = $(el);
+            
+            // Table row
+            el = document.createElement("tr");
+            elParent.append(el);
+            elParent = $(el);
+            
+            // Icon column
+            el = document.createElement("td");
+            el.id = "icons_" + name;
+            el.className = "fxn_icons";
+            el = $(el);
+            elParent.append(el);
+            
+            // Function column
+            el = document.createElement("td");
+            el.id = "fxn_" + name;
+            el.className = "fxn_highlight";
+            // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
+            var inner = parsed.toHTML(name,"p")
+                inner += " = ";
+            el.innerHTML = inner;
+            el = $(el);
+            // modified later by graph
+            style = {
+                background: "rgb(255,255,255)"
+            };
+            el.css(style);
+            elParent.append(el);
+            
+            // Remove column
+            el = document.createElement("td");
+            el.id = "remove_" + name;
+            el.className = "fxn_remove";
+            elParent.append(el);
+            
+            el.innerHTML = "-";
+            
+            $(el).click(removeRow);
+        }
+        else
+        {
+            row = row[0];
+            
+            // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
+            var inner = parsed.toHTML(name,"p")
+                inner += " = ";
+            // Update function
+            $("fxn_" + name)[0].innerHTML = inner;
+            
+        }
         
         return row;
 }
