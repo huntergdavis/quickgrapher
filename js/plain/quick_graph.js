@@ -1005,7 +1005,7 @@ function createFunctionRow(name, fxn, parsed)
         return row;
 }
 
-function removeRow()
+var removeRow = function()
 {
     var id = $(this).attr("id");
     // Remove from UI
