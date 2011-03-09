@@ -392,6 +392,12 @@ function updateSolution(name, equation, context, solution)
         inner += " = " + solution;
             
     fxn.innerHTML = inner;
+    
+    // Add onclick listener
+    $("#" + name + "_active_variable").attr("onclick","wutwutinthebutt()");
+    
+    
+    
     //$("#" + name + "_solution").text(solution);
     
     // var v, vars = equation.variables(),
