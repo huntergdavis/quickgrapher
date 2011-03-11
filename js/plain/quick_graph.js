@@ -1284,7 +1284,9 @@ function addFunctionToGraph(name, equation, context)
         max = 100,
         steps = ((max - min)/step) + 1,
         graphVariable = equation.variable.varName,
+        originalVarValue = localContext[equation.variable],
         currVarValue, solution, data = [];
+        
         
     localContext[graphVariable] = new VariableIterator(min,step);
         
@@ -1314,6 +1316,7 @@ function addFunctionToGraph(name, equation, context)
     // Add plot for this variable (will overwrite existing ones)
     var cs = {label : name};
     cs['plot-type'] = 'line';
+    cs['highlight-point'] = originalVarValue;
     graph.plot(
         name,
         data,
