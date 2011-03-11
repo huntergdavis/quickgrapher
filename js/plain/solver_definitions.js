@@ -254,9 +254,9 @@ Functions["max"] = new ComplexFunction(1,true,
  *    
  */
 // PI : ~3.14159
-Constants["pi"] = new Constant(Math.PI);
+Constants["pi"] = new Constant(Math.PI,"pi");
 // E : ~2.71828
-Constants["e"] = new Constant(Math.E);
+Constants["e"] = new Constant(Math.E,"e");
 
 
 

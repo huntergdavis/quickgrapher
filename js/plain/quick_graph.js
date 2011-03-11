@@ -2134,7 +2134,7 @@ function addFunction() {
 $(document).ready(function() {
     // Turn on debug
     //QGSolver.DEBUG = true;
-    QGSolver.DEBUG = false;
+    QGSolver.DEBUG = true;
     // enable random load
     
     // Turn on Test Generation
