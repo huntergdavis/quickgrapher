@@ -2072,6 +2072,7 @@ $(window).resize(function() {
         resizeFullscreen();
         toggling = false;
     }
+    resizeBars();
 });
 
 
@@ -2089,6 +2090,22 @@ $.fn.animateHighlight = function(highlightColor, duration) {
 function visualErrorFunction() {
     $('#equation').effect('shake', { times:5 }, 100);
     $('#equation').animateHighlight("#dd0000", 1000);
+}
+
+// resizeBars dynamically changes css depending on screen size
+// for the function input and function bars
+// this resolves any issues on netbooks
+function resizeBars() {
+    
+    var windowWidth = $(window).width();
+    if (windowWidth<=1090){
+        $("#equation").css("width","768px"); 
+        $("div.fxn_row").css("width","770px"); 
+    }
+    else {
+        $("#equation").css("width","898px"); 
+        $("div.fxn_row").css("width","900px");         
+    }
 }
 
 /* From page */
@@ -2149,6 +2166,9 @@ $(document).ready(function() {
     loadFunctions();
     // Load From TitleBar
     loadTitleBarHash();
+    
+    // correctly size bar elements
+    resizeBars();
     
     // Add key listeners
     $("#equationName").keyup(function(event){
