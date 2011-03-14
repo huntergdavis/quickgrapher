@@ -475,7 +475,7 @@ function solveEquation(equationElement, parsedEquation)
       }
       catch(exception)
       {
-          alert("Solve failed: " + exception);
+          visualErrorFunction();  
       }
       
       // If we solved the equation, update page
@@ -554,7 +554,7 @@ function solveEqInMult()
       }
       catch(exception)
       {
-          alert("Solve failed: " + exception);
+         visualErrorFunction();  
       }
       
       // If we solved the equation, update page
@@ -570,32 +570,6 @@ function solveEqInMult()
         generateHashURL(parsedEquation.variables(),1);
     
     }
-}
-
-/* clear the screen and parse the equation */
-function clearAndParseEquation(equationElement, equation)
-{
-    if(typeof equation != "undefined")
-    {
-        // clear the screen
-        clearScreen();
-        // parse the equation
-        parsedEquation = QGSolver.parse(equation);
-        // Create sliders
-        createSliders(parsedEquation.variables());
-        // Solve equation
-        solveEquation(equationElement, parsedEquation);
-    }
-    else
-    {
-        alert("Please enter a formula");
-    }
-}
-
-function clearAndParseMultipleEquations()
-{
-    clearScreen();
-    parseMultipleEquations();
 }
 
 function removeDuplicateVariables(dupArray)
@@ -1301,6 +1275,7 @@ function addFunctionToGraph(name, equation, context)
         {
             solution = undefined;
             QGSolver.logDebugMessage("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
+            visualErrorFunction();  
             
         }
         // Only add the point if it is a valid solution
@@ -1450,6 +1425,7 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         {
             solution = undefined;
             QGSolver.logDebugMessage("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
+            visualErrorFunction();  
             
         }
         // Only add the point if it is a valid solution
@@ -2099,6 +2075,22 @@ $(window).resize(function() {
 });
 
 
+
+// extend the jquery function with an animate highlight function
+$.fn.animateHighlight = function(highlightColor, duration) {
+    var highlightBg = highlightColor || "#FFFF9C";
+    var animateMs = duration || 1500;
+    var originalBg = this.css("backgroundColor");
+    this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
+};
+
+// visualErrorFunction is a function called whenever something
+// can go sour.  it shakes the equation box
+function visualErrorFunction() {
+    $('#equation').effect('shake', { times:5 }, 100);
+    $('#equation').animateHighlight("#dd0000", 1000);
+}
+
 /* From page */
 function clearAndParse()
 {
@@ -2126,7 +2118,15 @@ function addFunction() {
         name = sanitizeFunctionName(name);
         
     // parse the equation
-    var parsed = QGSolver.parse(fxn);
+    var parsed;
+    try
+    {
+        parsed = QGSolver.parse(fxn);
+    }
+    catch(exception)
+    {
+        visualErrorFunction();         
+    }
     // Create sliders
     var row = createFunctionRow(name, fxn, parsed);
     // Solve equation
