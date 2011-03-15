@@ -2021,12 +2021,12 @@ function toggleFullscreen()
             // Hide fullscreen block
             $("#fullscreen_container").hide();
             // Move elements to normal location
-            // -- Equation
-            $("#equation").insertAfter("#functions");
             // -- Graph
-            $("#graph_container").insertAfter("#equation");
+            $("#graph_container").insertAfter("#functions");
             // -- Solution & variables
-            $("#result").insertAfter("#graph_break");
+            // -- Equation
+            $("#equation").insertAfter("#graph_break");
+            $("#result").insertAfter("#equation");
             // // -- Variables
             // Fix styles
             style = {};
@@ -2060,6 +2060,7 @@ function toggleFullscreen()
             $("#beta_box").show();
             // Fire resize handler
             $("#subgraph").trigger("resize");
+            resizeBars();
         }
         toggling = false;
     }
