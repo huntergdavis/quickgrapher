@@ -565,7 +565,7 @@ h2 > .examples {
 }
 
 .grid_icon {
-    /*background-image: url("http://www.hunterdavis.com/quickgrapher/images/screenshot.png");
+    background-image: url("http://www.hunterdavis.com/quickgrapher/images/grid.png");
     width: 16px;
     height: 16px;
     margin: 2px 0px 0px 5px;
@@ -573,10 +573,10 @@ h2 > .examples {
     background-repeat: no-repeat;
     padding: 0px 10px;
     cursor: pointer;
-    vertical-align: middle;*/
+    vertical-align: middle;
 }
 .grid_icon:hover {
-    /*background-image: url("http://www.hunterdavis.com/quickgrapher/images/screenshot_hover.png");*/
+    background-image: url("http://www.hunterdavis.com/quickgrapher/images/grid_hover.png");
 }
 
 

@@ -8,7 +8,6 @@ var variableMaxHash = [];
 var variableStepHash = [];
 var variableLastHash = [];
 var variableVisHash = [];
-var grid;
 
 /* LoadTitleBarHash loads in passed-in title bar equation */
 function loadTitleBarHash()
@@ -1225,7 +1224,6 @@ function verifyGraph()
         opts['hue-increment'] = 45;
         opts['hue-base'] = 22;
         opts['value-base'] = 95;
-        opts['grid'] = grid;
         opts['title'] = "What to put for title?"; //$("#equationName").val() + " ( " + vars.join(", ") +" )";
         graph.graphify(opts).realHover({
             hover: Graph.highlightNearest,
@@ -1346,7 +1344,6 @@ function updateAllGraphs(equation, context)
             opts['hue-increment'] = 45;
             opts['hue-base'] = 22;
             opts['value-base'] = 95;
-            opts['grid'] = grid;
             opts['title'] = $("#equationName").val() + " ( " + vars.join(", ") +" )";
             graph.graphify(opts)/*.attach_legend({
               'legend-mode': false,
@@ -1451,7 +1448,6 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
     // Add plot for this variable (will overwrite existing ones)
     var cs = {label : lbl};
     cs['plot-type'] = 'line';
-    cs['grid'] = grid;
     graph.plot(
         graphVariable,
         data,
@@ -2083,14 +2079,8 @@ $(window).resize(function() {
 
 // toggleGrid turns the graph grid on and off
 function toggleGrid() {
-    if(grid == 1)
-    {
-        grid = 0;
-    }
-    else
-    {
-        grid = 1;
-    }
+    verifyGraph();
+    graph.toggle_Grid();    
 }
 
 // extend the jquery function with an animate highlight function
@@ -2174,8 +2164,6 @@ $(document).ready(function() {
     //QGSolver.DEBUG = true;
     QGSolver.DEBUG = false;
     // enable random load
-    // bar grid?
-    grid = 1;
     
     // Turn on Test Generation
     QGSolver.TESTGENERATION = false;
