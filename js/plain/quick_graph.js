@@ -316,6 +316,9 @@ function clearScreen()
     variableStepHash = [];
     variableLastHash = [];
     variableVisHash = [];
+    
+    // Clear out all function rows
+    $('.fxn_row').remove();
 
     
 }
