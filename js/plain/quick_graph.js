@@ -828,8 +828,9 @@ function updateShare(url, title)
 
 function createFunctionRow(name, fxn, parsed)
 {
-    var v, vars = parsed.variables(),
-        varsLen = vars.length, ctx,
+    var v;
+    var vars = parsed.variables();
+    var varsLen = vars.length, ctx,
         el, elParent = $("#function_list"),
         row,
         style,

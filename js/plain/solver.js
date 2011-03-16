@@ -1291,7 +1291,7 @@ var QGSolver = function() {
             // Previous character
             b = c;
             // Current character
-            c = rawEquation[i];
+            c = rawEquation.charAt(i);
             switch(alphaNumericType(c)) {
                 // Letter
                 case 1:
