@@ -1156,7 +1156,7 @@ function createDropdownTable(root, name)
     
     el = document.createElement("td");
     el.id = "dropdown_" + name;
-    el.className = "fxn_dropdown_table_content";
+    el.className = "fxn_dropdown_content";
     row.append($(el));
     
     el = document.createElement("td");

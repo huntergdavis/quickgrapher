@@ -638,6 +638,10 @@ table.fxn_dropdown {
     width: 100%;
 }
 
+td.fxn_dropdown_content {
+    width: 100%;
+}
+
 table.fxn_row {
     height: 20px;
 }
