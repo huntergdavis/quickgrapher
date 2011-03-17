@@ -27,19 +27,21 @@ var ComplexFunction = function(pri, prefix, func, infinite) {
     };
 };
 
-var Constant = function(value) {
+var Constant = function(value, label) {
     var v = value;
+    var l = label;
     
     var stringify = function(context) {
-        return this.value;
+        return l.toString();
     };
     
     var htmlify = function(prefix, element, context) {
-        return this.value;
+        return l.toString();
     };
     
     return {
         value : v,
+        label : l,
         toString: stringify,
         toHTML: htmlify
     };
@@ -1192,11 +1194,12 @@ var QGSolver = function() {
         };
     };
     
-    var QGConstant = function(value, negative) {
-        var v = value,
+    var QGConstant = function(value, negative,label) {
+        var v = value,l = label,
             neg = negative ? negative : false;
+            
         
-        logDebugMessage("new QGConstant("+(this.negative?"-":"")+value+")");
+        logDebugMessage("new QGConstant("+(this.negative?"-":"")+value+" label: "+l+")");
         
         
         var solve = function(context) {
@@ -1204,15 +1207,15 @@ var QGSolver = function() {
         };
         
         var stringify = function(context) {
-            return (this.negative?"-":"") + this.value;
+            return (this.negative?"-":"") + l;
         };
         
         var htmlify = function(prefix, element, context) {
-            return (this.negative?"-":"") + this.value;
+            return (this.negative?"-":"") + l;
         };
         
         var toLabel = function() {
-            return this.value + "";
+            return l + "";
         };
         
         return {
@@ -1221,6 +1224,7 @@ var QGSolver = function() {
             toHTML: htmlify,
             name: toLabel,
             value: v.value,
+            label: l,
             negative: neg,
             type: "QGConstant"
         };
@@ -1289,7 +1293,7 @@ var QGSolver = function() {
             // Previous character
             b = c;
             // Current character
-            c = rawEquation[i];
+            c = rawEquation.charAt(i);
             switch(alphaNumericType(c)) {
                 // Letter
                 case 1:
@@ -1300,8 +1304,7 @@ var QGSolver = function() {
                         {
                             // Add constant
                             logDebugMessage("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                            
-                            eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                            eq.append(new QGConstant(new Constant(parseFloat(builtNumber),builtNumber),0,builtNumber));
                             builtNumber = "";
                             // Add mult
                             eq.append(new QGFunction("*"));
@@ -1342,7 +1345,7 @@ var QGSolver = function() {
                         
                         if(typeof constant != "undefined")
                         {
-                            eq.append(new QGConstant(constant, negative));
+                            eq.append(new QGConstant(constant, negative,builtString));
                         }
                         else
                         {
@@ -1355,8 +1358,7 @@ var QGSolver = function() {
                     else if(builtNumber.length > 0)
                     {
                         logDebugMessage("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                        
-                        eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                        eq.append(new QGConstant(new Constant(parseFloat(builtNumber),builtNumber),0,builtNumber));
                         builtNumber = "";
                     }
                     // Append divider
@@ -1371,8 +1373,7 @@ var QGSolver = function() {
                         if(builtNumber.charAt(0) != "-" || builtNumber.length > 1)
                         {
                             logDebugMessage("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                            
-                            eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                            eq.append(new QGConstant(new Constant(parseFloat(builtNumber),builtNumber),0,builtNumber));
                         }
                         else
                         {
@@ -1400,7 +1401,7 @@ var QGSolver = function() {
                             var constant = Constants[builtString]
                             if(typeof constant != "undefined")
                             {
-                                eq.append(new QGConstant(constant, negative));
+                                eq.append(new QGConstant(constant, negative,builtString));
                             }
                             else
                             {
@@ -1436,8 +1437,7 @@ var QGSolver = function() {
                         if(builtNumber.charAt(0) != "-" || builtNumber.length > 1)
                         {
                             logDebugMessage("Parsing '"+builtNumber+"' to " + parseFloat(builtNumber));
-                            
-                            eq.append(new QGConstant(new Constant(parseFloat(builtNumber))));
+                            eq.append(new QGConstant(new Constant(parseFloat(builtNumber),builtNumber)),0,builtNumber);
                             builtNumber = "";
                         }
                         else
@@ -1459,7 +1459,7 @@ var QGSolver = function() {
                         var constant = Constants[builtString]
                         if(typeof constant != "undefined")
                         {
-                            eq.append(new QGConstant(constant, negative));
+                            eq.append(new QGConstant(constant, negative,builtString));
                         }
                         else
                         {
@@ -1504,7 +1504,7 @@ var QGSolver = function() {
             
             if(typeof constant != "undefined")
             {
-                eq.append(new QGConstant(constant, negative));
+                eq.append(new QGConstant(constant, negative,builtString));
             }
             else
             {
@@ -1522,7 +1522,7 @@ var QGSolver = function() {
             {
                 builtNumber = builtNumber.substring(1,builtNumber.length);
             }
-            eq.append(new QGConstant(new Constant(parseFloat(builtNumber), negative)));
+            eq.append(new QGConstant(new Constant(parseFloat(builtNumber), builtNumber.toString()),0,builtNumber.toString()));
             builtNumber = "";
         }
         // Finalize parsing

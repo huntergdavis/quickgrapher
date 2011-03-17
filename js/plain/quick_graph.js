@@ -316,6 +316,9 @@ function clearScreen()
     variableStepHash = [];
     variableLastHash = [];
     variableVisHash = [];
+    
+    // Clear out all function rows
+    $('.fxn_row').remove();
 
     
 }
@@ -434,9 +437,10 @@ function updateSolution(name, equation, context, solution)
     // document.getElementById("formula").innerText = equation.toString(context);
     // document.getElementById("solution").innerText = solution;
     // document.getElementById("function_name").innerText = $("#equationName").val();
-    var cleanName  = name.replace(/\s/g,"_");
+    var cleanName  = sanitizeFunctionName(name);
     var fxn =  $("#fxn_" + cleanName)[0];
-        var niceName = name.replace(/\_/g," ");
+        var niceName = desanitizeFunctionName(name);
+        var alertstring = "nicename: " + niceName + " name:" + name;
         var inner = equation.toHTML(niceName, name, "p", context);
         inner += " = " + solution;
             
@@ -517,7 +521,7 @@ function solveEquation(equationElement, parsedEquation)
       }
       catch(exception)
       {
-          alert("Solve failed: " + exception);
+          visualErrorFunction();  
       }
       
       // If we solved the equation, update page
@@ -596,7 +600,7 @@ function solveEqInMult()
       }
       catch(exception)
       {
-          alert("Solve failed: " + exception);
+         visualErrorFunction();  
       }
       
       // If we solved the equation, update page
@@ -612,106 +616,6 @@ function solveEqInMult()
         generateHashURL(parsedEquation.variables(),1);
     
     }
-}
-
-/* clear the screen and parse the equation */
-function clearAndParseEquation(equationElement, equation)
-{
-    if(typeof equation != "undefined")
-    {
-        // clear the screen
-        clearScreen();
-        // parse the equation
-        parsedEquation = QGSolver.parse(equation);
-        // Create sliders
-        createSliders(parsedEquation.variables());
-        // Solve equation
-        solveEquation(equationElement, parsedEquation);
-    }
-    else
-    {
-        alert("Please enter a formula");
-    }
-}
-
-function clearAndParseMultipleEquations()
-{
-    clearScreen();
-    parseMultipleEquations();
-}
-
-/* clear the screen then parse later */
-function parseMultipleEquations()
-{
-    
-    // put all variables into single array
-    var allVariables = [];
-    
-    // the base equation div name
-    var eqNameBase = "mainEquation";
-    
-    // loop once over equations and grab all variables
-    for(var i = 1;i<6;i++)
-    {
-        
-        var eqName;
-        if(i == 1)
-        {
-            eqName = eqNameBase;
-        }
-        else
-        {
-             eqName = eqNameBase + i.toString();
-         }
-        var singleEq = document.getElementById(eqName).value;
-            
-        if(typeof singleEq != "undefined")
-        {
-            // parse the equation
-            parsedEquation = QGSolver.parse(singleEq);
-            
-            // concat the variables
-            allVariables += parsedEquation.variables();
-        }
-        else
-        {
-            alert("Please enter a formula for " + eqName);
-            return;
-        }
-
-    }
-    
-    // now that we've concatenated all variables...
-    // remove duplicates
-    var cleanVarArray = removeDuplicateVariables(allVariables);
-
-    // Create slidersFunction
-    createSliders(cleanVarArray);
-    
-    // loop second time over equations and solve top down
-    for(var i = 1;i<6;i++)
-    {
-        var eqName;
-        if(i > 1)
-        {
-            eqName = eqNameBase + i.toString();
-        }
-        else
-        {
-            eqName = eqNameBase;
-        }
-        var singleEq = document.getElementById(eqName).value;
-            
-        if(typeof singleEq != "undefined")
-        {
-            // parse the equation
-            parsedEquation = QGSolver.parse(singleEq);
-            // Solve equation
-            solveEqInMult();
-        }
-    }
-    
-    
 }
 
 function removeDuplicateVariables(dupArray)
@@ -967,8 +871,9 @@ function updateShare(url, title)
 
 function createFunctionRow(name, fxn, parsed)
 {
-    var v, vars = parsed.variables(),
-        varsLen = vars.length, ctx,
+    var v;
+    var vars = parsed.variables();
+    var varsLen = vars.length, ctx,
         el, elParent = $("#function_list"),
         row,
         style,
@@ -1154,6 +1059,12 @@ function createFunctionRow(name, fxn, parsed)
         else
         {
             row = row[0];
+                row.fxnData = {
+                name: name,
+                fxn: fxn,
+                eq: parsed,
+                context: ctx
+            };
             
             // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
             var inner = parsed.toHTML(name,"p")
@@ -1472,7 +1383,9 @@ function addFunctionToGraph(name, equation, context)
         max = 100,
         steps = ((max - min)/step) + 1,
         graphVariable = equation.variable.varName,
+        originalVarValue = localContext[equation.variable],
         currVarValue, solution, data = [];
+        
         
     localContext[graphVariable] = new VariableIterator(min,step);
         
@@ -1487,6 +1400,7 @@ function addFunctionToGraph(name, equation, context)
         {
             solution = undefined;
             QGSolver.logDebugMessage("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
+            visualErrorFunction();  
             
         }
         // Only add the point if it is a valid solution
@@ -1502,6 +1416,8 @@ function addFunctionToGraph(name, equation, context)
     // Add plot for this variable (will overwrite existing ones)
     var cs = {label : name};
     cs['plot-type'] = 'line';
+    cs['graph'] = graph;
+    cs['highlight-point'] = originalVarValue;
     graph.plot(
         name,
         data,
@@ -1635,6 +1551,7 @@ function updateGraph(graphID, graphVariable, equation, context, steps)
         {
             solution = undefined;
             QGSolver.logDebugMessage("Solve Error: [var: "+graphVariable+", value: "+currVarValue+"] " + error);
+            visualErrorFunction();  
             
         }
         // Only add the point if it is a valid solution
@@ -1921,6 +1838,22 @@ function compressName(name)
     // Remove spaces
     var compressed = name.replace(/\s/g,"");
     return compressed;
+}
+
+// removes ' and space from function name
+function sanitizeFunctionName(name)
+{
+    name = name.replace(/\s/g,"_");
+    name = name.replace(/\'/g,"-_-");
+    return name;
+}
+
+// add's ' and space back in
+function desanitizeFunctionName(name)
+{
+    name = name.replace(/\-\_\-/g,"'");
+    name = name.replace(/_/g," ");
+    return name;
 }
 
 function createFunctionLink(fxnStr, style, parent)
@@ -2214,12 +2147,12 @@ function toggleFullscreen()
             // Hide fullscreen block
             $("#fullscreen_container").hide();
             // Move elements to normal location
-            // -- Equation
-            $("#equation").insertAfter("#functions");
             // -- Graph
-            $("#graph_container").insertAfter("#equation");
+            $("#graph_container").insertAfter("#functions");
             // -- Solution & variables
-            $("#result").insertAfter("#graph_break");
+            // -- Equation
+            $("#equation").insertAfter("#graph_break");
+            $("#result").insertAfter("#equation");
             // // -- Variables
             // Fix styles
             style = {};
@@ -2253,6 +2186,7 @@ function toggleFullscreen()
             $("#beta_box").show();
             // Fire resize handler
             $("#subgraph").trigger("resize");
+            resizeBars();
         }
         toggling = false;
     }
@@ -2265,8 +2199,45 @@ $(window).resize(function() {
         resizeFullscreen();
         toggling = false;
     }
+    resizeBars();
 });
 
+// toggleGrid turns the graph grid on and off
+function toggleGrid() {
+    verifyGraph();
+    graph.toggle_Grid();    
+}
+
+// extend the jquery function with an animate highlight function
+$.fn.animateHighlight = function(highlightColor, duration) {
+    var highlightBg = highlightColor || "#FFFF9C";
+    var animateMs = duration || 1500;
+    var originalBg = this.css("backgroundColor");
+    this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
+};
+
+// visualErrorFunction is a function called whenever something
+// can go sour.  it shakes the equation box
+function visualErrorFunction() {
+    $('#equation').effect('shake', { times:5 }, 100);
+    $('#equation').animateHighlight("#dd0000", 1000);
+}
+
+// resizeBars dynamically changes css depending on screen size
+// for the function input and function bars
+// this resolves any issues on netbooks
+function resizeBars() {
+    
+    var windowWidth = $(window).width();
+    if (windowWidth<=1090){
+        $("#equation").css("width","768px"); 
+        $("div.fxn_row").css("width","770px"); 
+    }
+    else {
+        $("#equation").css("width","898px"); 
+        $("div.fxn_row").css("width","900px");         
+    }
+}
 
 /* From page */
 function clearAndParse()
@@ -2292,14 +2263,24 @@ function toggleInclude(toggleID)
 function addFunction() {
     var fxn = $('#mainEquation').val(),
         name = $('#equationName').val();
-        name = name.replace(/\s/g,"_");
-        name = getUniqueFunctionName(name);
+        name = sanitizeFunctionName(name);
+        
     // parse the equation
-    var parsed = QGSolver.parse(fxn);
+    var parsed;
+    try
+    {
+        parsed = QGSolver.parse(fxn);
+    }
+    catch(exception)
+    {
+        visualErrorFunction();         
+    }
     // Create sliders
     var row = createFunctionRow(name, fxn, parsed);
     // Solve equation
     solveEquation(row, parsed);
+    // correctly size bar elements
+    resizeBars();
 }
 
 
@@ -2318,6 +2299,10 @@ $(document).ready(function() {
     loadFunctions();
     // Load From TitleBar
     loadTitleBarHash();
+    
+    // correctly size bar elements
+    resizeBars();
+    
     
     // Add key listeners
     $("#equationName").keyup(function(event){
