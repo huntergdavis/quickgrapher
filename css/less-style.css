@@ -627,7 +627,8 @@ tr.fxn_dropdown {
 }
 
 td.fxn_dropdown {
-    color: rgb(255,255,255);
+    color: rgb(0,0,0);
+    background-color: rgb(255,255,255);
     border: 1px solid rgb(0,0,0);
     /*padding: 4px;*/
     width: 350px;
@@ -648,6 +649,7 @@ table.fxn_row {
 
 .fxn_dropdown_closer {
     transform: rotate(180deg);
+    -sand-transform: rotate(180deg);
 }
 
 
