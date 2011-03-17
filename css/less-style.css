@@ -652,6 +652,9 @@ table.fxn_row {
     -sand-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     cursor: pointer;
+    font-size: 23px;
+    padding-right: 5px;
+    padding-bottom: 4px;
 }
 .fxn_dropdown_closer:hover {
     transform: rotate(92deg);

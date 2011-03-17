@@ -1104,11 +1104,10 @@ function createFunctionRow(name, fxn, parsed)
             el.className = "fxn_dropdown";
             el = $(el);
             // modified later by graph
-            // style = {
-            //     background: "rgb(255,255,255)",
-            //     color: "rgb(0,0,0)"
-            // };
-            // el.css(style);
+            style = {
+                border: "0px"
+            };
+            el.css(style);
             elParent.append(el);
             
             createDropdownTable(el, name);
