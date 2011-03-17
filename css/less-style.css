@@ -584,7 +584,10 @@ h2 > .examples {
 .fxn_highlight {
     color: rgb(255,255,255);
     border: 1px solid rgb(0,0,0);
-    padding: 4px;
+    padding-top: 2px;
+    padding-left: 5px;
+    padding-bottom: 2px;
+    padding-right: 4px;
     width: 350px;
     font-weight: bold;
 }
@@ -626,7 +629,7 @@ tr.fxn_dropdown {
 td.fxn_dropdown {
     color: rgb(255,255,255);
     border: 1px solid rgb(0,0,0);
-    padding: 4px;
+    /*padding: 4px;*/
     width: 350px;
     font-weight: bold;
 }
@@ -637,6 +640,10 @@ table.fxn_dropdown {
 
 table.fxn_row {
     height: 20px;
+}
+
+.fxn_dropdown_closer {
+    transform: rotate(180deg);
 }
 
 

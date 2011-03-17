@@ -1040,6 +1040,7 @@ function createFunctionRow(name, fxn, parsed)
             
             // Row table
             el = document.createElement("table");
+            el.setAttribute("cellspacing","0");
             elParent.append(el);
             var elTable = $(el);
             elParent = $(el);
@@ -1146,10 +1147,11 @@ function createDropdownTable(root, name)
     row = document.createElement("tr");
     //row.className = "fxn_dropdown";
     row = $(row);
-    table.append(row);
+    root.append(row);
     
     el = document.createElement("td");
-    el.className = "fxn_dropdown_table_left";
+    el.className = "fxn_dropdown_closer";
+    el.innerHTML = "«";
     row.append($(el));
     
     el = document.createElement("td");
@@ -1158,7 +1160,8 @@ function createDropdownTable(root, name)
     row.append($(el));
     
     el = document.createElement("td");
-    el.className = "fxn_dropdown_table_right";
+    el.className = "fxn_dropdown_closer";
+    el.innerHTML = "«";
     row.append($(el));
 }
 
