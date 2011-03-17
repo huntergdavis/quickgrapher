@@ -391,19 +391,22 @@ function convertToPNG()
 
 function populateDropDownVariables(dropdown, equation)
 {
-    
+    dropdown.show();
 }
 
 function editVariable()
 {
     // Function name
     var fxnName = this.id;
-        fxnName = fxnName.substring(0,fxnName.length() - 16);
+        fxnName = fxnName.substring(0,fxnName.length - 16);
     // Retrieve equation
     
+    
     // Find drop down
+    var dropdown = $("#dropdown_" + fxnName);
+    
     // Populate dropdown
-    populateDropDownVariables();
+    populateDropDownVariables(dropdown);
 }
 
 function updateSolution(name, equation, context, solution)
@@ -1089,8 +1092,10 @@ function createFunctionRow(name, fxn, parsed)
             
             // Dropdown row
             el = document.createElement("tr");
+            el.id = "dropdown_" + name;
             elTable.append(el);
             elParent = $(el);
+            elParent.hide();
             
             // Empty column
             el = document.createElement("td");
@@ -1154,14 +1159,18 @@ function createDropdownTable(root, name)
     row.append($(el));
     
     el = document.createElement("td");
-    el.id = "dropdown_" + name;
+    el.id = "dropdown_dontent_" + name;
     el.className = "fxn_dropdown_content";
     row.append($(el));
     
     el = document.createElement("td");
     el.className = "fxn_dropdown_closer";
     el.innerHTML = "«";
-    row.append($(el));
+    el = $(el);
+    el.click(function(){
+        $("#dropdown_"+name).hide()
+    });
+    row.append(el);
 }
 
 function removeRow()
