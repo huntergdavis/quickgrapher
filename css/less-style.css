@@ -648,9 +648,16 @@ table.fxn_row {
 }
 
 .fxn_dropdown_closer {
-    transform: rotate(-90deg);
-    -sand-transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
+    transform: rotate(90deg);
+    -sand-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    cursor: pointer;
+}
+.fxn_dropdown_closer:hover {
+    transform: rotate(92deg);
+    -sand-transform: rotate(92deg);
+    -webkit-transform: rotate(92deg);
+    color: rgb(200,200,200);
 }
 
 
