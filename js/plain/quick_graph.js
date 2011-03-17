@@ -396,10 +396,21 @@ function populateDropDownVariables(dropdown, equation)
 
 function editValue()
 {
-    // "." + name + "_" + v + "_variable"
-    var id = this.id;
-        fxnName = id.substring(0,fxnName.length - 16),
-        varName = id.substring(0,fxnName.length - 16);
+    // "." + name + "-" + v + "-variable"
+    var id = this.id,
+        first = id.indexOf("-"),
+        second = id.indexOf("-", first+1),
+        fxnName = id.substring(0,first),
+        varName = id.substring(first+1,second);
+        
+    // Retrieve equation
+    
+    
+    // Find drop down
+    var dropdown = $("#dropdown_" + fxnName);
+    
+    // Populate dropdown
+    populateDropDownVariables(dropdown);
 }
 
 function editVariable()
@@ -438,7 +449,7 @@ function updateSolution(name, equation, context, solution)
     for(var i = 0; i < varLen; i++)
     {
         v = vars[i];
-        $("." + name + "-" + v + "-variable").click(editValue);
+        $(name + "-" + v + "-variable").click(editValue);
     }
     
     // Save equation
