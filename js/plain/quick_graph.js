@@ -389,9 +389,21 @@ function convertToPNG()
     }
 }
 
+function populateDropDownVariables(dropdown, equation)
+{
+    
+}
+
 function editVariable()
 {
-    alert("Bitches!");
+    // Function name
+    var fxnName = this.id;
+        fxnName = fxnName.substring(0,fxnName.length() - 16);
+    // Retrieve equation
+    
+    // Find drop down
+    // Populate dropdown
+    populateDropDownVariables();
 }
 
 function updateSolution(name, equation, context, solution)
@@ -410,6 +422,7 @@ function updateSolution(name, equation, context, solution)
     // Add onclick listener
     $("#" + name + "_active_variable").click(editVariable);
     
+    // Save equation
     
     
     //$("#" + name + "_solution").text(solution);
@@ -1028,9 +1041,12 @@ function createFunctionRow(name, fxn, parsed)
             // Row table
             el = document.createElement("table");
             elParent.append(el);
+            var elTable = $(el);
             elParent = $(el);
             
-            // Table row
+            /////// First row ////////////
+            
+            // Function display row
             el = document.createElement("tr");
             elParent.append(el);
             elParent = $(el);
@@ -1067,6 +1083,41 @@ function createFunctionRow(name, fxn, parsed)
             el.innerHTML = "-";
             
             $(el).click(removeRow);
+            
+            /////// Second row ////////////
+            
+            // Dropdown row
+            el = document.createElement("tr");
+            elTable.append(el);
+            elParent = $(el);
+            
+            // Empty column
+            el = document.createElement("td");
+            el.id = "empty_left_" + name;
+            el = $(el);
+            elParent.append(el);
+            
+            // Dropdown column
+            el = document.createElement("td");
+            el.id = "ddc_" + name;
+            el.className = "fxn_dropdown";
+            el = $(el);
+            // modified later by graph
+            style = {
+                background: "rgb(255,255,255)",
+                color: "rgb(0,0,0)"
+            };
+            el.css(style);
+            elParent.append(el);
+            
+            createDropdownTable(el, name);
+            
+            // Empty column
+            el = document.createElement("td");
+            el.id = "empty_right_" + name;
+            elParent.append(el);
+            
+            $(el).click(removeRow);
         }
         else
         {
@@ -1081,6 +1132,34 @@ function createFunctionRow(name, fxn, parsed)
         }
         
         return row;
+}
+
+function createDropdownTable(root, name)
+{
+    var el, table, row;
+    // Dropdown slide buttons and container
+    table = document.createElement("table");
+    table.className = "fxn_dropdown";
+    table = $(table);
+    root.append(table);
+    
+    row = document.createElement("tr");
+    //row.className = "fxn_dropdown";
+    row = $(row);
+    table.append(row);
+    
+    el = document.createElement("td");
+    el.className = "fxn_dropdown_table_left";
+    row.append($(el));
+    
+    el = document.createElement("td");
+    el.id = "dropdown_" + name;
+    el.className = "fxn_dropdown_table_content";
+    row.append($(el));
+    
+    el = document.createElement("td");
+    el.className = "fxn_dropdown_table_right";
+    row.append($(el));
 }
 
 function removeRow()
