@@ -449,7 +449,7 @@ function updateSolution(name, equation, context, solution)
     for(var i = 0; i < varLen; i++)
     {
         v = vars[i];
-        $(name + "-" + v + "-variable").click(editValue);
+        $(name + "-" + v + "-value").click(editValue);
     }
     
     // Save equation
