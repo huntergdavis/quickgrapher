@@ -394,11 +394,20 @@ function populateDropDownVariables(dropdown, equation)
     dropdown.show();
 }
 
+function editValue()
+{
+    // "." + name + "_" + v + "_variable"
+    var id = this.id;
+        fxnName = id.substring(0,fxnName.length - 16),
+        varName = id.substring(0,fxnName.length - 16);
+}
+
 function editVariable()
 {
     // Function name
     var fxnName = this.id;
         fxnName = fxnName.substring(0,fxnName.length - 16);
+        
     // Retrieve equation
     
     
@@ -422,8 +431,15 @@ function updateSolution(name, equation, context, solution)
             
     fxn.innerHTML = inner;
     
-    // Add onclick listener
+    // Add onclick listeners
     $("#" + name + "_active_variable").click(editVariable);
+    var v, vars = equation.variables(),
+        varLen = vars.length;
+    for(var i = 0; i < varLen; i++)
+    {
+        v = vars[i];
+        $("." + name + "." + v + ".variable").click(editValue);
+    }
     
     // Save equation
     
@@ -1156,7 +1172,11 @@ function createDropdownTable(root, name)
     el = document.createElement("td");
     el.className = "fxn_dropdown_closer";
     el.innerHTML = "«";
-    row.append($(el));
+    el = $(el);
+    el.click(function(){
+        $("#dropdown_"+name).hide()
+    });
+    row.append(el);
     
     el = document.createElement("td");
     el.id = "dropdown_dontent_" + name;

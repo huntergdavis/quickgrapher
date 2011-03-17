@@ -1141,8 +1141,10 @@ var QGSolver = function() {
                 // it has a constant replacement. 
                 if(typeof v != "undefined" && typeof v != "function")
                 {
-                    var html = "<" + element + " id='";
-                    html += prefix + "_" + this.varName + "_value'>"
+                    var id = prefix + "." + this.varName + ".value",
+                        html = "<" + element + " id='";
+                    html += id + "' class='";
+                    html += id + "'>"
                     
                     html += (this.negative?"-":"") + v;
                     
