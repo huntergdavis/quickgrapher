@@ -392,13 +392,29 @@ function convertToPNG()
     }
 }
 
+function selectVariable(equationName, varName)
+{
+    // Set active variable
+    var row = $("#row_" + equationName)[0],
+        sanitizedName = sanitizeFunctionName(equationName);
+    var eq = row.fxnData.eq,
+        fxn = row.fxnData.fxn;
+    eq.setVariable(varName);
+    
+    // Re-solve using this variable
+    updateFunction(sanitizedName, fxn, eq);
+}
+
 function populateDropDownValue(dropdown, variableName, equation)
 {
   
     dropdown.show();
 }
 
-function populateDropDownVariables(dropdown, equation)
+// TODO: This should probably be done using actual 
+// object creation and not string concatenation but
+// I'm too lazy to change it right now.
+function populateDropDownVariables(dropdown, fxnName, equation)
 {
     var vars = equation.variables(),
         varLen = vars.length,
@@ -422,14 +438,14 @@ function populateDropDownVariables(dropdown, equation)
         {
             varDOM += " checked='checked'";
         }
-        varDOM += ">" + varName + "</label>";
+        varDOM += " onselect='selectVariable('" + fxnName + "','"+varName+"')'>" + varName + "</label>";
         template += varDOM;
     }
     
     // Close variable list
     template = closeVariableList(template);
     
-    dropdown.append(template);
+    dropdown.html(template);
     
     // Show dropdown
     dropdown.show();
@@ -484,7 +500,7 @@ function editVariable()
     var dropdown = $("#dropdown_content_" + fxnName);
     
     // Populate dropdown
-    populateDropDownVariables(dropdown, eq);
+    populateDropDownVariables(dropdown, fxnName, eq);
 }
 
 function updateSolution(name, equation, context, solution)
@@ -2331,10 +2347,15 @@ function addFunction() {
     {
         visualErrorFunction();         
     }
-    // Create sliders
-    var row = createFunctionRow(name, fxn, parsed);
-    // Solve equation
-    solveEquation(row, parsed);
+    
+    updateFunction(name, fxn, parsed)
+}
+
+function updateFunction(sanitizedName, fxnString, parsedEquation) {
+    // Verify row exists
+    var row = createFunctionRow(sanitizedName, fxnString, parsedEquation);
+    // Solve equation in row
+    solveEquation(row, parsedEquation);
     // correctly size bar elements
     resizeBars();
 }

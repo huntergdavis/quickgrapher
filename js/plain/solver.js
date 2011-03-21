@@ -702,6 +702,13 @@ var QGSolver = function() {
             return this.getObjectClass("QGVariable");
         };
         
+        var setVariable = function(newVarName) {
+            var newVar = this.objects["QGVariable"].objs[newVarName];
+            if(typeof newVar != "undefined") {
+                variable = newVariable;
+            }
+        };
+        
         var getObjectClass = function(className) {
             var objs = undefined;
             if(typeof className == "string")
@@ -736,6 +743,7 @@ var QGSolver = function() {
             logObject: logObject,
             variables: getVariables,
             variable: variable,
+            setVariable: setVariable,
             toHTML: htmlify,
             type: "QGEquation"
         };
