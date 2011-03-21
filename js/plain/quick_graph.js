@@ -1438,7 +1438,8 @@ function addFunctionToGraph(name, equation, context)
         max = 100,
         steps = ((max - min)/step) + 1,
         graphVariable = equation.variable.varName,
-        originalVarValue = localContext[equation.variable],
+        //originalVarValue = localContext[equation.variable],
+        originalVarValue = localContext[equation.variable.varName],
         currVarValue, solution, data = [];
         
         
@@ -1474,7 +1475,7 @@ function addFunctionToGraph(name, equation, context)
     cs['graph'] = graph;
     cs['highlight-point'] = originalVarValue;
     graph.plot(
-        name,
+        graphVariable,//name,
         data,
         cs
     );
