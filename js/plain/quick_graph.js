@@ -438,7 +438,7 @@ function populateDropDownVariables(dropdown, fxnName, equation)
         {
             varDOM += " checked='checked'";
         }
-        varDOM += " onchange='selectVariable(" + fxnName + ","+varName+")'>" + varName + "</label>";
+        varDOM += " onchange='selectVariable(\"" + fxnName + "\",\""+varName+"\")'>" + varName + "</label>";
         template += varDOM;
     }
     
