@@ -439,7 +439,7 @@ function openVariableList(template, label)
 {
     template += "<form>";
     template += "<fieldset>";
-    template += "<legend>" + label + "</legend>";
+    template += "<legend style='display:none;'>" + label + "</legend>";
     return template;
 }
 
