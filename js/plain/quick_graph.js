@@ -446,9 +446,6 @@ function populateDropDownVariables(dropdown, fxnName, equation)
     template = closeVariableList(template);
     
     dropdown.html(template);
-    
-    // Show dropdown
-    dropdown.show();
 }
 
 function openVariableList(template, label)
@@ -497,10 +494,14 @@ function editVariable()
     var eq = row.fxnData.eq;
     
     // Find drop down
-    var dropdown = $("#dropdown_content_" + fxnName);
+    var dropdown = $("#dropdown_content_" + fxnName),
+        container = $("#dropdown_" + fxnName);
     
     // Populate dropdown
     populateDropDownVariables(dropdown, fxnName, eq);
+    
+    // Show dropdown
+    container.show();
 }
 
 function updateSolution(name, equation, context, solution)
@@ -946,7 +947,7 @@ function createFunctionRow(name, fxn, parsed)
     var vars = parsed.variables();
     var varsLen = vars.length, ctx,
         el, elParent = $("#function_list"),
-        row,
+        row, container,
         style,
         main_id = "row_" + name;
         
@@ -1099,12 +1100,14 @@ function createFunctionRow(name, fxn, parsed)
         elTable.append(el);
         elParent = $(el);
         elParent.hide();
+        container = elParent;
         
         // Empty column
         el = document.createElement("td");
         el.id = "empty_left_" + name;
-        el = $(el);
+        // el = $(el);
         elParent.append(el);
+        $(el).click(removeRow);
         
         // Dropdown column
         el = document.createElement("td");
@@ -1118,7 +1121,7 @@ function createFunctionRow(name, fxn, parsed)
         el.css(style);
         elParent.append(el);
         
-        createDropdownTable(el, name);
+        createDropdownTable(container, el, name);
         
         // Empty column
         el = document.createElement("td");
@@ -1148,7 +1151,7 @@ function createFunctionRow(name, fxn, parsed)
     return row;
 }
 
-function createDropdownTable(root, name)
+function createDropdownTable(container, root, name)
 {
     var el, table, row;
     // Dropdown slide buttons and container
@@ -1167,7 +1170,7 @@ function createDropdownTable(root, name)
     el.innerHTML = "«";
     el = $(el);
     el.click(function(){
-        $("#dropdown_"+name).hide()
+        container.hide()
     });
     row.append(el);
     
@@ -1181,7 +1184,7 @@ function createDropdownTable(root, name)
     el.innerHTML = "«";
     el = $(el);
     el.click(function(){
-        $("#dropdown_"+name).hide()
+        container.hide()
     });
     row.append(el);
 }
