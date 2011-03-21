@@ -403,44 +403,49 @@ function populateDropDownVariables(dropdown, equation)
     var vars = equation.variables(),
         varLen = vars.length,
         varName,
-        active = equation.variable.varName;
+        active = equation.variable.varName,
+        template = "";
         
     // Clear dropdown
     dropdown.empty();
     
     // Setup variable list
-    openVariableList(dropdown, "variables");
+    openVariableList(template, "variables");
     
     // Add variables
+    var varDOM;
     for(var i = 0; i < varLen; i++)
     {
-        varName = vars[i].varName;
-        dropdown.append("<label><input type='radio' name='variable'");
+        varName = vars[i];
+        varDOM = "<label><input type='radio' name='variable'";
         if(varName == active)
         {
-            dropdown.append(" selected");
+            varDOM += " selected";
         }
-        dropdown.append(">" + varName + "</label>");
+        varDOM += ">" + varName + "</label>";
+        template += varDOM;
     }
     
     // Close variable list
-    closeVariableList(dropdown);
+    closeVariableList(template);
+    
+    dropdown.append(template);
     
     // Show dropdown
     dropdown.show();
 }
 
-function openVariableList(dropdown, label)
+function openVariableList(template, label)
 {
-    dropdown.append("<form>");
-    dropdown.append("<fieldset>");
-    dropdown.append("<legend>" + label + "</legend>");
+    template += "<form>";
+    template += "<fieldset>";
+    template += "<legend>" + label + "</legend>";
 }
 
-function closeVariableList(dropdown)
+function closeVariableList(template)
 {
-    dropdown.append("</fieldset>");
-    dropdown.append("</form>");
+    tempalte += "</fieldset>";
+    template += "</form>";
 }
 
 function editValue()
