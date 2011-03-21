@@ -1470,12 +1470,12 @@ function addFunctionToGraph(name, equation, context)
     }
     
     // Add plot for this variable (will overwrite existing ones)
-    var cs = {label : name};
+    var cs = {label : graphVariable};//name};
     cs['plot-type'] = 'line';
     cs['graph'] = graph;
     cs['highlight-point'] = originalVarValue;
     graph.plot(
-        graphVariable,//name,
+        name,
         data,
         cs
     );
