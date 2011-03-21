@@ -445,7 +445,7 @@ function openVariableList(template, label)
 
 function closeVariableList(template)
 {
-    tempalte += "</fieldset>";
+    template += "</fieldset>";
     template += "</form>";
     return template;
 }
