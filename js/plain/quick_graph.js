@@ -410,7 +410,7 @@ function populateDropDownVariables(dropdown, equation)
     dropdown.empty();
     
     // Setup variable list
-    openVariableList(template, "variables");
+    template = openVariableList(template, "variables");
     
     // Add variables
     var varDOM;
@@ -427,7 +427,7 @@ function populateDropDownVariables(dropdown, equation)
     }
     
     // Close variable list
-    closeVariableList(template);
+    template = closeVariableList(template);
     
     dropdown.append(template);
     
@@ -440,12 +440,14 @@ function openVariableList(template, label)
     template += "<form>";
     template += "<fieldset>";
     template += "<legend>" + label + "</legend>";
+    return template;
 }
 
 function closeVariableList(template)
 {
     tempalte += "</fieldset>";
     template += "</form>";
+    return template;
 }
 
 function editValue()
