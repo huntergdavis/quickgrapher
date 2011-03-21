@@ -394,12 +394,53 @@ function convertToPNG()
 
 function populateDropDownValue(dropdown, variableName, equation)
 {
+  
     dropdown.show();
 }
 
 function populateDropDownVariables(dropdown, equation)
 {
+    var vars = equation.variables(),
+        varLen = vars.length,
+        varName,
+        active = equation.variable.varName;
+        
+    // Clear dropdown
+    dropdown.empty();
+    
+    // Setup variable list
+    openVariableList(dropdown, "variables");
+    
+    // Add variables
+    for(var i = 0; i < varLen; i++)
+    {
+        varName = vars[i].varName;
+        dropdown.append("<label><input type='radio' name='variable'");
+        if(varName == active)
+        {
+            dropdown.append(" selected");
+        }
+        dropdown.append(">" + varName + "</label>");
+    }
+    
+    // Close variable list
+    closeVariableList(dropdown);
+    
+    // Show dropdown
     dropdown.show();
+}
+
+function openVariableList(dropdown, label)
+{
+    dropdown.append("<form>");
+    dropdown.append("<fieldset>");
+    dropdown.append("<legend>" + label + "</legend>");
+}
+
+function closeVariableList(dropdown)
+{
+    dropdown.append("</fieldset>");
+    dropdown.append("</form>");
 }
 
 function editValue()
@@ -412,7 +453,7 @@ function editValue()
         varName = id.substring(first+1,second);
         
     // Retrieve equation
-    var row = $("#row_" + fxnName);
+    var row = $("#row_" + fxnName)[0];
     var eq = row.fxnData.eq;
     
     // Find drop down
@@ -429,7 +470,7 @@ function editVariable()
         fxnName = fxnName.substring(0,fxnName.length - 16);
         
     // Retrieve equation
-    var row = $("#row_" + fxnName);
+    var row = $("#row_" + fxnName)[0];
     var eq = row.fxnData.eq;
     
     // Find drop down
