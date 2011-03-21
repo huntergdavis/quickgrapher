@@ -392,6 +392,11 @@ function convertToPNG()
     }
 }
 
+function populateDropDownValue(dropdown, variableName, equation)
+{
+    dropdown.show();
+}
+
 function populateDropDownVariables(dropdown, equation)
 {
     dropdown.show();
@@ -407,13 +412,14 @@ function editValue()
         varName = id.substring(first+1,second);
         
     // Retrieve equation
-    
+    var row = $("#row_" + fxnName);
+    var eq = row.fxnData.eq;
     
     // Find drop down
-    var dropdown = $("#dropdown_" + fxnName);
+    var dropdown = $("#dropdown_content_" + fxnName);
     
     // Populate dropdown
-    populateDropDownVariables(dropdown);
+    populateDropDownValue(dropdown, varName, eq);
 }
 
 function editVariable()
@@ -423,13 +429,14 @@ function editVariable()
         fxnName = fxnName.substring(0,fxnName.length - 16);
         
     // Retrieve equation
-    
+    var row = $("#row_" + fxnName);
+    var eq = row.fxnData.eq;
     
     // Find drop down
-    var dropdown = $("#dropdown_" + fxnName);
+    var dropdown = $("#dropdown_content_" + fxnName);
     
     // Populate dropdown
-    populateDropDownVariables(dropdown);
+    populateDropDownVariables(dropdown, eq);
 }
 
 function updateSolution(name, equation, context, solution)
@@ -956,125 +963,125 @@ function createFunctionRow(name, fxn, parsed)
         // elParent.append(el);
 
         
-        if(row.length == 0)
-        {
-            // Row container
-            el = document.createElement("div");
-            el.id = main_id;
-            el.className = "fxn_row";
-            el.fxnData = {
-                name: name,
-                fxn: fxn,
-                eq: parsed,
-                context: ctx
-            };
-            row = el;
-            el = $(el);
-            elParent.append(el);
-            elParent = el;
-            
-            // Row table
-            el = document.createElement("table");
-            el.setAttribute("cellspacing","0");
-            elParent.append(el);
-            var elTable = $(el);
-            elParent = $(el);
-            
-            /////// First row ////////////
-            
-            // Function display row
-            el = document.createElement("tr");
-            elParent.append(el);
-            elParent = $(el);
-            
-            // Icon column
-            el = document.createElement("td");
-            el.id = "icons_" + name;
-            el.className = "fxn_icons";
-            el = $(el);
-            elParent.append(el);
-            
-            // Function column
-            el = document.createElement("td");
-            el.id = "fxn_" + name;
-            el.className = "fxn_highlight";
-            // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
-            var inner = parsed.toHTML(name,"p")
-                inner += " = ";
-            el.innerHTML = inner;
-            el = $(el);
-            // modified later by graph
-            style = {
-                background: "rgb(255,255,255)"
-            };
-            el.css(style);
-            elParent.append(el);
-            
-            // Remove column
-            el = document.createElement("td");
-            el.id = "remove_" + name;
-            el.className = "fxn_remove";
-            elParent.append(el);
-            
-            el.innerHTML = "-";
-            
-            $(el).click(removeRow);
-            
-            /////// Second row ////////////
-            
-            // Dropdown row
-            el = document.createElement("tr");
-            el.id = "dropdown_" + name;
-            elTable.append(el);
-            elParent = $(el);
-            elParent.hide();
-            
-            // Empty column
-            el = document.createElement("td");
-            el.id = "empty_left_" + name;
-            el = $(el);
-            elParent.append(el);
-            
-            // Dropdown column
-            el = document.createElement("td");
-            el.id = "ddc_" + name;
-            el.className = "fxn_dropdown";
-            el = $(el);
-            // modified later by graph
-            style = {
-                border: "0px"
-            };
-            el.css(style);
-            elParent.append(el);
-            
-            createDropdownTable(el, name);
-            
-            // Empty column
-            el = document.createElement("td");
-            el.id = "empty_right_" + name;
-            elParent.append(el);
-            
-            $(el).click(removeRow);
-        }
-        else
-        {
-            row = row[0];
-                row.fxnData = {
-                name: name,
-                fxn: fxn,
-                eq: parsed,
-                context: ctx
-            };
-            
-            // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
-            var inner = parsed.toHTML(name,"p")
-                inner += " = ";
-            // Update function
-            $("#fxn_" + name)[0].innerHTML = inner;
-            
-        }
+    if(row.length == 0)
+    {
+        // Row container
+        el = document.createElement("div");
+        el.id = main_id;
+        el.className = "fxn_row";
+        el.fxnData = {
+            name: name,
+            fxn: fxn,
+            eq: parsed,
+            context: ctx
+        };
+        row = el;
+        el = $(el);
+        elParent.append(el);
+        elParent = el;
         
-        return row;
+        // Row table
+        el = document.createElement("table");
+        el.setAttribute("cellspacing","0");
+        elParent.append(el);
+        var elTable = $(el);
+        elParent = $(el);
+        
+        /////// First row ////////////
+        
+        // Function display row
+        el = document.createElement("tr");
+        elParent.append(el);
+        elParent = $(el);
+        
+        // Icon column
+        el = document.createElement("td");
+        el.id = "icons_" + name;
+        el.className = "fxn_icons";
+        el = $(el);
+        elParent.append(el);
+        
+        // Function column
+        el = document.createElement("td");
+        el.id = "fxn_" + name;
+        el.className = "fxn_highlight";
+        // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
+        var inner = parsed.toHTML(name,"p")
+            inner += " = ";
+        el.innerHTML = inner;
+        el = $(el);
+        // modified later by graph
+        style = {
+            background: "rgb(255,255,255)"
+        };
+        el.css(style);
+        elParent.append(el);
+        
+        // Remove column
+        el = document.createElement("td");
+        el.id = "remove_" + name;
+        el.className = "fxn_remove";
+        elParent.append(el);
+        
+        el.innerHTML = "-";
+        
+        $(el).click(removeRow);
+        
+        /////// Second row ////////////
+        
+        // Dropdown row
+        el = document.createElement("tr");
+        el.id = "dropdown_" + name;
+        elTable.append(el);
+        elParent = $(el);
+        elParent.hide();
+        
+        // Empty column
+        el = document.createElement("td");
+        el.id = "empty_left_" + name;
+        el = $(el);
+        elParent.append(el);
+        
+        // Dropdown column
+        el = document.createElement("td");
+        el.id = "ddc_" + name;
+        el.className = "fxn_dropdown";
+        el = $(el);
+        // modified later by graph
+        style = {
+            border: "0px"
+        };
+        el.css(style);
+        elParent.append(el);
+        
+        createDropdownTable(el, name);
+        
+        // Empty column
+        el = document.createElement("td");
+        el.id = "empty_right_" + name;
+        elParent.append(el);
+        
+        $(el).click(removeRow);
+    }
+    else
+    {
+        row = row[0];
+        row.fxnData = {
+            name: name,
+            fxn: fxn,
+            eq: parsed,
+            context: ctx
+        };
+    
+        // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
+        var inner = parsed.toHTML(name,"p")
+            inner += " = ";
+        // Update function
+        $("#fxn_" + name)[0].innerHTML = inner;
+        
+    }
+    
+    return row;
 }
 
 function createDropdownTable(root, name)
@@ -1101,7 +1108,7 @@ function createDropdownTable(root, name)
     row.append(el);
     
     el = document.createElement("td");
-    el.id = "dropdown_dontent_" + name;
+    el.id = "dropdown_content_" + name;
     el.className = "fxn_dropdown_content";
     row.append($(el));
     
