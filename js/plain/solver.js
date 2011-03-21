@@ -705,7 +705,7 @@ var QGSolver = function() {
         var setVariable = function(newVarName) {
             var newVar = this.objects["QGVariable"].objs[newVarName];
             if(typeof newVar != "undefined") {
-                variable = newVar;
+                this.variable = newVar;
             }
         };
         
