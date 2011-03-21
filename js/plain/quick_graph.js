@@ -420,7 +420,7 @@ function populateDropDownVariables(dropdown, equation)
         varDOM = "<label><input type='radio' name='variable'";
         if(varName == active)
         {
-            varDOM += " selected";
+            varDOM += " checked='checked'";
         }
         varDOM += ">" + varName + "</label>";
         template += varDOM;
