@@ -449,22 +449,8 @@ function populateDropDownValue(dropdown, context, fxnName, variableName, equatio
     
     template = sliderValueTemplate(template, currCtx);
     
-    // Add variables
-    var varDOM;
-    for(var i = 0; i < varLen; i++)
-    {
-        varName = vars[i];
-        varDOM = "<label><input type='radio' name='variable'";
-        if(varName == active)
-        {
-            varDOM += " checked='checked'";
-        }
-        varDOM += " onchange='selectVariable(\"" + fxnName + "\",\""+varName+"\")'>" + varName + "</label>";
-        template += varDOM;
-    }
-    
     // Close variable list
-    template = closeVariableList(template);
+    // template = closeVariableList(template);
     
     dropdown.html(template);
 }
