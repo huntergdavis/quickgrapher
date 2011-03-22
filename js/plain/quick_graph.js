@@ -1018,7 +1018,7 @@ function createFunctionRow(name, fxn, parsed)
             // Default value is 1 RANDOM!!!!11!1!
             ctx[v] = {
                 min: 0,
-                curr: (int)(1+20*Math.random()),
+                curr: Math.round(1+20*Math.random()),
                 max: 100
             };
         }
