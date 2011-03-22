@@ -554,7 +554,8 @@ function editValue()
         context = row.fxnData.context;
     
     // Find drop down
-    var dropdown = $("#dropdown_content_" + fxnName);
+    var dropdown = $("#dropdown_content_" + fxnName),
+        container = $("#dropdown_" + fxnName);
     
     // Populate dropdown
     populateDropDownValue(dropdown, context, fxnName, varName, eq);
