@@ -405,10 +405,68 @@ function selectVariable(equationName, varName)
     updateFunction(sanitizedName, fxn, eq);
 }
 
-function populateDropDownValue(dropdown, variableName, equation)
+/**
+ * 
+ * CurrentContext: {
+ *    min: minimum value,
+ *    curr: current value,
+ *    max: maximum value
+ * }
+ * 
+ */
+function currentValueTemplate(template, fxnName, variableName, currentContext)
 {
+    template += "<div style='height: 100%; padding: 5px 10px 3px 10px; font-size: 30pt; background-color: rgb(255,255,255); color: rgb(0,0,0); float: left;'>";
+    template += "<font style='font-size: 24pt;'>"variableName += " = </font>";
+    template += "<font id='"+fxnName+"_"+variableName+"_curr'>" + currentContext.curr + "</font>";
+    template += "</div>";
   
-    dropdown.show();
+    return template;
+}
+
+function sliderValueTemplate(template, currentContext)
+{
+    template += "<div style='height: 100%; padding: 2px 5px 1px 5px; color: rgb(255,255,255); background: none; float: left;'>";
+    template == "</div>";
+  
+    return template;
+}
+
+function populateDropDownValue(dropdown, context, variableName, equation)
+{
+    var v, vars = equation.variables(),
+        varLen = vars.length,
+        template = "";
+        
+    // Clear dropdown
+    dropdown.empty();
+    
+    // Grab current context for this variable
+    var currCtx = context[variableName];
+    
+    // Setup value template
+    template = currentValueTemplate(template, variableName, currCtx);
+    
+    template = sliderValueTemplate(template, currCtx);
+    
+    // Add variables
+    var varDOM;
+    for(var i = 0; i < varLen; i++)
+    {
+        varName = vars[i];
+        varDOM = "<label><input type='radio' name='variable'";
+        if(varName == active)
+        {
+            varDOM += " checked='checked'";
+        }
+        varDOM += " onchange='selectVariable(\"" + fxnName + "\",\""+varName+"\")'>" + varName + "</label>";
+        template += varDOM;
+    }
+    
+    // Close variable list
+    template = closeVariableList(template);
+    
+    dropdown.html(template);
 }
 
 // TODO: This should probably be done using actual 
@@ -473,14 +531,15 @@ function editValue()
         varName = id.substring(first+1,second);
         
     // Retrieve equation
-    var row = $("#row_" + fxnName)[0];
-    var eq = row.fxnData.eq;
+    var row = $("#row_" + fxnName)[0],
+        eq = row.fxnData.eq,
+        context = row.fxnData.context;
     
     // Find drop down
     var dropdown = $("#dropdown_content_" + fxnName);
     
     // Populate dropdown
-    populateDropDownValue(dropdown, varName, eq);
+    populateDropDownValue(dropdown, context, varName, eq);
 }
 
 function editVariable()
@@ -567,7 +626,7 @@ function createContext(eq, vars)
         //step = parseFloat($("#" + v + "_step").val());
         //slider = $("#" + v + "_slider_value");//$("#" + v + "_slider");
         //val = parseInput(slider.text(),step);
-        val = data[v];
+        val = data[v].curr;
         context.set(v, val);
     }
     
@@ -956,12 +1015,16 @@ function createFunctionRow(name, fxn, parsed)
         for(var i = 0; i < varsLen; i++)
         {
             v = vars[i];
-            // Default value is 1
-            ctx[v] = 1;
+            // Default value is 1 RANDOM!!!!11!1!
+            ctx[v] = {
+                min: 0,
+                curr: (int)(1+20*Math.random()),
+                max: 100
+            };
         }
         
 
-        // Check is we already have this row
+        // Check if we already have this row
         row = $("#" + main_id);
         // 
         // // Row container

@@ -35,7 +35,7 @@ var Constant = function(value, label) {
         return l.toString();
     };
     
-    var htmlify = function(prefix, element, context) {
+    var htmlify = function(prefix, element, context, active) {
         return l.toString();
     };
     
@@ -694,7 +694,7 @@ var QGSolver = function() {
                 html += "</" + element + ">";
             }
             html += " ) = ";
-            html += this.content.toHTML(id, element, context);
+            html += this.content.toHTML(id, element, context, this.variable.varName);
             return html;
         };
         
@@ -884,7 +884,7 @@ var QGSolver = function() {
             return (this.negative?"-":"") + str;
         };
         
-        var htmlify = function(prefix, element, context) {
+        var htmlify = function(prefix, element, context, active) {
             var str = "";
             if(this.prefix())
             {
@@ -896,7 +896,7 @@ var QGSolver = function() {
                 }
                 for(var i = 0; i < len; i++)
                 {
-                    str += this.args[i].toHTML(prefix, element, context);
+                    str += this.args[i].toHTML(prefix, element, context, active);
                     if(i != len - 1)
                     {
                       str += ", ";
@@ -914,19 +914,19 @@ var QGSolver = function() {
                     str += this.funcName;
                     if(typeof this.args[0] != "undefined")
                     {
-                        str += this.args[0].toHTML(prefix, element, context);
+                        str += this.args[0].toHTML(prefix, element, context, active);
                     }
                 }
                 if(this.length() == 2)
                 {
                     if(typeof this.args[0] != "undefined")
                     {
-                        str += this.args[0].toHTML(prefix, element, context);
+                        str += this.args[0].toHTML(prefix, element, context, active);
                     }
                     str += " " + this.funcName + " ";
                     if(typeof this.args[1] != "undefined")
                     {
-                        str += this.args[1].toHTML(prefix, element, context);
+                        str += this.args[1].toHTML(prefix, element, context, active);
                     }
                 }
             }
@@ -1011,14 +1011,14 @@ var QGSolver = function() {
             }
         };
         
-        var htmlify = function(prefix, element, context) {
+        var htmlify = function(prefix, element, context, active) {
             if(typeof this.content == "undefined")
             {
                 return "( )";
             }
             else
             {
-                return "( " + this.content.toHTML(prefix, element, context) + " )";
+                return "( " + this.content.toHTML(prefix, element, context, active) + " )";
             }
         };
         
@@ -1143,7 +1143,7 @@ var QGSolver = function() {
             }
         };
         
-        var htmlify = function(prefix, element, context) {
+        var htmlify = function(prefix, element, context, active) {
             if(typeof context != "undefined")
             {
                 var v = context[this.varName];
@@ -1154,7 +1154,12 @@ var QGSolver = function() {
                     var id = prefix + "-" + this.varName + "-value",
                         html = "<" + element + " id='";
                     html += id + "' class='";
-                    html += id + "'>"
+                    html += id;
+                    if(this.varName == active)
+                    {
+                        html += " fxn_active_variable";
+                    }
+                    html += "'>";
                     
                     html += (this.negative?"-":"") + v;
                     
@@ -1218,7 +1223,7 @@ var QGSolver = function() {
             return (this.negative?"-":"") + l;
         };
         
-        var htmlify = function(prefix, element, context) {
+        var htmlify = function(prefix, element, context, active) {
             return (this.negative?"-":"") + l;
         };
         
