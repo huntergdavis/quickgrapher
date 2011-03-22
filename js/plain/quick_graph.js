@@ -424,7 +424,7 @@ function currentValueTemplate(template, fxnName, variableName, currentContext)
     return template;
 }
 
-function sliderValueTemplate(template, fxnNam, variableName, currentContext)
+function sliderValueTemplate(template, fxnName, variableName, currentContext)
 {
     template += "<div style='height: 100%; padding: 2px 5px 1px 5px; color: rgb(255,255,255); background: none; float: left;'>";
     // Min value
