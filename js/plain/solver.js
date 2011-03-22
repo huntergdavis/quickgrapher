@@ -1157,7 +1157,7 @@ var QGSolver = function() {
                     html += id;
                     if(this.varName == active)
                     {
-                        html += " fxn_active_variable";
+                        html += " fxn_active_value";
                     }
                     html += "'>";
                     
