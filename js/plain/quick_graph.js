@@ -424,9 +424,41 @@ function currentValueTemplate(template, fxnName, variableName, currentContext)
     return template;
 }
 
-function sliderValueTemplate(template, currentContext)
+function sliderValueTemplate(template, fxnNam, variableName, currentContexte)
 {
     template += "<div style='height: 100%; padding: 2px 5px 1px 5px; color: rgb(255,255,255); background: none; float: left;'>";
+    // Min value
+    template += currentContext.min;
+    // Slider
+    var mn = currentContext.min,
+        mx = currentContext.max;
+    template += "<input id='"+fxnName+"_" + variableName + "_slider'";
+    template += " type='range' alt='Adjust "+variableName+"' title='Adjust "+variableName+"'";
+    template += " min='"+mn+"' max='"+mx+"' step='"+((mx-mn)/1000)+"' value='"+currentContext.curr+"'";
+    template += "onchange='showValue(this.value.this.id)'";
+    template += "style='width: 100%;'/>";
+    
+    
+    // inp = document.createElement("input");
+    //     inp.id = v + "_slider";
+    //     inp.setAttribute("type", "range");
+    //     inp.setAttribute("min", minValue); //variableMinHash[i]);
+    //     inp.setAttribute("max", maxValue); //variableMaxHash[i]);
+    //     inp.setAttribute("step", stepValue); //variableStepHash[i]);
+    //     inp.setAttribute("value", lastValue);
+    //     inp.setAttribute("alt", "Adjust " + v);
+    //     inp.setAttribute("title", "Adjust " + v);
+    //     el.append(inp);
+    //     first.append(el);
+    //     inp = $(inp);
+    //     // Set initial value
+    //     inp.val(lastValue);
+    //     // Add change listener
+    //     inp[0].setAttribute("onchange", "showValue(this.value, this.id)");
+    
+    
+    // Max value
+    template += currentContext.max;
     template == "</div>";
   
     return template;
@@ -447,7 +479,7 @@ function populateDropDownValue(dropdown, context, fxnName, variableName, equatio
     // Setup value template
     template = currentValueTemplate(template, fxnName, variableName, currCtx);
     
-    template = sliderValueTemplate(template, currCtx);
+    template = sliderValueTemplate(template, fxnName, variableName, currCtx);
     
     // Close variable list
     // template = closeVariableList(template);
@@ -526,6 +558,9 @@ function editValue()
     
     // Populate dropdown
     populateDropDownValue(dropdown, context, fxnName, varName, eq);
+    
+    // Show dropdown
+    container.show();
 }
 
 function editVariable()
