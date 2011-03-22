@@ -432,7 +432,7 @@ function sliderValueTemplate(template, currentContext)
     return template;
 }
 
-function populateDropDownValue(dropdown, context, variableName, equation)
+function populateDropDownValue(dropdown, context, fxnName, variableName, equation)
 {
     var v, vars = equation.variables(),
         varLen = vars.length,
@@ -445,7 +445,7 @@ function populateDropDownValue(dropdown, context, variableName, equation)
     var currCtx = context[variableName];
     
     // Setup value template
-    template = currentValueTemplate(template, variableName, currCtx);
+    template = currentValueTemplate(template, fxnName, variableName, currCtx);
     
     template = sliderValueTemplate(template, currCtx);
     
@@ -539,7 +539,7 @@ function editValue()
     var dropdown = $("#dropdown_content_" + fxnName);
     
     // Populate dropdown
-    populateDropDownValue(dropdown, context, varName, eq);
+    populateDropDownValue(dropdown, context, fxnName, varName, eq);
 }
 
 function editVariable()
