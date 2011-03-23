@@ -883,17 +883,19 @@ function generateHashURL(vars,multi)
 
     functionListParent.find('div').each(function(i, el) {
         var row = $(el)[0];
-        var localEquation = row.fxnData.eq.toString();
-        if(typeof localEquation != "undefined")
+        if(typeof row.fxnData != "undefined")
         {
-            URL += compressName(localEquation);
-            var localName = row.fxnData.name.toString();
-            localName = localName.replace(/\s/g,"%20");
-            if(typeof localName != "undefined")
+            var localEquation = row.fxnData.eq.toString();
+            if(typeof localEquation != "undefined")
             {
-                URL += ":";
-                URL += localName; 
-            }
+                URL += compressName(localEquation);
+                var localName = row.fxnData.name.toString();
+                localName = localName.replace(/\s/g,"%20");
+                if(typeof localName != "undefined")
+                {
+                    URL += ":";
+                    URL += localName; 
+                }
             
             // now add the variable context into the hash for this eq
             var localContext = row.fxnData.context;
@@ -910,6 +912,7 @@ function generateHashURL(vars,multi)
             }
             
         URL += "{"
+        }
         }
     })
     URL += "=";
