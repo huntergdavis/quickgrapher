@@ -456,7 +456,7 @@ function sliderValueTemplate(template, fxnName, variableName, currentContext)
     template += "<input id='"+fxnName+"_" + variableName + "_slider'";
     template += " type='range' alt='Adjust "+variableName+"' title='Adjust "+variableName+"'";
     template += " min='"+mn+"' max='"+mx+"' step='"+((mx-mn)/1000)+"' value='"+currentContext.curr+"'";
-    template += "onchange='selectValue('"+fxnName+"','"+variableName+"')'";
+    template += "onchange=\"selectValue('"+fxnName+"','"+variableName+"')\"";
     template += "style='width: 450px; margin: 5px 10px 0px 10px;'/>";
     
     
