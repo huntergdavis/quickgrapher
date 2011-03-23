@@ -423,6 +423,7 @@ function selectValue(fxnName, varName)
         var eqEl = $("#row_" + fxnName)[0],
             eq = eqEl.fxnData.eq;
         solveEquation(eqEl, eq);
+        updateFunctionRow(eq, fxnName);
     }
 }
 
@@ -1057,85 +1058,85 @@ function createFunctionRow(name, fxn, parsed)
         style,
         main_id = "row_" + name;
         
-        // Create context
-        ctx = {};
-        for(var i = 0; i < varsLen; i++)
-        {
-            v = vars[i];
-            // Default value is 1 RANDOM!!!!11!1!
-            ctx[v] = {
-                min: 0,
-                curr: Math.round(1+20*Math.random()),
-                max: 100
-            };
-        }
-        
+    // Create context
+    ctx = {};
+    for(var i = 0; i < varsLen; i++)
+    {
+        v = vars[i];
+        // Default value is 1 RANDOM!!!!11!1!
+        ctx[v] = {
+            min: 0,
+            curr: Math.round(1+20*Math.random()),
+            max: 100
+        };
+    }
+    
 
-        // Check if we already have this row
-        row = $("#" + main_id);
-        // 
-        // // Row container
-        // el = document.createElement("div");
-        // el.id = "row_" + name;
-        // el.className = "fxn_row";
-        // el.fxnData = {
-        //     name: name,
-        //     fxn: fxn,
-        //     eq: parsed,
-        //     context: ctx
-        // };
-        // row = el;
-        // el = $(el);
-        // elParent.append(el);
-        // elParent = el;
-        // 
-        // // Row table
-        // el = document.createElement("table");
-        // elParent.append(el);
-        // elParent = $(el);
-        // 
-        // // Table row
-        // el = document.createElement("tr");
-        // elParent.append(el);
-        // el = $(el);
-        // // set an attr on each row for value tracking
-        // el.attr("innerFunction",fxn);
-        // el.attr("innerName",name);
-        // 
-        // elParent = $(el);
-        // 
-        // // Icon column
-        // el = document.createElement("td");
-        // el.id = "icons_" + name;
-        // el.className = "fxn_icons";
-        // el = $(el);
-        // elParent.append(el);
-        // 
-        // // Function column
-        // el = document.createElement("td");
-        // el.id = "fxn_" + name;
-        // el.className = "fxn_highlight";
-        // // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
-        // var niceName = name.replace(/\_/g," ");
-        // var inner = parsed.toHTML(niceName,"p");
-        // 
-        //     inner += " = ";
-        // el.innerHTML = inner;
-        // el = $(el);
-        // // modified later by graph
-        // style = {
-        //     background: "rgb(255,255,255)",
-        //     innerFunction: parsed.toString(),
-        //     innerName: name,
-        // };
-        // el.css(style);
-        // elParent.append(el);
-        // 
-        // // Remove column
-        // el = document.createElement("td");
-        // el.id = "remove_" + name;
-        // el.className = "fxn_remove";
-        // elParent.append(el);
+    // Check if we already have this row
+    row = $("#" + main_id);
+    // 
+    // // Row container
+    // el = document.createElement("div");
+    // el.id = "row_" + name;
+    // el.className = "fxn_row";
+    // el.fxnData = {
+    //     name: name,
+    //     fxn: fxn,
+    //     eq: parsed,
+    //     context: ctx
+    // };
+    // row = el;
+    // el = $(el);
+    // elParent.append(el);
+    // elParent = el;
+    // 
+    // // Row table
+    // el = document.createElement("table");
+    // elParent.append(el);
+    // elParent = $(el);
+    // 
+    // // Table row
+    // el = document.createElement("tr");
+    // elParent.append(el);
+    // el = $(el);
+    // // set an attr on each row for value tracking
+    // el.attr("innerFunction",fxn);
+    // el.attr("innerName",name);
+    // 
+    // elParent = $(el);
+    // 
+    // // Icon column
+    // el = document.createElement("td");
+    // el.id = "icons_" + name;
+    // el.className = "fxn_icons";
+    // el = $(el);
+    // elParent.append(el);
+    // 
+    // // Function column
+    // el = document.createElement("td");
+    // el.id = "fxn_" + name;
+    // el.className = "fxn_highlight";
+    // // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
+    // var niceName = name.replace(/\_/g," ");
+    // var inner = parsed.toHTML(niceName,"p");
+    // 
+    //     inner += " = ";
+    // el.innerHTML = inner;
+    // el = $(el);
+    // // modified later by graph
+    // style = {
+    //     background: "rgb(255,255,255)",
+    //     innerFunction: parsed.toString(),
+    //     innerName: name,
+    // };
+    // el.css(style);
+    // elParent.append(el);
+    // 
+    // // Remove column
+    // el = document.createElement("td");
+    // el.id = "remove_" + name;
+    // el.className = "fxn_remove";
+    // elParent.append(el);
 
         
     if(row.length == 0)
@@ -1249,16 +1250,19 @@ function createFunctionRow(name, fxn, parsed)
             eq: parsed,
             context: ctx
         };
-    
-        // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
-        var inner = parsed.toHTML(name,"p")
-            inner += " = ";
-        // Update function
-        $("#fxn_" + name)[0].innerHTML = inner;
-        
+        updateFunctionRow(parsed, name);
     }
     
     return row;
+}
+
+function updateFunctionRow(parsedEquation, fxnName)
+{
+    // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
+    var inner = parsedEquation.toHTML(fxnName,"p")
+        inner += " = ";
+    // Update function
+    $("#fxn_" + fxnName)[0].innerHTML = inner;
 }
 
 function createDropdownTable(container, root, name)
