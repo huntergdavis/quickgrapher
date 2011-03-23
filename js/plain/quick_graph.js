@@ -414,8 +414,8 @@ function selectValue(fxnName, varName)
         variableLabel = $("#" + fxnName + "_" + varName + "_curr"),
         step = parseFloat(slider.attr("step"));
         
-    sliderLabel.empty();
-    sliderLabel.append(parseInput(sliderValue,step));
+    variableLabel.empty();
+    variableLabel.append(parseInput(sliderValue,step));
     
     var update = true; //dynamicUpdate.is(":checked");
     if(update)
