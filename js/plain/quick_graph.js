@@ -21,12 +21,8 @@ function loadTitleBarHash()
     // Demunge
     addressBar = addressBar.replace(/'%/g,"+"); 
     
-    // do we have multiple equations?
-    var multipleEquations = 0;
 
     var equationEnd = addressBar.indexOf("="),
-        varsStart = equationEnd + 1,
-        varsStop = addressBar.indexOf("]"),
         equationString = "",
         equationValid = 0;     
     
@@ -74,138 +70,82 @@ function loadTitleBarHash()
         equationEnd = addressBar.length;
     }
     
-    /* Pull out our equation and set to be valid*/
+    /* Pull out our equation sets*/
     var equationArrayString = addressBar.substring(0,equationEnd);
     
     // parse out all the equations with a separator
     var equationStringArray = returnArrayOfEquations(equationArrayString);
     var esaLength = equationStringArray.length;
-   
-    // allow each function to have its own name
-    var functionName = "Function";
-    
-    var equationStringSplit = equationStringArray[0].split("[");
-    var equationStringZero = equationStringSplit[0];
-    var equationString = equationStringZero;
-    if(equationStringSplit.length > 1)
+
+    // if we have equations...
+    for(var i = 0; i < esaLength;i++)
     {
-        functionName = equationStringSplit[1];
-    }
-    
-
-    if (esaLength > 1)
-    {
-        multipleEquations = 1;
-        
-        // the base equation div name
-        var eqNameBase = "#mainEquation";
-        var nameNameBase = "#equationName";        
-        for(var i = 0;i<esaLength;i++)
+        var eqLength = equationStringArray[i].length;
+        if(eqLength > 1)
         {
-            var eqName;
-            var nameName;
-            if(i == 0)
+            // allow each function to have its own name
+            var functionName = "Function";
+            equationString = "Equation";
+            var localVarName,localVarMin,localVarCurr,localVarMax;
+            var localContext = {};
+            var equationStringSplit = equationStringArray[i].split(":");
+            var innerSplitLength = equationStringSplit.length;
+            var semicolonCounter = 0;
+            for(var j = 0;j<innerSplitLength;j++)
             {
-                eqName = eqNameBase;
-                nameName = nameNameBase;
-            }
-            else
+                if(j == 0)
+                {
+                    equationString = equationStringSplit[j];
+                }
+                else if(j == 1)
+                {
+                    functionName = equationStringSplit[j];
+                }
+                else
+                {
+                    if(semicolonCounter == 0)
+                    {
+                        localVarName = equationStringSplit[j];
+                    }
+                    else if(semicolonCounter == 1)
+                    {
+                        localVarMin = equationStringSplit[j];
+                    }
+                    else if(semicolonCounter == 2)
+                    {
+                        localVarCurr = equationStringSplit[j];
+                    }
+                    else if(semicolonCounter == 3)
+                    {
+                        localVarMax = equationStringSplit[j];
+                        localContext[localVarName] = {
+                            min: localVarMin,
+                            curr: localVarCurr,
+                            max: localVarMax
+                        };
+                        semicolonCounter = -1;
+                    }
+                    semicolonCounter++;
+                }
+            } // end of inner vars split loop
+            
+            var parsed;
+            try
             {
-                eqName = eqNameBase + (i+1).toString();
-                nameName = nameNameBase + (i+1).toString();
+                parsed = QGSolver.parse(equationString);
             }
-            
-            // set each eq val and name to be correct
-            equationStringSplit = equationStringArray[i].split("[");
-            equationString = equationStringSplit[0];
-            if(equationStringSplit.length > 1)
+            catch(exception)
             {
-                functionName = equationStringSplit[1];
-                functionName = functionName.replace(/%20/g," ");
+                visualErrorFunction();         
             }
-            
-            
-            $('#mainEquation').val(equationString);
-            $('#equationName').val(functionName);
-            addFunction();
-            
-        }
-    }
-
-    // replace plus signs in equation they are not usually supported
-    //equationString = equationString.replace(/%2B/g,"+");
-    
-    equationValid = 1;
-    
-    /* if we have variable hashes passed in, deal with them */
-  	if(varsStart > 1)
-  	{
-        var variableString = addressBar.substring(varsStart,varsStop),
-            minStart = 0,
-            minStop  = variableString.indexOf("{"),
-            maxStart = minStop + 1,
-            maxStop  = variableString.indexOf("}"),
-            stepStart = maxStop + 1,
-            stepStop = variableString.indexOf("["),
-            lastStart = stepStop + 1,
-            lastStop = variableString.indexOf(";"),
-            visStart = lastStop + 1,
-            visStop = variableString.indexOf("=");
-            nameStart = visStop + 1,
-            nameStop = variableString.length;
-        
-        /* grab the minimum address*/
-        var parseBlock = variableString.substring(minStart,minStop);
-        parseAndAddToHash(parseBlock,":",variableMinHash);
-  
-        /* grab the maximum address*/
-        parseBlock = variableString.substring(maxStart,maxStop);
-        parseAndAddToHash(parseBlock,":",variableMaxHash);
-  
-        /* grab the step address*/
-        parseBlock = variableString.substring(stepStart,stepStop);
-        parseAndAddToHash(parseBlock,":",variableStepHash);
-        
-         /* grab the last address*/
-        parseBlock = variableString.substring(lastStart,lastStop);
-        parseAndAddToHash(parseBlock,":",variableLastHash);
-  
-         /* grab the visibility*/
-        parseBlock = variableString.substring(visStart,visStop);
-        parseAndAddToHash(parseBlock,":",variableVisHash);
-        
-        /* grab the name*/
-        var tempName = variableString.substring(nameStart,nameStop);
-        tempName = tempName.replace(/%20/g," ");
-    } 	
-
-  	if(equationValid > 0)
-  	{
-  	    $("#mainEquation").val(equationStringZero);
-        //$("#totalName").val(tempName);
-        
-        if(typeof equationString != "undefined")
-        {
-            if(!multipleEquations)
-            {
-
-                $('#mainEquation').val(equationStringZero);
-                $('#equationName').val(tempName);
-                addFunction();
-                // parse the equation
-                //parsedEquation = QGSolver.parse(equationStringZero);
-                // Create sliders
-                //createSliders(parsedEquation.variables());
-                // Solve equation
-                //solveEquation();
+            functionName = sanitizeFunctionName(functionName);
+            row = createFunctionRowWithContext(functionName,equationString,parsed,localContext);
+            // Solve equation in row
+            solveEquation(row, parsed);
+            // correctly size bar elements
+            resizeBars();
             }
-//            else
-//            {
-//                parseMultipleEquations();
-//            }
-        }        
-        //$("#graphBtn").click();
-  	}
+    } // end of outer equations loop
 }
 
 function returnArrayOfEquations(equationArrayString)
@@ -214,9 +154,9 @@ function returnArrayOfEquations(equationArrayString)
     var localArray = new Array();
         
     // look for a split delimiter
-    if(equationArrayString.indexOf(";") > 0)
+    if(equationArrayString.indexOf("{") > 0)
     {
-        localArray = equationArrayString.split(";");
+        localArray = equationArrayString.split("{");
     }
     else
     {
@@ -935,83 +875,45 @@ function generateHashURL(vars,multi)
         URL = URL + "?";
     }
     
-    // add equation(s) to url
-    if(multi == 1)
-    {
-		functionListParent = $("#function_list");	
-        // the base equation div name
-        //var eqNameBase = "#mainEquation";
-        // the base name div name
-        //var nameNameBase = "#equationName";
-    
-		functionListParent.find('tr').each(function(i, el) {
-            var localEquation = $(el).attr('innerFunction');
-            if(typeof localEquation != "undefined")
-            {
-                URL += compressName(localEquation);
-                var localName = $(el).attr('innerName');
-                localName = localName.replace(/\s/g,"%20");
-                if(typeof localName != "undefined")
-                {
-                    URL += "[";
-                    URL += localName; 
-                }
-            URL += ";"
-            }
-        })
-        URL += "=";
-    }
-    else
-    {
-        var localEquation = $("#mainEquation").val();
+    functionListParent = $("#function_list");	
+    // the base equation div name
+    //var eqNameBase = "#mainEquation";
+    // the base name div name
+    //var nameNameBase = "#equationName";
+
+    functionListParent.find('div').each(function(i, el) {
+        var row = $(el)[0];
+        var localEquation = row.fxnData.eq.toString();
         if(typeof localEquation != "undefined")
         {
-            URL += compressName(localEquation) + "=";
-        }       
-    }
-    
-    // variables to store hash values
-    var delimiter = ":",
-        minString = "",
-        maxString = "",
-        stepString = "",
-        lastString = "",
-        visString = "";
-    
-    
-    // Loop over variables
-    var name = "",
-        v, varLen = vars.length,
-        step, minVal, maxVal, last;
-        
-    for(var i = 0; i < varLen; i++)
-    {
-        // Current variable
-        v = vars[i];
-        
-        // get current variable's values
-        lastVal = parseFloat($("#" + v + "_slider").val()),
-        minVal = parseFloat($("#" + v + "_min").val()),
-        stepVal = parseFloat($("#" + v + "_step").val()),
-        maxVal = parseFloat($("#" + v + "_max").val());
-        var visVal;
-        
-        if($("#" + v + "_graph_checkbox").is(":checked"))
-        {
-            visVal = 1;
-        }        
-        else
-        {
-            visVal = 0;
+            URL += compressName(localEquation);
+            var localName = row.fxnData.name.toString();
+            localName = localName.replace(/\s/g,"%20");
+            if(typeof localName != "undefined")
+            {
+                URL += ":";
+                URL += localName; 
+            }
+            
+            // now add the variable context into the hash for this eq
+            var localContext = row.fxnData.context;
+            for(var variableIndex in localContext)
+            {
+                URL += ":"
+                URL += variableIndex;
+                URL += ":";
+                URL += localContext[variableIndex].min;
+                URL += ":";
+                URL += localContext[variableIndex].curr;
+                URL += ":";
+                URL += localContext[variableIndex].max;
+            }
+            
+        URL += "{"
         }
-        
-        // add current values to correct hash strings
-        minString = minString + minVal + delimiter;
-        maxString = maxString + maxVal + delimiter;
-        stepString = stepString + stepVal + delimiter;
-        lastString = lastString + lastVal + delimiter;
-        visString = visString + visVal + delimiter;
-    }    
+    })
+    URL += "=";
+
     
     // replace spaces with %20 for web addresses
     //var graphName =  $("#totalName").val(),
@@ -1022,7 +924,7 @@ function generateHashURL(vars,multi)
     URL = URL.replace(/\+/g,"'%");
     
     // add the fully constituted strings to URL
-    URL += minString + "{" + maxString + "}" + stepString + "[" + lastString + ";" + visString + "=" + cleanGraphName + "]";
+    URL += cleanGraphName + "]";
     
     // sneak the url into the instructions block    
     $("#instruct").attr("href", URL);
@@ -1053,7 +955,8 @@ function updateShare(url, title)
     }
 } 
 
-function createFunctionRow(name, fxn, parsed)
+
+function createFunctionRow(name,fxn,parsed)
 {
     var v;
     var vars = parsed.variables();
@@ -1075,7 +978,21 @@ function createFunctionRow(name, fxn, parsed)
             max: 100
         };
     }
-    
+    return createFunctionRowWithContext(name, fxn, parsed,ctx)
+}
+
+function createFunctionRowWithContext(name, fxn, parsed,context)
+{
+    var v;
+    var vars = parsed.variables();
+    var varsLen = vars.length, ctx,
+        el, elParent = $("#function_list"),
+        row, container,
+        style,
+        main_id = "row_" + name;
+        
+    // Create context
+    ctx = context;
 
     // Check if we already have this row
     row = $("#" + main_id);
