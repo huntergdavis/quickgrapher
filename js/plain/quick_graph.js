@@ -407,7 +407,7 @@ function selectVariable(equationName, varName)
 
 
 //id='"+fxnName+"_" + variableName + "_slider'"
-function selectValue(equationName, varName)
+function selectValue(fxnName, varName)
 {
     var slider = $("#" + fxnName + "_" + varName + "_slider"),
         sliderValue = slider.val(),
@@ -420,7 +420,9 @@ function selectValue(equationName, varName)
     var update = true; //dynamicUpdate.is(":checked");
     if(update)
     {
-        solveEquation();
+        var eqEl = $("#row_" + fxnName)[0],
+            eq = eqEl.fxnData.eq;
+        solveEquation(eqEl, eq);
     }
 }
 
@@ -457,7 +459,7 @@ function sliderValueTemplate(template, fxnName, variableName, currentContext)
     template += " type='range' alt='Adjust "+variableName+"' title='Adjust "+variableName+"'";
     template += " min='"+mn+"' max='"+mx+"' step='"+((mx-mn)/1000)+"' value='"+currentContext.curr+"'";
     template += "onchange=\"selectValue('"+fxnName+"','"+variableName+"')\"";
-    template += "style='width: 450px; margin: 5px 10px 0px 10px;'/>";
+    template += "style='width: 440px; margin: 5px 10px 0px 10px;'/>";
     
     
     // inp = document.createElement("input");
