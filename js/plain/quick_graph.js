@@ -422,8 +422,13 @@ function selectValue(fxnName, varName)
     {
         var eqEl = $("#row_" + fxnName)[0],
             eq = eqEl.fxnData.eq;
-        solveEquation(eqEl, eq);
-        updateFunctionRow(eq, fxnName);
+        var context = eqEl.fxnData.context;
+        
+        // Update context
+        context[varName].curr = sliderValue;
+        
+        solveEquation(eqEl, eq)
+        //updateSolution(fxnName, eq, context, solution);
     }
 }
 
@@ -1250,20 +1255,16 @@ function createFunctionRow(name, fxn, parsed)
             eq: parsed,
             context: ctx
         };
-        updateFunctionRow(parsed, name);
+        // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
+        var inner = parsed.toHTML(name,"p")
+            inner += " = ";
+        // Update function
+        $("#fxn_" + name)[0].innerHTML = inner;
     }
     
     return row;
 }
 
-function updateFunctionRow(parsedEquation, fxnName)
-{
-    // Function HTML string (id prefix, element open tag, element close tag, context(optional) )
-    var inner = parsedEquation.toHTML(fxnName,"p")
-        inner += " = ";
-    // Update function
-    $("#fxn_" + fxnName)[0].innerHTML = inner;
-}
 
 function createDropdownTable(container, root, name)
 {
