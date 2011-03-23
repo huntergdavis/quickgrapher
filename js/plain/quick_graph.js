@@ -482,7 +482,7 @@ function sliderValueTemplate(template, fxnName, variableName, currentContext)
     template += "<font style='margin: auto;'>";
     template += currentContext.max;
     template += "</font>";
-    template == "</div>";
+    template += "</div>";
   
     return template;
 }
