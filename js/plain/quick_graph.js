@@ -437,8 +437,8 @@ function selectValue(fxnName, varName)
  */
 function currentValueTemplate(template, fxnName, variableName, currentContext)
 {
-    template += "<div style='height: 100%; padding: 5px 10px 3px 10px; font-size: 30pt; background-color: rgb(255,255,255); color: rgb(0,0,0); float: left;'>";
-    template += "<font style='font-size: 24pt; font-weight: bold;'>" + variableName + " = </font>";
+    template += "<div style='height: 100%; padding: 5px 10px 3px 10px; font-size: 26pt; background-color: rgb(255,255,255); color: rgb(0,0,0); float: left; width: 180px;'>";
+    template += "<font style='font-size: 18pt; font-weight: bold;'>" + variableName + " = </font>";
     template += "<font id='"+fxnName+"_"+variableName+"_curr'>" + currentContext.curr + "</font>";
     template += "</div>";
   
