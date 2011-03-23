@@ -410,12 +410,12 @@ function selectVariable(equationName, varName)
 function selectValue(fxnName, varName)
 {
     var slider = $("#" + fxnName + "_" + varName + "_slider"),
-        sliderValue = slider.val(),
         variableLabel = $("#" + fxnName + "_" + varName + "_curr"),
-        step = parseFloat(slider.attr("step"));
+        step = parseFloat(slider.attr("step")),
+        sliderValue = parseInput(slider.val(),step);
         
     variableLabel.empty();
-    variableLabel.append(parseInput(sliderValue,step));
+    variableLabel.append(sliderValue);
     
     var update = true; //dynamicUpdate.is(":checked");
     if(update)
