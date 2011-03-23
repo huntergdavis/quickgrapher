@@ -405,6 +405,25 @@ function selectVariable(equationName, varName)
     updateFunction(sanitizedName, fxn, eq);
 }
 
+
+//id='"+fxnName+"_" + variableName + "_slider'"
+function selectValue(equationName, varName)
+{
+    var slider = $("#" + fxnName + "_" + varName + "_slider"),
+        sliderValue = slider.val(),
+        variableLabel = $("#" + fxnName + "_" + varName + "_curr"),
+        step = parseFloat(slider.attr("step"));
+        
+    sliderLabel.empty();
+    sliderLabel.append(parseInput(sliderValue,step));
+    
+    var update = true; //dynamicUpdate.is(":checked");
+    if(update)
+    {
+        solveEquation();
+    }
+}
+
 /**
  * 
  * CurrentContext: {
@@ -426,17 +445,19 @@ function currentValueTemplate(template, fxnName, variableName, currentContext)
 
 function sliderValueTemplate(template, fxnName, variableName, currentContext)
 {
-    template += "<div style='height: 100%; padding: 2px 5px 1px 5px; color: rgb(255,255,255); background: none; float: left;'>";
+    template += "<div style='height: 100%; padding: 2px 5px 1px 5px; color: rgb(255,255,255); background: none; float: left; font-size: 20px;'>";
     // Min value
+    template += "<font style='margin: auto;'>";
     template += currentContext.min;
+    template += "</font>";
     // Slider
     var mn = currentContext.min,
         mx = currentContext.max;
     template += "<input id='"+fxnName+"_" + variableName + "_slider'";
     template += " type='range' alt='Adjust "+variableName+"' title='Adjust "+variableName+"'";
     template += " min='"+mn+"' max='"+mx+"' step='"+((mx-mn)/1000)+"' value='"+currentContext.curr+"'";
-    template += "onchange='showValue(this.value.this.id)'";
-    template += "style='width: 100%;'/>";
+    template += "onchange='selectValue('"+fxnName+"','"+variableName+"')'";
+    template += "style='width: 450px; margin: 5px 10px 0px 10px;'/>";
     
     
     // inp = document.createElement("input");
@@ -458,7 +479,9 @@ function sliderValueTemplate(template, fxnName, variableName, currentContext)
     
     
     // Max value
+    template += "<font style='margin: auto;'>";
     template += currentContext.max;
+    template += "</font>";
     template == "</div>";
   
     return template;
