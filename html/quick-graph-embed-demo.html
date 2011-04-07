@@ -22,18 +22,15 @@ hunter or mark at discursivelabs.com
     <meta name="viewport" content="width=device-width; initial-scale=1"/>
     <!-- Add "maximum-scale=1" to fix the Mobile Safari auto-zoom bug on orientation changes, 
       but keep in mind that it will disable user-zooming completely. Bad for accessibility. -->
-    <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
-    <script type="text/javascript" src="/js/jquery-ui-1.8.9.custom.min.js"></script>
-    <script type="text/javascript" src="/js/modernizr-1.6.min.js"></script>
-    <!--script src="/js/obfs.js" type="text/javascript" charset="utf-8"></script-->
-    <script src="/js/plain/autocolor.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/js/plain/realHover.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/js/plain/graph.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/js/plain/solver.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/js/plain/solver_definitions.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/js/plain/examples.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" charset="utf-8" src="http://w.sharethis.com/button/sharethis.js#publisher=['ce0c6c51-4a36-458a-9236-acf1be442ed0']&amp;"></script>
-    <script src="/js/plain/quick_graph_embed.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="http://www.hunterdavis.com/quickgrapher/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="http://www.hunterdavis.com/quickgrapher/js/jquery-ui-1.8.9.custom.min.js"></script>
+    <script type="text/javascript" src="http://www.hunterdavis.com/quickgrapher/js/modernizr-1.6.min.js"></script>
+    <script src="http://www.hunterdavis.com/quickgrapher/js/excanvas.compiled.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://www.hunterdavis.com/quickgrapher/js/canvas.text.js?reimplement=false" type="text/javascript" charset="utf-8"></script>
+    <script src="http://www.hunterdavis.com/quickgrapher/js/faces/dejavu_sans-bold-normal.js" type="text/javascript" charset="utf-8"></script>
+
+
+    <script src="/js/obfs_embed.js" type="text/javascript" charset="utf-8"></script>
   </head>
 
   <body>
@@ -47,7 +44,7 @@ hunter or mark at discursivelabs.com
       <br><br> 
       <p>
       <strong>A New Kind of Graphing Tool</strong><br>
-      If you've been using any of the betas at www.quickgrapher.com you may have found yourself wondering how it works, what libraries we use, and if the tech is available for public consumption.  QuickGrapher is based on two of our pure Javascript libraries, our solver library and our graphing library.  Due to the increased interest in these libraries, we've bundled them both together into a single javascript library you can include on your site, which allows you unprecedented graphing power in a fully client-side javascript environment.  You can display unlimited graphs with millions of points and complex equations faster than you ever thought possible, and without requiring your users to download a bandwidth-intensive image or flash applet.  Our graph+solve library allows you to embed a graph of arbitrary algorithmic and point complexity using a single "graph" tag, just like any other html tag.  Our library is compatiblie with Chrome, Safari, Opera, IE, and even embedded browsers for your iPhone, Blackberry, and Android devices.  
+      If you've been using any of the betas at www.quickgrapher.com you may have found yourself wondering how it works, what libraries we use, and if the tech is available for public consumption.  QuickGrapher is based on two of our pure Javascript libraries, our solver library and our graphing library.  Due to the increased interest in these libraries, we've bundled them both together into a single javascript library you can include on your site, which allows you unprecedented graphing power in a fully client-side javascript environment.  You can display unlimited graphs with scores of points and complex equations faster than you ever thought possible, and without requiring your users to download a bandwidth-intensive image or flash applet.  Our graph+solve library allows you to embed a graph of arbitrary algorithmic and point complexity using a single "graph" tag, just like any other html tag.  Our library is compatiblie with Chrome, Safari, Opera, IE, and even embedded browsers for your iPhone, Blackberry, and Android devices.  
       </p><br>
       <strong>Gallery</strong>
       <table>
@@ -82,7 +79,7 @@ hunter or mark at discursivelabs.com
       <p>
       <strong>Example 2</strong><br>
       Say you're writing a blog post about military tactics.  Maybe you're a soldier, maybe you're a history buff, maybe you just like tactics.  You'd like to show the positions of soldiers on a battlefield grid, and you don't want to have to continually edit maps by hand.  With Graph+Solve, you can instantly share your strategies with no image editing.  The following tag is all that is needed to generate the following graph.<br>
-      <small>&lt;graph values="10,10;30,11;40,12;20,8;50,7;60,15;70,5;21,10;33,12;44,24;" label="confederate soldiers" type="point"  values2="3,20;10,20;15,23;20,25;33,28;30,22;40,18;55,22;70,18" type2="point" label2="union soliders"  background="http://www.hunterdavis.com/discursivelabs/images/usa-states.png" title="Battle of The Three Lakes" style="height:400px; width:400px;"/&gt;</small><br>
+      <small>&lt;graph values="10,10;30,11;40,12;20,8;50,7;60,15;70,5;21,10;33,12;44,24;" label="confederate soldiers" type="point"  values2="3,20;10,20;15,23;20,25;33,28;30,22;40,18;55,22;70,18" type2="point" label2="union soliders"  background="http://www.hunterdavis.com/discursivelabs/images/3lakes.png" title="Battle of The Three Lakes" style="height:400px; width:400px;"/&gt;</small><br>
       
       <graph values="10,10;30,11;40,12;20,8;50,7;60,15;70,5;21,10;33,12;44,24;" label="confederate soldiers" type="point"  values2="3,20;10,20;15,23;20,25;33,28;30,22;40,18;55,22;70,18" type2="point" label2="union soliders"  background="http://www.hunterdavis.com/discursivelabs/images/3lakes.png" title="Battle of The Three Lakes" style="height:400px; width:400px;"/>
       </p><br>
