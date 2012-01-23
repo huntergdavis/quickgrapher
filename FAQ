@@ -1,0 +1,14 @@
+Q: What is QuickGrapher?
+A: QuickGrapher is an equation parser and solver which supports graphing functions that your old calculator never could. You can use it to easily graph equations, balance your budget, make embeddable graphs for your website, blog post, or social networking site, and so much more.
+
+Q: How do I start using QuickGrapher?
+A: QuickGrapher comes with a number of built-in example equations to get you started. Simply click on one of the example equations to begin editing it or enter your own equation into the equation box and click "Graph!". There are also helpful video walkthroughs below.
+
+Q: Are my equations private?
+A: Yes. Unlike Wolfram Alpha, Google, or most other web-based equation utilities, our custom analytical math and graphing libraries run completely in the browser. Your equations are never sent to a server and do not require an internet connection or installed software. We allow you to update graphs in real-time without using your precious internet bandwidth.
+
+Q: What browsers support QuickGrapher? 
+A: Any browser which supports HTML5 is sufficient to run QuickGrapher. No flash or third party plugins are required. The newest versions of Chrome, Opera, and Safari have built-in support for HTML5, as do the newest beta versions of Firefox and Internet Explorer.
+
+Q: Do I need any installed software or plugins to run QuickGrapher?
+A: No, QuickGrapher is built from the ground up to run directly in the browser. No installed software or third party plugins are necessary. You do not need Flash, Shockwave, or any other plugin. Quickgrapher is a pure Javascript and HTML5 application, technologies which are built into modern browsers.
