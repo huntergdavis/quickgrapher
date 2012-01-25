@@ -1,3 +1,128 @@
 QuickGrapher.com was one of the research projects spun out of Discursive Labs.   One of the most promising projects we worked on, it always felt like a project without an intended audience, but it never really lifted off.  I'm quite proud of the work that Mark and I did, and think it's a tremendously cool project.  
 
 You can use it to embed graphs of any equation within a webpage as easily as a single tag.  You can use it to solve complex equations, functions, etc.  It runs completely in client side Javascript and doesn't require a web connection. it runs on mobile and desktop platforms.  It can display hundreds of thousands of data points and adjust them in real-time.  And now it's open source, BSD licensed, and ready for you to use to escape the tyrannical grasp of Wolfram Alpha.
+
+
+. <------------------------------------------File Structure
+|-- CHANGELOG
+|-- css                                    <--The style for Quickgrapher
+|   |-- jquery-ui-1.8.9.custom.css
+|   |-- less-style.css
+|   `-- style.css
+|-- FAQ                                    <--The FAQ
+|-- html                                   <--html files.  Index is for displaying the main quickgrapher.  Quick-graph-dev should be newest dev version.
+|   |-- index.html
+|   |-- quick-graph-dev.html
+|   |-- quick-graph-embed-demo.html        <--You can make embedded graphs these here are examples of that.
+|   |-- quick-graph-embed-test.html
+|   |-- quickgrapher-faq.html
+|   |-- quickgrapher-tutorials.html
+|   |-- quickgrapher-walkthrough.html
+|   |-- quick-graph.html
+|   |-- quick-graph-multiple.html
+|   `-- test-suite.html
+|-- images                                 <--Images used on the quickgrpaher web implementation
+|   |-- clear_hover.png
+|   |-- clear.png
+|   |-- graph.gif
+|   |-- grid_1.gif
+|   |-- grid_2.gif
+|   |-- grid_hover.png
+|   |-- grid.png
+|   |-- licensing
+|   |-- logo_1.png
+|   |-- logo_concise_1.png
+|   |-- screenshot_hover.png
+|   |-- screenshot.png
+|   |-- shareicons                         <--Ancillary files used by the 'sharethis' plugin 
+|   |   |-- share-icon-10x10.png
+|   |   |-- share-icon-128x128.png
+|   |   |-- share-icon-12x12.png
+|   |   |-- share-icon-16x16.png
+|   |   |-- share-icon-24x24.png
+|   |   |-- share-icon-32x32.png
+|   |   |-- share-icon-64x64.png
+|   |   |-- share-icon.ai
+|   |   `-- share-icon.svg
+|   |-- ui-bg_diagonals-thick_18_b81900_40x40.png
+|   |-- ui-bg_diagonals-thick_20_666666_40x40.png
+|   |-- ui-bg_flat_10_000000_40x100.png
+|   |-- ui-bg_glass_100_f6f6f6_1x400.png
+|   |-- ui-bg_glass_100_fdf5ce_1x400.png
+|   |-- ui-bg_glass_65_ffffff_1x400.png
+|   |-- ui-bg_gloss-wave_35_f6a828_500x100.png
+|   |-- ui-bg_highlight-soft_100_eeeeee_1x100.png
+|   |-- ui-bg_highlight-soft_75_ffe45c_1x100.png
+|   |-- ui-icons_222222_256x240.png
+|   |-- ui-icons_228ef1_256x240.png
+|   |-- ui-icons_ef8c08_256x240.png
+|   |-- ui-icons_ffd27a_256x240.png
+|   |-- ui-icons_ffffff_256x240.png
+|   `-- walkthroughs                                 <------Images for the walkthrough html pages
+|       |-- 1
+|       |   |-- examplesopen.png
+|       |   |-- examplesopen_v2.jpg
+|       |   |-- examples.png
+|       |   |-- examples_v2.jpg
+|       |   |-- resolveordynamic.png
+|       |   |-- resolveordynamic_v2.jpg
+|       |   |-- variables.png
+|       |   `-- variables_v2.jpg
+|       `-- 2
+|           |-- adjust_variables.png
+|           |-- adjust_variables_v2.jpg
+|           |-- finished_product.png
+|           |-- finished_product_v2.jpg
+|           |-- functionsopen.png
+|           |-- functionsopen_v2.jpg
+|           |-- functions.png
+|           |-- functions_v2.jpg
+|           |-- graphname_and_variable.png
+|           `-- graphname_and_variable_v2.jpg
+|-- js                                              <------Javascript files for quickgrapher, the main source code
+|   |-- jquery-1.4.4.min.js
+|   |-- jquery-ui-1.8.9.custom.min.js               <------jquery library, should probably be a git submodule
+|   |-- modernizr-1.6.min.js                        <------modernizr library for backwards compat., should probably be a git submodule
+|   |-- obf                                         <------these are the obfuscated javascript files we used during development
+|   |   |-- embedded_everything.js
+|   |   |-- everything.js
+|   |   |-- examples.js
+|   |   |-- obfs.js
+|   |   |-- quick_graph_embed.js
+|   |   |-- quick_graph.js
+|   |   |-- realHover.js
+|   |   |-- solver_definitions.js
+|   |   `-- solver.js
+|   |-- obfs_embed.js
+|   |-- obfs.js
+|   `-- plain                                        <-----these are the real unobfuscated source code files
+|       |-- examples.js
+|       |-- fxnexamples.js
+|       |-- g.line.js
+|       |-- g.raphael.js
+|       |-- math.js
+|       |-- quick_graph_embed.js
+|       |-- quick_graph.js
+|       |-- quick_graph.old.js
+|       |-- raphael.js
+|       |-- solver_definitions.js
+|       |-- solver.js
+|       |-- solver_test_examples.js
+|       `-- solver_test.js
+|-- LICENSE                                          <----- BSD License
+|-- old_html                                         <-----Older versions of QG we had written
+|   |-- beta-sliders.html
+|   |-- quick-graph-2.html
+|   |-- quickgraph.html
+|   `-- quick-graph-less.html
+|-- README                                           <---- YOU ARE HERE
+|-- scripts                                         
+|   |-- id_rsa
+|   |-- id_rsa.pub
+|   |-- pullfromgit.sh
+|   |-- pushtogit.sh
+|   `-- pushToWebsite.sh
+`-- testing
+    `-- sampleEquations.txt
+
+13 directories, 107 files
