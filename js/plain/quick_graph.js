@@ -863,7 +863,7 @@ function generateHashURL(vars,multi)
     // do NOT use window.location.href
     // it FAILS to on redirection sites
     //var URL = window.location.href,
-    var URL = "www.quickgrapher.com/index.html?";
+    var URL = "www.hunterdavis.com/quickgrapher/index.html?";
     // Pull off any existing URI params
     end = URL.indexOf("?");
     if(end != -1)
@@ -1983,7 +1983,7 @@ function createFunctionLink(fxnStr, style, parent)
 function createExampleLink(example, parent)
 {
     var ex = document.createElement("li"),
-        inner = "<a href='http://www.quickgrapher.com/index.html?";
+        inner = "<a href='http://www.hunterdavis.com/quickgrapher/index.html?";
     inner += compressName(example.url);
     inner += "'>"
     inner += example.name;
