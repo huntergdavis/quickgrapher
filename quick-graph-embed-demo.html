@@ -12,15 +12,15 @@ hunter or mark at discursivelabs.com
   <head>
     <meta charset="utf-8"/>
     <title>QuickGrapher</title>
-  
+
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    
+
     <link rel="stylesheet" media="all" href="/css/less-style.css"/>
     <link rel="stylesheet" media="all" href="/css/jquery-ui-1.8.9.custom.css"/>
     <meta name="viewport" content="width=device-width; initial-scale=1"/>
-    <!-- Add "maximum-scale=1" to fix the Mobile Safari auto-zoom bug on orientation changes, 
+    <!-- Add "maximum-scale=1" to fix the Mobile Safari auto-zoom bug on orientation changes,
       but keep in mind that it will disable user-zooming completely. Bad for accessibility. -->
     <script type="text/javascript" src="http://www.hunterdavis.com/quickgrapher/js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="http://www.hunterdavis.com/quickgrapher/js/jquery-ui-1.8.9.custom.min.js"></script>
@@ -37,14 +37,14 @@ hunter or mark at discursivelabs.com
     <div id="container">
       <div id="inner">
         <span style="width: 100%;">
-          <a href="http://www.quickgrapher.com">
+          <a href="http://www.hunterdavis.com/quickgrapher/">
             <img class="logo" src="http://www.hunterdavis.com/quickgrapher/images/logo_1.png"></img>
           </a>
         </span>
-      <br><br> 
+      <br><br>
       <p>
       <strong>A New Kind of Graphing Tool</strong><br>
-      If you've been using any of the betas at www.quickgrapher.com you may have found yourself wondering how it works, what libraries we use, and if the tech is available for public consumption.  QuickGrapher is based on two of our pure Javascript libraries, our solver library and our graphing library.  Due to the increased interest in these libraries, we've bundled them both together into a single javascript library you can include on your site, which allows you unprecedented graphing power in a fully client-side javascript environment.  You can display unlimited graphs with scores of points and complex equations faster than you ever thought possible, and without requiring your users to download a bandwidth-intensive image or flash applet.  Our graph+solve library allows you to embed a graph of arbitrary algorithmic and point complexity using a single "graph" tag, just like any other html tag.  Our library is compatiblie with Chrome, Safari, Opera, IE, and even embedded browsers for your iPhone, Blackberry, and Android devices.  
+      If you've been using any of the betas at www.hunterdavis.com/quickgrapher/ you may have found yourself wondering how it works, what libraries we use, and if the tech is available for public consumption.  QuickGrapher is based on two of our pure Javascript libraries, our solver library and our graphing library.  Due to the increased interest in these libraries, we've bundled them both together into a single javascript library you can include on your site, which allows you unprecedented graphing power in a fully client-side javascript environment.  You can display unlimited graphs with scores of points and complex equations faster than you ever thought possible, and without requiring your users to download a bandwidth-intensive image or flash applet.  Our graph+solve library allows you to embed a graph of arbitrary algorithmic and point complexity using a single "graph" tag, just like any other html tag.  Our library is compatiblie with Chrome, Safari, Opera, IE, and even embedded browsers for your iPhone, Blackberry, and Android devices.
       </p><br>
       <strong>Gallery</strong>
       <table>
@@ -58,7 +58,7 @@ hunter or mark at discursivelabs.com
         <td><graph values="1,1;2,2;3,3;1,3;2,3;1.5,1.5;3,3.3;2.123,4.33;5,5" label="awesome Points" type="point" style="height:100px; width:150px;float:left;"></graph> </td>
         <td><graph values1="1,1;2,2;3,3;1,3;2,3" label1="awesome spots on a line" type1="line" style="height:100px; width:150px;position: relative; left: 0px;"></graph> </td>
         <td><graph equation1="sin(x)"  values="1,1;2,2;3,3;1,3;2,3" label="awesome Points" type="point" title="Point+Line+Eq" values2="4,4;5,5;4,6;6,6" label2="awesome Line" type2="line" style="height:100px; width:150px;"></graph> </td>
-        <td><graph equation1="3+x" vars1="3" minstepmax1="1,5,50" equation2="sin(f)" vars2="5" style="height:100px; width:150px;" title="Multi Eqs"></graph>  </td>       
+        <td><graph equation1="3+x" vars1="3" minstepmax1="1,5,50" equation2="sin(f)" vars2="5" style="height:100px; width:150px;" title="Multi Eqs"></graph>  </td>
       </tr>
 </table><br>
       <p>
@@ -74,21 +74,21 @@ hunter or mark at discursivelabs.com
       </p><br>
       <p>
       <strong>Versatile Options</strong><br>
-      Graph+Solve supports a wide range of options and CSS styles.  Simply by setting the correct attributes one may use Graph+Solve to instantly create cross-platform maps and terrain graphs.  Dimensions, colors, backgrounds, grids, legends and so much more can be easily set using standard html and css tag attributes.  Perhaps you're not interested in a background grid, XY coordinates, multiple equations, legends, etc.  Graph+Solve allows you to set exactly the options you care about, and can auto-generate any necessary attributes not specified by the user.  
+      Graph+Solve supports a wide range of options and CSS styles.  Simply by setting the correct attributes one may use Graph+Solve to instantly create cross-platform maps and terrain graphs.  Dimensions, colors, backgrounds, grids, legends and so much more can be easily set using standard html and css tag attributes.  Perhaps you're not interested in a background grid, XY coordinates, multiple equations, legends, etc.  Graph+Solve allows you to set exactly the options you care about, and can auto-generate any necessary attributes not specified by the user.
       </p><br>
       <p>
       <strong>Example 2</strong><br>
       Say you're writing a blog post about military tactics.  Maybe you're a soldier, maybe you're a history buff, maybe you just like tactics.  You'd like to show the positions of soldiers on a battlefield grid, and you don't want to have to continually edit maps by hand.  With Graph+Solve, you can instantly share your strategies with no image editing.  The following tag is all that is needed to generate the following graph.<br>
       <small>&lt;graph values="10,10;30,11;40,12;20,8;50,7;60,15;70,5;21,10;33,12;44,24;" label="confederate soldiers" type="point"  values2="3,20;10,20;15,23;20,25;33,28;30,22;40,18;55,22;70,18" type2="point" label2="union soliders"  background="http://www.hunterdavis.com/discursivelabs/images/3lakes.png" title="Battle of The Three Lakes" style="height:400px; width:400px;"/&gt;</small><br>
-      
+
       <graph values="10,10;30,11;40,12;20,8;50,7;60,15;70,5;21,10;33,12;44,24;" label="confederate soldiers" type="point"  values2="3,20;10,20;15,23;20,25;33,28;30,22;40,18;55,22;70,18" type2="point" label2="union soliders"  background="http://www.hunterdavis.com/discursivelabs/images/3lakes.png" title="Battle of The Three Lakes" style="height:400px; width:400px;"/>
       </p><br>
       <p>
       <strong>Serious Bandwidth Reduction</strong><br>
-      Our pure clientside Javascript graph+solve library in its entirety weighs in at 40 kilobytes.  That's roughly equivalent to a very small, highly compressed jpeg from a camera phone circa 2005.  With this one 40 kilobyte library (less than what adsense loads), you can replace every single graph or equation plot on your website.  If you're running a graph heavy website this can be a reduction of many thousands of times.  What's more, our graph+solve library is used by many websites, and may be cached by the users browser.  If a user is coming in from another graph+solve enabled site, they download nothing.  This is a serious reduction in page load times for all browsers, but especially for those on 3g networks or hampered by a slow connection. 
+      Our pure clientside Javascript graph+solve library in its entirety weighs in at 40 kilobytes.  That's roughly equivalent to a very small, highly compressed jpeg from a camera phone circa 2005.  With this one 40 kilobyte library (less than what adsense loads), you can replace every single graph or equation plot on your website.  If you're running a graph heavy website this can be a reduction of many thousands of times.  What's more, our graph+solve library is used by many websites, and may be cached by the users browser.  If a user is coming in from another graph+solve enabled site, they download nothing.  This is a serious reduction in page load times for all browsers, but especially for those on 3g networks or hampered by a slow connection.
       </p><br>
-      
-      <p>      
+
+      <p>
       <strong>Example 3</strong>
       Let's say you're writing an article on statistics, and you'd like to show a random distribution.  A really large random distribution would be best, as the more data the better visual.  You could generate a million points using a programming language, then feed it into an existing tool such as excel or matlab.  Then, using the same tool you could plot another guide line along the median to show where the mean distribution should be. That is, if you can figure out how to add a line to a plot graph.  Or, you could do it in ten seconds in a single line of html using the Graph+Solve library.  The following line of html generates a hundred random points and plots a line across the median of the graph.  Note how you are able to style the graph using standard CSS tags, and simultaneously display line graphs, point graphs, and equation graphs using the same tag.<br>
      <small> &lt;graph equation1="rand(x)" minstepmax1="0,10,1000" title="Mean Random Distrubtion" values1="1,.5;100,.5" label2="Median Line" type2="line"/&gt;</small>
@@ -98,7 +98,7 @@ hunter or mark at discursivelabs.com
       <br>
       <p>
       <strong>Serious Efficiency</strong><br>
-      Just because graph+solve is executed by a client's browser, don't expect it to be slow.  Graph+solve requires no external plugin of any kind, Flash or otherwise.  It speedily graphs thousands of points in a few moments on a Pentium 3 class computer, quite ancient now in 2011.  Graphs of complex equations with thousands of data points and complex algebraic functions load faster than a single equivalent image on mobile 3g devices.  
+      Just because graph+solve is executed by a client's browser, don't expect it to be slow.  Graph+solve requires no external plugin of any kind, Flash or otherwise.  It speedily graphs thousands of points in a few moments on a Pentium 3 class computer, quite ancient now in 2011.  Graphs of complex equations with thousands of data points and complex algebraic functions load faster than a single equivalent image on mobile 3g devices.
       </p><br>
       <p>
       <strong>Example 4</strong>
@@ -106,8 +106,8 @@ hunter or mark at discursivelabs.com
       <small>
        &lt;graph title="Our Mystery Point Graph" values="20,11;19,6;19,2;17,2;17,6;16,5;15,2;13,2;14,5;14,6;12,6;12,2;10,2;10,4;9,2;7,2;9,6;7,6;4,4;2,3;0,2;1,3;3,5;5,9;9,11;17,11;21,17;23,18;25,17;24,16;20,11;" label="Mystery Points" type="point" style="width:250px;float:left;" /&gt; <br>
        &lt;graph title="Not A Mystery Anymore" values="20,11;19,6;19,2;17,2;17,6;16,5;15,2;13,2;14,5;14,6;12,6;12,2;10,2;10,4;9,2;7,2;9,6;7,6;4,4;2,3;0,2;1,3;3,5;5,9;9,11;17,11;21,17;23,18;25,17;24,16;20,11;" label="Point Connecting Lines" type="line" style="width:250px;float:left;align:right;"  /&gt; <br>
-          </small>        
-      <table>    
+          </small>
+      <table>
           <tr>
               <td><graph title="Our Mystery Point Graph" values="20,11;19,6;19,2;17,2;17,6;16,5;15,2;13,2;14,5;14,6;12,6;12,2;10,2;10,4;9,2;7,2;9,6;7,6;4,4;2,3;0,2;1,3;3,5;5,9;9,11;17,11;21,17;23,18;25,17;24,16;20,11;" label="Mystery Points" type="point" style="width:250px;float:left;" />  </td>
               <td> <graph title="Not A Mystery Anymore" values="20,11;19,6;19,2;17,2;17,6;16,5;15,2;13,2;14,5;14,6;12,6;12,2;10,2;10,4;9,2;7,2;9,6;7,6;4,4;2,3;0,2;1,3;3,5;5,9;9,11;17,11;21,17;23,18;25,17;24,16;20,11;" label="Point Connecting Lines" type="line" style="width:250px;float:left;align:right;" /> </td>
@@ -115,24 +115,24 @@ hunter or mark at discursivelabs.com
       </table>
 
       </p>
-      
+
 </div></div>
     </div>
     <center id="footer">
-      Email: <font style="font-weight: bold">beta @ quickgrapher.com</font><br/>
+      Email: <font style="font-weight: bold">beta @ hunterdavis.com/quickgrapher/</font><br/>
       Copyright 2011 Discursive Labs, LLC
     </center>
     <div id="beta_box" style="position:absolute; top: 0px; right: 0px; padding: 4px; font-weight: bold; font-size: 13pt; color: rgb(195,220,235); background-color: rgb(164,157,143); width: 120px; text-align: right; border: 1px solid rgb(144,136,125);">
         <div style="text-align: center;">We love feedback & suggestions!</div><br/><br/>
         <font style="font-size: 10pt;">Let us know your thoughts in an email to</font>
-        <div style="text-align: left; color: rgb(53, 52, 49); margin-bottom: -5px; padding-bottom: 10px; border-bottom: 1px solid black"><br/>beta <font style="color: rgb(255,255,255);">@</font><br/><font style="font-size: 10pt;">quickgrapher.com</font></div>
+        <div style="text-align: left; color: rgb(53, 52, 49); margin-bottom: -5px; padding-bottom: 10px; border-bottom: 1px solid black"><br/>beta <font style="color: rgb(255,255,255);">@</font><br/><font style="font-size: 10pt;">hunterdavis.com/quickgrapher/</font></div>
     </div>
     <script type="text/javascript">
         // Google analytics
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-19995643-2']);
         _gaq.push(['_trackPageview']);
-        
+
         (function() {
             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -140,6 +140,5 @@ hunter or mark at discursivelabs.com
         })();
     </script>
   </body>
-  
-</html>
 
+</html>
