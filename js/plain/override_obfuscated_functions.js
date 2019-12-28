@@ -17,8 +17,21 @@ function generateHashURL(vars,multi)
     // do NOT use window.location.href
     // it FAILS to on redirection sites
     //var URL = window.location.href,
-    var URL = "www.hunterdavis.com/quickgrapher/?";
-
+    // do NOT use window.location.href
+    // it FAILS to on redirection sites
+    //var URL = window.location.href,
+    var URL = "www.hunterdavis.com/quickgrapher/index.html?";
+    // Pull off any existing URI params
+    end = URL.indexOf("?");
+    if(end != -1)
+    {
+        URL = URL.substring(0,end+1);
+    }
+    else
+    {
+        URL = URL + "?";
+    }
+    
     functionListParent = $("#function_list");
     // the base equation div name
     //var eqNameBase = "#mainEquation";
