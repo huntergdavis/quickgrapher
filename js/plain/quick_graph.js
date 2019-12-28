@@ -620,7 +620,7 @@ function createContext(eq, vars)
         //slider = $("#" + v + "_slider_value");//$("#" + v + "_slider");
         //val = parseInput(slider.text(),step);
 
-        if(typeof data[v] != undefinted) {
+        if(typeof data[v] != undefined) {
           val = data[v].curr;
         }else {
           val = 0;
