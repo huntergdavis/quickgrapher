@@ -22,7 +22,7 @@ function loadTitleBarHash()
 
 
     if(equationStart < 1) {
-      equationStart = encodedBar.indexOf(".html/")+1,
+      equationStart = encodedBar.indexOf(".html/")+1;
     }
 
 
