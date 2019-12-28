@@ -31,7 +31,7 @@ function generateHashURL(vars,multi)
     {
         URL = URL + "?";
     }
-    
+
     functionListParent = $("#function_list");
     // the base equation div name
     //var eqNameBase = "#mainEquation";
