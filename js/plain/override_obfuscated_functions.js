@@ -11,82 +11,147 @@ function createExampleLink(example, parent)
     parent.append(ex);
 }
 
-/* function generateHashURL generates a save hash url for the current equation, receives variables as argument*/
-function generateHashURL(vars,multi)
+/* LoadTitleBarHash loads in passed-in title bar equation */
+function loadTitleBarHash()
 {
-    // do NOT use window.location.href
-    // it FAILS to on redirection sites
-    //var URL = window.location.href,
-    // do NOT use window.location.href
-    // it FAILS to on redirection sites
-    //var URL = window.location.href,
-    var URL = "www.hunterdavis.com/quickgrapher/index.html?";
-    // Pull off any existing URI params
-    end = URL.indexOf("?");
-    if(end != -1)
-    {
-        URL = URL.substring(0,end+1);
-    }
-    else
-    {
-        URL = URL + "?";
+    // Get location and search string.  I think there is a faster way to do this.
+    var encodedBar = window.location.href,
+        equationStart = encodedBar.indexOf("?")+1,
+        encodedString = encodedBar.substring(equationStart,encodedBar.length),
+        addressBar = encodedString;
+
+
+    if(equationStart < 1) {
+      equationStart = encodedBar.indexOf(".html/")+1,
     }
 
-    functionListParent = $("#function_list");
-    // the base equation div name
-    //var eqNameBase = "#mainEquation";
-    // the base name div name
-    //var nameNameBase = "#equationName";
 
-    functionListParent.find('div').each(function(i, el) {
-        var row = $(el)[0];
-        if(typeof row.fxnData != "undefined")
+    // Demunge
+    addressBar = addressBar.replace(/'%/g,"+");
+
+
+    var equationEnd = addressBar.indexOf("="),
+        equationString = "",
+        equationValid = 0;
+
+
+    var loadRandom = false;
+    /* ensure we've got an equation to parse*/
+    if(equationStart < 1)
+    {
+        var exNumber;
+        if(loadRandom)
         {
-            var localEquation = row.fxnData.eq.toString();
-            if(typeof localEquation != "undefined")
+            // let's load a random example instead
+            var exLen = examples.length;
+            var exRand = Math.floor(Math.random() * exLen);
+            if (exRand == 0)
             {
-                URL += compressName(localEquation);
-                var localName = row.fxnData.name.toString();
-                localName = localName.replace(/\s/g,"%20");
-                if(typeof localName != "undefined")
-                {
-                    URL += ":";
-                    URL += localName;
-                }
-
-            // now add the variable context into the hash for this eq
-            var localContext = row.fxnData.context;
-            for(var variableIndex in localContext)
-            {
-                URL += ":"
-                URL += variableIndex;
-                URL += ":";
-                URL += localContext[variableIndex].min;
-                URL += ":";
-                URL += localContext[variableIndex].curr;
-                URL += ":";
-                URL += localContext[variableIndex].max;
+                exRand++;
             }
-
-        URL += "{"
+            exNumber = exRand;
         }
+        else
+        {
+            exNumber = 5;
         }
-    })
-    URL += "=";
+
+        // Assume we have the address we need currently
+        var URL = window.location.href,
+        // Pull off any existing URI params
+            end = URL.indexOf("?");
+        if(end != -1)
+        {
+            URL = URL.substring(0,end);
+        }
+        newURL = URL + "?" + examples[exNumber].url;
+        window.location = newURL;
 
 
-    // replace spaces with %20 for web addresses
-    //var graphName =  $("#totalName").val(),
-    //cleanGraphName = graphName.replace(/\s/g,"%20");
-    var cleanGraphName = "";
+        return;
+    }
 
-    // clean up the plusses in URL for email clients
-    URL = URL.replace(/\+/g,"'%");
+    /* assume the equation is the entire bar if no other hash material
+     * (for people hotlinking or apis to work later) */
+    if(equationEnd < 1)
+    {
+        equationEnd = addressBar.length;
+    }
 
-    // add the fully constituted strings to URL
-    URL += cleanGraphName + "]";
+    /* Pull out our equation sets*/
+    var equationArrayString = addressBar.substring(0,equationEnd);
 
-    // sneak the url into the instructions block
-    $("#instruct").attr("href", URL);
+    // parse out all the equations with a separator
+    var equationStringArray = returnArrayOfEquations(equationArrayString);
+    var esaLength = equationStringArray.length;
 
+    // if we have equations...
+    for(var i = 0; i < esaLength;i++)
+    {
+        var eqLength = equationStringArray[i].length;
+        if(eqLength > 1)
+        {
+            // allow each function to have its own name
+            var functionName = "Function";
+            equationString = "Equation";
+            var localVarName,localVarMin,localVarCurr,localVarMax;
+            var localContext = {};
+            var equationStringSplit = equationStringArray[i].split(":");
+            var innerSplitLength = equationStringSplit.length;
+            var semicolonCounter = 0;
+            for(var j = 0;j<innerSplitLength;j++)
+            {
+                if(j == 0)
+                {
+                    equationString = equationStringSplit[j];
+                }
+                else if(j == 1)
+                {
+                    functionName = equationStringSplit[j];
+                }
+                else
+                {
+                    if(semicolonCounter == 0)
+                    {
+                        localVarName = equationStringSplit[j];
+                    }
+                    else if(semicolonCounter == 1)
+                    {
+                        localVarMin = equationStringSplit[j];
+                    }
+                    else if(semicolonCounter == 2)
+                    {
+                        localVarCurr = equationStringSplit[j];
+                    }
+                    else if(semicolonCounter == 3)
+                    {
+                        localVarMax = equationStringSplit[j];
+                        localContext[localVarName] = {
+                            min: localVarMin,
+                            curr: localVarCurr,
+                            max: localVarMax
+                        };
+                        semicolonCounter = -1;
+                    }
+                    semicolonCounter++;
+                }
+            } // end of inner vars split loop
+
+            var parsed;
+            try
+            {
+                parsed = QGSolver.parse(equationString);
+            }
+            catch(exception)
+            {
+                visualErrorFunction();
+            }
+            functionName = sanitizeFunctionName(functionName);
+            row = createFunctionRowWithContext(functionName,equationString,parsed,localContext);
+            // Solve equation in row
+            solveEquation(row, parsed);
+            // correctly size bar elements
+            resizeBars();
+            }
+    } // end of outer equations loop
 }
