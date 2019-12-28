@@ -1,6 +1,8 @@
 /* Examples
  * */
 
+Examples = [];
+
 Examples.push({
     name: "Bill Calculator",
     fxn : "100*(salary - rent - studentloans - carpayments - grocery-spendingmoney-retirement) - netflix -tivo -petfood -gas-electric + 100*(subleaseincome + stockportfolio)",
@@ -13,7 +15,7 @@ Examples.push({
     fxn : "StarFormationRate * StarsWithPlanets * LifeSustainingPlanets * PlanetsWhichActuallyDevelopLife * PlanetsWithIntelligentLife * CivilizationsWithDetectors * DurationOfSpaceSignals",
     url : "StarFormationRate*StarsWithPlanets*LifeSustainingPlanets*PlanetsWhichActuallyDevelopLife*PlanetsWithIntelligentLife*CivilizationsWithDetectors*DurationOfSpaceSignals=0:0:0:0:0:0:0:{20:1:10:1:1:1:20:}1:0.1:1:0.1:0.1:0.1:1:[10:0.5:2:1:0.1:0.1:10:;1:1:1:1:1:1:1:=Drake%20Equation]",
     fxnSol : "1"
-    
+
     });
 
 Examples.push({
